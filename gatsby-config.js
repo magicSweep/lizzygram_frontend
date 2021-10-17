@@ -3,5 +3,5 @@ module.exports = {
     siteUrl: "https://www.yourdomain.tld",
     title: ".",
   },
-  plugins: [],
+  plugins: ["gatsby-plugin-webpack-bundle-analyser-v2"],
 };

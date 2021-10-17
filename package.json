@@ -7,6 +7,11 @@
   "keywords": [
     "gatsby"
   ],
+  "browserslist": [
+    "last 1 chrome version",
+    "last 1 firefox version",
+    "last 1 safari version"
+  ],
   "scripts": {
     "develop": "gatsby develop",
     "start": "gatsby develop",
@@ -32,6 +37,7 @@
     "babel-preset-gatsby": "^1.14.0",
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
+    "gatsby-plugin-webpack-bundle-analyser-v2": "^1.1.25",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^27.3.0",
     "waait": "^1.0.5"
