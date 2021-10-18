@@ -21,11 +21,18 @@
     "test": "jest"
   },
   "dependencies": {
+    "@emotion/react": "^11.5.0",
+    "@emotion/server": "^11.4.0",
+    "@emotion/styled": "^11.3.0",
+    "@mui/icons-material": "^5.0.4",
+    "@mui/material": "^5.0.4",
+    "fmagic": "^1.0.0",
     "gatsby": "^3.14.3",
+    "lodash-es": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "fmagic": "^1.0.0",
-    "lodash-es": "^4.17.21"
+    "gatsby-plugin-react-helmet": "^4.14.0",
+    "react-helmet": "^6.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.14.1",
@@ -33,6 +40,7 @@
     "@types/jest": "^26.0.24",
     "@types/lodash-es": "^4.17.5",
     "@types/node": "^14.14.14",
+    "@types/react-helmet": "^6.1.4",
     "babel-jest": "^27.3.0",
     "babel-preset-gatsby": "^1.14.0",
     "copyfiles": "^2.4.1",

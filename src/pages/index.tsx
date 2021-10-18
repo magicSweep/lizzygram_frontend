@@ -1,5 +1,6 @@
 import React, { CSSProperties } from "react";
 import { compose } from "fmagic";
+import { Link } from "../component/Link";
 
 // styles
 const pageStyles: CSSProperties = {
@@ -153,6 +154,8 @@ const IndexPage = () => {
         <span role="img" aria-label="Sunglasses smiley emoji">
           😎
         </span>
+        <span> | </span>
+        <Link to="/about">About page</Link>
       </p>
       <ul style={listStyles}>
         <li style={docLinkStyle}>
