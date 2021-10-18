@@ -8,9 +8,7 @@ module.exports = {
     author: "@magic_man",
   },
   plugins: [
-    "gatsby-plugin-top-layout",
     `gatsby-plugin-react-helmet`,
-    "gatsby-plugin-mui-emotion",
     "gatsby-plugin-webpack-bundle-analyser-v2",
   ],
 };

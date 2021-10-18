@@ -1,6 +1,7 @@
 import React, { CSSProperties } from "react";
 import { compose } from "fmagic";
 import { Link } from "../component/Link";
+import Button from "@mui/material/Button";
 
 // styles
 const pageStyles: CSSProperties = {
@@ -127,16 +128,16 @@ const links = [
   },
 ];
 
-console.log(
-  "HELLO",
-  compose(
-    (str: string) => str.toUpperCase(),
-    (str: string) => `${str}_bye`
-  )("hello")
-);
-
 // markup
 const IndexPage = () => {
+  console.log(
+    "HELLO",
+    compose(
+      (str: string) => str.toUpperCase(),
+      (str: string) => `${str}_bye`
+    )("hello")
+  );
+
   return (
     <main style={pageStyles}>
       <title>Home Page</title>
@@ -157,6 +158,9 @@ const IndexPage = () => {
         <span> | </span>
         <Link to="/about">About page</Link>
       </p>
+
+      <Button variant="contained">Contained</Button>
+
       <ul style={listStyles}>
         <li style={docLinkStyle}>
           <a

@@ -1,15 +1,17 @@
 import React, { FC, Fragment } from "react";
 import { Helmet } from "react-helmet";
 import CssBaseline from "@mui/material/CssBaseline";
-import { ThemeProvider } from "@mui/material/styles";
-import { createTheme } from "../../src/theme";
+import { ThemeProvider as ThemeMuiProvider } from "@mui/material/styles";
+import { createTheme } from "../../createTheme";
 
-type TopLayoutProps = {
+type ThemeProviderProps = {
   children: any;
 };
 
-const TopLayout: FC<TopLayoutProps> = ({ children }) => {
+export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const theme = createTheme("light");
+
+  console.log("RENDER THEME PROVIDER");
 
   return (
     <Fragment>
@@ -20,13 +22,11 @@ const TopLayout: FC<TopLayoutProps> = ({ children }) => {
           rel="stylesheet"
         />
       </Helmet>
-      <ThemeProvider theme={theme}>
+      <ThemeMuiProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         {children}
-      </ThemeProvider>
+      </ThemeMuiProvider>
     </Fragment>
   );
 };
-
-export default TopLayout;

@@ -2,14 +2,14 @@ import * as React from "react";
 import { CacheProvider } from "@emotion/react";
 import createEmotionServer from "@emotion/server/create-instance";
 import { renderToString } from "react-dom/server";
-import getEmotionCache from "./getEmotionCache";
+import { createEmotionCache } from "./createEmotionCache";
 
 export const replaceRenderer = ({
   bodyComponent,
   setHeadComponents,
   replaceBodyHTMLString,
 }) => {
-  const cache = getEmotionCache();
+  const cache = createEmotionCache();
   const { extractCriticalToChunks } = createEmotionServer(cache);
 
   const emotionStyles = extractCriticalToChunks(
