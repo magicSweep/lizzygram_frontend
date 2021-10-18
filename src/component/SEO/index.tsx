@@ -10,7 +10,7 @@ type SEOProps = {
 };
 
 export const SEO: FC<SEOProps> = ({
-  description,
+  description = "",
   lang = "ru",
   meta = [],
   title,
