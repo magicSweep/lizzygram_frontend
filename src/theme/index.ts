@@ -8,5 +8,5 @@ export { ThemeProvider } from "./container/ThemeProvider";
 
 export { createTheme } from "./createTheme";
 
-export { setThemeModeAC } from "./store/action";
+export { toggleThemeModeAC } from "./store/action";
 export { themeReducer } from "./store/reducer";

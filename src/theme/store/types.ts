@@ -5,8 +5,6 @@ export type ThemeState = {
   mode: PaletteOptions["mode"];
 };
 
-export type ThemeActionTypes = "SET_MODE";
+export type ThemeActionTypes = "TOGGLE_MODE";
 
-export type ThemeAction = Action<ThemeActionTypes> & {
-  mode: PaletteOptions["mode"];
-};
+export type ThemeAction = Action<ThemeActionTypes>;

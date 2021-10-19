@@ -2,9 +2,8 @@
 import { ThemeAction, ThemeActionTypes } from "./types";
 import { PaletteOptions } from "@mui/material/styles";
 
-export const setThemeModeAC = (mode: PaletteOptions["mode"]): ThemeAction => {
+export const toggleThemeModeAC = (): ThemeAction => {
   return {
-    type: "SET_MODE",
-    mode,
+    type: "TOGGLE_MODE",
   };
 };

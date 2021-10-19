@@ -10,9 +10,9 @@ export const themeReducer: Reducer<ThemeState, ThemeAction> = (
   action: ThemeAction
 ) => {
   switch (action.type) {
-    case "SET_MODE":
+    case "TOGGLE_MODE":
       return {
-        mode: action.mode,
+        mode: state.mode === "light" ? "dark" : "light",
       };
 
     default:
