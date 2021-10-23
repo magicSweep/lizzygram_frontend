@@ -1,8 +1,8 @@
-import Box from "@material-ui/core/Box";
+import Box from "@mui/material/Box";
 import React from "react";
 //import { action } from "@storybook/addon-actions";
-import ThemeSwitch from ".";
-import { SwitchProps } from "@material-ui/core/Switch";
+import { ThemeSwitch } from ".";
+import { UseSwitchProps } from "@mui/core/SwitchUnstyled";
 import { Story } from "@storybook/react";
 
 export default {
@@ -23,7 +23,7 @@ export default {
   excludeStories: /.*Data$/,
 };
 
-const Template: Story<SwitchProps> = (args) => <ThemeSwitch {...args} />;
+const Template: Story<UseSwitchProps> = (args) => <ThemeSwitch {...args} />;
 
 export const Default = Template.bind({});
 (Default as any).args = {};

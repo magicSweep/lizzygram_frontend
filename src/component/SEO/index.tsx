@@ -3,9 +3,9 @@ import { graphql, useStaticQuery } from "gatsby";
 import { Helmet } from "react-helmet";
 
 type SEOProps = {
-  description: string;
-  lang: string;
-  meta: any[];
+  description?: string;
+  lang?: string;
+  meta?: any[];
   title: string;
 };
 

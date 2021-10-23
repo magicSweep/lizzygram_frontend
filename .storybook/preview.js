@@ -1,4 +1,11 @@
 import { action } from "@storybook/addon-actions";
+import { addDecorator } from "@storybook/react";
+import ThemeProvider from "./decorator/ThemeProvider";
+import "../src/styles/global.css";
+//import ReduxProvider from "./decorator/ReduxProvider";
+
+//addDecorator(ReduxProvider);
+addDecorator(ThemeProvider);
 
 // Gatsby's Link overrides:
 // Gatsby Link calls the `enqueue` & `hovering` methods on the global variable ___loader.

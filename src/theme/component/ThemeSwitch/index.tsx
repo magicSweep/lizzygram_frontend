@@ -3,15 +3,28 @@ import clsx from "clsx";
 import { styled } from "@mui/system";
 import { useSwitch, UseSwitchProps } from "@mui/core/SwitchUnstyled";
 
-const SwitchRoot = styled("span")(`
+/* const SwitchRoot = styled("span")(`
   display: inline-block;
   position: relative;
   width: 62px;
   height: 34px;
   padding: 7px;
-`);
+`); */
 
-const SwitchInput = styled("input")(`
+const SwitchRoot = ({ className, children }: any) => (
+  <span
+    className={`
+    ${className !== undefined ? className : ""}
+    inline-block
+    relative
+    w-16 h-8 p-2
+  `}
+  >
+    {children}
+  </span>
+);
+
+/* const SwitchInput = styled("input")(`
   position: absolute;
   width: 100%;
   height: 100%;
@@ -21,7 +34,21 @@ const SwitchInput = styled("input")(`
   z-index: 1;
   margin: 0;
   cursor: pointer;
-`);
+`); */
+
+const SwitchInput = ({ className, ...props }: any) => (
+  <input
+    className={`
+    ${className !== undefined ? className : ""}
+    absolute top-0 left-0
+    w-full h-full
+    opacity-0
+    z-0
+    m-0
+    cursor-pointer
+  `}
+  />
+);
 
 const SwitchThumb = styled("span")(
   ({ theme }) => `

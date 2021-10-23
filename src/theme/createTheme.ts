@@ -9,7 +9,7 @@ export const createTheme = (mode: PaletteOptions["mode"]) =>
   createMuiTheme({
     palette: {
       mode,
-      primary: {
+      /*  primary: {
         main: "#556cd6",
       },
       secondary: {
@@ -17,6 +17,10 @@ export const createTheme = (mode: PaletteOptions["mode"]) =>
       },
       error: {
         main: red.A400,
+      }, */
+      background: {
+        paper: mode === "dark" ? "#424242" : "#fff",
+        default: mode === "dark" ? "#303030" : "#fff",
       },
     },
     typography: {

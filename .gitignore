@@ -7,3 +7,5 @@ node_modules
 src/**/__snapshots__
 
 public
+
+src/images

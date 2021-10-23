@@ -14,17 +14,17 @@ import thunk from "redux-thunk";
 //import { initApp } from "./firebase/initApp";
 //import { modalReducer, alertReducer, tagsReducer } from "./../../store";
 //import { photoReducer, searchReducer } from "./../../photos";
-//import { authReducer } from "./../../auth";
+import { authReducer } from "./../../auth";
 import { themeReducer } from "../../theme";
 
 //CONFIG REDUX
 const reducer = combineReducers({
   /*  modal: modalReducer,
   alert: alertReducer,
-  auth: authReducer,
   tags: tagsReducer,
   search: searchReducer,
   photos: photoReducer, */
+  auth: authReducer,
   theme: themeReducer,
 });
 

@@ -3,6 +3,7 @@ import { GlobalState } from "../../../types";
 import { useSelector, useDispatch } from "react-redux";
 import { PaletteOptions } from "@mui/material/styles";
 import { toggleThemeModeAC } from "../..";
+import { saveMode } from "../../utils/main";
 
 export const useMode = () => {
   const mode = useSelector<GlobalState, PaletteOptions["mode"]>(
@@ -11,7 +12,10 @@ export const useMode = () => {
 
   const dispatch = useDispatch();
 
-  const toggleMode = useCallback(() => dispatch(toggleThemeModeAC()), []);
+  const toggleMode = useCallback(() => {
+    saveMode(mode === "dark" ? "light" : "dark");
+    dispatch(toggleThemeModeAC());
+  }, []);
 
   return {
     mode,

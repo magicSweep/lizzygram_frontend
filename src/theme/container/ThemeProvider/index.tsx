@@ -3,13 +3,16 @@ import { Helmet } from "react-helmet";
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider as ThemeMuiProvider } from "@mui/material/styles";
 import { createTheme } from "../../createTheme";
+import { useMode } from "../../hook/useMode";
 
 type ThemeProviderProps = {
   children: any;
 };
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
-  const theme = createTheme("light");
+  const { mode } = useMode();
+
+  const theme = createTheme(mode);
 
   console.log("RENDER THEME PROVIDER");
 
