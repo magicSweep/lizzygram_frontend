@@ -4,6 +4,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider as ThemeMuiProvider } from "@mui/material/styles";
 import { createTheme } from "../../createTheme";
 import { useMode } from "../../hook/useMode";
+import { applyTheme } from "../../tailwind/utils";
 
 type ThemeProviderProps = {
   children: any;
@@ -14,7 +15,9 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
 
   const theme = createTheme(mode);
 
-  console.log("RENDER THEME PROVIDER");
+  applyTheme(mode);
+
+  //console.log("RENDER THEME PROVIDER");
 
   return (
     <Fragment>

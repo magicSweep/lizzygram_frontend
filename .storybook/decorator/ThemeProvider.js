@@ -5,6 +5,7 @@ import { createTheme } from "./../../src/theme";
 import Box from "@mui/material/Box";
 import { ThemeSwitch } from "../../src/theme/component/ThemeSwitch";
 import CssBaseline from "@mui/material/CssBaseline";
+import { applyTheme } from "../../src/theme/tailwind/utils";
 
 const Layout = ({ children, darkState, onThemeChange }) => {
   return (
@@ -32,6 +33,8 @@ const MaterialThemeProvider = (storyFn) => {
   const [darkState, setDarkState] = useState(false);
 
   const theme = createTheme(darkState === true ? "dark" : "light");
+
+  applyTheme(darkState === true ? "dark" : "light");
 
   const handleThemeChange = () => {
     setDarkState((prevDarkState) => !prevDarkState);

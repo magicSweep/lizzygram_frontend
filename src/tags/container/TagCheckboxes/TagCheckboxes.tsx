@@ -230,7 +230,7 @@ export const TagCheckboxes: FC<TagCheckboxesProps & { tagsState: TagsState }> =
         id="id"
         //@ts-ignore
         component="fieldset"
-        className="border-none pt-5 pb-2 w-full"
+        className="border-none bg-paper rounded pt-5 pb-2 w-full"
         error={isError}
         disabled={disabled}
         helperText={isError === true ? errors[0] : ""}

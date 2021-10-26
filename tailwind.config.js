@@ -1,4 +1,4 @@
-const colors = {
+/* const colors = {
   primary: "#1976d2", // "#7986cb", //#303f9f
   secondary: "#9c27b0", //"#ff4081",
   paper: "#fff",
@@ -10,6 +10,19 @@ const colors = {
   info: "#0288d1",
   warning: "#ED6C02",
   success: "#2e7d32",
+}; */
+
+const colors = {
+  primary: "var(--color-primary)",
+  secondary: "var(--color-secondary)",
+  disabled: "var(--color-disabled)",
+  white: "var(--color-white)",
+  error: "var(--color-error)",
+  info: "var(--color-info)",
+  warning: "var(--color-warning)",
+  success: "var(--color-success)",
+  body: "var(--color-text)",
+  title: "var(--color-title)",
 };
 
 module.exports = {

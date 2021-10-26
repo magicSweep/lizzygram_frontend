@@ -71,6 +71,13 @@ export const Default = () => {
           What should we do to set Typography to dark mode???
         </ITypography>
       </Box>
+
+      <div className="bg-white p-4 text-center">
+        <div className="bg-paper">
+          <h5 className="text-title">Tailwind theming!!!</h5>
+          <p className="text-body">Does it work?</p>
+        </div>
+      </div>
     </>
   );
 };
