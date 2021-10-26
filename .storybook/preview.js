@@ -2,9 +2,9 @@ import { action } from "@storybook/addon-actions";
 import { addDecorator } from "@storybook/react";
 import ThemeProvider from "./decorator/ThemeProvider";
 import "../src/styles/global.css";
-//import ReduxProvider from "./decorator/ReduxProvider";
+import ReduxProvider from "./decorator/ReduxProvider";
 
-//addDecorator(ReduxProvider);
+addDecorator(ReduxProvider);
 addDecorator(ThemeProvider);
 
 // Gatsby's Link overrides:

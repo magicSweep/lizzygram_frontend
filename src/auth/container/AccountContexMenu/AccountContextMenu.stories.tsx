@@ -1,7 +1,7 @@
 //AccountContextMenu
 import Box from "@mui/material/Box";
 import { Story } from "@storybook/react";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 //import { action } from "@storybook/addon-actions";
 import AccountContextMenu, { AccountContextMenuProps } from ".";
 
@@ -35,6 +35,19 @@ const user = {
 const Template: Story<AccountContextMenuProps> = (props) => {
   const ref: any = useRef();
 
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  /* const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };  */
+
+  useEffect(() => {
+    setAnchorEl(ref.current);
+  }, [ref.current]);
+
   return (
     <Box
       sx={{
@@ -46,7 +59,7 @@ const Template: Story<AccountContextMenuProps> = (props) => {
       }}
     >
       <div className="w-8 m-auto" ref={ref}></div>
-      <AccountContextMenu {...props} anchorEl={ref} />
+      <AccountContextMenu {...props} anchorEl={anchorEl} />
     </Box>
   );
 };

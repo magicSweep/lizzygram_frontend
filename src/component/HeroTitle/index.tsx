@@ -22,6 +22,7 @@ const HeroTitle: FC = ({ children }) => {
         <Typography
           /*  variant="h5" */
           /* color="text.secondary" */
+          align="center"
           sx={{
             /* color: "text.primary", */
             fontSize: 18,
