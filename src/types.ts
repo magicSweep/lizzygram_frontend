@@ -13,3 +13,7 @@ export interface GlobalState {
   tags: TagsState;
   theme: ThemeState;
 }
+
+export type Size = { width: number; height: number };
+
+export type StyleSize = { width: string; height: string };

@@ -28,6 +28,7 @@ const colors = {
 module.exports = {
   purge: {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
+    //safelist: ["width-0-important"],
     options: {
       keyframes: false,
     },
@@ -41,6 +42,7 @@ module.exports = {
         disabled: "var(--color-disabled)", */
         ...colors,
         paper: "var(--color-paper)",
+        backdrop: "rgba(0, 0, 0, 0.3)",
         //"btn-hover": "var(--color-btn-hover)"
       },
       textColor: {
@@ -56,6 +58,9 @@ module.exports = {
       },
       maxHeight: {
         600: "600px",
+      },
+      height: {
+        18: "72px",
       },
       minHeight: {
         44: "44px",

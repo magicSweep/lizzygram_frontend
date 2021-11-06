@@ -26,7 +26,7 @@ describe("useTags", () => {
       });
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
-        tags: "tagsData",
+        items: "tagsData",
         type: "TAGS_REQUEST_SUCCESS",
       });
     });

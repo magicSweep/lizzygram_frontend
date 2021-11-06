@@ -50,9 +50,9 @@ const MainContainer: FC<any> = ({ error, children }) => (
           px-4 pb-6 pt-10
           min-h-260
           rounded
-          bg-paper
-          ${error === true ? "border border-error" : "shadow"}
-        `}
+          shadow
+          ${error === true ? "border border-error" : ""}
+      `}
   >
     {children}
   </div>
@@ -230,7 +230,11 @@ export const TagCheckboxes: FC<TagCheckboxesProps & { tagsState: TagsState }> =
         id="id"
         //@ts-ignore
         component="fieldset"
-        className="border-none bg-paper rounded pt-5 pb-2 w-full"
+        className={`
+          pt-5 pb-2 w-full
+          bg-paper
+          border-none
+        `}
         error={isError}
         disabled={disabled}
         helperText={isError === true ? errors[0] : ""}
