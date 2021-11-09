@@ -1,4 +1,4 @@
-import Tags from ".";
+import Tags from "./Tags";
 import { tagsData } from "../../mock/data";
 //import {Story} from "@s"
 

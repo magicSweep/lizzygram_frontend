@@ -38,7 +38,13 @@ const SimpleCarousel = () => {
         <Box className="w-full h-full bg-green-200 text-center pt-12">
           <p>Active index - {activeIndex}</p>
         </Box>
-        <ArrowControls next={increaseIndex} prev={decreaseIndex} />
+        <ArrowControls
+          hasNextPage={false}
+          activeIndex={activeIndex}
+          itemsLength={items.length}
+          next={increaseIndex}
+          prev={decreaseIndex}
+        />
       </Box>
     </>
   );

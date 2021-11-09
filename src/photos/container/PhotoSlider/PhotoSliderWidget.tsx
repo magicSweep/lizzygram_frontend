@@ -14,9 +14,9 @@ import SliderChildren from "./SliderChidren";
 import SliderControls from "../SliderControls";
 import { isIncreaseAfterLoading } from "./helper";
 
-export interface PhotoSliderProps {
+export type PhotoSliderProps = {
   editedPhotoIds: string[];
-  initActiveIndex: number;
+  //initActiveIndex: number;
   //photoState: IPhotosState;
   photos: Photo<FirestoreDate>[] | undefined;
   loading: boolean;
@@ -28,7 +28,10 @@ export interface PhotoSliderProps {
   isEditableActivePhoto: boolean;
   showEditPhotoForm: () => void;
   downloadOriginalPhotoUrl: string;
-}
+  activeIndex: number;
+  increaseIndex: () => void;
+  decreaseIndex: () => void;
+};
 
 const useIncreaseIndexAfterFetchPhotos = (
   photosLength: number,
@@ -71,7 +74,7 @@ const onFetchMore =
 
 const PhotoSliderWidget: FC<PhotoSliderProps> = ({
   photos,
-  initActiveIndex,
+  //initActiveIndex,
   isEditableActivePhoto,
   onClose,
   onToggleDesc,
@@ -81,6 +84,9 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
   error,
   hasNextPage,
   loadMorePhotos,
+  activeIndex,
+  increaseIndex,
+  decreaseIndex,
 }) => {
   const photosLength = photos === undefined ? 0 : photos.length;
 
@@ -94,10 +100,10 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
   mainRef.current.hasNextPage = hasNextPage;
   mainRef.current.loading = loading;
 
-  const { activeIndex, increaseIndex, decreaseIndex } = useCarousel(
+  /* const { activeIndex, increaseIndex, decreaseIndex } = useCarousel(
     photosLength,
     initActiveIndex
-  );
+  ); */
 
   const { handleSliderChange, cancel, zoom, value } = useImgZoom();
 
@@ -134,15 +140,6 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
             hasNextPage={hasNextPage}
           />
         )}
-
-        {/*  <ArrowControls next={increaseIndex} prev={decreaseIndex} />
-
-          <SwipeControls
-          itemsLength={length}
-          increaseIndex={increaseIndex}
-          decreaseIndex={decreaseIndex}
-          activeIndex={activeIndex}
-        /> */}
 
         <SliderBar
           handleSliderChange={handleSliderChange}

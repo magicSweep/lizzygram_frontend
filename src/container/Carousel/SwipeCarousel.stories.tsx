@@ -1,4 +1,4 @@
-import Button from "@mui/material/Button";
+/* import Button from "@mui/material/Button";
 import Box from "@mui/system/Box";
 import {
   Fragment,
@@ -12,7 +12,7 @@ import {
   FC,
 } from "react";
 import ArrowControls from "../../component/ArrowControls";
-import SwipeControls from "../SwipeControls";
+import Pukki from "../../component/Pukki";
 import { useCarousel } from "./hook/useCarousel";
 //import { photos } from "./../../../mock/fake.data";
 //import { useSwipeCarousel } from "./hook/useSwipeCarousel";
@@ -44,15 +44,21 @@ const SwipeCarousel = () => {
           <p>Active index - {activeIndex}</p>
         </Box>
 
+        // LOOK AT SLIDER CONTROLS
+
         <ArrowControls next={increaseIndex} prev={decreaseIndex} />
 
-        <SwipeControls
-          itemsLength={items.length}
-          increaseIndex={increaseIndex}
-          decreaseIndex={decreaseIndex}
-          activeIndex={activeIndex}
-        />
-      </Box>
+        <Pukki
+        setLocalIndex={setLocalIndex}
+        increaseGlobalIndex={increaseIndex}
+        decreaseGlobalIndex={decreaseIndex}
+        translateX={translateX}
+        isTranslated={isTranslated}
+        localIndex={localIndex}
+        onMouseDown={onMouseDown}
+      />
+
+   
     </>
   );
 };
@@ -60,3 +66,4 @@ const SwipeCarousel = () => {
 export const Default = () => {
   return <SwipeCarousel />;
 };
+ */

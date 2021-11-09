@@ -12,7 +12,7 @@ import { photos } from "./../../mock/fake.data";
 //import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 //import { Provider } from "react-redux";
 //import thunk from "redux-thunk";
-import PhotoSliderWidget from "./PhotoSliderWidget";
+import PhotoSliderWithDesc from "./PhotoSliderWithDesc";
 import Button from "@mui/material/Button";
 import { Photo, FirestoreDate } from "../../types";
 import wait from "waait";
@@ -26,8 +26,8 @@ import SliderModal from "../../component/SliderModal";
 import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
 
 export default {
-  component: PhotoSliderWidget,
-  title: "Photos/PhotoSliderWidget",
+  component: PhotoSliderWithDesc,
+  title: "Photos/PhotoSliderWithDesc",
   decorators: [],
   excludeStories: /.*Data$/,
 };
@@ -41,6 +41,10 @@ const editedPhotoIds = [
 export const Default = () => {
   const [show, setShow] = useState(false);
 
+  const length = photos === undefined ? 0 : photos.length;
+
+  const { activeIndex, increaseIndex, decreaseIndex } = useCarousel(length, 0);
+
   const [photoState, setPhotoState] = useState<IPhotoState>({
     photos: undefined,
     hasNextPage: true,
@@ -48,10 +52,6 @@ export const Default = () => {
     loading: true,
     error: false,
   });
-
-  const length = photos === undefined ? 0 : photos.length;
-
-  const { activeIndex, increaseIndex, decreaseIndex } = useCarousel(length, 0);
 
   const loadPhotos = fetchPhotos(setPhotoState);
 
@@ -77,7 +77,9 @@ export const Default = () => {
       <Button onClick={() => setShow(true)}>Show photo slider</Button>
 
       <SliderModal open={show}>
-        <PhotoSliderWidget
+        <PhotoSliderWithDesc
+          activePhoto={photos[activeIndex]}
+          isEditingActivePhoto={false}
           activeIndex={activeIndex}
           increaseIndex={increaseIndex}
           decreaseIndex={decreaseIndex}
@@ -88,7 +90,6 @@ export const Default = () => {
           error={photoState.error}
           loadMorePhotos={loadMorePhotos}
           onClose={onClose}
-          onToggleDesc={() => console.log("onToggleDesc")}
           showEditPhotoForm={() => console.log("showEditPhotoForm")}
           isEditableActivePhoto={isEditableActivePhoto}
           downloadOriginalPhotoUrl="http://download.photo.url"
