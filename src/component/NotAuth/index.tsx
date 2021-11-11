@@ -1,11 +1,16 @@
 import React, { FC } from "react";
 import { useAuth } from "../../auth/hook/useAuth";
-import { NotAuth as NotAuthWidget } from "./NotAuth";
+import NotAuthWidget from "./NotAuth";
+import { navigate } from "gatsby";
 
 const NotAuth: FC = () => {
   const { user, loading } = useAuth();
 
-  //if (user !== null) return;
+  if (user !== null) {
+    navigate("/wall-of-photos");
+
+    return null;
+  }
 
   return <NotAuthWidget loading={loading} />;
 };

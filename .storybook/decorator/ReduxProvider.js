@@ -8,6 +8,8 @@ import thunk from "redux-thunk";
 //import { photoReducer, searchReducer } from "./../../src/photos";
 import { authReducer } from "./../../src/auth";
 import { tagsReducer } from "./../../src/tags";
+import { searchReducer } from "./../../src/search";
+import { photoReducer } from "./../../src/photos";
 
 //CONFIG REDUX
 const reducer = combineReducers({
@@ -15,8 +17,8 @@ const reducer = combineReducers({
   //alert: alertReducer,
   auth: authReducer,
   tags: tagsReducer,
-  //search: searchReducer,
-  //photos: photoReducer,
+  search: searchReducer,
+  photos: photoReducer,
 });
 
 const composeEnhancers = compose;

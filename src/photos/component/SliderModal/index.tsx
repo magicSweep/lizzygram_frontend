@@ -21,7 +21,7 @@ const SliderModal = ({
       </Button> */}
       <Modal
         open={open}
-        className="flex justify-center items-center overflow-auto border-0 bg-transparent"
+        //className="flex justify-center items-center overflow-auto border-0 bg-transparent"
         //onClose={onClose}
         disableAutoFocus={true}
         //aria-labelledby="simple-modal-title"

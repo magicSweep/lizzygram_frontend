@@ -1,21 +1,33 @@
+import { Button } from "@mui/material";
 import * as React from "react";
-//import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
-//import { Link } from "../component/Link";
-import { SEO } from "../component/SEO";
+import { useDispatch } from "react-redux";
+import SEO from "../component/SEO";
+import { usePhotos } from "../photos/hook/usePhotos";
+import { showPhotoSliderAC } from "../photos/store/action";
+import PhotoSliderLoadableWrapper from "./../photos/container/PhotoSlider";
 
-const Faq = () => {
+const PhotosTest = () => {
+  const props = usePhotos();
+
+  return <p>{JSON.stringify(props)}</p>;
+};
+
+const WallOfPhotos = () => {
+  const dispatch = useDispatch();
+
+  const onClick = () => dispatch(showPhotoSliderAC(0));
+
   return (
-    <>
+    <main>
       <SEO title="Фотографии..." />
 
-      <div className="my-4">
-        <Typography variant="h4" align="center" component="h1" gutterBottom>
-          Защещенная страница...
-        </Typography>
-      </div>
-    </>
+      <PhotosTest />
+
+      {/* <Button onClick={onClick}>Show photo slider</Button>
+
+      <PhotoSliderLoadableWrapper /> */}
+    </main>
   );
 };
 
-export default Faq;
+export default WallOfPhotos;

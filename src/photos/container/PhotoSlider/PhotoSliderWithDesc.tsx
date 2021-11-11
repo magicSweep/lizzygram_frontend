@@ -27,9 +27,15 @@ const PhotoSliderWithDesc: FC<PhotoSliderWithDescProps> = ({
     []
   );
 
+  console.log("[RENDER PHOTO SLIDER WITH DESC]");
+
   return (
-    <Box className="w-full h-full flex flex-nowrap overflow-hidden">
-      <PhotoSliderWidget {...props} onToggleDesc={toggleDesc} />
+    <Box className="w-full h-full flex flex-nowrap flex-grow-0 flex-shrink-0 bg-black overflow-hidden">
+      <PhotoSliderWidget
+        {...props}
+        isEditingActivePhoto={isEditingActivePhoto}
+        onToggleDesc={toggleDesc}
+      />
       <Box
         sx={{
           //height: "100%",

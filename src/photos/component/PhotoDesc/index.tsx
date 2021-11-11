@@ -1,6 +1,6 @@
 import React from "react";
 import { getFormatDate, getYearsOldFormated } from "./helper";
-import { getDate } from "../../../utils";
+import { getDate } from "../../../utils/app";
 import CircularProgress from "@mui/material/CircularProgress";
 import Tags from "../../../tags/container/Tags";
 import Button from "@mui/material/Button";
@@ -44,6 +44,10 @@ const PhotoDesc = ({
   showEditPhotoForm,
   downloadOriginalPhotoUrl,
 }: PhotoDescProps) => {
+  console.log("RENDER PHOTO DESC", photo, photoLoading, isPhotoEditing);
+
+  if (photo === undefined) return null;
+
   // photoError - show nothing
   if (photoError) return null;
 
@@ -57,7 +61,7 @@ const PhotoDesc = ({
 
   // photo - show desc, if isEditable - show edit btn
 
-  if (photo === undefined) throw new Error("Bad, bad photo");
+  //if (photo === undefined) throw new Error("Bad, bad photo");
 
   const finalDate = getDate(photo.date);
 

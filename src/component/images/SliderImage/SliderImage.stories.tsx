@@ -44,7 +44,7 @@ export const Default = () => {
     setZoom((zoom: number) => {
       if (zoom < 400) {
         //setLoaded(false);
-        return zoom + 50;
+        return zoom + 10;
       }
 
       return zoom;
@@ -53,9 +53,9 @@ export const Default = () => {
 
   const zoomDecrease = () => {
     setZoom((zoom: number) => {
-      if (zoom >= 50) {
+      if (zoom >= 10) {
         //setLoaded(false);
-        return zoom - 50;
+        return zoom - 10;
       }
 
       return zoom;
@@ -99,5 +99,43 @@ export const Default = () => {
         </Box>
       </Box>
     </>
+  );
+};
+
+export const Test = () => {
+  return (
+    <Box
+      width="600px"
+      height="400px"
+      className="relative bg-black mt-8 mx-auto overflow-hidden"
+    >
+      <div className="w-full h-full flex flex-nowrap">
+        <Box className="relative h-full flex flex-shrink-1 flex-grow-1  bg-black ">
+          <div className=" h-full relative flex flex-shrink-1 flex-grow-0 overflow-auto">
+            <Box
+              component="img"
+              alt="hello"
+              width="auto"
+              height="150%"
+              maxWidth="none"
+              //className="flex-shrink-1 flex-grow-0"
+              src={photos[0].src}
+            />
+            {/*   <Box
+              sx={{
+                bgcolor: "secondary",
+              }}
+              className="absolute inset-0"
+            ></Box> */}
+          </div>
+        </Box>
+        <Box
+          width="300px"
+          height="100%"
+          bgcolor="primary.main"
+          className="flex-shrink-0 flex-grow-1"
+        ></Box>
+      </div>
+    </Box>
   );
 };

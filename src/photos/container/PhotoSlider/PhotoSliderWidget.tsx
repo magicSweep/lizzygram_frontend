@@ -15,7 +15,7 @@ import SliderControls from "../SliderControls";
 import { isIncreaseAfterLoading } from "./helper";
 
 export type PhotoSliderProps = {
-  editedPhotoIds: string[];
+  //editedPhotoIds: string[];
   //initActiveIndex: number;
   //photoState: IPhotosState;
   photos: Photo<FirestoreDate>[] | undefined;
@@ -25,6 +25,7 @@ export type PhotoSliderProps = {
   loadMorePhotos: () => void;
   onClose: (event: any) => void;
   onToggleDesc: (event: any) => void;
+  isEditingActivePhoto: boolean;
   isEditableActivePhoto: boolean;
   showEditPhotoForm: () => void;
   downloadOriginalPhotoUrl: string;
@@ -76,6 +77,7 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
   photos,
   //initActiveIndex,
   isEditableActivePhoto,
+  isEditingActivePhoto,
   onClose,
   onToggleDesc,
   showEditPhotoForm,
@@ -120,12 +122,12 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
 
   return (
     <>
-      <Box className="relative w-full h-full m-auto bg-black">
+      <div className="relative w-full h-full bg-black">
         <SliderChildren
           photos={photos}
           activeIndex={activeIndex}
           zoom={zoom}
-          isEditableActivePhoto={isEditableActivePhoto}
+          isEditingActivePhoto={isEditingActivePhoto}
           photosLoading={loading}
           photosError={error}
         />
@@ -151,7 +153,7 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
           showEditPhotoForm={showEditPhotoForm}
           downloadOriginalPhotoUrl={downloadOriginalPhotoUrl}
         />
-      </Box>
+      </div>
     </>
   );
 };

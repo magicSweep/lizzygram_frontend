@@ -1,14 +1,16 @@
 import { ThemeState } from "./theme/store/types";
 import { AuthState } from "./auth/types";
 import { TagsState } from "./tags/types";
+import { PhotosState } from "./photos/types";
+import { SearchState } from "./search/types";
 
 export interface GlobalState {
   /* modal: IModalState;
     alert: IAlertState;
-    
-    
-    photos: IPhotosState;
-    search: ISearchState; */
+    */
+
+  photos: PhotosState;
+  search: SearchState;
   auth: AuthState;
   tags: TagsState;
   theme: ThemeState;

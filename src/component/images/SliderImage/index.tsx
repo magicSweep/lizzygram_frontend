@@ -45,21 +45,43 @@ const SliderImage: FC<SliderImageProps> = ({
 
   const isZoomed = fZoom > 1;
 
-  //console.log("[RENDER SLIDER IMAGE]", fZoom);
+  console.log("[RENDER SLIDER IMAGE]", isWrapperWider, isWrapperHigher);
 
+  /*  */
+
+  //grid justify-items-center content-center
+  // flex flex-col
   return (
     <div
       ref={wrapperRef}
       className={`
-        relative w-full h-full flex
-        ${
-          isZoomed === false
-            ? " justify-center items-center overflow-hidden"
-            : "overflow-auto"
-        }
-        ${isZoomed === true && isWrapperWider === true ? "justify-center" : ""}
-        ${isZoomed === true && isWrapperHigher === true ? "items-center" : ""}
-      `}
+      relative w-full h-full flex
+
+      ${isWrapperAspectRatioBigger === true ? "" : "flex-col"}
+
+      ${
+        isZoomed === false
+          ? " justify-center items-center overflow-hidden"
+          : "overflow-auto"
+      }
+     
+      ${
+        isZoomed === true && isWrapperWider === true
+          ? isWrapperAspectRatioBigger === true
+            ? "justify-center"
+            : "items-center"
+          : ""
+      }
+      ${
+        isZoomed === true && isWrapperHigher === true
+          ? isWrapperAspectRatioBigger === true
+            ? "items-center"
+            : "justify-center"
+          : ""
+      }
+
+      ${isZoomed === false ? " overflow-hidden" : " overflow-auto"}
+    `}
     >
       <Image
         {...props}

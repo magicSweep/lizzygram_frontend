@@ -12,7 +12,7 @@ export type SliderChildrenProps = {
   photosError: boolean;
   activeIndex: number;
   zoom: number;
-  isEditableActivePhoto: boolean;
+  isEditingActivePhoto: boolean;
 };
 
 const ErrorMsg: FC<{ msg: string; isBackDrop?: boolean }> = ({
@@ -60,7 +60,7 @@ const SliderChildren: FC<SliderChildrenProps> = cond([
       photosLoading,
       activeIndex,
       zoom,
-      isEditableActivePhoto,
+      isEditingActivePhoto,
     }: SliderChildrenProps) => (
       <SliderImage
         base64={photos[activeIndex].base64}
@@ -68,11 +68,11 @@ const SliderChildren: FC<SliderChildrenProps> = cond([
         src={photos[activeIndex].src}
         zoom={zoom}
         isLoading={
-          isEditableActivePhoto === true ||
+          isEditingActivePhoto === true ||
           (photosLoading === true && isLast(photos, activeIndex) === true)
         }
         loadText={
-          isEditableActivePhoto === true
+          isEditingActivePhoto === true
             ? "Применяем изменения..."
             : "Загружаем еще фото..."
         }

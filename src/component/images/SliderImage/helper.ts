@@ -1,6 +1,6 @@
 //export const calcIsWidthAuto = (width: string) => isNaN(parseInt(width));
 export const calcIsWidthAuto = (isWrapperAspectRatioBigger: boolean) =>
-  isWrapperAspectRatioBigger === true;
+  isWrapperAspectRatioBigger === false;
 
 export const calcIsWrapperWider = (
   zoom: number,
@@ -11,8 +11,15 @@ export const calcIsWrapperWider = (
   if (zoom === 0) return true;
 
   // IF OUR WIDTH INITIALLY EQUALS TO 100%, WE DISABLE JUSTIFY CENTER ON ANY ZOOM VALUE
-  if (isWidthAuto === false) return false;
+  if (isWidthAuto === true) return false;
 
+  console.log(
+    "IS WRAPPER WIDER",
+    isWidthAuto,
+    zoom,
+    wrapperAspectRatio,
+    photoAspectRatio
+  );
   return wrapperAspectRatio >= photoAspectRatio * ((zoom + 100) / 100);
 };
 
@@ -25,9 +32,18 @@ export const calcIsWrapperHigher = (
   if (zoom === 0) return true;
 
   // IF OUR HEIGHT INITIALLY EQUALS TO 100%, WE DISABLE JUSTIFY CENTER ON ANY ZOOM VALUE
-  if (isWidthAuto === true) return false;
+  if (isWidthAuto === false) return false;
 
-  return wrapperAspectRatio >= photoAspectRatio * ((zoom + 100) / 100);
+  const marga = wrapperAspectRatio / photoAspectRatio;
+
+  console.log(
+    "IS WRAPPER HIGHER",
+    isWidthAuto,
+    zoom,
+    wrapperAspectRatio,
+    photoAspectRatio
+  );
+  return 1 >= marga * ((zoom + 100) / 100);
 };
 
 export const getZoomedImageStyle = (

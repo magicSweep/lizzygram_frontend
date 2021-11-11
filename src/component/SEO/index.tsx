@@ -9,7 +9,7 @@ type SEOProps = {
   title: string;
 };
 
-export const SEO: FC<SEOProps> = ({
+const SEO: FC<SEOProps> = ({
   description = "",
   lang = "ru",
   meta = [],
@@ -82,3 +82,5 @@ export const SEO: FC<SEOProps> = ({
     />
   );
 };
+
+export default SEO;

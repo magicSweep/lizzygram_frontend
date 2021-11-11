@@ -81,7 +81,7 @@ export const Default = () => {
           activeIndex={activeIndex}
           increaseIndex={increaseIndex}
           decreaseIndex={decreaseIndex}
-          editedPhotoIds={editedPhotoIds}
+          isEditingActivePhoto={false}
           photos={photoState.photos}
           loading={photoState.loading}
           hasNextPage={photoState.hasNextPage}

@@ -7,7 +7,7 @@ interface NotAuthProps {
   loading: boolean;
 }
 
-export const NotAuth: FC<NotAuthProps> = ({ loading }) => {
+const NotAuth: FC<NotAuthProps> = ({ loading }) => {
   if (loading === true)
     return (
       <div className="m-auto pt-8 flex justify-center items-center">
@@ -46,3 +46,5 @@ export const NotAuth: FC<NotAuthProps> = ({ loading }) => {
     </div>
   );
 };
+
+export default NotAuth;

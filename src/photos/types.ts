@@ -65,8 +65,9 @@ export type EditPhotoFirestoreData = {
 };
 
 // PHOTOS STATE
-
 export interface PhotosState {
+  activePhotoIndex: number;
+  showPhotoSlider: boolean;
   hasNextPage: boolean;
   nextPageDocRef: any;
   photos: Photo<FirestoreDate>[] | undefined;
@@ -113,7 +114,9 @@ export type PhotosActionTypes =
   | "EDIT_PHOTO_REQUEST_ERROR" */
   | "FETCH_MORE_PHOTO_REQUEST_START"
   | "FETCH_MORE_PHOTO_REQUEST_SUCCESS"
-  | "FETCH_MORE_PHOTO_REQUEST_ERROR";
+  | "FETCH_MORE_PHOTO_REQUEST_ERROR"
+  | "SHOW_PHOTO_SLIDER"
+  | "HIDE_PHOTO_SLIDER";
 //| "REMOVE_PHOTO_REQUEST_INFO";
 
 export interface PhotosAction extends Action<any> {
@@ -122,6 +125,7 @@ export interface PhotosAction extends Action<any> {
   //photoReq?: IPhotoReq;
   //photos?: TPhotosData;
   //photo?: TPhotoData;
+  activePhotoIndex?: number;
   photos?: Photo<FirestoreDate>[];
   photo?: Photo<FirestoreDate>;
   photoOrId?: Photo<FirestoreDate> | string;

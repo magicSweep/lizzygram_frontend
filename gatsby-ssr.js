@@ -1,7 +1,7 @@
 import { ReduxProvider } from "./src/container/ReduxProvider";
 import { ThemeProvider } from "./src/theme";
 import * as React from "react";
-import "./src/styles/global.css";
+import "./src/theme/styles/global.css";
 import { Layout } from "./src/container/Layout";
 
 // DO NOT MODIFY THIS IMPORT CAUSE IT'S TRIGGER AN ERROR
