@@ -7,7 +7,7 @@ import PhotoSliderWidget, {
 export const PhotoSlider = () => {
   const props: PhotoSliderWithDescProps = usePhotoSlider();
 
-  console.log("[PHOTO SLIDER] RENDER", props);
+  //console.log("[PHOTO SLIDER] RENDER", props);
 
   //return <p>Hello....</p>;
 

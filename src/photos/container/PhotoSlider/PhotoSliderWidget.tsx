@@ -116,13 +116,15 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
     increaseIndex
   );
 
-  const fetchMore = useCallback(onFetchMore(mainRef, loadMorePhotos), []);
+  const fetchMore = useCallback(onFetchMore(mainRef, loadMorePhotos), [
+    loadMorePhotos,
+  ]);
 
-  console.log("[RENDER PHOTO SLIDER WIDGET]", zoom, value);
+  //console.log("[RENDER PHOTO SLIDER WIDGET]", zoom, value);
 
   return (
     <>
-      <div className="relative w-full h-full bg-black">
+      <div className="relative w-full h-full bg-black overflow-auto">
         <SliderChildren
           photos={photos}
           activeIndex={activeIndex}

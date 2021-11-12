@@ -73,7 +73,7 @@ const Pukki: FC<PukkiProps> = ({
   //prevIndexRef.current = index;
 
   const onTransitionEnd = () => {
-    console.log("ON TRANSITION END", localIndex);
+    //console.log("ON TRANSITION END", localIndex);
     if (localIndex === 1) return;
 
     batch(() => {

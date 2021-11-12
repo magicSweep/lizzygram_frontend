@@ -12,8 +12,9 @@ import { photos } from "./../../mock/fake.data";
 //import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 //import { Provider } from "react-redux";
 //import thunk from "redux-thunk";
-import PhotoSliderWidget from "./PhotoSliderWidget";
+import PhotoSliderWidget, { PhotoSliderProps } from "./PhotoSliderWidget";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 import { Photo, FirestoreDate } from "../../types";
 import wait from "waait";
 import {
@@ -96,4 +97,69 @@ export const Default = () => {
       </SliderModal>
     </>
   );
+};
+
+const Template: Story<PhotoSliderProps> = (args) => {
+  return (
+    <Box width="600px" height="400px" m="auto" boxShadow={2}>
+      <PhotoSliderWidget {...args} />
+    </Box>
+  );
+};
+
+export const NoPhotos = Template.bind({});
+
+NoPhotos.args = {
+  activeIndex: 0,
+  increaseIndex: () => console.log("increaseIndex"),
+  decreaseIndex: () => console.log("decreaseIndex"),
+  isEditingActivePhoto: false,
+  photos: undefined,
+  loading: false,
+  hasNextPage: false,
+  error: false,
+  loadMorePhotos: () => console.log("loadMorePhotos"),
+  onClose: () => console.log("onClose"),
+  onToggleDesc: () => console.log("onToggleDesc"),
+  showEditPhotoForm: () => console.log("showEditPhotoForm"),
+  isEditableActivePhoto: false,
+  downloadOriginalPhotoUrl: "http://download.photo.url",
+};
+
+export const Loading = Template.bind({});
+
+Loading.args = {
+  activeIndex: 0,
+  increaseIndex: () => console.log("increaseIndex"),
+  decreaseIndex: () => console.log("decreaseIndex"),
+  isEditingActivePhoto: false,
+  photos: undefined,
+  loading: true,
+  hasNextPage: false,
+  error: false,
+  loadMorePhotos: () => console.log("loadMorePhotos"),
+  onClose: () => console.log("onClose"),
+  onToggleDesc: () => console.log("onToggleDesc"),
+  showEditPhotoForm: () => console.log("showEditPhotoForm"),
+  isEditableActivePhoto: false,
+  downloadOriginalPhotoUrl: "http://download.photo.url",
+};
+
+export const Error = Template.bind({});
+
+Error.args = {
+  activeIndex: 0,
+  increaseIndex: () => console.log("increaseIndex"),
+  decreaseIndex: () => console.log("decreaseIndex"),
+  isEditingActivePhoto: false,
+  photos: undefined,
+  loading: false,
+  hasNextPage: false,
+  error: true,
+  loadMorePhotos: () => console.log("loadMorePhotos"),
+  onClose: () => console.log("onClose"),
+  onToggleDesc: () => console.log("onToggleDesc"),
+  showEditPhotoForm: () => console.log("showEditPhotoForm"),
+  isEditableActivePhoto: false,
+  downloadOriginalPhotoUrl: "http://download.photo.url",
 };

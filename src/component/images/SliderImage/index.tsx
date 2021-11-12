@@ -45,7 +45,7 @@ const SliderImage: FC<SliderImageProps> = ({
 
   const isZoomed = fZoom > 1;
 
-  console.log("[RENDER SLIDER IMAGE]", isWrapperWider, isWrapperHigher);
+  //console.log("[RENDER SLIDER IMAGE]", isWrapperWider, isWrapperHigher);
 
   /*  */
 

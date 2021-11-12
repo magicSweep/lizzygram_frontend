@@ -39,7 +39,7 @@ const initMain: Main = {
 export const usePhotoSlider = (): PhotoSliderWithDescProps => {
   const dispatch = useDispatch();
 
-  console.log("usePhotoSlider+++++++++++++");
+  //console.log("usePhotoSlider+++++++++++++");
 
   const { photos, loading, hasNextPage, error, loadMore } = usePhotos();
 
@@ -90,7 +90,7 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
   const isEditingActivePhoto =
     activePhoto === undefined ? false : editedPhotoIds.includes(activePhoto.id);
 
-  console.log("usePhotoSlider-----------------");
+  //console.log("usePhotoSlider-----------------");
 
   return {
     //editedPhotoIds,

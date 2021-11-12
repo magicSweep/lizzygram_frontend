@@ -5,12 +5,12 @@ import ModalFallback from "../../../component/ModalFallback";
 //import { useAuth } from "../../../auth/hook/useAuth";
 import { GlobalState } from "../../../types";
 
-const LoadableModalPhotoSlider = lazy(() => import("./PhotoSlider"));
+const LoadableModalPhotoSlider = lazy(() => import("./ModalPhotoSlider"));
 
 let isInit = false;
 
 export const PhotoSliderLoadableWrapper = () => {
-  console.log("[PHOTO SLIDER LOADABLE WRAPPER]");
+  //console.log("[PHOTO SLIDER LOADABLE WRAPPER]");
 
   const isShow = useSelector<GlobalState, boolean>(
     (state) => state.photos.showPhotoSlider
@@ -20,11 +20,11 @@ export const PhotoSliderLoadableWrapper = () => {
 
   if (isInit === false) return null;
 
-  console.log("[PHOTO SLIDER LOADABLE WRAPPER]", isShow);
+  //console.log("[PHOTO SLIDER LOADABLE WRAPPER]", isShow);
 
   return (
     <Suspense fallback={<ModalFallback />}>
-      <LoadableModalPhotoSlider /* isShowPhotoSlider={isShow} */ />
+      <LoadableModalPhotoSlider show={isShow} />
     </Suspense>
   );
 };

@@ -103,13 +103,13 @@ export const useWrapperSize = (aspectRatio: number, zoom: number) => {
           aspectRatio
         );
 
-  console.log(
+  /* console.log(
     "useWrapperSize",
     isBigger,
     calcIsWidthAuto(isBigger),
     mainRef.current.wrapperAspectRatio,
     aspectRatio
-  );
+  ); */
   //console.log("useWrapperSize", isBigger, zoom);
 
   return {

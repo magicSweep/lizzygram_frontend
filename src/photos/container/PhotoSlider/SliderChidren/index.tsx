@@ -27,7 +27,7 @@ const ErrorMsg: FC<{ msg: string; isBackDrop?: boolean }> = ({
           `}
     >
       <div className="px-4 py-3 flex flex-nowrap justify-center items-center rounded-md shadow-md bg-error">
-        <p className="select-none pl-4 text-body">{msg}</p>
+        <p className="select-none pl-4 text-white">{msg}</p>
       </div>
     </div>
   );
@@ -46,6 +46,8 @@ const SliderChildren: FC<SliderChildrenProps> = cond([
     ({ photosError }: SliderChildrenProps) => photosError === true,
     () => <ErrorMsg msg="Упс, какая-то ошибочка..." isBackDrop={false} />,
   ],
+
+  [({ photos }: SliderChildrenProps) => photos === undefined, () => null],
 
   /* [
     ({ photos }: SliderChildrenProps) =>

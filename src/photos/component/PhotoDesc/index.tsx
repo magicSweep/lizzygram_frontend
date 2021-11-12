@@ -19,6 +19,18 @@ export interface PhotoDescProps {
   showEditPhotoForm?: () => void;
 }
 
+const MainWrapper = ({ className, children }: any) => {
+  return (
+    <div
+      className={`
+     w-80 h-full ${className === undefined ? "" : className}
+  `}
+    >
+      {children}
+    </div>
+  );
+};
+
 const Wrapper = (props: any) => {
   return (
     <div className="p-3 w-full">
@@ -44,19 +56,38 @@ const PhotoDesc = ({
   showEditPhotoForm,
   downloadOriginalPhotoUrl,
 }: PhotoDescProps) => {
-  console.log("RENDER PHOTO DESC", photo, photoLoading, isPhotoEditing);
+  //console.log("RENDER PHOTO DESC", photo, photoLoading, isPhotoEditing);
 
-  if (photo === undefined) return null;
+  if (photo === undefined)
+    return (
+      <MainWrapper>
+        <Box className="block p-4" component="p" typography="body2">
+          Нет информации о фото...
+        </Box>
+      </MainWrapper>
+    );
 
   // photoError - show nothing
-  if (photoError) return null;
+  if (photoError)
+    return (
+      <MainWrapper>
+        <Box
+          className="block p-4"
+          component="p"
+          color="error.main"
+          typography="body2"
+        >
+          К сожалению, произошла ошибочка...
+        </Box>
+      </MainWrapper>
+    );
 
   // photoLoading - show spinner
   if (photoLoading || isPhotoEditing)
     return (
-      <div className="w-full flex justify-center items-center">
+      <MainWrapper className="flex justify-center pt-8">
         <CircularProgress size={20} thickness={2.4} />
-      </div>
+      </MainWrapper>
     );
 
   // photo - show desc, if isEditable - show edit btn
@@ -74,7 +105,7 @@ const PhotoDesc = ({
   };
 
   return (
-    <div className="w-80 h-full">
+    <div className="w-80 h-full overflow-auto">
       <Wrapper title="Дата">
         <Box component="span" typography="body2">
           {formatDate}
