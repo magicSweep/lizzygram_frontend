@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import FormWrapper from "../FormWrapper";
+import FormWrapper from "../../../container/FormWrapper";
 import UploadButton from "../../component/formElements/UploadButton";
 import DatePicker from "../../component/formElements/DatePicker";
 import Description from "../../component/formElements/Description";
@@ -100,6 +100,7 @@ const EditPhotoForm: FC<AddPhotoFormProps> = ({
 
       <div className="w-full mt-14 mb-5">
         <TagCheckboxes
+          label="Опишите фото с помощью тэгов:"
           getValues={getValues}
           setValue={setValue}
           register={register}

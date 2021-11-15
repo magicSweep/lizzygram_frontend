@@ -74,6 +74,7 @@ const Form = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TagCheckboxes
+        label="Опишите фото с помощью тэгов:"
         getValues={getValues}
         setValue={setValue}
         register={register}

@@ -28,6 +28,7 @@ const Template: Story<ComponentProps<typeof TagCheckboxesWidget>> = (args) => (
 );
 
 const args: ComponentProps<typeof TagCheckboxesWidget> = {
+  label: "Опишите фото с помощью тэгов:",
   tagsState: {
     items: tagsData,
     error: false,

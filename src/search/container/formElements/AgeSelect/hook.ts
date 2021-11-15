@@ -9,7 +9,7 @@ import {
 } from "react-hook-form";
 
 export type AgeSelectFormProps = {
-  clearErrors: UseFormClearErrors<FieldValues>;
+  clearErrors: UseFormClearErrors<any>;
   setValue: UseFormSetValue<FieldValues>;
   register: UseFormRegister<FieldValues>;
   watch: UseFormWatch<FieldValues>;

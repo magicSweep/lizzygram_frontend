@@ -15,7 +15,7 @@ export type TagCheckboxesProps = ComponentProps<"input"> & {
   //onChange: any;
   //disabled: boolean;
   //errors?: string[];
-  //label: string;
+  label: string;
 
   onChange: (event: any) => void;
   isFormError: boolean;
@@ -217,6 +217,7 @@ export const getCheckboxes = (
 
 export const TagCheckboxes: FC<TagCheckboxesProps & { tagsState: TagsState }> =
   ({
+    label,
     tagsState,
     tagsFormState,
     onChange,
@@ -250,7 +251,7 @@ export const TagCheckboxes: FC<TagCheckboxesProps & { tagsState: TagsState }> =
         disabled={disabled}
         helperText={helperText}
       >
-        <HeroTitle>Опишите фото с помощью тэгов:</HeroTitle>
+        <HeroTitle>{label}</HeroTitle>
 
         {checkboxes}
       </FieldWrapper>
