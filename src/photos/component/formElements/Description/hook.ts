@@ -11,18 +11,16 @@ export type DescriptionFormProps = {
   //setValue: UseFormSetValue<FieldValues>;
   register: UseFormRegister<FieldValues>;
   formState: FormState<FieldValues>;
+  validate: ((val?: any) => string | boolean) | undefined;
 };
 
 export const useDescriptionForm = ({
   register,
   formState,
+  validate,
 }: DescriptionFormProps) => {
   const { ref, onChange, onBlur } = register("desc", {
-    validate: (val: any) => {
-      console.log("VALIDATE", val);
-      if (val !== undefined && val.length > 2000) return "Слишком длинно...";
-      return true;
-    },
+    validate,
   });
 
   const error = formState.errors["desc"];

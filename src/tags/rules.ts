@@ -21,7 +21,7 @@ const hasTrueValue = (obj: any) => {
   return false;
 };
 
-export const validateTags = compose<TagsFormState, boolean | string>(
+export const tagsValidate = compose<TagsFormState, boolean | string>(
   elif(
     (tags?: TagsFormState) => typeof tags === "object",
     hasTrueValue,
@@ -31,5 +31,5 @@ export const validateTags = compose<TagsFormState, boolean | string>(
 );
 
 export const tagsRules = {
-  validate: validateTags,
+  validate: tagsValidate,
 };

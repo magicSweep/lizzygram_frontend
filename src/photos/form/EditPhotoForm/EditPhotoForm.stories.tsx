@@ -1,9 +1,10 @@
 import { useState } from "react";
-import AddPhotoForm from ".";
+import EditPhotoForm from ".";
+import { addedPhoto } from "../../mock/fake.data";
 
 export default {
-  component: AddPhotoForm,
-  title: "Photos/Forms/AddPhotoForm",
+  component: EditPhotoForm,
+  title: "Photos/Forms/EditPhotoForm",
 };
 
 export const Default = () => {
@@ -21,10 +22,11 @@ export const Default = () => {
 
   return (
     <div className="m-auto pt-8">
-      <AddPhotoForm
+      <EditPhotoForm
         onSubmit={onSubmit}
         onClose={() => console.log("CLOSE")}
         uploadLoading={loading}
+        photoData={addedPhoto}
       />
     </div>
   );

@@ -1,21 +1,30 @@
-import { FirestoreDate, IPhoto } from "./../types";
+import { FirestoreDate, Photo } from "./../types";
+//@ts-ignore
 import image1 from "./../../images/12.jpg";
+//@ts-ignore
 import image2 from "./../../images/13.jpg";
+//@ts-ignore
 import image3 from "./../../images/freestocks-9U.jpg";
+//@ts-ignore
 import image4 from "./../../images/image0.jpeg";
+//@ts-ignore
 import image5 from "./../../images/image7.jpeg";
+//@ts-ignore
 import image6 from "./../../images/peizaj4.jpg";
-
+//@ts-ignore
 import image7 from "./../../images/peizaj.jpg";
+//@ts-ignore
 import image8 from "./../../images/ladki.jpg";
+//@ts-ignore
 import image9 from "./../../images/image2.jpeg";
+//@ts-ignore
 import image10 from "./../../images/result.jpg";
 
 //import { TPhotosData } from "../types";
 
 //const pathToStaticImagesDir = `file:///home/nikki/Documents/Project/lizzygram/gatsby/static/images`;
 
-export const addedPhoto: IPhoto<FirestoreDate> = {
+export const addedPhoto: Photo<FirestoreDate> = {
   id: "bla",
   _timestamp: new Date(2019, 11, 25),
   files: ["hello123.jpb"],
@@ -37,7 +46,7 @@ export const addedPhoto: IPhoto<FirestoreDate> = {
   imageExtention: "jpeg",
 };
 
-export const photos: IPhoto<FirestoreDate>[] = [
+export const photos: Photo<FirestoreDate>[] = [
   {
     id: "112",
     _timestamp: new Date(2018, 11, 23),

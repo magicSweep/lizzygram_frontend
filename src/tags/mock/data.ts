@@ -85,20 +85,20 @@ export const tagsData: TagData[] = [
 ];
 
 export const state = {
-  bCcRcxADj2xP9fkSXNpH: true,
+  bCcRcxADj2xP9fkSXNpH: false,
   vekwWqVY1yYRd3XeERmd: false,
   rNNyXhgNJUjsbGFzVGAL: false,
   WX6CY5kGx4FXvdZR6g8E: false,
-  ieYx4ke8ms0DJb5APv4u: true,
+  ieYx4ke8ms0DJb5APv4u: false,
   ybrq9aFZlTk71akoH7Lz: false,
-  fYZ3uqG1vBLFH75Y0rjM: true,
-  vekwWqVY1yYRd3XeER12: true,
-  vekwWqVY1222d3XeERmd: true,
+  fYZ3uqG1vBLFH75Y0rjM: false,
+  vekwWqVY1yYRd3XeER12: false,
+  vekwWqVY1222d3XeERmd: false,
   vekwWqVY1222eeXeERmd: false,
 };
 
-export const defaultTagsIds = [
-  "rNNyXhgNJUjsbGFzVGAL",
-  "ieYx4ke8ms0DJb5APv4u",
-  "fYZ3uqG1vBLFH75Y0rjM",
-];
+export const defaultTags = {
+  rNNyXhgNJUjsbGFzVGAL: true,
+  ieYx4ke8ms0DJb5APv4u: true,
+  fYZ3uqG1vBLFH75Y0rjM: true,
+};

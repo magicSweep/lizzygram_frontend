@@ -7,53 +7,37 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { useForm } from "react-hook-form";
 import TagCheckboxes from "../../../tags/container/TagCheckboxes";
 import { TagsFormState } from "../../../tags/types";
+import { Photo, FirestoreDate } from "../../types";
 import {
-  dateValidateOnAdd,
+  dateValidateOnEdit,
   descValidate,
-  photoFileValidateOnAdd,
+  photoFileValidateOnEdit,
 } from "../../rules";
-import { tagsValidate } from "../../../tags/rules";
-
-export const FormElement: FC = ({ children }) => {
-  /* .element {
-  width: 100%;
-  margin-bottom: 20px;
-
-  /*  &:first-child {
-    margin-bottom: 0;
-    text-align: center;
-  } 
-
-  &:nth-child(2) {
-    margin-bottom: 0;
-    text-align: center;
-  }
-} */
-  return <div className="w-full mb-5">{children}</div>;
-};
 
 export interface AddPhotoFormProps {
   //title: string;
   onSubmit: (...args: any) => void;
   onClose: () => void;
   uploadLoading?: boolean;
+  photoData: Photo<FirestoreDate>;
   //photoSrc?: string;
   //defaultTagsIds?: string[];
   //uploadPhotoFormData: IUseUploadPhotoFormReturn;
 }
 
-type AddPhotoFormData = {
+type EditPhotoFormData = {
   desc?: string;
-  date: Date;
-  photoFile: FileList;
+  date?: Date;
+  photoFile?: FileList;
   tags: TagsFormState;
 };
 
-const AddPhotoForm: FC<AddPhotoFormProps> = ({
+const EditPhotoForm: FC<AddPhotoFormProps> = ({
   //title,
   onSubmit,
   onClose,
   uploadLoading,
+  photoData,
   //uploadPhotoFormData,
   //photoSrc,
 }) => {
@@ -65,7 +49,12 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
     clearErrors,
     watch,
     getValues,
-  } = useForm<AddPhotoFormData>();
+  } = useForm<EditPhotoFormData>({
+    defaultValues: {
+      date: photoData.date.toDate(),
+      desc: photoData.description,
+    } as any,
+  });
 
   /* const submitHandler = (event: any) => {
     event.preventDefault();
@@ -75,12 +64,16 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
 
   return (
     <FormWrapper
-      title={"Добавить фото"}
+      title={"Изменить фото"}
       onSubmit={handleSubmit(onSubmit)}
       onClose={onClose}
       submitBtnTitle={"Отправить"}
       disabled={false}
     >
+      <div className="flex justify-center mb-8">
+        <img className="h-14 w-auto rounded" src={photoData.iconSrc} />
+      </div>
+
       <div className="w-full mb-5">
         <UploadButton
           watch={watch}
@@ -89,7 +82,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
           formState={formState}
           register={register}
           disabled={uploadLoading}
-          validate={photoFileValidateOnAdd}
+          validate={photoFileValidateOnEdit}
         />
       </div>
 
@@ -101,7 +94,7 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
           watch={watch}
           formState={formState}
           disabled={uploadLoading}
-          validate={dateValidateOnAdd}
+          validate={dateValidateOnEdit}
         />
       </div>
 
@@ -114,8 +107,8 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
           clearErrors={clearErrors}
           formState={formState}
           disabled={uploadLoading}
-          defaultTags={undefined}
-          validate={tagsValidate}
+          defaultTags={photoData.tags}
+          validate={undefined}
         />
       </div>
 
@@ -137,4 +130,4 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
   );
 };
 
-export default AddPhotoForm;
+export default EditPhotoForm;

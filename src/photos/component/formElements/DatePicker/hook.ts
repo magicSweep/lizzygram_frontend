@@ -7,14 +7,14 @@ import {
   UseFormClearErrors,
   UseFormSetValue,
 } from "react-hook-form";
-import { compose, tap, cond } from "fmagic";
 
 export type DatePickerFormProps = {
-  clearErrors: UseFormClearErrors<FieldValues>;
+  clearErrors: UseFormClearErrors<any>;
   setValue: UseFormSetValue<FieldValues>;
   register: UseFormRegister<FieldValues>;
   watch: UseFormWatch<FieldValues>;
   formState: FormState<FieldValues>;
+  validate: ((val?: any) => string | boolean) | undefined;
 };
 
 export const useDatePickerForm = ({
@@ -23,6 +23,7 @@ export const useDatePickerForm = ({
   register,
   watch,
   formState,
+  validate,
 }: DatePickerFormProps) => {
   const onChange = useCallback((newValue: any) => {
     clearErrors("date");
@@ -30,22 +31,7 @@ export const useDatePickerForm = ({
   }, []);
 
   register("date", {
-    validate: compose(
-      tap((val) => console.log("VALIDATE", val)),
-      cond([
-        [
-          (val: Date | undefined | null) => val === undefined || val === null,
-          () => "Пожалуйста, укажите дату съемки, хотя бы примерно.",
-        ],
-        [
-          (val: Date) => val.toString() === "Invalid Date",
-          () => "Некорректная дата",
-        ],
-        [(val: Date) => val > new Date(), () => "Фотка сделана в будущем?"],
-        [(val: Date) => val < new Date("2018-07-08"), () => "До дня рождения?"],
-        [() => true, () => true],
-      ])
-    ),
+    validate,
   });
 
   // GET VALUES FROM FORM STATE

@@ -1,7 +1,7 @@
 import React, { FC, ComponentProps } from "react";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import FieldWrapper from "./../../../../component/FormElements/FieldWrapper";
+import FieldWrapper from "./../../../../component/formElements/FieldWrapper";
 
 export interface UploadButtonProps extends ComponentProps<"input"> {
   id?: string;

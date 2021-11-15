@@ -4,9 +4,9 @@ import { useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TagCheckboxes from ".";
-import { validateTags } from "../../rules";
+import { tagsValidate } from "../../rules";
 import { useTags } from "../../hook/useTags";
-import { getInitTagsState } from "../../helper";
+import { getDefaultTagsFormState } from "../../helper";
 
 export default {
   component: TagCheckboxes,
@@ -78,9 +78,15 @@ const Form = () => {
         setValue={setValue}
         register={register}
         watch={watch}
-        label="Опишите фото с помощью тэгов:"
-        errors={formState.errors["tags"]}
+        clearErrors={clearErrors}
+        formState={formState}
+        defaultTags={{
+          vekwWqVY1yYRd3XeER12: true,
+          ybrq9aFZlTk71akoH7Lz: true,
+          WX6CY5kGx4FXvdZR6g8E: true,
+        }}
         disabled={false}
+        validate={tagsValidate}
       />
 
       <Box sx={{ textAlign: "center", p: "20px" }}>

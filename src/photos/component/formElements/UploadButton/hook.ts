@@ -7,18 +7,14 @@ import {
   UseFormSetValue,
   UseFormWatch,
 } from "react-hook-form";
-import {
-  isFileInputEmpty,
-  isValidFileFormat,
-  maxFileSizeMB,
-} from "./validation";
 
 export type UploadBtnFormProps = {
-  clearErrors: UseFormClearErrors<FieldValues>;
+  clearErrors: UseFormClearErrors<any>;
   setValue: UseFormSetValue<FieldValues>;
   register: UseFormRegister<FieldValues>;
   watch: UseFormWatch<FieldValues>;
   formState: FormState<FieldValues>;
+  validate: ((val?: any) => string | boolean) | undefined;
 };
 
 /* type FileInputValues =
@@ -33,6 +29,7 @@ export const useUploadBtnForm = ({
   watch,
   register,
   formState,
+  validate,
   clearErrors,
   setValue,
 }: UploadBtnFormProps) => {
@@ -45,21 +42,7 @@ export const useUploadBtnForm = ({
   }, []); */
 
   const { ref, ...fields } = register("photoFile", {
-    validate: (fileList: FileList | undefined | null) => {
-      console.log("VALIDATE", fileList);
-      if (fileList === undefined || fileList === null) return "А где фота?";
-
-      if (fileList instanceof FileList !== true || fileList.length < 1)
-        return "И где фота?";
-
-      if (maxFileSizeMB(21, fileList[0].size) === false)
-        return "Максимальный размер файла 21 Mb.";
-
-      if (isValidFileFormat(["jpeg", "png", "jpg"], fileList[0].type) === false)
-        return "Файл должен быть типа: jpeg, png, jpg";
-
-      return true;
-    },
+    validate,
   });
 
   const error = formState.errors["photoFile"];

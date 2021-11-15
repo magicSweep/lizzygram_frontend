@@ -5,7 +5,7 @@ import TagCheckboxesWidget from "./TagCheckboxes";
 import {
   tagsData,
   state as initTagsState,
-  defaultTagsIds,
+  defaultTags,
 } from "./../../mock/data";
 
 export default {
@@ -28,7 +28,6 @@ const Template: Story<ComponentProps<typeof TagCheckboxesWidget>> = (args) => (
 );
 
 const args: ComponentProps<typeof TagCheckboxesWidget> = {
-  label: "Опишите фото с помощью тэгов:",
   tagsState: {
     items: tagsData,
     error: false,
@@ -36,7 +35,8 @@ const args: ComponentProps<typeof TagCheckboxesWidget> = {
   },
   tagsFormState: initTagsState,
   onChange: () => console.log("onChange"),
-  errors: [],
+  isFormError: false,
+  helperText: "",
   disabled: false,
 };
 
@@ -55,6 +55,12 @@ Tags.args = {
   ...args,
 };
 
+export const DefaultValues = Template.bind({});
+DefaultValues.args = {
+  ...args,
+  defaultTags,
+};
+
 export const ServerErrorTags = Template.bind({});
 (ServerErrorTags as any).args = {
   ...args,
@@ -68,7 +74,8 @@ export const ServerErrorTags = Template.bind({});
 export const ValidationErrorTags = Template.bind({});
 (ValidationErrorTags as any).args = {
   ...args,
-  errors: ["Вы что с ума сошли?"],
+  isFormError: true,
+  helperText: "Вы что с ума сошли?",
 };
 
 export const DisabledTags = Template.bind({});

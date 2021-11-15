@@ -4,7 +4,6 @@ import React from "react";
 
 import Box, { BoxProps } from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -81,7 +80,10 @@ const FormWrapper = ({
        {...props} 
     > */
   return (
-    <form className="relative pt-16 px-5 pb-3 w-600 mt-8 mx-auto mb-0 rounded shadow bg-paper">
+    <form
+      onSubmit={onSubmit}
+      className="relative pt-16 px-5 pb-3 w-600 mt-8 mx-auto mb-0 rounded shadow bg-paper"
+    >
       <HeroTitle title={title} onClose={onClose} />
 
       {children}

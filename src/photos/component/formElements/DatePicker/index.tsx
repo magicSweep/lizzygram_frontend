@@ -15,7 +15,7 @@ const DatePicker: FC<DatePickerProps> = ({ disabled, ...props }) => {
       label="Когда сделан снимок"
       value={value}
       onChange={onChange}
-      disabled={false}
+      disabled={disabled}
       maxDate={new Date()}
       minDate={new Date("2018-07-08")}
       renderInput={(params) => (

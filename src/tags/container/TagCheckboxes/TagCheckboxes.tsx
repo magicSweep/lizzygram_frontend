@@ -8,14 +8,18 @@ import HeroTitle from "../../../component/HeroTitle";
 import { TagsState, TagData, TagsFormState } from "../../types";
 import TagSkeleton from "../../component/TagSkeleton";
 import { tagTypeToColor } from "../../helper";
-import FieldWrapper from "../../../component/FormElements/FieldWrapper";
+import FieldWrapper from "../../../component/formElements/FieldWrapper";
 
 export type TagCheckboxesProps = ComponentProps<"input"> & {
   tagsFormState?: TagsFormState;
   //onChange: any;
   //disabled: boolean;
-  errors?: string[];
-  label: string;
+  //errors?: string[];
+  //label: string;
+
+  onChange: (event: any) => void;
+  isFormError: boolean;
+  helperText: string;
 };
 
 interface TagsGroupProps extends BoxProps {
@@ -212,13 +216,20 @@ export const getCheckboxes = (
 };
 
 export const TagCheckboxes: FC<TagCheckboxesProps & { tagsState: TagsState }> =
-  ({ tagsState, tagsFormState, onChange, disabled, errors, label }) => {
-    const isError = errors !== undefined && errors.length > 0 ? true : false;
+  ({
+    tagsState,
+    tagsFormState,
+    onChange,
+    disabled,
+    isFormError,
+    helperText,
+  }) => {
+    console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
 
     const checkboxes = getCheckboxes(
       onChange,
       tagsState,
-      isError,
+      isFormError,
       disabled === true,
       tagsFormState
     );
@@ -235,11 +246,11 @@ export const TagCheckboxes: FC<TagCheckboxesProps & { tagsState: TagsState }> =
           bg-paper
           border-none
         `}
-        error={isError}
+        error={isFormError}
         disabled={disabled}
-        helperText={isError === true ? errors[0] : ""}
+        helperText={helperText}
       >
-        <HeroTitle>{label}</HeroTitle>
+        <HeroTitle>Опишите фото с помощью тэгов:</HeroTitle>
 
         {checkboxes}
       </FieldWrapper>

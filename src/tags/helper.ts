@@ -2,25 +2,44 @@ import { ButtonProps } from "@mui/material/Button";
 import { TagType, TagData, TagsFormState } from "./types";
 import { FirestoreTagsData } from "./types";
 
-export const getInitTagsState = (
+/* export const getDefaultTagsFormState = (
   //setInitState: (initState: TTagsFormState) => void | undefined,
-  tagsData?: TagData[],
+  tagsData: TagData[],
   defaultTagsIds?: string[]
 ) => {
-  if (tagsData !== undefined) {
-    const initState: TagsFormState = {};
+    const defaultState: TagsFormState = {};
     const length = defaultTagsIds ? defaultTagsIds.length : 0;
     tagsData.forEach((tag) => {
       if (length > 0 && defaultTagsIds.includes(tag.id)) {
-        initState[tag.id] = true;
+        defaultState[tag.id] = true;
       } else {
-        initState[tag.id] = false;
+        defaultState[tag.id] = false;
       }
     });
     //console.log("TAGS DEFAULT STATE", initState);
     //setInitState(initState);
-    return initState;
-  }
+    return defaultState;
+}; */
+
+export const getDefaultTagsFormState = (
+  //setInitState: (initState: TTagsFormState) => void | undefined,
+  tagsData: TagData[],
+  tags?: { [name: string]: boolean }
+) => {
+  const defaultState: TagsFormState = {};
+
+  tagsData.forEach((tag) => {
+    if (tags === undefined) defaultState[tag.id] = false;
+    else defaultState[tag.id] = tags[tag.id] === true ? true : false;
+    /* if (defaultTagsIds.includes(tag.id)) {
+        defaultState[tag.id] = true;
+      } else {
+        defaultState[tag.id] = false;
+      } */
+  });
+  //console.log("TAGS DEFAULT STATE", initState);
+  //setInitState(initState);
+  return defaultState;
 };
 
 export const tagTypeToColor = (tagType: TagType): ButtonProps["color"] => {
