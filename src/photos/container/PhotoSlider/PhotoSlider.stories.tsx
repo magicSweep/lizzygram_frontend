@@ -24,10 +24,4 @@ const Slider = () => {
   );
 };
 
-/* const PhotosTest = () => {
-  const props = usePhotos();
-
-  return <p>{JSON.stringify(props)}</p>;
-}; */
-
 export const Default = () => <Slider />;

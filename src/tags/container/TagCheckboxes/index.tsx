@@ -74,7 +74,7 @@ export const TagCheckboxes: FC<UseFormTagCheckboxesProps> = ({
     watch
   );
 
-  console.log("[RENDER TAGS CHECKBOX] ");
+  //console.log("[RENDER TAGS CHECKBOX] ");
 
   return <TagCheckboxesWidget {...props} {...otherProps} />;
 };

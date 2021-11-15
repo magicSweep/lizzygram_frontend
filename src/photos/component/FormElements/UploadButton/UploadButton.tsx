@@ -1,21 +1,19 @@
 import React, { FC, ComponentProps } from "react";
 import Button from "@mui/material/Button";
 import AddIcon from "@mui/icons-material/Add";
-import FieldWrapper from "./../FieldWrapper";
+import FieldWrapper from "./../../../../component/FormElements/FieldWrapper";
 
 export interface UploadButtonProps extends ComponentProps<"input"> {
-  id: string;
-  label: string;
-  inputRef: any;
+  id?: string;
+  label?: string;
+  inputRef?: any;
   error: boolean;
   helperText?: string;
   fileList?: FileList;
 }
 
 const UploadButton: FC<UploadButtonProps> = ({
-  id,
   fileList,
-  label,
   //name,
   inputRef,
   error,
@@ -32,30 +30,32 @@ const UploadButton: FC<UploadButtonProps> = ({
     fHelperText = `Вы добавили файл - ${fileList[0].name}`;
   }
 
-  //console.log("RENDER UPLOAD BUTTON", error);
+  console.log("RENDER UPLOAD BUTTON");
 
   return (
     <FieldWrapper
-      id={id}
+      id={props.id === undefined ? "super_upload1234" : props.id}
       error={error}
       success={true}
       disabled={disabled}
       helperText={fHelperText}
+      sx={{ display: "inline-block" }}
     >
       <input
         ref={inputRef}
         //name={name}
         accept="image/*"
         className="hidden"
-        id={id}
+        id="super_upload1234"
         type="file"
         disabled={disabled}
+        name="photoFile"
         {...props}
       />
       <Button
         //@ts-ignore
         component="label"
-        htmlFor={id}
+        htmlFor={props.id === undefined ? "super_upload1234" : props.id}
         color={error === true ? "error" : "primary"}
         startIcon={
           <AddIcon
@@ -73,7 +73,7 @@ const UploadButton: FC<UploadButtonProps> = ({
         variant="outlined"
         size="small"
       >
-        {label}
+        Добавить фоту
       </Button>
     </FieldWrapper>
   );
