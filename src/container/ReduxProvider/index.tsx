@@ -18,11 +18,12 @@ import { photoReducer } from "./../../photos";
 import { authReducer } from "./../../auth";
 import { themeReducer } from "../../theme";
 import { tagsReducer } from "./../../tags";
+import { alertReducer } from "./../../alert";
 
 //CONFIG REDUX
 const reducer = combineReducers({
-  /*  modal: modalReducer,
-  alert: alertReducer,*/
+  /*  modal: modalReducer,*/
+  alert: alertReducer,
   tags: tagsReducer,
   search: searchReducer,
   photos: photoReducer,

@@ -10,11 +10,12 @@ import { authReducer } from "./../../src/auth";
 import { tagsReducer } from "./../../src/tags";
 import { searchReducer } from "./../../src/search";
 import { photoReducer } from "./../../src/photos";
+import { alertReducer } from "./../../src/alert";
 
 //CONFIG REDUX
 const reducer = combineReducers({
   //modal: modalReducer,
-  //alert: alertReducer,
+  alert: alertReducer,
   auth: authReducer,
   tags: tagsReducer,
   search: searchReducer,
