@@ -13,6 +13,7 @@ import {
   photoFileValidateOnAdd,
 } from "../../rules";
 import { tagsValidate } from "../../../tags/rules";
+import { AddPhotoFormData } from "../../types";
 
 export const FormElement: FC = ({ children }) => {
   /* .element {
@@ -41,13 +42,13 @@ export interface AddPhotoFormProps {
   //defaultTagsIds?: string[];
   //uploadPhotoFormData: IUseUploadPhotoFormReturn;
 }
-
+/* 
 type AddPhotoFormData = {
   desc?: string;
   date: Date;
   photoFile: FileList;
   tags: TagsFormState;
-};
+}; */
 
 const AddPhotoForm: FC<AddPhotoFormProps> = ({
   //title,

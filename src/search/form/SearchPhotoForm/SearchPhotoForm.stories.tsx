@@ -1,5 +1,5 @@
 import { useState } from "react";
-import SearchPhotoForm from ".";
+import SearchPhotoForm from "./SearchPhotoForm";
 
 export default {
   component: SearchPhotoForm,
@@ -23,7 +23,7 @@ export const Default = () => {
     <div className="m-auto pt-8">
       <SearchPhotoForm
         searchTerms={{
-          yearsOld: -1,
+          age: -1,
           tags: undefined,
         }}
         onSubmit={onSubmit}

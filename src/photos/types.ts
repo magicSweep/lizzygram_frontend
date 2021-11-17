@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import { FirestoreTagsData } from "./../tags/types";
+import { TagsFormState } from "./../tags/types";
 
 // PHOTOS
 
@@ -32,15 +32,21 @@ export interface Photo<T> {
   isActive: boolean;
 }
 
-export interface IAddPhotoFormData {
-  desc: string;
-  date: string;
+export type AddPhotoFormData = {
+  desc?: string;
+  date: Date;
   photoFile: FileList;
-  tags: FirestoreTagsData;
-}
+  tags: TagsFormState;
+};
 
-export interface IEditPhotoFormData
-  extends Omit<IAddPhotoFormData, "photoFile"> {}
+/* export interface IEditPhotoFormData
+  extends Omit<IAddPhotoFormData, "photoFile"> {} */
+export type EditPhotoFormData = {
+  desc?: string;
+  date?: Date;
+  photoFile?: FileList;
+  tags: TagsFormState;
+};
 
 export type AddPhotoWorkerData = {
   id: string;

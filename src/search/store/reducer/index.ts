@@ -6,7 +6,7 @@ import { hasTrueValue } from "../../../utils/other";
 export const initSearchState: SearchState = {
   terms: {
     tags: undefined,
-    yearsOld: -1,
+    age: -1,
   },
   showForm: false,
   isSearch: false,
@@ -14,8 +14,7 @@ export const initSearchState: SearchState = {
 
 const isSearch = (terms: SearchTerms) => {
   return (
-    terms.yearsOld !== -1 ||
-    (terms.tags !== undefined && hasTrueValue(terms.tags))
+    terms.age !== -1 || (terms.tags !== undefined && hasTrueValue(terms.tags))
   );
 };
 

@@ -1,10 +1,15 @@
 import { Action } from "redux";
-import { FirestoreTagsData } from "./../tags/types";
+import { FirestoreTagsData, TagsFormState } from "./../tags/types";
 
 export interface SearchTerms {
   tags?: FirestoreTagsData;
-  yearsOld: number;
+  age: number;
 }
+
+export type SearchPhotoFormData = {
+  age: string;
+  tags: TagsFormState;
+};
 
 export interface SearchState {
   terms: SearchTerms;

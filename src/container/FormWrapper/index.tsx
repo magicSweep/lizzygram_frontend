@@ -82,7 +82,7 @@ const FormWrapper = ({
   return (
     <form
       onSubmit={onSubmit}
-      className="relative pt-16 px-5 pb-3 w-600 mt-8 mx-auto mb-0 rounded shadow bg-paper"
+      className="relative pt-16 px-8 pb-3 max-w-600 mt-8 mx-auto mb-0 rounded shadow bg-paper"
     >
       <HeroTitle title={title} onClose={onClose} />
 
