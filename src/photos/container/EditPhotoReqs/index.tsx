@@ -9,7 +9,7 @@ let isInit = false;
 
 const EditPhotoReqs = () => {
   const requests = useSelector<GlobalState, string[]>(
-    (state) => state.photos.addReqs.reqIds
+    (state) => state.photos.editReqs.reqIds
   );
 
   if (isInit === false) {

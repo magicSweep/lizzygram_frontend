@@ -16,6 +16,6 @@ describe("getAllBySearchTerms", () => {
     expect(res.hasNextPage).toEqual(false);
     expect(res.nextPageDocRef).toEqual("");
 
-    expect(res.photos.length).toEqual(3);
+    expect(res.photos.length).toEqual(4);
   });
 });

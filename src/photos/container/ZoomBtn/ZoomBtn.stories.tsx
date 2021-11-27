@@ -6,7 +6,7 @@ import { useImgZoom } from "../../hook/useImgZoom";
 
 export default {
   component: ZoomBtn,
-  title: "Container/ZoomBtn",
+  title: "Photos/Container/ZoomBtn",
 };
 
 export const Default = () => {

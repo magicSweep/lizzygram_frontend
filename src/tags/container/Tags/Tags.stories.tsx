@@ -1,5 +1,7 @@
-import Tags from "./Tags";
-import { tagsData } from "../../mock/data";
+import TagsWidget from "./Tags";
+import Tags from ".";
+import { tagsData, defaultTags } from "../../mock/data";
+import Box from "@mui/system/Box";
 //import {Story} from "@s"
 
 const photo = {
@@ -20,27 +22,21 @@ const photo = {
 export default {
   component: Tags,
   title: "Tags/TagsWidget",
-  decorators: [
-    (story: any) => (
-      <div
-        style={{
-          padding: "50px 10px 10px",
-          width: "500px",
-          margin: "auto",
-          borderRadius: "4px",
-          border: "1px solid lightgray",
-        }}
-      >
-        {story()}
-      </div>
-    ),
-  ],
-  //decorators: [withKnobs],
-  // Our exports that end in "Data" are not stories.
-  excludeStories: /.*Data$/,
 };
 
-const Template = (args: any) => <Tags {...args} />;
+const Template = (args: any) => (
+  <div
+    style={{
+      padding: "50px 10px 10px",
+      width: "500px",
+      margin: "auto",
+      borderRadius: "4px",
+      border: "1px solid lightgray",
+    }}
+  >
+    <TagsWidget {...args} />
+  </div>
+);
 
 export const Default = Template.bind({});
 (Default as any).args = {
@@ -64,4 +60,12 @@ export const ErrorTags = Template.bind({});
   error: true,
   loading: false,
   //photo,
+};
+
+export const TagsTexted = () => {
+  return (
+    <Box width="200px" bgcolor="background.paper">
+      <p>Tags: {<Tags photoTags={defaultTags} isTexted={true} />}</p>
+    </Box>
+  );
 };

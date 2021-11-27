@@ -9,7 +9,7 @@ import { editPhotoStartRequestAC } from "../../store/action";
 import Button from "@mui/material/Button";
 
 export default {
-  title: "Photos/EditPhotoReqs",
+  title: "Photos/Container/EditPhotoReqs",
   component: EditPhotoReqs,
   /*  argTypes: {
     backgroundColor: { control: 'color' },

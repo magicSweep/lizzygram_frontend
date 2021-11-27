@@ -4,7 +4,9 @@ import React, { forwardRef, ComponentProps, FC, RefAttributes } from "react";
 export type ImageProps = ComponentProps<"img"> & ComponentProps<typeof Box>;
 
 export const Image = forwardRef<any, ImageProps>((props, ref) => {
-  return <Box component="img" maxWidth="none" ref={ref} {...props} />;
+  return (
+    <Box component="img" maxWidth="none" loading="lazy" ref={ref} {...props} />
+  );
 });
 
 export default Image;

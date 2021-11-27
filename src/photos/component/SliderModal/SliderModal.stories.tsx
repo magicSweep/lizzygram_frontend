@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 
 export default {
   component: SliderModal,
-  title: "Modal/SliderModal",
+  title: "Photos/Modal/SliderModal",
   decorators: [],
   //decorators: [withKnobs],
   // Our exports that end in "Data" are not stories.

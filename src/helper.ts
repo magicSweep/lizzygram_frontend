@@ -1,4 +1,4 @@
-import { intersection } from "lodash-es";
+/* import { intersection } from "lodash-es";
 import { photoCardWidth, photoCardHeight, maxAppWidth } from "./config";
 
 export const calcPhotosLimitPerQuery = () => {
@@ -65,7 +65,7 @@ export const getYearsOld = (date: Date) => {
   return millisecondsToYears(mSeconds);
 };
 
-export const getFormattedYearsOld = (yearsOld: number) => {
+export const getFormattedYearsOld = (yearsOld: number): string => {
   switch (yearsOld) {
     case 0:
       return "Меньше года";
@@ -139,3 +139,4 @@ export const getAlphabetMonth = (date: Date, withDay: boolean = false) => {
       throw new Error(`Unknown month number  ${month}`);
   }
 };
+ */

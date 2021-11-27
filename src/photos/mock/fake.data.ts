@@ -18,7 +18,7 @@ import image8 from "./../../images/ladki.jpg";
 //@ts-ignore
 import image9 from "./../../images/image2.jpeg";
 //@ts-ignore
-import image10 from "./../../images/result.jpg";
+import image10 from "./../../images/peizaj3.png";
 
 //import { TPhotosData } from "../types";
 
@@ -235,5 +235,29 @@ export const photos: Photo<FirestoreDate>[] = [
     addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
     isActive: true,
     imageExtention: "jpeg",
+  },
+
+  {
+    id: "336691",
+    _timestamp: new Date(2019, 9, 15),
+    files: ["helloo.jpj"],
+    base64: "",
+    aspectRatio: 1.78,
+    /* src: `${pathToStaticImagesDir}/image7.jpeg`,
+    iconSrc: `${pathToStaticImagesDir}/image7.jpeg`,
+    srcSet: `${pathToStaticImagesDir}/image7.jpeg`, */
+    src: image10,
+    iconSrc: image10,
+    srcSet: image10,
+    date: {
+      toDate: () => new Date(2019, 9, 15),
+    } as any,
+    description: "Breeyt street2.jpg",
+    tags: { fYZ3uqG1vBLFH75Y0rjM: true, WX6CY5kGx4FXvdZR6g8E: true },
+    yearsOld: 0,
+    googleDriveId: "",
+    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    isActive: true,
+    imageExtention: "png",
   },
 ];

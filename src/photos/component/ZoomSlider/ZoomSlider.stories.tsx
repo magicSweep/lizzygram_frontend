@@ -5,7 +5,7 @@ import { Box } from "@mui/system";
 
 export default {
   component: ZoomSlider,
-  title: "Components/ZoomSlider",
+  title: "Photos/Component/ZoomSlider",
 };
 
 export const Default = () => {

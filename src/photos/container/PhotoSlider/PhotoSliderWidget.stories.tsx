@@ -28,7 +28,7 @@ import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
 
 export default {
   component: PhotoSliderWidget,
-  title: "Photos/PhotoSliderWidget",
+  title: "Photos/PhotoSlider/PhotoSliderWidget",
   decorators: [],
   excludeStories: /.*Data$/,
 };

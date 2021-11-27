@@ -7,7 +7,7 @@ import PhotoSliderLoadableWrapper from ".";
 
 export default {
   component: PhotoSliderLoadableWrapper,
-  title: "Photos/PhotoSlider",
+  title: "Photos/PhotoSlider/PhotoSlider",
 };
 
 const Slider = () => {

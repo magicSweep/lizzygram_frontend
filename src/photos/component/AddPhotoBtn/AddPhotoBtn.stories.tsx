@@ -5,7 +5,7 @@ import { Story } from "@storybook/react";
 
 export default {
   component: AddPhotoBtnWidget,
-  title: "Photos/AddPhotoBtn",
+  title: "Photos/Component/AddPhotoBtn",
   decorators: [],
   //decorators: [withKnobs],
   // Our exports that end in "Data" are not stories.

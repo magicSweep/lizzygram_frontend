@@ -8,7 +8,7 @@ import { usePhotos } from "../../hook/usePhotos";
 import AddPhotoBtn from "../../component/AddPhotoBtn/AddPhotoBtn";
 
 export default {
-  title: "Photos/AddPhotoReqs",
+  title: "Photos/Container/AddPhotoReqs",
   component: AddPhotoReqs,
   /*  argTypes: {
     backgroundColor: { control: 'color' },

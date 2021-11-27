@@ -1,12 +1,12 @@
-import { getYearsOld, getFormattedYearsOld } from "../../../helper";
+/* import { getYearsOld, getFormattedYearsOld } from "../../../helper";
 
 export const getYearsOldFormated = (date: Date) => {
   const yearsOld = getYearsOld(date);
 
   return getFormattedYearsOld(yearsOld);
-};
+}; */
 
-export const getMonth = (date: Date) => {
+/* export const getMonth = (date: Date) => {
   const month = date.getMonth();
   switch (month) {
     case 0:
@@ -37,15 +37,15 @@ export const getMonth = (date: Date) => {
     default:
       throw new Error(`Unknown month number  ${month}`);
   }
-};
+}; */
 
-export const getFormatDate = (date: Date) => {
+/* export const getFormatDate = (date: Date) => {
   const day = date.getDate();
   const month = getMonth(date);
   const year = date.getFullYear();
 
   return `${day} ${month} ${year}`;
-};
+}; */
 
 /* export const getDate = (date: Date | number | string): Date => {
   let resultDate = undefined;

@@ -6,7 +6,7 @@ import { photos } from "../../mock/fake.data";
 
 export default {
   component: PhotoDesc,
-  title: "Photos/PhotoDesc",
+  title: "Photos/Component/PhotoDesc",
 };
 
 const Template: Story<PhotoDescProps> = (args) => {

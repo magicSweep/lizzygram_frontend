@@ -16,7 +16,7 @@ import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
 
 export default {
   component: SliderControls,
-  title: "Container/SliderControls",
+  title: "Photos/Container/SliderControls",
   decorators: [],
   //decorators: [withKnobs],
   // Our exports that end in "Data" are not stories.
@@ -46,6 +46,8 @@ export const Default = () => {
           decreaseIndex={decreaseIndex}
           activeIndex={activeIndex}
           itemsLength={5}
+          fetchMore={() => console.log("fetchMore")}
+          hasNextPage={true}
         />
       </Box>
       <Box

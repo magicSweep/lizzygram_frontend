@@ -1,3 +1,5 @@
+export { tagTypeToColor } from "./helper";
+
 export {
   tagsRequestErrorAC,
   tagsRequestStartAC,

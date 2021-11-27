@@ -1,6 +1,10 @@
 import React from "react";
-import { getFormatDate, getYearsOldFormated } from "./helper";
-import { getDate } from "../../../utils/app";
+import {
+  getFormatDate,
+  makeYearsOldStringify,
+  getDate,
+} from "./../../../utils/app";
+//import { getDate } from "../../../utils/app";
 import CircularProgress from "@mui/material/CircularProgress";
 import Tags from "../../../tags/container/Tags";
 import Button from "@mui/material/Button";
@@ -98,7 +102,7 @@ const PhotoDesc = ({
 
   const formatDate = getFormatDate(finalDate);
 
-  const yearsOldFormated = getYearsOldFormated(finalDate);
+  const yearsOldFormated = makeYearsOldStringify(finalDate);
 
   const onEdit = () => {
     if (showEditPhotoForm) showEditPhotoForm();
