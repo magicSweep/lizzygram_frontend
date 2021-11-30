@@ -1,6 +1,5 @@
 import { Reducer } from "redux";
-import { PhotosState, PhotosAction } from "../../types";
-//import { IPhoto } from "../../../types";
+import { PhotosState, PhotosAction, FirestoreDate, Photo } from "../../types";
 
 //import { onFetchMorePhotosRequestSuccess } from "./helper";
 import {
@@ -18,6 +17,7 @@ import {
   // onEditPhotoRequestError,
   // onDeletePhoto,
   onEditPhotoSuccess,
+  getPhotoIndexByPhotoId,
   // onGetEditedPhotoError,
 } from "./helper";
 
@@ -173,7 +173,7 @@ const reducer: Reducer<PhotosState, PhotosAction> = (
       return {
         ...state,
         showPhotoSlider: true,
-        activePhotoIndex: action.activePhotoIndex,
+        activePhotoIndex: getPhotoIndexByPhotoId(state.photos, action.photoId),
       };
 
     case "HIDE_PHOTO_SLIDER":

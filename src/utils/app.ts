@@ -2,7 +2,7 @@ import {
   downloadPhotoUrl,
   photoCardWidth,
   photoCardHeight,
-  maxAppWidth,
+  //maxAppWidth,
 } from "../config";
 import { FirestoreDate } from "./../photos/types";
 import { intersection } from "lodash-es";
@@ -115,7 +115,7 @@ export const calcPhotosLimitPerQuery = () => {
     let width = screen.width;
     const height = screen.height;
 
-    width = width > maxAppWidth ? maxAppWidth : width;
+    //width = width > maxAppWidth ? maxAppWidth : width;
 
     let numberOfElementsByWidth = Math.floor(width / photoCardWidth);
 

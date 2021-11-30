@@ -1,4 +1,156 @@
-import React, { ComponentProps, FC, useEffect } from "react";
+import React, { ComponentProps, FC, useEffect, Fragment } from "react";
+//import { TTagsData } from "../../store/types";
+//import { TPhotosData } from "./../../photos/types";
+import PhotoCardSkeletons from "../../component/PhotoCardSkeletons";
+import PhotoCards from "./PhotoCards";
+//import { rootDivId } from "../../../config";
+import { FirestoreDate, Photo } from "../../types";
+import { cond, compose, elif } from "fmagic";
+import Button from "@mui/material/Button";
+import Page from "./Page";
+import Box from "@mui/system/Box";
+
+const Wrapper: FC<ComponentProps<typeof Box>> = ({
+  className,
+  children,
+  ...props
+}) => (
+  <Box
+    className={`m-auto pt-5 pb-10 flex flex-wrap justify-center ${
+      className ? className : ""
+    }`}
+    {...props}
+  >
+    {children}
+  </Box>
+);
+
+export interface WallOfPhotosProps {
+  activeObservableIndex: number;
+  photos: Photo<FirestoreDate>[][] | undefined;
+  loadMorePhotos: () => void;
+  reLoadPhotos: () => void;
+  hasNextPage: boolean;
+  loading: boolean;
+  editedPhotoIds: string[];
+  //numberOfAddedPhotos: number;
+  isError: boolean;
+  isSearch: boolean;
+  showPhotoSlider: (photoId: string) => void;
+  showEditPhotoForm: (photoId: string) => void;
+  userUID: string;
+  //numberOfPhotosPerQuery: number | undefined;
+  isShowPhotoSlider: boolean;
+
+  containerWidth: number;
+  pageHeight: number;
+  numberOfPages: number;
+  numberOfPhotosByPage: number;
+}
+
+const getPages = ({ photos, numberOfPages, ...props }: WallOfPhotosProps) =>
+  /* photos: any[][],
+  activeObservableIndex: number,
+  showSlider: boolean,
+  itemsWrapperHeight: number,
+  numberOfItemsByFlex: number,
+  loading: boolean,
+  hasNextPage: boolean,
+  numberOfPhotosPerQuery: number,
+  editedPhotoIds: string[],
+  userUID: string,
+  showPhotoSlider: () => void,
+  showEditPhotoForm: () => void */
+  {
+    if (numberOfPages === 0)
+      return (
+        <Fragment key={`wrapper_123qewq`}>
+          <Page
+            photos={[]}
+            pageIndex={props.activeObservableIndex}
+            isLast={true}
+            {...props}
+            /*  activeObservableIndex={21}
+            //wrapperRef={itemsWrapperRef}
+            isShowPhotoSlider={showSlider}
+            pageHeight={itemsWrapperHeight}
+            numberOfPhotosByPage={numberOfItemsByFlex}
+            numberOfPhotosPerQuery={numberOfPhotosPerQuery}
+            loading={loading}
+            hasNextPage={hasNextPage}
+            editedPhotoIds={editedPhotoIds}
+            userUID={userUID}
+            showPhotoSlider={showPhotoSlider}
+            showEditPhotoForm={showEditPhotoForm} */
+          />
+        </Fragment>
+      );
+
+    return photos.map((photosByPage, index) => {
+      return (
+        <Fragment key={`wrapper_${index}`}>
+          <Page
+            photos={photosByPage}
+            pageIndex={index}
+            isLast={index === numberOfPages - 1}
+            {...props}
+            /* activeObservableIndex={activeObservableIndex}
+           //wrapperRef={itemsWrapperRef}
+           isShowPhotoSlider={showSlider}
+           pageHeight={itemsWrapperHeight}
+           numberOfPhotosByPage={numberOfItemsByFlex}
+           numberOfPhotosPerQuery={numberOfPhotosPerQuery}
+           loading={loading}
+           hasNextPage={hasNextPage}
+           editedPhotoIds={editedPhotoIds}   
+           userUID={userUID}       
+           showPhotoSlider={showPhotoSlider}
+           showEditPhotoForm={showEditPhotoForm} */
+          />
+        </Fragment>
+      );
+    });
+  };
+
+const WallOfPhotos: FC<WallOfPhotosProps> = (props) => {
+  // if error - we add error msg in the end of page
+  if (props.isError === true && props.photos === undefined) {
+    return (
+      <Wrapper textAlign="center" width={props.containerWidth}>
+        <p className="text-error p-6">Какая-то ошибка при загрузке фото...</p>
+        <Button onClick={props.reLoadPhotos}>Попробовать еще раз</Button>
+      </Wrapper>
+    );
+  }
+
+  // if no photos - show no one photos msg
+  if (props.photos !== undefined && props.photos.length === 0) {
+    if (props.isSearch === true) {
+      return (
+        <Wrapper textAlign="center" width={props.containerWidth}>
+          <p className="pt-5 text-title">
+            Нет ни одной фоты, подходящей под такие параметры поиска...
+          </p>
+        </Wrapper>
+      );
+    } else {
+      return (
+        <Wrapper textAlign="center" width={props.containerWidth}>
+          <p className="pt-5  text-title">У нас пока нет ни одной фоты...</p>
+        </Wrapper>
+      );
+    }
+  }
+
+  // if no photos and loading, photos and loading, photos and error - render Pages
+  const pages = getPages(props);
+
+  return <Wrapper width={props.containerWidth}>{pages}</Wrapper>;
+};
+
+export default WallOfPhotos;
+
+/* import React, { ComponentProps, FC, useEffect } from "react";
 //import { TTagsData } from "../../store/types";
 //import { TPhotosData } from "./../../photos/types";
 import PhotoCardSkeletons from "../../component/PhotoCardSkeletons";
@@ -37,7 +189,7 @@ export interface WallOfPhotosProps {
   editedPhotoIds: string[];
   // requests - photos that been added at this time
   numberOfAddedPhotos: number;
-  error: boolean;
+  isError: boolean;
   isSearch: boolean;
   showPhotoSlider: (event: any) => void;
   showEditPhotoForm: () => void;
@@ -48,17 +200,11 @@ export interface WallOfPhotosProps {
 }
 
 const WallOfPhotos: FC<WallOfPhotosProps> = compose(
-  /* ({ error, photos, isShowPhotoSlider }: WallOfPhotosProps) =>
-    useEffect(() => {
-      if (error === true && photos !== undefined) {
-        showAlertAC("Какая-то ошибка при загрузке фото...", "error");
-      }
-    }, [error]), */
   cond([
     [
       // If we got error on initial photos loading we show error
-      ({ error, photos }: WallOfPhotosProps) =>
-        error === true && photos === undefined,
+      ({ isError, photos }: WallOfPhotosProps) =>
+        isError === true && photos === undefined,
       ({ reLoadPhotos }: WallOfPhotosProps) => (
         <div className="w-500 m-auto text-center pt-5">
           <p className="text-error p-6">Какая-то ошибка при загрузке фото...</p>
@@ -129,3 +275,4 @@ const WallOfPhotos: FC<WallOfPhotosProps> = compose(
 );
 
 export default WallOfPhotos;
+ */

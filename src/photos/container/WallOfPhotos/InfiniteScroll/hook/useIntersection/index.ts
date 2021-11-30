@@ -29,15 +29,15 @@ let observer: IntersectionObserver;
 // THIS HOOK GET INDEX OF CURRENT ACTIVE PAGE (OBSERVER INDEX)
 // AND LOAD MORE ITEMS IF NEEDED
 export const useIntersection = (
-  items: any[],
-  pages: number,
+  //items: any[],
+  numberOfPages: number,
   hasNextPage: boolean,
   loading: boolean,
   loadMore?: any
 ) => {
   const mainRef: MutableRefObject<any> = useRef({
     prevObserverIndex: 0,
-    pages,
+    prevNumberOfPages: numberOfPages,
   });
 
   const [observerIndex, setCurrentObserverIndex] = useState(0);
@@ -64,22 +64,26 @@ export const useIntersection = (
   }, []);
 
   useEffect(() => {
-    console.log("PAGES CHANGED", pages, mainRef.current.pages);
+    console.log(
+      "PAGES CHANGED",
+      numberOfPages,
+      mainRef.current.prevNumberOfPages
+    );
 
     onPagesChange(
       mainRef,
-      pages,
+      numberOfPages,
       reset,
       observer,
       setTargetsToObserver,
       addTargetToObserver,
       window
     );
-  }, [pages]);
+  }, [numberOfPages]);
 
   // DO WE NEED LOAD MORE ITEMS
   useEffect(() => {
-    if (observerIndex === pages - 1 && hasNextPage === true) {
+    if (observerIndex === numberOfPages - 1 && hasNextPage === true) {
       if (loadMore !== undefined && loading === false) loadMore();
     }
   }, [observerIndex]);

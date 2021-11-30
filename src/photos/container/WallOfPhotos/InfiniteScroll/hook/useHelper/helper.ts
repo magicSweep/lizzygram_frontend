@@ -43,8 +43,10 @@ export const getItemsArrays = (
   return itemsArrays;
 };
 
-export const calcContainerWidth = () =>
-  Math.round(document.body.clientWidth * 0.8);
+export const calcContainerWidth = () => {
+  // Math.round(document.body.clientWidth * 0.9);
+  return Math.round(document.querySelector("main").clientWidth * 0.9);
+};
 
 export const calcNumberOfItemsByWidth = (
   containerWidth: number,

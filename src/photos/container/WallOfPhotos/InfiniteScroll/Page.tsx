@@ -126,7 +126,7 @@ any) => {
     //index
   );
 
-  //console.log("[RENDER PAGE]", index, doesRenderElements, isLast, loading);
+  console.log("[RENDER PAGE]", items, doesRenderElements, isLast, loading);
 
   return (
     <Box

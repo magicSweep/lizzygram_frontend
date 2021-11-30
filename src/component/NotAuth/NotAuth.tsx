@@ -19,7 +19,7 @@ const NotAuth: FC<NotAuthProps> = ({ loading }) => {
     );
 
   return (
-    <div className="max-h-600 m-auto pt-6">
+    <div className="max-w-700 m-auto pt-6">
       <Typography
         align="center"
         component="h4"

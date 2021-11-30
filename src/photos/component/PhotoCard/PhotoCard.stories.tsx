@@ -45,9 +45,9 @@ Default.args = {
   index: 32,
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   onImageClick: () => console.log("ON IMAGE CLICK"),
-  observerIndex: 23,
+  /*  observerIndex: 23,
   observerId: "id233",
-  isRender: true,
+  isRender: true, */
 };
 
 export const NotEditable = Template.bind({});
@@ -58,12 +58,12 @@ NotEditable.args = {
   index: 32,
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   onImageClick: () => console.log("ON IMAGE CLICK"),
-  observerIndex: 23,
+  /*  observerIndex: 23,
   observerId: "id233",
-  isRender: true,
+  isRender: true, */
 };
 
-export const NotRendered = Template.bind({});
+/* export const NotRendered = Template.bind({});
 
 NotRendered.args = {
   photo: photos[0],
@@ -74,7 +74,7 @@ NotRendered.args = {
   observerIndex: 23,
   observerId: "id233",
   isRender: false,
-};
+}; */
 
 /* const AnotherCard = () => {
   return (

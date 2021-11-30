@@ -3,8 +3,6 @@ import Box from "@mui/system/Box";
 import React, { useState, useEffect, Fragment } from "react";
 import { useInfiniteScroll } from "./hook/useInfiniteScroll";
 import { useItems } from "./hook/useItems";
-import { useWindowResize } from "./hook/useWindowResize";
-import { useIntersection } from "./hook/useIntersection";
 import { calcNumberOfItemsPerPage } from "./helper";
 import Page from "./Page";
 
@@ -16,7 +14,7 @@ const cardWidth = 300;
 const cardHeight = 550;
 //const numberOfItemsPerPage = calcNumberOfItemsPerPage(cardHeight, cardwidth);
 
-const numberOfItemsPerPage = 3;
+const numberOfItemsPerQuery = 3;
 
 const getItemsElements = (
   itemsArrays: any[][],
@@ -26,11 +24,11 @@ const getItemsElements = (
   numberOfItemsByFlex: number,
   loading: boolean,
   hasNextPage: boolean,
-  pages: number,
+  numberOfPages: number,
   cardWidth: number,
   cardHeight: number
 ) => {
-  if (itemsArrays.length === 0)
+  if (itemsArrays === undefined || itemsArrays.length === 0)
     return (
       <Fragment key={`wrapper_123qewq`}>
         <Page
@@ -63,7 +61,7 @@ const getItemsElements = (
           numberOfItemsByFlex={numberOfItemsByFlex}
           loading={loading}
           hasNextPage={hasNextPage}
-          isLast={index === pages - 1}
+          isLast={index === numberOfPages - 1}
           cardWidth={cardWidth}
           cardHeight={cardHeight}
         />
@@ -75,8 +73,6 @@ const getItemsElements = (
 const Test = () => {
   const [showSlider, setShowSlider] = useState(false);
 
-  const resize = useWindowResize();
-
   const {
     loading,
     items,
@@ -86,37 +82,24 @@ const Test = () => {
     newOnePageState,
     numberOfAddedPhotos,
     addOneItem,
-  } = useItems(numberOfItemsPerPage);
-
-  //const itemsLength = items === null || items === undefined ? numberOfAddedPhotos : items.length + numberOfAddedPhotos;
-
-  /* const [visibleIndex, setVisibleIndex] = useState(0);
-
-  const increaseVisibleIndex = () => setVisibleIndex((index) => index + 1);
-
-  const decreaseVisibleIndex = () =>
-    setVisibleIndex((index) => (index > 0 ? index - 1 : 0)); */
+  } = useItems(numberOfItemsPerQuery);
 
   const {
+    visibleIndex,
     itemsArrays,
-    pages,
+    numberOfPages,
     itemsWrapperHeight,
     containerWidth,
-    numberOfItemsByFlex,
+    numberOfItemsByPage,
   } = useInfiniteScroll(
     items,
-    numberOfItemsPerPage,
-    cardWidth + marginLeft,
-    cardHeight + marginBottom,
-    resize,
+    numberOfItemsPerQuery,
+    cardWidth,
+    cardHeight,
+    marginLeft,
+    marginBottom,
     hasNextPage,
-    numberOfAddedPhotos
-  );
-
-  const { observerIndex: visibleIndex } = useIntersection(
-    items,
-    pages,
-    hasNextPage,
+    numberOfAddedPhotos,
     loading,
     fetch
   );
@@ -126,10 +109,10 @@ const Test = () => {
     visibleIndex,
     showSlider,
     itemsWrapperHeight,
-    numberOfItemsByFlex,
+    numberOfItemsByPage,
     loading,
     hasNextPage,
-    pages,
+    numberOfPages,
     cardWidth,
     cardHeight
   );
@@ -147,7 +130,7 @@ const Test = () => {
           numberOfItemsByFlex={numberOfItemsByFlex}
           loading={loading}
           hasNextPage={hasNextPage}
-          isLast={index === pages - 1}
+          isLast={index === numberOfPages - 1}
         />
       </Fragment>
     );
@@ -156,7 +139,7 @@ const Test = () => {
   console.log(
     "RENDER TEST",
     itemsArrays,
-    //pages,
+    //numberOfPages,
     //hasNextPage,
     //numberOfItemsPerPage,
     //itemsWrapperHeight,

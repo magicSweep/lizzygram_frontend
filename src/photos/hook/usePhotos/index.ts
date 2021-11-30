@@ -12,7 +12,7 @@ import { compose, tap, then, _catch } from "fmagic";
 import { Photo, FirestoreDate } from "./../../types";
 import { SearchState } from "./../../../search/types";
 import { GlobalState } from "./../../../types";
-import { useEffect } from "react";
+import { MutableRefObject, useEffect, useRef } from "react";
 import { isNeedNewRequest } from "../../repository/helper";
 
 export interface IPhotosReqData {
@@ -77,21 +77,9 @@ export const startNew = (
 export const usePhotos = () => {
   const dispatch = useDispatch();
 
-  //const numberOfPhotosPerQuery = useContext(NumberOfPhotosPerQueryContext);
+  const mainRef: MutableRefObject<any> = useRef({});
 
-  //console.log("USE PHOTOS", numberOfPhotosPerQuery);
-
-  const {
-    loading,
-    //addPhotoLoading,
-    error,
-    searchState,
-    photos,
-    hasNextPage,
-    nextPageDocRef,
-    numberOfAddedPhotoReqs,
-    editedPhotosIds,
-  } = useSelector<
+  mainRef.current = useSelector<
     GlobalState,
     {
       loading: boolean;
@@ -119,31 +107,33 @@ export const usePhotos = () => {
     shallowEqual
   );
 
-  const loadPhotos = startNew(dispatch, false, searchState);
+  const loadPhotos = startNew(dispatch, false, mainRef.current.searchState);
 
-  const loadMore = startNew(dispatch, true, searchState, nextPageDocRef);
+  const loadMore = startNew(
+    dispatch,
+    true,
+    mainRef.current.searchState,
+    mainRef.current.nextPageDocRef
+  );
 
   useEffect(() => {
     /*  console.log(
       "-----------isNeedNewRequest",
       isNeedNewRequest(searchState.terms, loading)
     ); */
-    if (isNeedNewRequest(searchState.terms, loading)) {
+    if (
+      isNeedNewRequest(
+        mainRef.current.searchState.terms,
+        mainRef.current.loading
+      )
+    ) {
       loadPhotos();
     }
-  }, [searchState]);
+  }, [mainRef.current.searchState]);
 
   return {
-    loading,
-    //addPhotoLoading,
-    error,
-    searchState,
-    photos,
-    hasNextPage,
-    nextPageDocRef,
+    ...mainRef.current,
     loadPhotos,
     loadMore,
-    editedPhotosIds,
-    numberOfAddedPhotoReqs,
   };
 };

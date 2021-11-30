@@ -66,8 +66,7 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
 
   const onClose = useCallback(() => dispatch(hidePhotoSliderAC()), []);
 
-  const activePhoto =
-    photos === undefined ? undefined : photos[activePhotoIndex];
+  const activePhoto = photos === undefined ? undefined : photos[activeIndex];
 
   const downloadOriginalPhotoUrl =
     activePhoto === undefined ? "" : makeDownloadPhotoUrl(activePhoto);

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import wait from "waait";
 import { photos } from "./../../photos/mock/fake.data";
 import { Photo, FirestoreDate } from "./../types";

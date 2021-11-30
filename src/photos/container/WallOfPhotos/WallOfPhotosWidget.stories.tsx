@@ -1,69 +1,218 @@
-import {
-  useRef,
-  useEffect,
-  MutableRefObject,
-  Fragment,
-  useCallback,
-} from "react";
 import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
-import WallOfPhotosWidget from "./WallOfPhotosWidget";
+import WallOfPhotosWidget, { WallOfPhotosProps } from "./WallOfPhotosWidget";
 import { useState } from "react";
-import { photos } from "./../../mock/fake.data";
+import { photos, addedPhoto } from "./../../mock/fake.data";
+//import useFakePhotos from "../../mock/useFakePhotos";
+//import { getItemsArrays } from "./InfiniteScroll/hook/useHelper/helper";
+import { Story } from "@storybook/react";
 
 export default {
   component: WallOfPhotosWidget,
   title: "Photos/WallOfPhotos/Widget",
 };
 
-/*  indexObservable: number;
-  photos: Photo<FirestoreDate>[] | undefined;
+/*  
+  activeObservableIndex: number;
+  photos: Photo<FirestoreDate>[][] | undefined;
   loadMorePhotos: () => void;
   reLoadPhotos: () => void;
   hasNextPage: boolean;
   loading: boolean;
-  //addPhotoLoading: boolean;
-  // requests - photos that is changing at this time
   editedPhotoIds: string[];
-  // requests - photos that been added at this time
   numberOfAddedPhotos: number;
-  error: boolean;
+  isError: boolean;
   isSearch: boolean;
   showPhotoSlider: (event: any) => void;
   showEditPhotoForm: () => void;
-  //showPhotoDesc: (photo: TPhotoData) => void;
   userUID: string;
   numberOfPhotosPerQuery: number | undefined;
-  isShowPhotoSlider: boolean; */
+  isShowPhotoSlider: boolean;
+
+  pageHeight: number;
+  numberOfPages: number;
+  numberOfPhotosByPage: number;
+ */
+
+const props = {
+  activeObservableIndex: 0,
+  photos: undefined,
+  loadMorePhotos: () => console.log("loadMorePhotos"),
+  reLoadPhotos: () => console.log("reLoadPhotos"),
+  showEditPhotoForm: () => console.log("showEditPhotoForm"),
+  showPhotoSlider: () => console.log("showPhotoSlider"),
+  //numberOfPhotosPerQuery: 4,
+  userUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+  hasNextPage: true,
+  loading: true,
+  editedPhotoIds: [],
+  numberOfAddedPhotos: 0,
+  isError: false,
+  isSearch: false,
+  //numberOfPhotosPerQuery: number | undefined;
+  isShowPhotoSlider: false,
+
+  pageHeight: 404,
+  numberOfPages: 2,
+  numberOfPhotosByPage: 4,
+};
+
+const Template: Story<WallOfPhotosProps> = (args) => (
+  <WallOfPhotosWidget {...args} />
+);
+
+// initial load photos
+export const InitLoadingPhotos = Template.bind({});
+InitLoadingPhotos.args = {
+  ...props,
+  numberOfPages: 0,
+};
+
+// photos
+export const RenderPhotos = Template.bind({});
+RenderPhotos.args = {
+  ...props,
+  loading: false,
+  photos: [[...photos.slice(0, 4)], [addedPhoto]],
+};
+
+// photos without next page
+export const PhotosWithoutNextPage = Template.bind({});
+PhotosWithoutNextPage.args = {
+  ...props,
+  hasNextPage: false,
+  loading: false,
+  photos: [[...photos.slice(0, 4)], [addedPhoto]],
+};
+
+// photos and load more photos
+export const LoadMorePhotos = Template.bind({});
+LoadMorePhotos.args = {
+  ...props,
+  photos: [[...photos.slice(0, 4)], [addedPhoto]],
+};
+
+// added photos
+export const AddedPhotos = Template.bind({});
+AddedPhotos.args = {
+  ...props,
+  hasNextPage: true,
+  loading: false,
+  photos: [[null, null, ...photos.slice(0, 2)], [addedPhoto]],
+};
+
+// ["232", "3309"]
+// edited photos
+export const EditedPhotos = Template.bind({});
+EditedPhotos.args = {
+  ...props,
+  hasNextPage: true,
+  loading: false,
+  editedPhotoIds: ["232", "3309"],
+  photos: [[...photos.slice(0, 4)], [addedPhoto]],
+};
+
+// no one photos
+export const NoOnePhoto = Template.bind({});
+NoOnePhoto.args = {
+  ...props,
+  hasNextPage: false,
+  loading: false,
+  photos: [],
+};
+
+export const NoOnePhotoOnSearch = Template.bind({});
+NoOnePhotoOnSearch.args = {
+  ...props,
+  hasNextPage: false,
+  loading: false,
+  photos: [],
+  isSearch: true,
+};
+// show photo slider
+export const ShowPhotoSlider = Template.bind({});
+ShowPhotoSlider.args = {
+  ...props,
+  isShowPhotoSlider: true,
+  numberOfPages: 3,
+  hasNextPage: true,
+  loading: false,
+  photos: [[...photos.slice(0, 4)], [...photos.slice(4, 8)], [addedPhoto]],
+};
+// error on photos loading
+export const Error = Template.bind({});
+Error.args = {
+  ...props,
+  hasNextPage: true,
+  loading: false,
+  isError: true,
+};
+
+/* import Box from "@mui/system/Box";
+import Button from "@mui/material/Button";
+import WallOfPhotosWidget from "./WallOfPhotosWidget";
+import { useState } from "react";
+import { photos } from "./../../mock/fake.data";
+import useFakePhotos from "../../mock/useFakePhotos";
+import { getItemsArrays } from "./InfiniteScroll/hook/useHelper/helper";
+
+export default {
+  component: WallOfPhotosWidget,
+  title: "Photos/WallOfPhotos/Widget",
+};
 
 const props = {
   loadMorePhotos: () => console.log("loadMorePhotos"),
   reLoadPhotos: () => console.log("reLoadPhotos"),
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   showPhotoSlider: () => console.log("showPhotoSlider"),
-  numberOfPhotosPerQuery: 4,
+  //numberOfPhotosPerQuery: 4,
   userUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
-  indexObservable: 1,
 };
 
 export const Default = () => {
+  const {
+    photos,
+    hasNextPage,
+    loading,
+    isError,
+    loadPhotos,
+    loadMorePhotos,
+    loadNewPhotosState,
+    loadPhotosWithError,
+  } = useFakePhotos(5);
+
   const [state, setState] = useState({
-    photos: undefined,
-    hasNextPage: false,
-    loading: true,
     editedPhotoIds: [],
     numberOfAddedPhotos: 0,
-    error: false,
     isSearch: false,
     isShowPhotoSlider: false,
+    ///////
+    pageHeight: 404,
+    numberOfPhotosByPage: 4,
   });
 
-  const togglePhotos = () =>
-    setState((state) =>
-      state.photos === undefined || state.photos.length === 0
-        ? { ...state, photos: photos }
-        : { ...state, photos: [] }
-    );
+  let numberOfPages =
+    photos === undefined
+      ? 0
+      : Math.floor(photos.length / state.numberOfPhotosByPage);
+
+  numberOfPages =
+    numberOfPages !== 0 && hasNextPage === true
+      ? numberOfPages + 1
+      : numberOfPages;
+
+  const activeObservableIndex = 1;
+
+  const photosArrs =
+    photos === undefined
+      ? undefined
+      : getItemsArrays(
+          photos,
+          numberOfPages,
+          state.numberOfPhotosByPage,
+          state.numberOfAddedPhotos
+        );
 
   const toggleNumberOfAddedPhotos = () =>
     setState((state) =>
@@ -79,15 +228,6 @@ export const Default = () => {
         : { ...state, editedPhotoIds: [] }
     );
 
-  const toggleHasNextPage = () =>
-    setState((state) => ({ ...state, hasNextPage: !state.hasNextPage }));
-
-  const toggleError = () =>
-    setState((state) => ({ ...state, error: !state.error }));
-
-  const toggleLoading = () =>
-    setState((state) => ({ ...state, loading: !state.loading }));
-
   const toggleIsSearch = () =>
     setState((state) => ({ ...state, isSearch: !state.isSearch }));
 
@@ -100,19 +240,17 @@ export const Default = () => {
   return (
     <>
       <Box className="flex justify-center flex-wrap">
-        <Button onClick={togglePhotos}>toggle_Photos</Button>
+        <Button onClick={() => loadPhotos()}>load(load more) Photos</Button>
+        <span> | </span>
+        <Button onClick={loadNewPhotosState}>new photos state</Button>
+        <span> | </span>
+        <Button onClick={loadPhotosWithError}>load photos with error</Button>
         <span> | </span>
         <Button onClick={toggleNumberOfAddedPhotos}>
           toggle_Number_Of_Added_Photos
         </Button>
         <span> | </span>
         <Button onClick={toggleEditedPhotoIds}>toggle_Edited_PhotoIds</Button>
-        <span> | </span>
-        <Button onClick={toggleHasNextPage}>toggle Has Next Page</Button>
-        <span> | </span>
-        <Button onClick={toggleError}>toggle Error</Button>
-        <span> | </span>
-        <Button onClick={toggleLoading}>toggle Loading</Button>
         <span> | </span>
         <Button onClick={toggleIsSearch}>toggle Is Search</Button>
         <span> | </span>
@@ -121,225 +259,19 @@ export const Default = () => {
         </Button>
         <span> | </span>
       </Box>
-      <WallOfPhotosWidget {...props} {...state} />
+      <Box width="640" margin="auto">
+        <WallOfPhotosWidget
+          numberOfPages={numberOfPages}
+          activeObservableIndex={activeObservableIndex}
+          photos={photosArrs}
+          hasNextPage={hasNextPage}
+          loading={loading}
+          isError={isError}
+          {...props}
+          {...state}
+        />
+      </Box>
     </>
   );
 };
-
-/* export const Test = () => {
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-  const numberOfPhotosPerQuery = 6;
-  const photosLength = 14;
-  const itemsMargin = 8;
-
-  const firstItemRef: MutableRefObject<HTMLElement> = useRef(null);
-  const lastItemRef: MutableRefObject<HTMLElement> = useRef(null);
-
-  const [position, setPosition] = useState({
-    top: -1,
-    height: 0,
-    bottom: -1,
-  });
-
-  useEffect(() => {
-    console.log("firstItemRef", firstItemRef);
-    console.log("lastItemRef", lastItemRef);
-
-    const top = firstItemRef.current.getBoundingClientRect().top;
-    const bottom = lastItemRef.current.getBoundingClientRect().bottom;
-
-    console.log("position", top, bottom);
-
-    setPosition({
-      top: top + window.scrollX,
-      height: bottom - top,
-      bottom: bottom + window.scrollY,
-    });
-  }, []);
-
-  const itemsElements = items.map((val, i) => {
-    return (
-      <Box
-        key={`${val}_ ${i}`}
-        onClick={() => console.log("On item click")}
-        ref={
-          i === 0
-            ? firstItemRef
-            : i === numberOfPhotosPerQuery - 1
-            ? lastItemRef
-            : undefined
-        }
-        width="200px"
-        height="150px"
-        className="mb-2 ml-2 bg-secondary"
-      >
-        {val}
-      </Box>
-    );
-  });
-
-  return (
-    <Box className="relative flex justify-around flex-wrap w-5/6 m-auto pt-12 bg-green-200">
-      {position.top !== -1 && (
-        <Box
-          onClick={() => console.log("On ABS click")}
-          className="absolute w-full bg-blue-100 opacity-50"
-          top={position.top - 16}
-          height={position.height}
-          //bottom={position.bottom}
-        ></Box>
-      )}
-      {itemsElements}
-    </Box>
-  );
-};
  */
-
-/* 
-const Page = ({
-  items,
-  index,
-  visibleIndex,
-  //wrapperRef,
-  height,
-  numberOfItemsByFlex,
-}: any) => {
-  //const isVisible = true;
-  const isVisible =
-    index === visibleIndex ||
-    index === visibleIndex - 1 ||
-    index === visibleIndex + 1;
-
-  const fHeight = items.length > numberOfItemsByFlex / 2 ? height : height / 2;
-
-  const elements =
-    // @ts-ignore
-    isVisible === false
-      ? null
-      : items.map((val, i) => {
-          return (
-            <Box
-              key={`item_${val}_ ${i}_${index}`}
-              onClick={() => console.log("On item click")}
-              width="200px"
-              height="150px"
-              className="mb-2 ml-2 bg-secondary"
-            >
-              {val}
-            </Box>
-          );
-        });
-
-  return (
-    <Box
-      height={fHeight}
-      className="flex justify-around flex-wrap w-full bg-blue-200 opacity-80"
-    >
-      {elements}
-    </Box>
-  );
-};
-
-export const Test = () => {
-  const resize = useWindowResize();
-
-  const items = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14];
-
-  const numberOfPhotosPerQuery = 4;
-  const photosLength = items.length;
-
-  const visibleIndex = 2;
-
-  //const itemsWrapperRef: MutableRefObject<HTMLElement> = useRef(null);
-  //const containerRef: MutableRefObject<HTMLElement> = useRef(null);
-
-  const [state, setState] = useState({
-    height: 0,
-    containerWidth: 0,
-    numberOfItemsByFlex: 0,
-  });
-
-  // DO WE NEED LOAD MORE PHOTOS
-  // if(photosLength - numberOfItemsByFlex * index) < numberOfItemsByFlex && we have next page
-
-  //if (state.numberOfItemsByFlex === 0) return null;
-
-  const pages = Math.ceil(photosLength / state.numberOfItemsByFlex);
-
-  const itemsArrays = [];
-
-  if (state.numberOfItemsByFlex !== 0) {
-    for (let y = 0; y < pages; y++) {
-      itemsArrays[y] = items.slice(
-        y * state.numberOfItemsByFlex,
-        state.numberOfItemsByFlex * (y + 1)
-      );
-    }
-  }
-
-  useEffect(() => {
-    //const containerRect = containerRef.current.getBoundingClientRect();
-
-    //console.log("containerRef", containerRect);
-
-    const containerWidth = Math.round(document.body.clientWidth * 0.8);
-
-    console.log("RESIZE", document.body.clientWidth, containerWidth);
-
-    const cardWidth = 200 + 8;
-
-    const cardHeight = 150 + 8;
-
-    const numberOfItemsByWidth = Math.floor(containerWidth / cardWidth);
-
-    const numberOfItemsByHeight = Math.floor(
-      numberOfPhotosPerQuery / numberOfItemsByWidth
-    );
-
-    const numberOfItemsByFlex =
-      Math.floor(numberOfPhotosPerQuery / numberOfItemsByWidth) *
-      numberOfItemsByWidth;
-
-    const height = numberOfItemsByHeight * cardHeight;
-
-    /* const height =
-      itemsWrapperRef.current === null
-        ? 0
-        : itemsWrapperRef.current.getBoundingClientRect().height; 
-
-    console.log("numberOfItemsByWidth", numberOfItemsByWidth);
-
-    setState({
-      height,
-      containerWidth,
-      numberOfItemsByFlex,
-    });
-  }, [resize]);
-
-  const itemsElements = itemsArrays.map((arr, index) => {
-    return (
-      <Fragment key={`wrapper_${index}`}>
-        <Page
-          items={arr}
-          index={index}
-          visibleIndex={visibleIndex}
-          //wrapperRef={itemsWrapperRef}
-          height={state.height}
-          numberOfItemsByFlex={state.numberOfItemsByFlex}
-        />
-      </Fragment>
-    );
-  });
-
-  console.log("RENDER TEST", state);
-
-  return (
-    <Box
-      //ref={containerRef}
-      width={state.containerWidth}
-      className="flex justify-around flex-wrap m-auto pt-12 bg-green-200"
-    >
-      {itemsElements}
-    </Box>
-  );
-}; */

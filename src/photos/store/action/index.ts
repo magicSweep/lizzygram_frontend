@@ -64,10 +64,10 @@ export const addPhotoRequestErrorAC = (): PhotosAction => {
   };
 };
 
-export const showPhotoSliderAC = (activePhotoIndex: number = 0) => {
+export const showPhotoSliderAC = (photoId: string) => {
   return {
     type: "SHOW_PHOTO_SLIDER",
-    activePhotoIndex,
+    photoId,
   };
 };
 

@@ -1,33 +1,37 @@
-import { Button } from "@mui/material";
+//import { Button } from "@mui/material";
 import * as React from "react";
-import { useDispatch } from "react-redux";
+//import { useDispatch } from "react-redux";
 import SEO from "../component/SEO";
-import { usePhotos } from "../photos/hook/usePhotos";
-import { showPhotoSliderAC } from "../photos/store/action";
+//import { usePhotos } from "../photos/hook/usePhotos";
+//import { showPhotoSliderAC } from "../photos/store/action";
 import PhotoSliderLoadableWrapper from "./../photos/container/PhotoSlider";
+import LoadableAddPhotoReqs from "./../photos/container/AddPhotoReqs";
+import LoadableEditPhotoReqs from "./../photos/container/EditPhotoReqs";
+import WallOfPhotos from "./../photos/container/WallOfPhotos";
+import LoadableSearchPhotoForm from "./../search/form/SearchPhotoForm";
 
-const PhotosTest = () => {
+/* const PhotosTest = () => {
   const props = usePhotos();
 
   return <p>{JSON.stringify(props)}</p>;
-};
+}; */
 
-const WallOfPhotos = () => {
-  const dispatch = useDispatch();
-
-  const onClick = () => dispatch(showPhotoSliderAC(0));
-
+const WallOfPhotosPage = () => {
   return (
     <main>
-      <SEO title="Фотографии..." />
+      <SEO title="Фотоaльбом" />
 
-      <PhotosTest />
+      <WallOfPhotos />
 
-      {/* <Button onClick={onClick}>Show photo slider</Button>
+      <PhotoSliderLoadableWrapper />
 
-      <PhotoSliderLoadableWrapper /> */}
+      <LoadableAddPhotoReqs />
+
+      <LoadableEditPhotoReqs />
+
+      <LoadableSearchPhotoForm />
     </main>
   );
 };
 
-export default WallOfPhotos;
+export default WallOfPhotosPage;

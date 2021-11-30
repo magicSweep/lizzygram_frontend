@@ -23,6 +23,7 @@ export const getAllBySearchTerms = (
   //const _isInitState = isInitState(initSearchState, searchState);
 
   // MAKE RESPONSE
+  console.log("GET ALL PHOTOS", nextPageDocRef);
 
   let resPhotos: Photo<FirestoreDate>[] = [];
   let ourNextPageDocRef = "";

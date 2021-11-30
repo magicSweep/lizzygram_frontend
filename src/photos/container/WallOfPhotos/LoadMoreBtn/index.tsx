@@ -1,5 +1,5 @@
 import Button from "@mui/material/Button";
-import { FC } from "react";
+import React, { FC } from "react";
 import { Photo, FirestoreDate } from "../../../types";
 
 export interface ILoadMoreBtnProps {

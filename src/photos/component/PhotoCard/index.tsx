@@ -18,9 +18,9 @@ export interface PhotoCardProps {
   index: number;
   onImageClick?: (event: any) => void | undefined;
   showEditPhotoForm: () => void;
-  observerIndex?: number;
-  observerId?: string;
-  isRender?: boolean;
+  //observerIndex?: number;
+  //observerId?: string;
+  //isRender?: boolean;
 }
 
 const PhotoCard: FC<PhotoCardProps> = ({
@@ -29,11 +29,11 @@ const PhotoCard: FC<PhotoCardProps> = ({
   index,
   showEditPhotoForm,
   onImageClick,
-  observerIndex,
-  observerId,
-  isRender,
+  //observerIndex,
+  //observerId,
+  //isRender,
 }) => {
-  if (isRender === false) {
+  /* if (isRender === false) {
     return (
       <div
         className="relative w-345 bg-black h-194 rounded-sm shadow-md"
@@ -41,15 +41,15 @@ const PhotoCard: FC<PhotoCardProps> = ({
         id={observerId}
       ></div>
     );
-  }
+  } */
 
   /* const showEditPhotoForm =
     activePhoto === undefined
       ? () => {}
       : () => dispatch(editPhotoStartRequestAC(activePhoto.id)); */
-  const onShowEditPhotoForm = (event: any) => {
+  /* const onShowEditPhotoForm = (event: any) => {
     showEditPhotoForm();
-  };
+  }; */
 
   //console.log("PHOTO CARD", photo.photo.date);
 
@@ -77,7 +77,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
           {isEditable === true && (
             <Tooltip title="Редактировать">
               <IconButton
-                onClick={onShowEditPhotoForm}
+                onClick={showEditPhotoForm}
                 aria-label="edit photo"
                 sx={{ ml: "14px" }}
               >

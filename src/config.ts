@@ -1,4 +1,4 @@
-//import { getLizzyYearsOld, calcPhotosLimitPerQuery } from "./utils";
+import { getLizzyYearsOld, calcPhotosLimitPerQuery } from "./utils/app";
 
 /* PORTAL ELEMENTS */
 export const modalId = "modal";
@@ -49,10 +49,13 @@ export const editPhotoUrl = `${expressUrl}/edit-photo`;
 export const downloadPhotoUrl = `${expressUrl}/download`;
 
 /* PHOTOS */
-export const photoCardWidth = 365;
-export const photoCardHeight = 350;
+export const photoCardWidth = 345;
+export const photoCardHeight = 194;
 
-export const maxAppWidth = 1600;
+export const photoCardMarginLeft = 8;
+export const photoCardMarginBottom = 8;
+
+//export const maxAppWidth = 1600;
 
 export const addPhotoFormTitle = "Добавить новое фото";
 export const editPhotoFormTitle = "Изменить фото";
@@ -60,7 +63,7 @@ export const searchPhotoFormTitle = "Поиск фото";
 
 /* OTHER */
 
-//export const lizzyYearsOld = getLizzyYearsOld();
+export const lizzyYearsOld = getLizzyYearsOld();
 
 export const lizzyBirthday = new Date("2018-07-08");
 
@@ -68,9 +71,9 @@ export const lizzyBirthday = new Date("2018-07-08");
 
 //export const numberOfPhotosPerQuery = calcPhotosLimitPerQuery();
 
-export const numberOfPhotosPerQuery = 9;
+export const numberOfPhotosPerQuery = 5;
 
 // WALL OF PHOTOS | USE OBSERVABLE PHOTOS
 
-export const rootDivId = "wall_of_photos";
-export const idPrefix = "#OBSERVER_";
+//export const rootDivId = "wall_of_photos";
+//export const idPrefix = "#OBSERVER_";

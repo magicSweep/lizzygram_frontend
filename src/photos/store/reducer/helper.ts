@@ -1,6 +1,19 @@
 import /* IPhotosAction, IPhotosState, TPhotosData */ "../../types";
 import { PhotosState, PhotosAction, Photo, FirestoreDate } from "./../../types";
 
+export const getPhotoIndexByPhotoId = (
+  photos: Photo<FirestoreDate>[],
+  photoId: string
+) => {
+  //console.log("------------getPhotoIndexByPhotoId", photoId);
+  for (let i = 0; i < photos.length; i++) {
+    if (photos[i].id === photoId) {
+      //console.log("------------getPhotoIndexByPhotoId", i);
+      return i;
+    }
+  }
+};
+
 export const onFetchMorePhotosRequestSuccess = (
   state: PhotosState,
   action: PhotosAction

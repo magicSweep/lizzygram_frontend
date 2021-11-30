@@ -132,7 +132,7 @@ export const onIntersection_ =
 
 export const onPagesChange = (
   mainRef: MutableRefObject<any>,
-  pages: number,
+  numberOfPages: number,
   reset: any,
   observer: IntersectionObserver,
   setTargetsToObserver: (observer: IntersectionObserver) => void,
@@ -148,7 +148,7 @@ export const onPagesChange = (
       cond([
         // IT MEANS WE LOADING NEW ITEMS
         [
-          (pages: number) => pages === 0,
+          (numberOfPages: number) => numberOfPages === 0,
           () => {
             //console.log("DISCONNECT pages === 0");
             observer.disconnect();
@@ -158,22 +158,29 @@ export const onPagesChange = (
         ],
         // IT MEANS WE GET NEW STATE WITH NEW ITEMS
         [
-          (pages: number) =>
-            mainRef.current.pages === 0 && pages > mainRef.current.pages,
+          (numberOfPages: number) =>
+            mainRef.current.prevNumberOfPages === 0 &&
+            numberOfPages > mainRef.current.prevNumberOfPages,
           () => setTargetsToObserver(observer),
         ],
         // WE SCROLL TO NEXT PAGE
         [
-          (pages: number) => pages > mainRef.current.pages,
-          (pages: number) =>
-            addTargetToObserver(observer, pages, mainRef.current.pages),
+          (numberOfPages: number) =>
+            numberOfPages > mainRef.current.prevNumberOfPages,
+          (numberOfPages: number) =>
+            addTargetToObserver(
+              observer,
+              numberOfPages,
+              mainRef.current.prevNumberOfPages
+            ),
         ],
         // IF ALL GOES RIGHT IT CAN NOT BE
         // It can be for example if we add new photo, and increase numberOfAddedPhotos
         // and increase number of pages, but on error we get same items length as previous
         // and we decrease number of pages
         [
-          (pages: number) => pages < mainRef.current.pages,
+          (numberOfPages: number) =>
+            numberOfPages < mainRef.current.prevNumberOfPages,
           () => {
             observer.disconnect();
             setTargetsToObserver(observer);
@@ -181,5 +188,6 @@ export const onPagesChange = (
         ],
       ])
     ),
-    (pages: number) => (mainRef.current.pages = pages)
-  )(pages);
+    (numberOfPages: number) =>
+      (mainRef.current.prevNumberOfPages = numberOfPages)
+  )(numberOfPages);

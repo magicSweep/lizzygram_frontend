@@ -1,18 +1,26 @@
 import { MutableRefObject, useCallback, useRef } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { usePhotos } from "../../../hook/usePhotos";
-import { numberOfPhotosPerQuery } from "../../../../config";
+import {
+  numberOfPhotosPerQuery,
+  photoCardWidth,
+  photoCardHeight,
+  photoCardMarginBottom,
+  photoCardMarginLeft,
+} from "../../../../config";
 import { GlobalState } from "../../../../types";
 import {
   showPhotoSliderAC,
   editPhotoStartRequestAC,
 } from "../../../store/action";
+import { useInfiniteScroll } from "../InfiniteScroll/hook/useInfiniteScroll";
+import { WallOfPhotosProps } from "../WallOfPhotosWidget";
 
-export const useWallOfPhotos = () => {
+export const useWallOfPhotos = (): WallOfPhotosProps => {
   const dispatch = useDispatch();
 
   const showPhotoSlider = useCallback(
-    (activePhotoIndex: number) => dispatch(showPhotoSliderAC(activePhotoIndex)),
+    (photoId: string) => dispatch(showPhotoSliderAC(photoId)),
     []
   );
 
@@ -22,20 +30,21 @@ export const useWallOfPhotos = () => {
   );
 
   const isSearch = useSelector<GlobalState, boolean>(
-    (state) => state.search.isSearch
+    (state) => state.search.isSearch,
+    shallowEqual
   );
 
-  const { editedPhotosIds, numberOfAddedPhotos, isShowPhotoSlider } =
+  const { editedPhotoIds, numberOfAddedPhotos, isShowPhotoSlider } =
     useSelector<
       GlobalState,
       {
-        editedPhotosIds: string[];
+        editedPhotoIds: string[];
         numberOfAddedPhotos: number;
         isShowPhotoSlider: boolean;
       }
     >(
       (state) => ({
-        editedPhotosIds: state.photos.editReqs.reqIds,
+        editedPhotoIds: state.photos.editReqs.reqIds,
         numberOfAddedPhotos: state.photos.addReqs.numberOfActiveReqs,
         isShowPhotoSlider: state.photos.showPhotoSlider,
       }),
@@ -57,11 +66,51 @@ export const useWallOfPhotos = () => {
     loadPhotos: reLoadPhotos,
   } = usePhotos();
 
+  const {
+    visibleIndex,
+    itemsArrays: arraysOfPhotos,
+    numberOfPages,
+    itemsWrapperHeight,
+    containerWidth,
+    numberOfItemsByPage,
+  } = useInfiniteScroll(
+    photos,
+    numberOfPhotosPerQuery,
+    photoCardWidth,
+    photoCardHeight,
+    photoCardMarginLeft,
+    photoCardMarginBottom,
+    hasNextPage,
+    numberOfAddedPhotos,
+    loading,
+    loadMorePhotos
+  );
+
+  /*  activeObservableIndex: number;
+  photos: Photo<FirestoreDate>[][] | undefined;
+  loadMorePhotos: () => void;
+  reLoadPhotos: () => void;
+  hasNextPage: boolean;
+  loading: boolean;
+  editedPhotoIds: string[];
+  //numberOfAddedPhotos: number;
+  isError: boolean;
+  isSearch: boolean;
+  showPhotoSlider: (event: any) => void;
+  showEditPhotoForm: () => void;
+  userUID: string;
+  //numberOfPhotosPerQuery: number | undefined;
+  isShowPhotoSlider: boolean;
+
+  pageHeight: number;
+  numberOfPages: number;
+  numberOfPhotosByPage: number; */
   return {
     //indexObservable,
-    photos,
-    editedPhotosIds,
-    numberOfAddedPhotos,
+    activeObservableIndex: visibleIndex,
+    photos: arraysOfPhotos,
+    editedPhotoIds,
+    //numberOfAddedPhotos,
     loadMorePhotos,
     reLoadPhotos,
     hasNextPage,
@@ -69,10 +118,15 @@ export const useWallOfPhotos = () => {
     //addPhotoLoading,
     isError: error,
     isSearch,
-    showEditPhotoForm: showEditPhotoForm,
-    showPhotoSlider: showPhotoSlider,
+    showEditPhotoForm,
+    showPhotoSlider,
     userUID,
-    numberOfPhotosPerQuery,
+    //numberOfPhotosPerQuery,
     isShowPhotoSlider,
+
+    numberOfPages,
+    pageHeight: itemsWrapperHeight,
+    containerWidth,
+    numberOfPhotosByPage: numberOfItemsByPage,
   };
 };

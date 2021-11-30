@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 //import PhotoCard from "../../../component/PhotoCard";
 import PhotoCard from "../../../component/PhotoCard";
 import PhotoCardSkeletons, {
@@ -11,34 +11,34 @@ import { Photo, FirestoreDate } from "../../../types";
 
 export interface PhotoCardsProps {
   //tagsState: ITagsState;
-  numberOfPhotosPerQuery: number;
-  isShowPhotoSlider: boolean;
-  indexObservable: number;
+  //numberOfPhotosPerQuery: number;
+  //isShowPhotoSlider: boolean;
+  //indexObservable: number;
   photos: Photo<FirestoreDate>[];
-  showPhotoSlider: (event: MouseEvent) => void;
-  showEditPhotoForm: () => void;
+  showPhotoSlider: (photoId: string) => void;
+  showEditPhotoForm: (photoId: string) => void;
   //showPhotoDesc: (photo: TPhotoData) => void;
   userUID: string;
   editedPhotoIds: string[];
-  numberOfAddedPhotos: number;
+  //numberOfAddedPhotos: number;
 }
 
 const PhotoCards: FC<PhotoCardsProps> = ({
   //tagsState,
-  isShowPhotoSlider,
-  indexObservable,
+  //isShowPhotoSlider,
+  //indexObservable,
   photos,
   showPhotoSlider,
   showEditPhotoForm,
-  numberOfPhotosPerQuery,
+  //numberOfPhotosPerQuery,
   //showPhotoDesc,
   userUID,
   editedPhotoIds,
-  numberOfAddedPhotos,
+  //numberOfAddedPhotos,
 }) => {
   const elements: any[] = [];
   //let index = 0;
-  let photoCardIndex = 1;
+  //let photoCardIndex = 1;
 
   /*  if (isShowPhotoSlider) {
     const size = photos.length;
@@ -61,10 +61,10 @@ const PhotoCards: FC<PhotoCardsProps> = ({
   } */
 
   photos.forEach((photo, index) => {
-    const isRender =
+    /* const isRender =
       !isShowPhotoSlider &&
       photoCardIndex > indexObservable - numberOfPhotosPerQuery &&
-      photoCardIndex <= indexObservable + numberOfPhotosPerQuery;
+      photoCardIndex <= indexObservable + numberOfPhotosPerQuery; */
 
     /*   if (!isRender) {
       elements.push(
@@ -76,25 +76,30 @@ const PhotoCards: FC<PhotoCardsProps> = ({
         ></Card>
       );
     } else */ if (
-      editedPhotoIds.length > 0 &&
-      editedPhotoIds.includes(photo.id)
+      photo === null ||
+      (editedPhotoIds.length > 0 && editedPhotoIds.includes(photo.id))
     ) {
       elements.push(
-        <div className="ml-2 mb-2">
-          <PhotoCardSkeleton key={photo.id} />
+        <div
+          className="ml-2 mb-2"
+          key={photo === null ? `added_photo_${index}` : photo.id}
+        >
+          <PhotoCardSkeleton />
         </div>
       );
     } else {
+      const onShowPhotoSlider = () => showPhotoSlider(photo.id);
+      const onShowEditPhotoForm = () => showPhotoSlider(photo.id);
+
       elements.push(
-        <div className="ml-2 mb-2">
+        <div key={photo.id} className="ml-2 mb-2">
           <PhotoCard
-            key={photo.id}
             isEditable={userUID === photo.addedByUserUID}
             photo={photo}
-            onImageClick={showPhotoSlider}
-            showEditPhotoForm={showEditPhotoForm}
+            onImageClick={onShowPhotoSlider}
+            showEditPhotoForm={onShowEditPhotoForm}
             index={index}
-            observerIndex={photoCardIndex}
+            /* observerIndex={photoCardIndex}
             observerId={`OBSERVER_${photoCardIndex}`}
             isRender={
               isShowPhotoSlider === true
@@ -102,7 +107,7 @@ const PhotoCards: FC<PhotoCardsProps> = ({
                 : isRender === false
                 ? isRender
                 : undefined
-            }
+            } */
             //alt="Лиза что-то делает"
           />
         </div>
@@ -110,14 +115,14 @@ const PhotoCards: FC<PhotoCardsProps> = ({
     }
 
     index++;
-    photoCardIndex = index + 1;
+    //photoCardIndex = index + 1;
   });
 
   return (
     <>
-      {numberOfAddedPhotos > 0 && (
+      {/*  {numberOfAddedPhotos > 0 && (
         <PhotoCardSkeletons numberOfSkeletons={numberOfAddedPhotos} />
-      )}
+      )} */}
       {elements}
     </>
   );

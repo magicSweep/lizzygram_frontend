@@ -31,28 +31,22 @@ const Template: Story<PhotoCardsProps> = (args) => (
 
 export const Default = Template.bind({}) as any;
 Default.args = {
-  isShowPhotoSlider: false,
-  indexObservable: 3,
-  numberOfPhotosPerQuery: 1,
   photos: photos,
   showPhotoSlider: () => console.log("showPhotoSlider"),
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
-  numberOfAddedPhotos: 0,
   editedPhotoIds: [],
   userUID: "user13",
-  hasNextPage: true,
 };
 
-export const ShowPhotoSlider = Template.bind({}) as any;
-ShowPhotoSlider.args = {
-  isShowPhotoSlider: true,
-  indexObservable: 0,
-  numberOfPhotosPerQuery: 3,
-  photos: photos,
+const newPhotos = [...photos];
+newPhotos.unshift(null);
+newPhotos.unshift(null);
+
+export const AddAndEditPhotos = Template.bind({}) as any;
+AddAndEditPhotos.args = {
+  photos: newPhotos,
   showPhotoSlider: () => console.log("showPhotoSlider"),
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
-  numberOfAddedPhotos: 0,
-  editedPhotoIds: [],
+  editedPhotoIds: ["3309", "334477"],
   userUID: "user13",
-  hasNextPage: true,
 };
