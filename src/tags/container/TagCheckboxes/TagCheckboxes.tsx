@@ -225,7 +225,7 @@ export const TagCheckboxes: FC<TagCheckboxesProps & { tagsState: TagsState }> =
     isFormError,
     helperText,
   }) => {
-    console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
+    //console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
 
     const checkboxes = getCheckboxes(
       onChange,

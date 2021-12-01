@@ -1,12 +1,13 @@
-import React, { MutableRefObject, useCallback, useRef } from "react";
+import React, { useCallback } from "react";
 import { hidePhotoSliderAC, editPhotoStartRequestAC } from "../../store/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
-import { Photo, FirestoreDate } from "../../types";
+//import { Photo, FirestoreDate } from "../../types";
 import { usePhotos } from "../../hook/usePhotos";
 import { GlobalState } from "../../../types";
 import { makeDownloadPhotoUrl } from "../../helper";
 import { PhotoSliderWithDescProps } from "./PhotoSliderWithDesc";
+import { useAuth } from "../../../auth";
 
 /* type Main = {
   activePhoto: Photo<FirestoreDate> | undefined;
@@ -49,9 +50,10 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
     (state) => state.photos.activePhotoIndex
   );
 
-  const userUID = useSelector<GlobalState, string>((state) =>
+  const { userUid } = useAuth();
+  /* const userUID = useSelector<GlobalState, string>((state) =>
     state.auth.user ? state.auth.user.uid : ""
-  );
+  ); */
 
   const editedPhotoIds = useSelector<GlobalState, string[]>(
     (state) => state.photos.editReqs.reqIds
@@ -85,7 +87,7 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
   */
 
   const isEditableActivePhoto =
-    activePhoto === undefined ? false : userUID === activePhoto.addedByUserUID;
+    activePhoto === undefined ? false : userUid === activePhoto.addedByUserUID;
   const isEditingActivePhoto =
     activePhoto === undefined ? false : editedPhotoIds.includes(activePhoto.id);
 

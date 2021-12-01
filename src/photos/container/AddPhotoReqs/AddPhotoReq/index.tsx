@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import AddPhotoForm from "../../../form/AddPhotoForm";
 import FormModal from "./../../../../component/FormModal";
 import { useAddPhotoReq } from "./hook";

@@ -69,12 +69,12 @@ const Page: FC<PageProps> = (props: PageProps) => {
 
   const photoElements = getPhotoElements({ ...props, doesRenderElements });
 
-  console.group("[RENDER PAGE]");
+  /* console.group("[RENDER PAGE]");
   console.log("doesRenderElements", doesRenderElements);
   console.log("isLast", props.isLast);
   console.log("loading", props.loading);
   console.log("photos", props.photos);
-  console.groupEnd();
+  console.groupEnd(); */
 
   return (
     <Box

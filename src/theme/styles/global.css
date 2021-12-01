@@ -24,6 +24,10 @@
     );
   }
 
+  .bg-photocard {
+    background-color: #2f2f2f;
+  }
+
   .left-pukki-gradient {
     background: linear-gradient(-90deg, black, 5%, #20000c);
   }

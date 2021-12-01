@@ -10,7 +10,7 @@ import Button from "@mui/material/Button";
 import Page from "./Page";
 import Box from "@mui/system/Box";
 
-const Wrapper: FC<ComponentProps<typeof Box>> = ({
+export const Wrapper: FC<ComponentProps<typeof Box>> = ({
   className,
   children,
   ...props

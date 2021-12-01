@@ -59,16 +59,21 @@ export const useIntersection = (
     setTargetsToObserver(observer);
 
     return () => {
-      if (observer !== undefined) observer.disconnect();
+      //console.log("OBSERVER INTERSECTION UNSUBSCRIBE", observer);
+      if (observer !== undefined) {
+        observer.disconnect();
+        observer = undefined;
+        //console.log("OBSERVER INTERSECTION UNSUBSCRIBE final", observer);
+      }
     };
   }, []);
 
   useEffect(() => {
-    console.log(
+    /* console.log(
       "PAGES CHANGED",
       numberOfPages,
       mainRef.current.prevNumberOfPages
-    );
+    ); */
 
     onPagesChange(
       mainRef,

@@ -5,7 +5,7 @@ import { GlobalState } from "./../../../types";
 import AddPhotoReqs from "./AddPhotoReqs";
 import Alerts from "../../../alert/container/Alerts";
 import { usePhotos } from "../../hook/usePhotos";
-import AddPhotoBtn from "../../component/AddPhotoBtn/AddPhotoBtn";
+import { AddPhotoBtn } from "../AddPhotoBtn/AddPhotoBtn";
 
 export default {
   title: "Photos/Container/AddPhotoReqs",

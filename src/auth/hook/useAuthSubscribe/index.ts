@@ -17,7 +17,7 @@ let unsubscribe: Unsubscribe;
 
 export const onAuthStateChanged = (dispatch: any) =>
   compose(
-    tap((user) => console.log("-========= ON AUTH STATE CHANGED", user)),
+    //tap((user) => console.log("-========= ON AUTH STATE CHANGED", user)),
     (user: any | null) => (user ? Next.of(user) : Done.of(null)),
     map((user: any) => ({
       name: user.displayName ? user.displayName : "",
@@ -46,16 +46,16 @@ export const useAuthSubscribe = () =>
     const dispatch = useDispatch();
 
     useEffect(() => {
-      console.log("USE AUTH SUBSCRIBE");
+      //console.log("USE AUTH SUBSCRIBE");
 
       if (unsubscribe === undefined) {
         unsubscribe = makeSubscribe(dispatch);
 
-        console.log("MAKE AUTH SUBSCRIBE", unsubscribe);
+        //console.log("MAKE AUTH SUBSCRIBE", unsubscribe);
       }
 
       return () => {
-        console.log("MAKE AUTH UNSUBSCRIBE");
+        //console.log("MAKE AUTH UNSUBSCRIBE");
         unsubscribe();
       };
     }, []);

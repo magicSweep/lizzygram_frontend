@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import React, { FC, Fragment } from "react";
 //import { useSelector } from "react-redux";
 //import { GlobalState } from "../../../types";
 import AddPhotoReq from "./AddPhotoReq";
@@ -18,7 +18,7 @@ const AddPhotoReqs: FC<AddPhotoReqsProps> = ({ requests }) => {
     </Fragment>
   ));
 
-  console.log("RENDER AddPhotoReqs", requests);
+  //console.log("RENDER AddPhotoReqs", requests);
 
   return <>{elements}</>;
 };

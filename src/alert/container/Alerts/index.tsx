@@ -1,45 +1,27 @@
-import { Fragment, useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { hideAlertAC, deleteAlertAC } from "../../store/action";
+import React, { lazy, Suspense } from "react";
+import { useSelector } from "react-redux";
+//import WallOfPhotos from "./WallOfPhotos";
 import { GlobalState } from "../../../types";
-import Alert from "./Alert";
 
-const timeouts: any[] = [];
+const LoadableAlerts = lazy(() => import("./Alerts"));
 
-const Alerts = () => {
+let isInit = false;
+
+export const AlertsLoadableWrapper = () => {
   const { items } = useSelector((state: GlobalState) => state.alert);
 
-  const dispatch = useDispatch();
+  //console.log("[RENDER WALL_OF_PHOTS]");
+  if (isInit === false && items.length > 0) {
+    isInit = true;
+  }
 
-  useEffect(() => {
-    return () => {
-      for (let timeout of timeouts) {
-        clearTimeout(timeout);
-      }
-    };
-  }, []);
+  if (isInit === false) return null;
 
-  const onClose = useCallback((id: number) => {
-    dispatch(hideAlertAC(id));
-
-    timeouts.push(setTimeout(() => dispatch(deleteAlertAC(id)), 2000));
-  }, []);
-
-  //console.log("[RENDER ALERTS]", items);
-
-  const alertElements = items.map(({ id, ...props }) => (
-    <Fragment key={`alert_${id}`}>
-      <Alert
-        onClose={() => {
-          //console.log("On close", id);
-          onClose(id);
-        }}
-        {...props}
-      />
-    </Fragment>
-  ));
-
-  return <>{alertElements}</>;
+  return (
+    <Suspense fallback={null}>
+      <LoadableAlerts items={items} />
+    </Suspense>
+  );
 };
 
-export default Alerts;
+export default AlertsLoadableWrapper;

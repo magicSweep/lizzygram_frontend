@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import TagCheckboxesWidget from "./TagCheckboxes";
 import { UseFormTagCheckboxesProps, useFormTagsCheckboxes } from "./hook";
 

@@ -4,13 +4,17 @@ import NotAuthWidget from "./NotAuth";
 import { navigate } from "gatsby";
 
 const NotAuth: FC = () => {
-  const { user, loading } = useAuth();
+  const { isAuth, loading } = useAuth();
 
-  if (user !== null) {
+  /* if (user !== null) {
     navigate("/wall-of-photos");
 
     return null;
-  }
+  } */
+
+  //const isAuth = !!(user && user.uid);
+
+  if (isAuth === true) return null;
 
   return <NotAuthWidget loading={loading} />;
 };

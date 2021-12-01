@@ -5,9 +5,11 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { PaletteOptions } from "@mui/material/styles";
 import { AppBar } from "../AppBar";
-import { navigate } from "gatsby";
+/* import { navigate } from "gatsby";
 import { useLocation, useNavigate, Redirect } from "@reach/router";
 import { useAuth } from "./../../auth";
+ */
+import { AlertsLoadableWrapper } from "../../alert";
 
 export interface LayoutProps {
   children: any;
@@ -67,7 +69,7 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
   //const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const { mode, toggleMode } = useMode();
 
-  const location = useLocation();
+  /* const location = useLocation();
 
   const { user } = useAuth();
 
@@ -83,13 +85,9 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     navigate("/");
 
     return null;
-  }
+  } */
 
-  /* const user = null;
-
-  if (user === null) return <Redirect to="/" />; */
-
-  console.log("[RENDER LAYOUT]", location.pathname, user);
+  //console.log("[RENDER LAYOUT]");
 
   return (
     <Box
@@ -103,10 +101,12 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
       <Banner />
 
       <Wrapper mode={mode} toggleMode={toggleMode}>
-        {uChildren}
+        {children}
       </Wrapper>
 
       <Footer />
+
+      <AlertsLoadableWrapper />
     </Box>
   );
 };

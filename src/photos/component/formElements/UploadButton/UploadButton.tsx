@@ -30,7 +30,7 @@ const UploadButton: FC<UploadButtonProps> = ({
     fHelperText = `Вы добавили файл - ${fileList[0].name}`;
   }
 
-  console.log("RENDER UPLOAD BUTTON");
+  //console.log("RENDER UPLOAD BUTTON");
 
   return (
     <FieldWrapper

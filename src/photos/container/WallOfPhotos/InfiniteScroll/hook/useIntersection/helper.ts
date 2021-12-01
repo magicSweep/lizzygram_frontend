@@ -12,7 +12,7 @@ export type ItemsData = {
 export const setTargetsToObserver = (observer: IntersectionObserver) => {
   let targets = document.querySelectorAll("div[id^='OBSERVER_TARGET__']");
 
-  console.log("TARGETS", targets);
+  //console.log("TARGETS", targets);
 
   targets.forEach((target) => observer.observe(target));
 };
@@ -25,7 +25,7 @@ export const addTargetToObserver = (
   const numberOfNewTargets = pages - prevPages;
 
   for (let i = 0; i < numberOfNewTargets; i++) {
-    console.log("ADD TARGET", prevPages + i);
+    //console.log("ADD TARGET", prevPages + i);
     let target = document.querySelector(`#OBSERVER_TARGET__${prevPages + i}`);
 
     observer.observe(target);

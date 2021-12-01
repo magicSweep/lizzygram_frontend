@@ -1,5 +1,5 @@
 import React from "react";
-import WallOfPhotos from ".";
+import WallOfPhotos from "./WallOfPhotos";
 
 export default {
   component: WallOfPhotos,

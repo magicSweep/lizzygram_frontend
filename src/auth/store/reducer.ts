@@ -4,12 +4,12 @@ import { AuthState, AuthAction, AuthUser } from "./../types";
 
 //export const localStorageKey = "lg_super_puper_user";
 
-const initUser = typeof window === "undefined" ? null : getUser();
-const initLoading = initUser === null;
+//const initUser = typeof window === "undefined" ? null : getUser();
+//const initLoading = initUser === null;
 
 const authInitialState: AuthState = {
-  user: initUser,
-  loading: initLoading,
+  user: null,
+  loading: true,
   //loginLoading: false,
   //logoutLoading: false,
   //forgetPassLoading: false,

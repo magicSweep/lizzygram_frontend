@@ -1,13 +1,23 @@
-import React from "react";
-import WallOfPhotosWidget from "./WallOfPhotosWidget";
-import { useWallOfPhotos } from "./hook";
+import React, { lazy, Suspense } from "react";
+//import WallOfPhotos from "./WallOfPhotos";
+import { useAuth } from "../../../auth/hook/useAuth";
+import Fallback from "./Fallback";
 
-export const WallOfPhotos = () => {
-  const props = useWallOfPhotos();
+const LoadableWallOfPhotos = lazy(() => import("./WallOfPhotos"));
 
-  console.log("[RENDER WALL_OF_PHOTS]", props);
+export const WallOfPhotosLoadableWrapper = () => {
+  const { userUid } = useAuth();
 
-  return <WallOfPhotosWidget {...props} />;
+  //console.log("[RENDER WALL_OF_PHOTS MAIN]", userUid);
+
+  if (userUid !== "")
+    return (
+      <Suspense fallback={<Fallback />}>
+        <LoadableWallOfPhotos />
+      </Suspense>
+    );
+
+  return null;
 };
 
-export default WallOfPhotos;
+export default WallOfPhotosLoadableWrapper;

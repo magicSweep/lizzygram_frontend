@@ -4,3 +4,5 @@ export { showAlertAC, hideAlertAC } from "./store/action";
 
 // REDUCERs
 export { default as alertReducer } from "./store/reducer";
+
+export { default as AlertsLoadableWrapper } from "./container/Alerts";

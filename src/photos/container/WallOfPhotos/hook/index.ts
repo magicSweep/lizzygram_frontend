@@ -1,4 +1,4 @@
-import { MutableRefObject, useCallback, useRef } from "react";
+import { useCallback } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { usePhotos } from "../../../hook/usePhotos";
 import {
@@ -15,6 +15,7 @@ import {
 } from "../../../store/action";
 import { useInfiniteScroll } from "../InfiniteScroll/hook/useInfiniteScroll";
 import { WallOfPhotosProps } from "../WallOfPhotosWidget";
+import { useAuth } from "../../../../auth";
 
 export const useWallOfPhotos = (): WallOfPhotosProps => {
   const dispatch = useDispatch();
@@ -51,7 +52,8 @@ export const useWallOfPhotos = (): WallOfPhotosProps => {
       shallowEqual
     );
 
-  const userUID = "userUID";
+  const { userUid } = useAuth();
+  //const userUID = "userUID";
   /* const userUID = useSelector<GlobalState, string>((state) =>
         state.auth.user ? state.auth.user.uid : ""
       );  */
@@ -120,7 +122,7 @@ export const useWallOfPhotos = (): WallOfPhotosProps => {
     isSearch,
     showEditPhotoForm,
     showPhotoSlider,
-    userUID,
+    userUID: userUid,
     //numberOfPhotosPerQuery,
     isShowPhotoSlider,
 

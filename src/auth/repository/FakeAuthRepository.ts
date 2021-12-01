@@ -4,7 +4,7 @@ class Observer {
   private subscribers: Set<any> = new Set();
 
   subscribe = (f: any) => {
-    console.log("------SUBSCRIBE", f, this.subscribers);
+    //console.log("------SUBSCRIBE", f, this.subscribers);
 
     this.subscribers.add(f);
 
@@ -12,7 +12,7 @@ class Observer {
   };
 
   notify = (val: any) => {
-    console.log("------NOTIFY", val, this.subscribers);
+    //console.log("------NOTIFY", val, this.subscribers);
     this.subscribers.forEach((f) => f(val));
   };
 }

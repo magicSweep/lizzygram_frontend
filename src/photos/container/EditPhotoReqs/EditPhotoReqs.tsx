@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import React, { FC, Fragment } from "react";
 import { useSelector } from "react-redux";
 import { GlobalState } from "../../../types";
 import EditPhotoReq from "./EditPhotoReq";
@@ -18,7 +18,7 @@ const EditPhotoReqs: FC<EditPhotoReqsProps> = ({ requests }) => {
     </Fragment>
   ));
 
-  console.log("RENDER EditPhotoReqs", requests);
+  //console.log("RENDER EditPhotoReqs", requests);
 
   return (
     <>

@@ -59,7 +59,7 @@ export type ReduxProviderProps = {
 };
 
 export const ReduxProvider: FC<ReduxProviderProps> = ({ children }) => {
-  console.log("RENDER REDUX PROVIDER");
+  //console.log("RENDER REDUX PROVIDER");
 
   return <Provider store={store}>{children}</Provider>;
 };

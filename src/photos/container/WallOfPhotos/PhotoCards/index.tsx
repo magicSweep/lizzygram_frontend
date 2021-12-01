@@ -89,7 +89,7 @@ const PhotoCards: FC<PhotoCardsProps> = ({
       );
     } else {
       const onShowPhotoSlider = () => showPhotoSlider(photo.id);
-      const onShowEditPhotoForm = () => showPhotoSlider(photo.id);
+      const onShowEditPhotoForm = () => showEditPhotoForm(photo.id);
 
       elements.push(
         <div key={photo.id} className="ml-2 mb-2">

@@ -6,7 +6,7 @@ export const useAuth = () => {
   const { user, loading } = useSelector<
     GlobalState,
     {
-      user: AuthUser | undefined;
+      user: AuthUser | null;
       loading: boolean;
     }
   >(
@@ -17,8 +17,13 @@ export const useAuth = () => {
     shallowEqual
   );
 
+  const isAuth = user !== null;
+  const userUid = user !== null ? user.uid : "";
+
   return {
     user,
     loading,
+    isAuth,
+    userUid,
   };
 };

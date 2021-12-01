@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useAuth } from "../../../auth";
 
 /* type ReqStage =
   | "form"
@@ -30,18 +31,18 @@ export const usePhotoReq = (
 
   const dispatch = useDispatch();
 
-  // TODO:
+  const { userUid } = useAuth();
   /* const userUid = useSelector((state: any) =>
-          state.auth.user ? state.auth.user.uid : ""
-        ); */
-  const userUid = "userUid";
+    state.auth.user ? state.auth.user.uid : ""
+  ); */
+  //const userUid = "userUid";
 
   /*   const searchState = useSelector<GlobalState, ISearchState>(
       (state) => state.search
     ); */
 
   const onSelfKilling = () => {
-    console.log("onSelfKilling", mainRef);
+    //console.log("onSelfKilling", mainRef);
     mainRef.current.selfKilling = true;
 
     mainRef.current.timerId = setTimeout(() => {

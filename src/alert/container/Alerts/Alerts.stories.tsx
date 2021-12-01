@@ -1,8 +1,9 @@
 import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
-import Alerts from ".";
-import { useDispatch } from "react-redux";
+import Alerts from "./Alerts";
+import { useDispatch, useSelector } from "react-redux";
 import { showAlertAC } from "../../store/action";
+import { GlobalState } from "../../../types";
 
 export default {
   component: Alerts,
@@ -11,6 +12,8 @@ export default {
 
 const AlertManager = () => {
   const dispatch = useDispatch();
+
+  const { items } = useSelector((state: GlobalState) => state.alert);
 
   const showErrorAlert = () =>
     dispatch(showAlertAC("Это злой алерт...", "error"));
@@ -23,7 +26,7 @@ const AlertManager = () => {
 
   return (
     <>
-      <Alerts />
+      <Alerts items={items} />
       <Box>
         <Button color="error" onClick={showErrorAlert}>
           Error

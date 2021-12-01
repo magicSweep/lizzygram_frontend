@@ -23,7 +23,7 @@ export const editPhoto = async (data: EditPhotoWorkerData) => {
 
   //console.log("ADD RESPONSE", res);
 
-  const resData = await res.json();
+  return res.json();
 };
 
 export const addPhoto = async (data: AddPhotoWorkerData) => {
@@ -47,7 +47,7 @@ export const addPhoto = async (data: AddPhotoWorkerData) => {
 
   //console.log("ADD RESPONSE", res);
 
-  return await res.json();
+  return res.json();
 
   /* if (resData.status === "error") {
     throw new Error(`Server return some error - ${resData.data}`);

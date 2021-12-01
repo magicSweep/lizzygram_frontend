@@ -2,8 +2,9 @@ import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { addPhotoStartRequestAC } from "../../store/action";
 import AddPhotoIconBtnWidget from "./AddPhotoBtnWidget";
+import { useEditor } from "../../../auth/hook/useEditor";
 
-const AddPhotoBtn = () => {
+export const AddPhotoBtn = () => {
   const dispatch = useDispatch();
 
   const startAddPhotoRequest = useCallback(() => {
@@ -13,4 +14,14 @@ const AddPhotoBtn = () => {
   return <AddPhotoIconBtnWidget onClick={startAddPhotoRequest} />;
 };
 
-export default AddPhotoBtn;
+const AddPhotoBtnFinal = () => {
+  const { user } = useEditor();
+
+  if (user === null || user === undefined) return null;
+
+  if (user.isEditor !== true) return null;
+
+  return <AddPhotoBtn />;
+};
+
+export default AddPhotoBtnFinal;

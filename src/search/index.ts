@@ -1,4 +1,6 @@
-//import { default as SearchBtn } from "./container/SearchBtn";
+export { default as LoadableSearchBtn } from "./container/SearchBtn";
+
+export { default as LoadableSearchPhotoForm } from "./form/SearchPhotoForm";
 
 export { default as searchReducer, initSearchState } from "./store/reducer";
 

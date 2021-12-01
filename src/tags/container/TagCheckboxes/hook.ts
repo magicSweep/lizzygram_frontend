@@ -57,7 +57,7 @@ export const useFormTagsCheckboxes = ({
     //console.log("TAGS STATE use effect");
     if (tags !== undefined) {
       const tagsFormState = getDefaultTagsFormState(tags, defaultTags);
-      console.log("TAGS STATE use effect", tagsFormState);
+      //console.log("TAGS STATE use effect", tagsFormState);
       setValue("tags", tagsFormState, {
         shouldValidate: false,
         shouldDirty: true,
@@ -70,7 +70,7 @@ export const useFormTagsCheckboxes = ({
 
   const error = formState.errors["tags"];
 
-  console.log("TAGS USE EFFECT", error);
+  //console.log("TAGS USE EFFECT", error);
 
   const isError = Boolean(error);
 

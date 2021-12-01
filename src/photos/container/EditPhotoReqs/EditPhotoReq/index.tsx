@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import EditPhotoForm from "../../../form/EditPhotoForm";
 import { useEditPhotoReq } from "./hook";
 import { Photo, FirestoreDate } from "./../../../types";

@@ -124,7 +124,7 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
 
   return (
     <>
-      <div className="relative w-full h-full bg-black overflow-auto">
+      <div className="relative w-full h-full bg-photocard overflow-auto">
         <SliderChildren
           photos={photos}
           activeIndex={activeIndex}

@@ -10,13 +10,13 @@ export const dateValidate = cond<any, boolean | string>([
   [() => true, () => true],
 ]);
 
-export const dateValidateOnAdd = elif(
+export const dateValidateOnEdit = elif(
   (val: Date | undefined | null) => val === undefined || val === null,
   () => true,
   dateValidate
 );
 
-export const dateValidateOnEdit = elif(
+export const dateValidateOnAdd = elif(
   (val: Date | undefined | null) => val === undefined || val === null,
   () => "Пожалуйста, укажите дату съемки, хотя бы примерно.",
   dateValidate
@@ -45,7 +45,7 @@ const photoValidate = (fileList: FileList | undefined | null) => {
 export const photoFileValidateOnAdd = (
   fileList: FileList | undefined | null
 ) => {
-  console.log("VALIDATE", fileList);
+  //console.log("VALIDATE", fileList);
   if (fileList === undefined || fileList === null) return "А где фота?";
 
   if (fileList instanceof FileList !== true || fileList.length < 1)
@@ -57,7 +57,7 @@ export const photoFileValidateOnAdd = (
 export const photoFileValidateOnEdit = (
   fileList: FileList | undefined | null
 ) => {
-  console.log("VALIDATE", fileList);
+  //console.log("VALIDATE", fileList);
   if (fileList === undefined || fileList === null) return true;
 
   if (fileList instanceof FileList !== true || fileList.length < 1) return true;

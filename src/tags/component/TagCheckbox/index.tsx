@@ -63,7 +63,7 @@ export const TagClickable: FC<TagClickableProps> = ({
     checked
   );
 
-  console.log("[RENDER CHECKBOX]");
+  //console.log("[RENDER CHECKBOX]");
 
   return (
     <Button

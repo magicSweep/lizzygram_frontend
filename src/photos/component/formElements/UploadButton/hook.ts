@@ -47,7 +47,7 @@ export const useUploadBtnForm = ({
 
   const error = formState.errors["photoFile"];
 
-  console.log("ERROR", error);
+  //console.log("ERROR", error);
 
   const isError = Boolean(error);
 

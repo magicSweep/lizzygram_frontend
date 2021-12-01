@@ -36,7 +36,7 @@ const calcStateSizes = (
 ) => {
   const containerWidth = calcContainerWidth();
 
-  console.log("RESIZE", document.body.clientWidth, containerWidth);
+  //console.log("RESIZE", document.body.clientWidth, containerWidth);
 
   //const cardWidth = 200 + 8;
 
@@ -47,7 +47,7 @@ const calcStateSizes = (
     cardWidth
   );
 
-  console.log("numberOfItemsByWidth", numberOfItemsByWidth);
+  //console.log("numberOfItemsByWidth", numberOfItemsByWidth);
 
   return {
     itemsWrapperHeight: calcItemsWrapperHeight(

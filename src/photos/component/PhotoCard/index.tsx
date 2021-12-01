@@ -63,7 +63,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
   );
 
   return (
-    <div className="relative w-345 bg-black h-194 flex items-center justify-center rounded-sm shadow-md">
+    <div className="relative w-345 bg-photocard h-194 flex items-center justify-center rounded-sm shadow-md">
       <WallOfPhotosImg
         base64={photo.base64}
         src={photo.iconSrc}
@@ -72,7 +72,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
         photoAspectRatio={photo.aspectRatio}
         onClick={onImageClick}
       />
-      <div className="absolute left-0 right-0 bottom-0 bg-black opacity-50 flex items-center justify-between h-12">
+      <div className="absolute left-0 right-0 bottom-0 bg-photocard opacity-50 flex items-center justify-between h-12">
         <span className="flex">
           {isEditable === true && (
             <Tooltip title="Редактировать">
