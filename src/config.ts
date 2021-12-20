@@ -1,4 +1,4 @@
-import { getLizzyYearsOld, calcPhotosLimitPerQuery } from "./utils/app";
+//import { getLizzyYearsOld, calcPhotosLimitPerQuery } from "./utils/app";
 
 /* PORTAL ELEMENTS */
 export const modalId = "modal";
@@ -63,7 +63,7 @@ export const searchPhotoFormTitle = "Поиск фото";
 
 /* OTHER */
 
-export const lizzyYearsOld = getLizzyYearsOld();
+//export const lizzyYearsOld = getLizzyYearsOld();
 
 export const lizzyBirthday = new Date("2018-07-08");
 

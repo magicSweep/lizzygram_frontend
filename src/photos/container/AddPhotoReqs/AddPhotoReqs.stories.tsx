@@ -38,15 +38,22 @@ const Wrapper = () => {
   return (
     <div>
       <div className="text-left w-1/2 border-2 p-2 border-yellow-200  rounded">
-        <p>nextPageDocRef - {nextPageDocRef}</p>
-        <p>error - {error ? "true" : "false"}</p>
-        <p>loading - {loading ? "true" : "false"}</p>
+        <p>
+          - nextPageDocRef -{" "}
+          {nextPageDocRef === undefined
+            ? "undefined"
+            : nextPageDocRef === null
+            ? "null"
+            : nextPageDocRef.toString()}
+        </p>
+        <p>error - {error.toString()}</p>
+        <p>loading - {loading.toString()}</p>
         <p>numberOfAddedPhotoReqs - {numberOfAddedPhotoReqs}</p>
-        <p>addedPhotosIds - {JSON.stringify(reqIds)}</p>
-        <p>editedPhotosIds - {JSON.stringify(editedPhotosIds)}</p>
+        <p>addedPhotosIds - {reqIds.toString()}</p>
+        <p>editedPhotosIds - {editedPhotosIds.toString()}</p>
         <p>
           photos -{" "}
-          {photos
+          {photos !== undefined
             ? photos.map((photo) => ` | ${photo.id} - ${photo.description} | `)
             : "undefined"}
         </p>

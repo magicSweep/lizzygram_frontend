@@ -210,6 +210,8 @@ export const useAddPhotoReq = (
     // Add countAddReq++ to global state
     // Set uploadLoading = true
 
+    console.log("-------------useAddPhotoReq", userUid);
+
     const start = request(dispatch, setState, userUid, id, formData);
 
     start();

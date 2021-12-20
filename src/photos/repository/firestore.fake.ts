@@ -8,7 +8,7 @@ import {
   Photo,
   GetAllPhotosResData,
   FirestoreDate,
-  EditPhotoFirestoreData,
+  EditPhotoFirestoreRequestBody,
 } from "../types";
 import { SearchTerms } from "./../../search/types";
 import { photos, addedPhoto } from "../mock/fake.data";
@@ -72,7 +72,7 @@ export const getAllBySearchTerms = (
   });
 };
 
-export const addOne = (photo: Photo<FirestoreDate>) => {
+export const addOne = (photo: Photo<Date>) => {
   return new Promise((res, rej) => {
     setTimeout(() => {
       res(true);
@@ -80,7 +80,7 @@ export const addOne = (photo: Photo<FirestoreDate>) => {
   });
 };
 
-export const editOne = (data: EditPhotoFirestoreData) => {
+export const editOne = (data: EditPhotoFirestoreRequestBody) => {
   return new Promise((res, rej) => {
     setTimeout(() => {
       res(true);

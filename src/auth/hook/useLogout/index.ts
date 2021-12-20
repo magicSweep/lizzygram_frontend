@@ -7,6 +7,7 @@ import {
   logoutRequestAC,
 } from "../../store/action";
 import { elif, then, _catch, _finally, compose } from "fmagic";
+import { removeUser } from "../../service/UserService";
 
 export let isRequested = false;
 
@@ -19,7 +20,7 @@ export const request_ =
     logoutRequestErrorAC: () => void,
     setIsRequested: (val: boolean) => void,
     getIsRequested: () => boolean,
-    logout: () => Promise<boolean>
+    logout: () => Promise<void>
   ) =>
   (dispatch: any) =>
     elif(
@@ -28,6 +29,7 @@ export const request_ =
         () => dispatch(logoutRequestAC()),
         () => setIsRequested(true),
         logout,
+        then(removeUser),
         _catch((err) => {
           console.error(err);
           dispatch(logoutRequestErrorAC());

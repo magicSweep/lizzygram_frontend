@@ -1,19 +1,19 @@
-//import { post } from "../../service";
-import { AddPhotoWorkerData, EditPhotoWorkerData } from "./../types";
+import { post } from "../../service/fetch";
+import { WorkerRequestBody } from "./../types";
 import { addPhotoUrl, editPhotoUrl } from "./../../config";
-import { post } from "../../service/fetch/fake";
+//import { post } from "../../service/fetch/fake";
 
-export const editPhoto = async (data: EditPhotoWorkerData) => {
+export const editPhoto = async (data: WorkerRequestBody) => {
   const formData = new FormData();
 
   formData.append("description", data.description ? data.description : "");
-  formData.append("date", data.date ? data.date.toUTCString() : "");
-  formData.append("yearsOld", data.yearsOld ? `${data.yearsOld}` : "");
-  formData.append("tags", data.tags ? JSON.stringify(data.tags) : "");
+  formData.append("date", data.date ? data.date : "");
+  //formData.append("yearsOld", data.yearsOld ? `${data.yearsOld}` : "");
+  formData.append("tags", data.tags ? data.tags : "");
 
-  formData.append("id", data.photoId);
+  formData.append("photoId", data.photoId);
   formData.append("userUid", data.userUid);
-  formData.append("file", data.file);
+  formData.append("file", data.photoFile);
 
   const res = await post(editPhotoUrl, formData, {
     headers: {
@@ -26,7 +26,7 @@ export const editPhoto = async (data: EditPhotoWorkerData) => {
   return res.json();
 };
 
-export const addPhoto = async (data: AddPhotoWorkerData) => {
+export const addPhoto = async (data: WorkerRequestBody) => {
   /* const formData = makePhotoFormData({
       id: data.photoId,
       userUid: data.userUid,
@@ -35,9 +35,9 @@ export const addPhoto = async (data: AddPhotoWorkerData) => {
 
   const formData = new FormData();
 
-  formData.append("id", data.id);
+  formData.append("photoId", data.photoId);
   formData.append("userUid", data.userUid);
-  formData.append("file", data.file);
+  formData.append("file", data.photoFile);
 
   const res = await post(addPhotoUrl, formData, {
     headers: {

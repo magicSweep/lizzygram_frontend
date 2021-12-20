@@ -10,3 +10,5 @@ export { default as LoadableAddPhotoReqs } from "./container/AddPhotoReqs";
 
 //LoadableEditPhotoReqs
 export { default as LoadableEditPhotoReqs } from "./container/EditPhotoReqs";
+
+export { usePhotos } from "./hook/usePhotos";

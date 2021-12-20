@@ -8,16 +8,16 @@ import { Done, map, Next, flat, tap, compose } from "fmagic";
 //import firebase from "firebase/app";
 import { Unsubscribe } from "firebase/auth";
 //import { initApp } from "./../../../service/firebase";
-import { initApp } from "./../../../service/firebase/fake";
-import { subscribe } from "../../repository/FakeAuthRepository";
+//import { initApp } from "./../../../service/firebase/fake";
+import { subscribe } from "../../service/AuthService";
 
-initApp();
+//initApp();
 
 let unsubscribe: Unsubscribe;
 
 export const onAuthStateChanged = (dispatch: any) =>
   compose(
-    //tap((user) => console.log("-========= ON AUTH STATE CHANGED", user)),
+    tap((user: any) => console.log("-========= ON AUTH STATE CHANGED", user)),
     (user: any | null) => (user ? Next.of(user) : Done.of(null)),
     map((user: any) => ({
       name: user.displayName ? user.displayName : "",

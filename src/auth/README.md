@@ -1,10 +1,15 @@
-# Auth - how it works.
+# Auth mechanism description.
 
-- on init we check if exists saved to local storage user:
-  - if yes - we set him to our init state
-  - if not - we set uset to null and loading to true
-- then on useAuthSubscribe we get info about user
-  - if in state user exists we compare him with user from auth subscribe
-  - if user null - we set user and if user.isEditor === undefined send additional request to check.
+## Subscribe:
 
-!!!We save user to local storage only after check isEditor, it means user field isEditor can not be undefined
+- Auth subscribe - place where we set user info to our state.
+
+## Login:
+
+- We send login request to firebase. On success firebase triggers user change on subscribe
+
+## Is editor:
+
+- Have user add/edit photos priveleges? When subscription triggers with auth user.
+- First time we send request to know about isEditor, and when we get response we save our user info to local storage(name, emali, isEditor). Next time we get isEditor from our local storage.
+- On logout we remove local storage info

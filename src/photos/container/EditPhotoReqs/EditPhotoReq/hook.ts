@@ -13,8 +13,9 @@ import { isEmptyObj } from "../../../../utils/other";
 import {
   Photo,
   FirestoreDate,
-  EditPhotoWorkerData,
-  EditPhotoFirestoreData,
+  WorkerRequestBody,
+  EditPhotoFirestoreRequestBody,
+  FirestoreFieldsToEdit,
 } from "./../../../types";
 import { SearchTerms } from "../../../../search/types";
 import { isInSearchTerms, makeEditPhotoData } from "./helper";
@@ -217,12 +218,12 @@ export const request = (
     //  tap((fieldsToUpdate) =>
     //   console.log("FIELDS TO UPDATE", fieldsToUpdate, formData, photo)
     //),
-    (fieldsToUpdate) =>
+    (fieldsToUpdate: FirestoreFieldsToEdit) =>
       isEmptyObj(fieldsToUpdate) && !isNeedWorkerReq
         ? Done.of(dispatch(showAlertAC("Вы ничего не изменили.", "error")))
         : Next.of(fieldsToUpdate),
     map(
-      tap((fieldsToUpdate) => {
+      tap((fieldsToUpdate: FirestoreFieldsToEdit) => {
         mainRef.current.isSubmited = true;
         mainRef.current.formData = formData;
 
@@ -232,22 +233,32 @@ export const request = (
         }));
       })
     ),
-    chain((fieldsToUpdate) =>
+    chain((fieldsToUpdate: FirestoreFieldsToEdit) =>
       compose(
         () => dispatch(editPhotoSendRequestAC(photoId)),
         elif(
           () => isNeedWorkerReq,
           compose(
-            (): EditPhotoWorkerData => ({
+            (): WorkerRequestBody => ({
               photoId,
               userUid: userUid,
-              file: (formData.photoFile as FileList)[0],
-              ...fieldsToUpdate,
+              photoFile: (formData.photoFile as FileList)[0],
+              //...fieldsToUpdate,
+              description: fieldsToUpdate.description,
+              date:
+                fieldsToUpdate.date !== undefined
+                  ? JSON.stringify(fieldsToUpdate.date)
+                  : undefined,
+              tags:
+                fieldsToUpdate.tags !== undefined
+                  ? JSON.stringify(fieldsToUpdate.tags)
+                  : undefined,
             }),
+
             editPhotoWorkerReq
           ),
           compose(
-            (): EditPhotoFirestoreData => ({
+            (): EditPhotoFirestoreRequestBody => ({
               photoId,
               fieldsToUpdate,
             }),

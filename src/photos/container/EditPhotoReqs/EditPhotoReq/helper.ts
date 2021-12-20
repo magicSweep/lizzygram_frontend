@@ -1,6 +1,11 @@
 import { isEqual, trim } from "lodash-es";
 import { getOnlyTrueTags, getYearsOld } from "../../../../utils/app";
-import { Photo, EditPhotoFormData, FirestoreDate } from "./../../../types";
+import {
+  Photo,
+  EditPhotoFormData,
+  FirestoreDate,
+  FirestoreFieldsToEdit,
+} from "./../../../types";
 import { SearchTerms } from "../../../../search/types";
 import { FirestoreTagsData } from "./../../../../tags/types";
 import { Done, map, Next, chain, compose } from "fmagic";
@@ -11,7 +16,7 @@ export const makeEditPhotoData = (
   photo: Photo<FirestoreDate>
   //operationType: "edit" | "add"
 ) =>
-  compose<unknown, any>(
+  compose<unknown, FirestoreFieldsToEdit>(
     /* () => {
       console.log(
         "IS DATE EQUALS",
@@ -29,7 +34,7 @@ export const makeEditPhotoData = (
       fieldsToUpdate.date
         ? { ...fieldsToUpdate, yearsOld: getYearsOld(fieldsToUpdate.date) }
         : fieldsToUpdate, */
-    (fieldsToUpdate: any) =>
+    (fieldsToUpdate: FirestoreFieldsToEdit) =>
       compose(
         () => getOnlyTrueTags(formData.tags),
         (tags: FirestoreTagsData) =>
@@ -44,7 +49,7 @@ export const makeEditPhotoData = (
             ? fieldsToUpdate
             : { ...fieldsToUpdate, tags: result.value }
       )(),
-    (fieldsToUpdate: any) =>
+    (fieldsToUpdate: FirestoreFieldsToEdit) =>
       fieldsToUpdate.date
         ? { ...fieldsToUpdate, yearsOld: getYearsOld(fieldsToUpdate.date) }
         : fieldsToUpdate,
@@ -52,7 +57,7 @@ export const makeEditPhotoData = (
     /*  formData.tags
         ? { ...fieldsToUpdate, tags: getOnlyTrueTags(formData.tags) }
         : fieldsToUpdate, */
-    (fieldsToUpdate: any) =>
+    (fieldsToUpdate: FirestoreFieldsToEdit) =>
       formData.desc && trim(formData.desc) !== trim(photo.description)
         ? { ...fieldsToUpdate, description: formData.desc }
         : fieldsToUpdate

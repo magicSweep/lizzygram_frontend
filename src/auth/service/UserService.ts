@@ -8,7 +8,10 @@ export const getUser = (): AuthUser | null => {
 
 export const saveUser = (user: AuthUser) => {
   //set user to localStorage
-  addObj(user, authLocalStorageKey);
+  addObj(
+    { name: user.name, email: user.email, isEditor: user.isEditor },
+    authLocalStorageKey
+  );
 };
 
 export const removeUser = () => {

@@ -1,16 +1,16 @@
 import { set, compose } from "fmagic";
 import { getOnlyTrueTags, getYearsOld } from "../../../../utils/app";
-import { AddPhotoFormData, AddPhotoWorkerData, Photo } from "./../../../types";
+import { AddPhotoFormData, WorkerRequestBody, Photo } from "./../../../types";
 
 export const makeAddPhotoWorkerData = (
   formData: AddPhotoFormData,
   userUid: string,
   photoId: string
-): AddPhotoWorkerData => {
+): WorkerRequestBody => {
   return {
-    file: formData.photoFile[0],
+    photoFile: formData.photoFile[0],
     userUid: userUid,
-    id: photoId,
+    photoId: photoId,
   };
 };
 

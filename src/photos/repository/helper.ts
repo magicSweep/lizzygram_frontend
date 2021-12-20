@@ -1,5 +1,21 @@
+import {
+  limit,
+  Query,
+  QueryConstraint,
+  QuerySnapshot,
+  where,
+  startAt,
+  getDocs,
+  query,
+  getFirestore,
+  Firestore,
+  collection,
+} from "firebase/firestore";
+import { compose, elif, justReturn, tap } from "fmagic";
 import { SearchTerms } from "./../../search/types";
 import { FirestoreTagsData } from "./../../tags/types";
+import { numberOfPhotosPerQuery, photosCollectionName } from "./../../config";
+import { FirestoreDate, GetAllPhotosResData, Photo } from "../types";
 
 export let prevSearchTerms: SearchTerms;
 
@@ -19,11 +35,11 @@ export const isEqualTags = (
   return true;
 };
 
-export const isEqualSearchState = (
+export const isEqualSearchTerms = (
   prevTerms: SearchTerms,
   terms: SearchTerms
 ) => {
-  if (prevTerms.yearsOld !== terms.yearsOld) return false;
+  if (prevTerms.age !== terms.age) return false;
 
   if (!isEqualTags(prevTerms.tags, terms.tags)) return false;
 
@@ -36,7 +52,7 @@ export const isNeedNewRequest = (
 ) => {
   const isNeed =
     (prevSearchTerms === undefined ||
-      !isEqualSearchState(prevSearchTerms, searchTerms)) &&
+      !isEqualSearchTerms(prevSearchTerms, searchTerms)) &&
     photoStateLoading !== true;
 
   prevSearchTerms = searchTerms;
@@ -51,6 +67,121 @@ export const isInitState = (init: any, curr: any) => {
 
   return true;
 };
+
+export const makeQueryConstraints_ =
+  (
+    numberOfPhotosPerQuery: number,
+    where_: typeof where,
+    limit_: typeof limit,
+    startAt_: typeof startAt
+  ) =>
+  (searchTerms: SearchTerms, nextPageDocRef?: any) =>
+    compose<unknown, QueryConstraint[]>(
+      tap(() =>
+        console.log(
+          "=============makeQueryConstraints",
+          searchTerms,
+          nextPageDocRef
+        )
+      ),
+      //add age where
+      elif(
+        () => searchTerms.age >= 0,
+        () => [where_("yearsOld", "==", searchTerms.age)],
+        () => []
+      ),
+
+      //add tags where
+      elif(
+        () => searchTerms.tags !== undefined,
+        (wheres: any[]) =>
+          compose(
+            () =>
+              Object.keys(searchTerms.tags).map((tagId) => {
+                if (searchTerms.tags[tagId] === true)
+                  return where_(`tags.${tagId}`, "==", true);
+              }),
+            (tagsWhere: any[]) =>
+              tagsWhere.filter((where) => where !== undefined),
+            (tagsWhere: any[]) => wheres.concat(tagsWhere)
+          )(),
+        justReturn
+      ),
+
+      //add start at
+      elif(
+        () => nextPageDocRef !== undefined,
+        (wheres: any[]) => wheres.concat([startAt_(nextPageDocRef)]),
+        justReturn
+      ),
+
+      (wheres: any[]) => wheres.concat([limit_(numberOfPhotosPerQuery + 1)])
+    );
+
+export const makeQueryConstraints = makeQueryConstraints_(
+  numberOfPhotosPerQuery,
+  where,
+  limit,
+  startAt
+);
+
+export const sendRequest_ =
+  (
+    photosCollectionName: string,
+    getFirestore_: typeof getFirestore,
+    getDocs_: typeof getDocs,
+    query_: typeof query,
+    collection_: typeof collection
+  ) =>
+  (constraints: QueryConstraint[]) =>
+    compose<unknown, Promise<QuerySnapshot>>(
+      () => getFirestore_(),
+      tap(() => console.log("====GET DB", constraints)),
+      (db: Firestore) =>
+        getDocs_(query_(collection_(db, photosCollectionName), ...constraints))
+    )();
+
+export const sendRequest = sendRequest_(
+  photosCollectionName,
+  getFirestore,
+  getDocs,
+  query,
+  collection
+);
+
+export const makeGetAllPhotosResData_ =
+  (numberOfPhotosPerQuery: number) => (querySnapshot: QuerySnapshot) => {
+    //console.log("-------------------makeGetAllPhotosResData");
+
+    const res: GetAllPhotosResData = {
+      hasNextPage: false,
+      nextPageDocRef: null,
+      photos: [],
+    };
+
+    let count = 0;
+
+    querySnapshot.forEach((photo) => {
+      if (count >= numberOfPhotosPerQuery) {
+        res.hasNextPage = true;
+        res.nextPageDocRef = photo;
+      } else {
+        const photoData = photo.data();
+        if (photoData.isActive === true)
+          res.photos.push({
+            id: photo.id,
+            ...photoData,
+          } as Photo<FirestoreDate>);
+        count++;
+      }
+    });
+
+    return res;
+  };
+
+export const makeGetAllPhotosResData = makeGetAllPhotosResData_(
+  numberOfPhotosPerQuery
+);
 
 /* import { FirestoreTagsData } from "./../../tags/types";
 //import firebase from "firebase/app";

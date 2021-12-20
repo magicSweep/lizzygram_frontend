@@ -199,7 +199,8 @@ describe("useIntersection", () => {
     test("If pages equals 0 - we load new items, that's why we reset all", () => {
       const mainRef = {
         current: {
-          pages: 0,
+          //pages: 0,
+          prevNumberOfPages: 0,
         },
       };
 
@@ -223,7 +224,8 @@ describe("useIntersection", () => {
     test("We get new state with new items", () => {
       const mainRef = {
         current: {
-          pages: 0,
+          //pages: 0,
+          prevNumberOfPages: 0,
         },
       };
 
@@ -247,7 +249,8 @@ describe("useIntersection", () => {
     test("We scroll to next page", () => {
       const mainRef = {
         current: {
-          pages: 3,
+          //pages: 3,
+          prevNumberOfPages: 3,
         },
       };
 
@@ -275,7 +278,8 @@ describe("useIntersection", () => {
      and we decrease number of pages`, () => {
       const mainRef = {
         current: {
-          pages: 4,
+          //pages: 4,
+          prevNumberOfPages: 4,
         },
       };
 

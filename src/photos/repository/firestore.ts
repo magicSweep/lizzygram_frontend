@@ -1,56 +1,49 @@
-/* import { flow } from "lodash-es";
-import { FirestoreTagsData } from "src/tags/types";
 import {
-  tagsCollectionName,
-  photosCollectionName,
-  numberOfPhotosPerQuery,
-} from "../../config";
-import { then } from "../../utils/func_prog";
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  getFirestore,
+} from "firebase/firestore";
+import { photosCollectionName, numberOfPhotosPerQuery } from "../../config";
+import { compose, tap, then } from "fmagic";
 import {
-  IPhoto,
+  Photo,
   GetAllPhotosResData,
   FirestoreDate,
-  EditPhotoFirestoreData,
+  EditPhotoFirestoreRequestBody,
 } from "../types";
 import {
   isInitState,
-  addTagsTerms,
-  createQuery,
-  withCond,
-  addLimit,
-  addOrderBy,
-  addStartAt,
-  addYearsOldTerms,
-  makeGetAllPhotosResData,
+  makeQueryConstraints,
   sendRequest,
+  //addTagsTerms,
+  //createQuery,
+  //withCond,
+  //addLimit,
+  //addOrderBy,
+  //addStartAt,
+  //addYearsOldTerms,
+  makeGetAllPhotosResData,
+  //sendRequest,
 } from "./helper";
 import { SearchTerms } from "./../../search/types";
 
 export const makeReq = (
   _isInitState: boolean,
   searchTerms: SearchTerms,
-  numberOfPhotosPerQuery: number,
   nextPageDocRef?: any
 ) =>
-  flow(
-    createQuery,
-    // make query with terms
-    withCond(
-      !_isInitState,
-      addTagsTerms(searchTerms.tags as FirestoreTagsData)
-    ),
-    withCond(!_isInitState, addYearsOldTerms(searchTerms.yearsOld)),
-    addStartAt(nextPageDocRef),
-    withCond(_isInitState, addOrderBy),
-    addLimit(numberOfPhotosPerQuery),
-    // send request with query
+  compose<unknown, Promise<GetAllPhotosResData>>(
+    makeQueryConstraints(searchTerms, nextPageDocRef),
+    tap(() => console.log("--------BEFORE SEND REQUEST")),
     sendRequest,
-    then(makeGetAllPhotosResData(numberOfPhotosPerQuery))
+    then(tap(() => console.log("--------AFTER SEND REQUEST"))),
+    then(makeGetAllPhotosResData)
   );
 
 export const getAllBySearchTerms = (
   searchTerms: SearchTerms,
-  numberOfPhotosPerQuery: number,
   initSearchTerms: SearchTerms,
   nextPageDocRef?: any
 ): Promise<GetAllPhotosResData> => {
@@ -61,37 +54,36 @@ export const getAllBySearchTerms = (
   //Box.of("hello").map((cond, tagsIds) => cond ? )
 
   // prepare query
-  return makeReq(
-    _isInitState,
-    searchTerms,
-    numberOfPhotosPerQuery,
-    nextPageDocRef
-  )();
+  return makeReq(_isInitState, searchTerms, nextPageDocRef)();
 };
 
-export const addOne = (photo: IPhoto<any>) => {
-  return createQuery().doc(photo.id).set(photo);
+export const addOne = (photo: Photo<Date>) => {
+  const db = getFirestore();
+
+  return setDoc(doc(db, photosCollectionName, photo.id), photo);
 };
 
-export const editOne = (data: EditPhotoFirestoreData) => {
-  return createQuery().doc(data.photoId).update(data.fieldsToUpdate);
+export const editOne = (data: EditPhotoFirestoreRequestBody) => {
+  const db = getFirestore();
+
+  const photoRef = doc(db, photosCollectionName, data.photoId);
+
+  return updateDoc(photoRef, data.fieldsToUpdate);
 };
 
-export const getById = async (id: string): Promise<IPhoto<any>> => {
-  //const photo = makeAddPhotoData(data.photoFormData);
-  //photo.addedByUserUID = data.userUid;
+export const getById = async (
+  photoId: string
+): Promise<Photo<FirestoreDate>> => {
+  const db = getFirestore();
 
-  //SAVE PHOTO DATA TO FIRESTORE
-  //const id = (data.photoFormData.date.getTime() + random(69999)).toString();
-  const res = await createQuery().doc(id).get();
+  const photoRef = doc(db, photosCollectionName, photoId);
 
-  /* const photo: IPhoto = {
-    id: id,
+  const res = await getDoc(photoRef);
+
+  return {
     ...res.data(),
-  }; 
-
-  return photo;/
-  return res.data() as IPhoto<FirestoreDate>;
+    id: res.id,
+  } as Photo<FirestoreDate>;
 };
 
 /*

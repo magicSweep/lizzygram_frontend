@@ -1,4 +1,4 @@
-import { getAllBySearchTerms } from "./FakeRepository";
+import { getAllBySearchTerms } from "./firestore.fake";
 
 describe("getAllBySearchTerms", () => {
   test("Load photos", async () => {

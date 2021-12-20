@@ -48,10 +48,33 @@ export type EditPhotoFormData = {
   tags: TagsFormState;
 };
 
-export type AddPhotoWorkerData = {
-  id: string;
+export type FirestoreFieldsToEdit = {
+  description?: string;
+  date?: Date;
+  //isActive?: boolean;
+  yearsOld?: number;
+  tags?: { [name: string]: boolean };
+};
+
+export type UtcDateString = string;
+export type JsonString = string;
+
+export type WorkerRequestBody = {
+  photoId: string;
   userUid: string;
-  file: File;
+  photoFile: File;
+  description?: string;
+  date?: UtcDateString;
+  tags?: JsonString;
+  //isActive?: boolean;
+  //yearsOld?: number;
+  // tags?: { [name: string]: boolean };
+};
+
+/* export type AddPhotoWorkerData = {
+  photoId: string;
+  userUid: string;
+  photoFile: File;
 };
 
 export type EditPhotoWorkerData = {
@@ -63,11 +86,11 @@ export type EditPhotoWorkerData = {
   //isActive?: boolean;
   yearsOld?: number;
   tags?: { [name: string]: boolean };
-};
+}; */
 
-export type EditPhotoFirestoreData = {
+export type EditPhotoFirestoreRequestBody = {
   photoId: string;
-  fieldsToUpdate: any;
+  fieldsToUpdate: FirestoreFieldsToEdit;
 };
 
 // PHOTOS STATE

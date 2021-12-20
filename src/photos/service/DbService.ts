@@ -1,17 +1,17 @@
-/* import {
-  getAllBySearchTerms,
-  addOne,
-  getById,
-  editOne
-} from "../repository/FirestoreRepository"; */
 import {
   getAllBySearchTerms,
   addOne,
   getById,
   editOne,
-} from "../repository/FakeRepository";
-import { numberOfPhotosPerQuery } from "../../config";
-import { Photo, EditPhotoFirestoreData } from "../types";
+} from "../repository/firestore";
+/* import {
+  getAllBySearchTerms,
+  addOne,
+  getById,
+  editOne,
+} from "../repository/firestore.fake"; */
+//import { numberOfPhotosPerQuery } from "../../config";
+import { Photo, EditPhotoFirestoreRequestBody } from "../types";
 import { SearchTerms } from "../../search/types";
 import { initSearchState } from "../../search";
 
@@ -21,17 +21,16 @@ export const getAllPhotos = (
 ) => {
   return getAllBySearchTerms(
     searchState,
-    numberOfPhotosPerQuery,
     initSearchState.terms,
     nextPageDocRef
   );
 };
 
-export const addPhoto = (photo: Photo<any>) => {
+export const addPhoto = (photo: Photo<Date>) => {
   return addOne(photo);
 };
 
-export const editPhoto = (data: EditPhotoFirestoreData) => {
+export const editPhoto = (data: EditPhotoFirestoreRequestBody) => {
   return editOne(data);
 };
 

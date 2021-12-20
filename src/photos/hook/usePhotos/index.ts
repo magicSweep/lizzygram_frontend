@@ -47,6 +47,8 @@ export const startNew = (
       }
     }),
     _catch((err) => {
+      console.log("GET ALL PHOTOS ERROR");
+      console.log(err.message);
       dispatch(allPhotosRequestErrorAC());
     })
   );

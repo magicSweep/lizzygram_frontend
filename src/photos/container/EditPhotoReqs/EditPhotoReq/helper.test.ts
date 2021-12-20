@@ -78,7 +78,7 @@ describe("makeEditPhotoData - depends on what fields on form fill user - what ch
     );
     expect(fieldsToUpdate.description).toEqual("hello desc");
     expect(fieldsToUpdate.tags).toEqual({ er3: true, r34: true });
-    expect(fieldsToUpdate.age).toEqual(1);
+    expect(fieldsToUpdate.yearsOld).toEqual(1);
   });
 });
 

@@ -4,6 +4,9 @@ import { ThemeProvider, EmotionCacheProvider } from "./src/theme";
 //import { EmotionCacheProvider } from "./src/theme/container/EmotionCacheProvider";
 import "./src/theme/styles/global.css";
 import { Layout } from "./src/container/Layout";
+import { init } from "./src/firebase/init";
+
+init();
 
 export const wrapRootElement = ({ element }) => {
   return (

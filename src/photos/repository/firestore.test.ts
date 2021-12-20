@@ -1,3 +1,5 @@
+test.skip("", () => {});
+
 /* import firebase from "firebase/app";
 import { flow } from "lodash-es";
 import { then } from "../../utils/func_prog";
