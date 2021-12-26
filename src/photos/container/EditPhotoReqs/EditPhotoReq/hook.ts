@@ -13,6 +13,7 @@ import { isEmptyObj } from "../../../../utils/other";
 import {
   Photo,
   FirestoreDate,
+  EditPhotoFormData,
   WorkerRequestBody,
   EditPhotoFirestoreRequestBody,
   FirestoreFieldsToEdit,
@@ -21,7 +22,7 @@ import { SearchTerms } from "../../../../search/types";
 import { isInSearchTerms, makeEditPhotoData } from "./helper";
 import {
   editPhoto as editPhotoFirestoreReq,
-  getPhotoById,
+  getPhoto,
 } from "../../../service/DbService";
 import { editPhoto as editPhotoWorkerReq } from "../../../service/WorkerService";
 import {
@@ -75,10 +76,10 @@ const onSuccess = (
   //if (isLastReq && !this.anotherForm) this.dispatch(hideAddFormAC());
 
   if (isInSearchTerms(searchTerms, fieldsToUpdate)) {
-    //console.log("-------BATCH IN SEARCH TERM");
+    console.log("-------IN SEARCH TERM", searchTerms, fieldsToUpdate);
     getEditedPhotoReq(photoId, dispatch, setState);
   } else {
-    //console.log("-------BATCH NOT IN SEARCH TERM");
+    console.log("-------NOT IN SEARCH TERM", searchTerms, fieldsToUpdate);
     batch(() => {
       dispatch(editPhotoSuccessAC(photoId));
 
@@ -110,8 +111,9 @@ export const getEditedPhotoReq = (
   dispatch: any,
   setState: any
 ) => {
-  getPhotoById(photoId)
+  getPhoto(photoId)
     .then((photo) => {
+      console.log("EDITED PHOTO", photo);
       batch(() => {
         dispatch(editPhotoSuccessAC(photo));
         dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
@@ -135,77 +137,10 @@ export const getEditedPhotoReq = (
     });
 };
 
-/* export const request = (
-  dispatch: any,
-  setState: any,
-  formData: any,
-  userUid: string,
-  isNeedWorkerReq: boolean,
-  photoId: string,
-  searchTerms: SearchTerms,
-  mainRef: MutableRefObject<any>,
-  photo: Photo<FirestoreDate>
-) =>
-  compose(
-    makeEditPhotoData(formData, photo),
-    ///  tap((fieldsToUpdate) =>
-   //   console.log("FIELDS TO UPDATE", fieldsToUpdate, formData, photo)
-   // ), 
-    (fieldsToUpdate) =>
-      isEmptyObj(fieldsToUpdate) && !isNeedWorkerReq
-        ? Done.of(dispatch(showAlertAC("Вы ничего не изменили.", "error")))
-        : Next.of(fieldsToUpdate),
-    map(
-      tap((fieldsToUpdate) => {
-        mainRef.current.isSubmited = true;
-        mainRef.current.formData = formData;
-
-        setState((prevState) => ({
-          ...prevState,
-          uploadLoading: true,
-        }));
-      })
-    ),
-    chain((fieldsToUpdate) =>
-      compose(
-        () => dispatch(editPhotoSendRequestAC(photoId)),
-        elif(
-          () => isNeedWorkerReq,
-          () =>
-            compose(
-              (): EditPhotoWorkerData => ({
-                photoId,
-                userUid: userUid,
-                file: (formData.photoFile as FileList)[0],
-                ...fieldsToUpdate,
-              }),
-              editPhotoWorkerReq
-            ),
-          () =>
-            compose(
-              (): EditPhotoFirestoreData => ({
-                photoId,
-                fieldsToUpdate,
-              }),
-              editPhotoFirestoreReq
-            )
-        ),
-        then((res: any) => {
-          if (res && res.status === "error")
-            throw new Error(`Error from worker...`);
-        }),
-        then(() =>
-          onSuccess(dispatch, setState, searchTerms, fieldsToUpdate, photoId)
-        ),
-        _catch((err) => onError(err, dispatch, setState, photoId))
-      )()
-    )
-  ); */
-
 export const request = (
   dispatch: any,
   setState: any,
-  formData: any,
+  formData: EditPhotoFormData,
   userUid: string,
   isNeedWorkerReq: boolean,
   photoId: string,
@@ -215,9 +150,7 @@ export const request = (
 ) =>
   compose(
     makeEditPhotoData(formData, photo),
-    //  tap((fieldsToUpdate) =>
-    //   console.log("FIELDS TO UPDATE", fieldsToUpdate, formData, photo)
-    //),
+    //tap((fieldsToUpdate) => console.log("FIELDS TO UPDATE", fieldsToUpdate)),
     (fieldsToUpdate: FirestoreFieldsToEdit) =>
       isEmptyObj(fieldsToUpdate) && !isNeedWorkerReq
         ? Done.of(dispatch(showAlertAC("Вы ничего не изменили.", "error")))
@@ -236,25 +169,30 @@ export const request = (
     chain((fieldsToUpdate: FirestoreFieldsToEdit) =>
       compose(
         () => dispatch(editPhotoSendRequestAC(photoId)),
+        //tap(() => console.log("FIELDS TO UPDATE 2", fieldsToUpdate)),
         elif(
           () => isNeedWorkerReq,
           compose(
-            (): WorkerRequestBody => ({
+            (): {
+              photoId: string;
+              userUid: string;
+              photoFile: File;
+            } & FirestoreFieldsToEdit => ({
               photoId,
-              userUid: userUid,
+              userUid,
               photoFile: (formData.photoFile as FileList)[0],
-              //...fieldsToUpdate,
-              description: fieldsToUpdate.description,
+              ...fieldsToUpdate,
+              /*  description: fieldsToUpdate.description,
               date:
                 fieldsToUpdate.date !== undefined
-                  ? JSON.stringify(fieldsToUpdate.date)
+                  ? fieldsToUpdate.date.toUTCString()
                   : undefined,
               tags:
                 fieldsToUpdate.tags !== undefined
                   ? JSON.stringify(fieldsToUpdate.tags)
-                  : undefined,
+                  : undefined, */
             }),
-
+            //tap((data) => console.log("FIELDS TO UPDATE 3", data)),
             editPhotoWorkerReq
           ),
           compose(
@@ -269,10 +207,14 @@ export const request = (
           if (res && res.status === "error")
             throw new Error(`Error from worker...`);
         }),
-        then(() =>
-          onSuccess(dispatch, setState, searchTerms, fieldsToUpdate, photoId)
-        ),
-        _catch((err) => onError(err, dispatch, setState, photoId))
+        then(() => {
+          console.log("SUCCESS BEFORE GET EDITED PHOTO");
+          onSuccess(dispatch, setState, searchTerms, fieldsToUpdate, photoId);
+        }),
+        _catch((err) => {
+          console.error("ERROR BEFORE GET EDITED PHOTO", err.message);
+          onError(err, dispatch, setState, photoId);
+        })
       )()
     )
   );

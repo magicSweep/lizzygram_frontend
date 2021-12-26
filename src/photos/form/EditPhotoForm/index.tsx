@@ -69,11 +69,11 @@ const EditPhotoForm: FC<AddPhotoFormProps> = ({
 
       <div className="w-full mb-5">
         <UploadButton
-          watch={watch}
-          setValue={setValue}
+          watch={watch as any}
+          setValue={setValue as any}
           clearErrors={clearErrors}
           formState={formState}
-          register={register}
+          register={register as any}
           disabled={uploadLoading}
           validate={photoFileValidateOnEdit}
         />
@@ -82,9 +82,9 @@ const EditPhotoForm: FC<AddPhotoFormProps> = ({
       <div className="w-full mb-6">
         <DatePicker
           clearErrors={clearErrors}
-          setValue={setValue}
-          register={register}
-          watch={watch}
+          setValue={setValue as any}
+          register={register as any}
+          watch={watch as any}
           formState={formState}
           disabled={uploadLoading}
           validate={dateValidateOnEdit}
@@ -94,10 +94,10 @@ const EditPhotoForm: FC<AddPhotoFormProps> = ({
       <div className="w-full mt-14 mb-5">
         <TagCheckboxes
           label="Опишите фото с помощью тэгов:"
-          getValues={getValues}
-          setValue={setValue}
-          register={register}
-          watch={watch}
+          getValues={getValues as any}
+          setValue={setValue as any}
+          register={register as any}
+          watch={watch as any}
           clearErrors={clearErrors}
           formState={formState}
           disabled={uploadLoading}
@@ -109,7 +109,7 @@ const EditPhotoForm: FC<AddPhotoFormProps> = ({
       <div className="w-full mb-5">
         <Description
           formState={formState}
-          register={register}
+          register={register as any}
           disabled={uploadLoading}
           validate={descValidate}
         />

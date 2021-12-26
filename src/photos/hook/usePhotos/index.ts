@@ -1,5 +1,4 @@
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import { numberOfPhotosPerQuery } from "../../../config";
 import { getAllPhotos } from "../../service/DbService";
 import {
   allPhotosStartNewRequestAC,
@@ -9,11 +8,13 @@ import {
   allPhotosRequestErrorAC,
 } from "../../store/action";
 import { compose, tap, then, _catch } from "fmagic";
-import { Photo, FirestoreDate } from "./../../types";
+import { Photo, FirestoreDate, GetAllPhotosResData } from "./../../types";
 import { SearchState } from "./../../../search/types";
 import { GlobalState } from "./../../../types";
 import { MutableRefObject, useEffect, useRef } from "react";
-import { isNeedNewRequest } from "../../repository/helper";
+import { isNeedNewRequest, makeGetAllPhotosResData } from "./usePhotos.helper";
+import { DocumentData, QuerySnapshot } from "firebase/firestore";
+import { ResponseWithCursor } from "../../../firebase/types";
 
 export interface IPhotosReqData {
   isLoadMore: boolean;
@@ -39,11 +40,15 @@ export const startNew = (
     },
     // SEND REQUEST
     () => getAllPhotos(searchState.terms, nextPageDocRef),
-    then((resData) => {
+    then((resData: ResponseWithCursor<Photo<FirestoreDate>>) => {
+      const photosStateData = makeGetAllPhotosResData(resData);
+
+      console.log("-----------ALL PHOTOS", photosStateData, resData);
+
       if (isLoadMore === false) {
-        dispatch(allPhotosRequestSuccessAC(resData));
+        dispatch(allPhotosRequestSuccessAC(photosStateData));
       } else {
-        dispatch(fetchMorePhotosRequestSuccessAC(resData));
+        dispatch(fetchMorePhotosRequestSuccessAC(photosStateData));
       }
     }),
     _catch((err) => {

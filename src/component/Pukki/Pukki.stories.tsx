@@ -80,7 +80,7 @@ export const Default = () => {
 
   return (
     <>
-      <Box className="relative m-auto bg-black" width="800px" height="500px">
+      <Box className="relative m-auto bg-blue-100" width="800px" height="500px">
         <Pukki
           translateX={state.translateX}
           isTranslated={state.isTranslated}
@@ -89,6 +89,7 @@ export const Default = () => {
           increaseGlobalIndex={() => {}}
           decreaseGlobalIndex={() => {}}
           onMouseDown={() => console.log("onMouseDown")}
+          onTouchStart={() => console.log("onTouchStart")}
         />
       </Box>
 

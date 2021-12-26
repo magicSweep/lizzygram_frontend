@@ -42,9 +42,9 @@ const SearchPhotoForm: FC<SearchPhotoFormProps> = ({
       <div className="w-full mb-5">
         <AgeSelect
           clearErrors={clearErrors}
-          setValue={setValue}
-          register={register}
-          watch={watch}
+          setValue={setValue as any}
+          register={register as any}
+          watch={watch as any}
           formState={formState}
           disabled={false}
         />
@@ -53,10 +53,10 @@ const SearchPhotoForm: FC<SearchPhotoFormProps> = ({
       <div className="w-full mt-14 mb-5">
         <TagCheckboxes
           label="Выберите тэги:"
-          getValues={getValues}
-          setValue={setValue}
-          register={register}
-          watch={watch}
+          getValues={getValues as any}
+          setValue={setValue as any}
+          register={register as any}
+          watch={watch as any}
           clearErrors={clearErrors}
           formState={formState}
           disabled={false}

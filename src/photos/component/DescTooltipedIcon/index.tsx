@@ -20,6 +20,20 @@ const DescTooltipedIcon: FC<DescTooltipedIconProps> = ({
   desc,
   photoTags,
 }) => {
+  const [open, setOpen] = React.useState(false);
+
+  /* const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  }; */
+
+  const toggleTooltip = () => {
+    setOpen((open) => !open);
+  };
+
   const finalDate = getDate(date);
 
   const yearsOldFormated = makeYearsOldStringify(finalDate);
@@ -28,6 +42,11 @@ const DescTooltipedIcon: FC<DescTooltipedIconProps> = ({
     <Tooltip
       placement="top-end"
       arrow
+      //onClose={handleTooltipClose}
+      disableFocusListener
+      disableHoverListener
+      disableTouchListener
+      open={open}
       title={
         <>
           <p className="pb-1">Boзраст: {yearsOldFormated}.</p>
@@ -42,7 +61,11 @@ const DescTooltipedIcon: FC<DescTooltipedIconProps> = ({
         </>
       }
     >
-      <InfoIcon sx={{ fill: "white", mr: "20px" }} fontSize="small" />
+      <InfoIcon
+        onClick={toggleTooltip}
+        sx={{ fill: "white", mr: "20px", cursor: "pointer" }}
+        fontSize="small"
+      />
     </Tooltip>
   );
 };

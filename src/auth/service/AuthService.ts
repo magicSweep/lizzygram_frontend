@@ -2,17 +2,17 @@ import {
   login as logIn,
   logout as logOut,
   subscribe as makeSubscribe,
-} from "./../repository/firebase.auth";
+} from "./../../firebase/firebase.auth";
 /* import {
   login as logIn,
   logout as logOut,
   subscribe as makeSubscribe,
-} from "./../repository/firebase.auth.fake"; */
+} from "./../../firebase/firebase.auth.fake"; */
 
 export const login = async () => {
-  console.log("------------LOGIN REQUEST");
+  //console.log("------------LOGIN REQUEST");
   const user = await logIn();
-  console.log("------------LOGIN SUCCESS", user);
+  //console.log("------------LOGIN SUCCESS", user);
   return true;
 };
 

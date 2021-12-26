@@ -14,6 +14,7 @@ export type PukkiProps = {
   //isRightEnd: boolean;
   //globalIndex: number;
   onMouseDown: any;
+  onTouchStart: any;
 };
 
 /* isTranslated === true
@@ -39,6 +40,7 @@ const Pukki: FC<PukkiProps> = ({
   decreaseGlobalIndex,
   localIndex,
   onMouseDown,
+  onTouchStart,
 }) => {
   const wrapperRef: MutableRefObject<HTMLDivElement> = useRef(null);
 
@@ -102,6 +104,7 @@ const Pukki: FC<PukkiProps> = ({
     <div
       ref={wrapperRef}
       onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
       className="absolute inset-0 overflow-hidden"
     >
       <Box

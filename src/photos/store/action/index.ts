@@ -103,7 +103,7 @@ export const getAddedPhotoSuccessAC = (
 
 export const getAddedPhotoErrorAC = (): PhotosAction => {
   return {
-    type: "GET_EDITED_PHOTO_REQUEST_ERROR",
+    type: "GET_ADDED_PHOTO_REQUEST_ERROR",
   };
 };
 

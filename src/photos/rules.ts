@@ -3,7 +3,7 @@ import { maxFileSizeMB, isValidFileFormat } from "./helper/validation";
 
 // DATE
 
-export const dateValidate = cond<any, boolean | string>([
+export const dateValidate = cond<Date, boolean | string>([
   [(val: Date) => val.toString() === "Invalid Date", () => "Некорректная дата"],
   [(val: Date) => val > new Date(), () => "Фотка сделана в будущем?"],
   [(val: Date) => val < new Date("2018-07-08"), () => "До дня рождения?"],

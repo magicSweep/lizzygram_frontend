@@ -2,6 +2,10 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+body {
+  min-width: 471px;
+}
+
 @layer utilities {
   .shadow-error {
     box-shadow: rgba(255, 65, 65, 0.2) 0px 2px 1px -1px,

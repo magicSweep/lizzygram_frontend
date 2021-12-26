@@ -7,6 +7,10 @@ import {
 import { FirestoreDate } from "./../photos/types";
 import { intersection } from "lodash-es";
 
+export const makePhotoId = () => {
+  return (90000000000000 - Date.now()).toString();
+};
+
 export const makeDownloadPhotoUrl = (
   googleDriveId: string,
   imageExtention: string

@@ -49,12 +49,13 @@ const SliderControls: FC<SliderControlsProps> = ({
     []
   );
 
-  const { translateX, isTranslated, onMouseDown } = useSwipeCarousel(
-    itemsLength,
-    activeIndex,
-    increaseLocalIndex,
-    decreaseLocalIndex
-  );
+  const { translateX, isTranslated, onMouseDown, onTouchStart } =
+    useSwipeCarousel(
+      itemsLength,
+      activeIndex,
+      increaseLocalIndex,
+      decreaseLocalIndex
+    );
 
   return (
     <>
@@ -74,6 +75,7 @@ const SliderControls: FC<SliderControlsProps> = ({
         isTranslated={isTranslated}
         localIndex={localIndex}
         onMouseDown={onMouseDown}
+        onTouchStart={onTouchStart}
       />
     </>
   );

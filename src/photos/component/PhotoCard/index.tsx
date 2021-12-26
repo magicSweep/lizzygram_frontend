@@ -51,9 +51,11 @@ const PhotoCard: FC<PhotoCardProps> = ({
     showEditPhotoForm();
   }; */
 
-  //console.log("PHOTO CARD", photo.photo.date);
+  //console.log("PHOTO CARD", photo);
 
   const date: Date = photo.date.toDate();
+
+  //console.log("PHOTO CARD", date, photo);
 
   //const formatedDate = `${getAlphabetMonth(date)}, ${date.getFullYear()}`;
 
@@ -63,7 +65,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
   );
 
   return (
-    <div className="relative w-345 bg-photocard h-194 flex items-center justify-center rounded-sm shadow-md">
+    <div className="relative w-345 bg-photocard h-194 overflow-hidden flex items-center justify-center rounded-sm shadow-md">
       <WallOfPhotosImg
         base64={photo.base64}
         src={photo.iconSrc}

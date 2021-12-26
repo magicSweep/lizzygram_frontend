@@ -3,7 +3,7 @@ import { Next, Done, then, map, chain, _catch } from "fmagic";
 import wait from "waait";
 import {
   addPhoto as addPhotoFirestoreReq,
-  getPhotoById,
+  getPhoto,
 } from "../../../service/DbService";
 import { addPhoto as addPhotoWorkerReq } from "../../../service/WorkerService";
 import { firestoreReq, request } from "./hook";
@@ -28,7 +28,7 @@ jest.mock("react-redux", () => ({
 jest.mock("../../../service/DbService", () => ({
   __esModule: true,
   addPhoto: jest.fn(),
-  getPhotoById: jest.fn(),
+  getPhoto: jest.fn(),
 }));
 
 jest.mock("../../../service/WorkerService", () => ({
@@ -66,7 +66,7 @@ describe("useAddPhotoReq", () => {
         status: "success",
       });
 
-      (getPhotoById as jest.Mock).mockResolvedValueOnce("added_photo");
+      (getPhoto as jest.Mock).mockResolvedValueOnce("added_photo");
 
       request(dispatch, setState, "userUid", "photoId", formData)();
 
@@ -121,8 +121,8 @@ describe("useAddPhotoReq", () => {
       });
 
       // GET ADDED PHOTO REQUEST
-      expect(getPhotoById).toHaveBeenCalledTimes(1);
-      expect(getPhotoById).toHaveBeenNthCalledWith(1, "photoId");
+      expect(getPhoto).toHaveBeenCalledTimes(1);
+      expect(getPhoto).toHaveBeenNthCalledWith(1, "photoId");
     });
 
     describe("Possibel errors", () => {
@@ -132,7 +132,7 @@ describe("useAddPhotoReq", () => {
           status: "success",
         });
 
-        (getPhotoById as jest.Mock).mockResolvedValueOnce("added_photo");
+        (getPhoto as jest.Mock).mockResolvedValueOnce("added_photo");
 
         const start = request(
           dispatch,
@@ -183,7 +183,7 @@ describe("useAddPhotoReq", () => {
           //showForm: false,
         });
 
-        expect(getPhotoById).toHaveBeenCalledTimes(0);
+        expect(getPhoto).toHaveBeenCalledTimes(0);
       });
 
       test.only(`If we got error in request message - we dispatch error`, async () => {
@@ -192,7 +192,7 @@ describe("useAddPhotoReq", () => {
           status: "error",
         });
 
-        (getPhotoById as jest.Mock).mockResolvedValueOnce("added_photo");
+        (getPhoto as jest.Mock).mockResolvedValueOnce("added_photo");
 
         const start = request(
           dispatch,
@@ -232,7 +232,7 @@ describe("useAddPhotoReq", () => {
           //showForm: false,
         });
 
-        expect(getPhotoById).toHaveBeenCalledTimes(0);
+        expect(getPhoto).toHaveBeenCalledTimes(0);
       });
     });
   });

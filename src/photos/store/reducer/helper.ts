@@ -77,6 +77,7 @@ export const onEditPhotoError = (
   state: PhotosState,
   action: PhotosAction
 ): PhotosState => {
+  console.log("-------------onEditPhotoError", action);
   return {
     ...state,
     editReqs: {
@@ -93,6 +94,7 @@ export const onEditPhotoSuccess = (
   state: PhotosState,
   action: PhotosAction
 ): PhotosState => {
+  console.log("-------------onEditPhotoSuccess", action);
   if (typeof action.photoOrId === "string") {
     // IF WE HAVE PHOTO_ID IT MEANS THAT EDITED PHOTO
     // NOT IN SEARCH TERMS

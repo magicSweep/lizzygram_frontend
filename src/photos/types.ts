@@ -189,6 +189,6 @@ export interface ISearchAction extends Action<TSearchActionTypes> {
 
 export type GetAllPhotosResData = {
   hasNextPage: boolean;
-  nextPageDocRef: any;
+  nextPageDocRef: any | undefined | null;
   photos: Photo<FirestoreDate>[];
 };

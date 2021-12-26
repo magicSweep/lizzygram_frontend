@@ -26,7 +26,7 @@ export const login = async () => {
     observer.notify({
       displayName: "Yallopukka",
       email: "ya@frog.pog",
-      uid: "userUID",
+      uid: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
     });
   }, 1000);
 

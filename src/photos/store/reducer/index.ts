@@ -1,4 +1,5 @@
 import { Reducer } from "redux";
+import { makePhotoId } from "../../../utils/app";
 import { PhotosState, PhotosAction, FirestoreDate, Photo } from "../../types";
 
 //import { onFetchMorePhotosRequestSuccess } from "./helper";
@@ -81,7 +82,7 @@ const reducer: Reducer<PhotosState, PhotosAction> = (
       };
 
     case "ADD_PHOTO_REQUEST_START":
-      const newPhotoId = Date.now().toString();
+      const newPhotoId = makePhotoId();
 
       return {
         ...state,

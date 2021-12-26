@@ -16,13 +16,15 @@ import {
   deleteDoc,
   getFirestore,
 } from "firebase/firestore";
+import {
+  addOne,
+  getOne,
+  editOne,
+  getAllBySearchTerms,
+} from "../../photos/repository/firestore";
 import { photosCollectionName } from "../../config";
 import Button from "@mui/material/Button";
-import {
-  getPhotoById,
-  addPhoto,
-  editPhoto,
-} from "../../photos/service/DbService";
+import { getPhoto, addPhoto, editPhoto } from "../../photos/service/DbService";
 
 const getTagElems = (tags: { [id: string]: boolean }) => {
   for (let id in tags) {
@@ -63,6 +65,7 @@ const getPhotoElem = (photo: Photo<FirestoreDate>, index: number) => {
 const photoId = "1639680164863";
 
 const photoData = {
+  id: "1639680164863",
   files: ["hello123.jpb"],
   base64: "/9j/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFx",
   aspectRatio: 1.3,
@@ -95,7 +98,7 @@ const PhotosTab = () => {
   const photosElem = photos === undefined ? null : photos.map(getPhotoElem);
 
   const testPhoto = async () => {
-    const db = getFirestore();
+    /* const db = getFirestore();
 
     const photosRef = collection(db, photosCollectionName);
 
@@ -110,16 +113,39 @@ const PhotosTab = () => {
 
     const querySnapshot = await getDocs(q);
 
+    */
+
+    const data = await getAllBySearchTerms(
+      {
+        tags: undefined /* {
+          bCcRcxADj2xP9fkSXNpH: true,
+          ieYx4ke8ms0DJb5APv4u: true,
+          saDWGntDo84EQYG8FGFE: true,
+        } */,
+        age: -1,
+      },
+      undefined,
+      35
+    );
+
+    /* const photos = [];
+
     querySnapshot.forEach((doc) => {
       // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, "=>", doc.data());
-    });
+      photos.push({
+        id: doc.id,
+        ...doc.data(),
+      });
+      //console.log(doc.id, "=>", doc.data());
+    }); */
+
+    console.log("-----PHOTOS", JSON.stringify(data.docs));
   };
 
   const tryToGetPhotoById = async () => {
     //const db = getFirestore();
 
-    const res = await getPhotoById("1600128056213");
+    const res = await getPhoto("1600128056213");
     //const res = await setDoc(doc(db, photosCollectionName, photoId), photoData);
 
     console.log("----TRY TO GET PHOTO BY ID", res);
@@ -128,7 +154,9 @@ const PhotosTab = () => {
   const tryToAddPhoto = async () => {
     const db = getFirestore();
 
-    const res = await setDoc(doc(db, photosCollectionName, photoId), photoData);
+    //const res = await setDoc(doc(db, photosCollectionName, photoId), photoData);
+
+    const res = await addPhoto(photoData as any);
 
     console.log("----TRY TO ADD PHOTO", res);
   };
@@ -136,10 +164,15 @@ const PhotosTab = () => {
   const tryToUpdatePhoto = async () => {
     const db = getFirestore();
 
-    const photoRef = doc(db, photosCollectionName, photoId);
+    /* const photoRef = doc(db, photosCollectionName, photoId);
 
     const res = await updateDoc(photoRef, {
       googleDriveId: "googleDrive123",
+    }); */
+
+    const res = await editPhoto({
+      photoId,
+      fieldsToUpdate: { googleDriveId: "googleDrive123" } as any,
     });
 
     console.log("----TRY TO UPDATE PHOTO", res);

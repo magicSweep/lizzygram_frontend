@@ -5,6 +5,7 @@ import {
   QuerySnapshot,
   where,
   startAt,
+  orderBy,
   getDocs,
   query,
   getFirestore,
@@ -16,8 +17,78 @@ import { SearchTerms } from "./../../search/types";
 import { FirestoreTagsData } from "./../../tags/types";
 import { numberOfPhotosPerQuery, photosCollectionName } from "./../../config";
 import { FirestoreDate, GetAllPhotosResData, Photo } from "../types";
+import { OrderBy } from "../../firebase/types";
 
-export let prevSearchTerms: SearchTerms;
+export const makeQueryConstraints_ =
+  (
+    //numberOfPhotosPerQuery: number,
+    where_: typeof where,
+    limit_: typeof limit,
+    startAt_: typeof startAt,
+    orderBy_: typeof orderBy
+  ) =>
+  (searchTerms: SearchTerms, startAt: any, limit: number, orderBy?: OrderBy) =>
+    compose<unknown, QueryConstraint[]>(
+      /* tap(() =>
+        console.log("=============makeQueryConstraints", searchTerms, startAt)
+      ), */
+      //add age where
+      elif(
+        () => searchTerms.age >= 0,
+        () => [where_("yearsOld", "==", searchTerms.age)],
+        () => []
+      ),
+
+      //add tags where
+      elif(
+        () => searchTerms.tags !== undefined,
+        (wheres: any[]) =>
+          compose(
+            () =>
+              Object.keys(searchTerms.tags).map((tagId) => {
+                if (searchTerms.tags[tagId] === true)
+                  return where_(`tags.${tagId}`, "==", true);
+              }),
+            (tagsWhere: any[]) =>
+              tagsWhere.filter((where) => where !== undefined),
+            (tagsWhere: any[]) => wheres.concat(tagsWhere)
+          )(),
+        justReturn
+      ),
+
+      elif(
+        () => orderBy !== undefined,
+        (wheres: any[]) => wheres.concat([orderBy_(...orderBy)]),
+        justReturn
+      ),
+
+      //add start at
+      elif(
+        () => startAt !== undefined && startAt !== null,
+        (wheres: any[]) => wheres.concat([startAt_(startAt)]),
+        justReturn
+      ),
+
+      (wheres: any[]) => wheres.concat([limit_(limit + 1)])
+    )();
+
+export const makeQueryConstraints = makeQueryConstraints_(
+  //numberOfPhotosPerQuery,
+  where,
+  limit,
+  startAt,
+  orderBy
+);
+
+export const addIsActiveCondition_ =
+  (where_: typeof where) => (wheres: any[]) => {
+    //where_(`tags.${tagId}`, "==", true);
+    return wheres.concat([where_(`isActive`, "==", true)]);
+  };
+
+export const addIsActiveCondition = addIsActiveCondition_(where);
+
+/* export let prevSearchTerms: SearchTerms;
 
 export const isEqualTags = (
   tags1?: FirestoreTagsData,
@@ -58,74 +129,17 @@ export const isNeedNewRequest = (
   prevSearchTerms = searchTerms;
 
   return isNeed;
-};
+}; */
 
-export const isInitState = (init: any, curr: any) => {
+/* export const isInitState = (init: any, curr: any) => {
   for (let prop in init) {
     if (init[prop] !== curr[prop]) return false;
   }
 
   return true;
-};
+}; */
 
-export const makeQueryConstraints_ =
-  (
-    numberOfPhotosPerQuery: number,
-    where_: typeof where,
-    limit_: typeof limit,
-    startAt_: typeof startAt
-  ) =>
-  (searchTerms: SearchTerms, nextPageDocRef?: any) =>
-    compose<unknown, QueryConstraint[]>(
-      tap(() =>
-        console.log(
-          "=============makeQueryConstraints",
-          searchTerms,
-          nextPageDocRef
-        )
-      ),
-      //add age where
-      elif(
-        () => searchTerms.age >= 0,
-        () => [where_("yearsOld", "==", searchTerms.age)],
-        () => []
-      ),
-
-      //add tags where
-      elif(
-        () => searchTerms.tags !== undefined,
-        (wheres: any[]) =>
-          compose(
-            () =>
-              Object.keys(searchTerms.tags).map((tagId) => {
-                if (searchTerms.tags[tagId] === true)
-                  return where_(`tags.${tagId}`, "==", true);
-              }),
-            (tagsWhere: any[]) =>
-              tagsWhere.filter((where) => where !== undefined),
-            (tagsWhere: any[]) => wheres.concat(tagsWhere)
-          )(),
-        justReturn
-      ),
-
-      //add start at
-      elif(
-        () => nextPageDocRef !== undefined,
-        (wheres: any[]) => wheres.concat([startAt_(nextPageDocRef)]),
-        justReturn
-      ),
-
-      (wheres: any[]) => wheres.concat([limit_(numberOfPhotosPerQuery + 1)])
-    );
-
-export const makeQueryConstraints = makeQueryConstraints_(
-  numberOfPhotosPerQuery,
-  where,
-  limit,
-  startAt
-);
-
-export const sendRequest_ =
+/* export const sendRequest_ =
   (
     photosCollectionName: string,
     getFirestore_: typeof getFirestore,
@@ -147,9 +161,9 @@ export const sendRequest = sendRequest_(
   getDocs,
   query,
   collection
-);
+); */
 
-export const makeGetAllPhotosResData_ =
+/* export const makeGetAllPhotosResData_ =
   (numberOfPhotosPerQuery: number) => (querySnapshot: QuerySnapshot) => {
     //console.log("-------------------makeGetAllPhotosResData");
 
@@ -177,11 +191,31 @@ export const makeGetAllPhotosResData_ =
     });
 
     return res;
+  }; */
+
+/* export const makeGetAllPhotosResData_ =
+  (numberOfPhotosPerQuery: number) => (photos: Photo<FirestoreDate>[]) => {
+    //console.log("-------------------makeGetAllPhotosResData");
+
+    const res: GetAllPhotosResData = {
+      hasNextPage: false,
+      nextPageDocRef: null,
+      photos: [],
+    };
+
+    if (photos.length > numberOfPhotosPerQuery) {
+      res.hasNextPage = true;
+      res.nextPageDocRef = photos.pop();
+    }
+
+    res.photos = photos;
+
+    return res;
   };
 
 export const makeGetAllPhotosResData = makeGetAllPhotosResData_(
   numberOfPhotosPerQuery
-);
+); */
 
 /* import { FirestoreTagsData } from "./../../tags/types";
 //import firebase from "firebase/app";

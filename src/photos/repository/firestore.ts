@@ -1,11 +1,17 @@
-import {
+/* import {
   doc,
   setDoc,
   getDoc,
   updateDoc,
   getFirestore,
-} from "firebase/firestore";
-import { photosCollectionName, numberOfPhotosPerQuery } from "../../config";
+} from "firebase/firestore"; */
+import {
+  getAllWithCursor,
+  addOne as addOne_,
+  editOne as editOne_,
+  getOne as getOne_,
+} from "../../firebase/firestore";
+import { photosCollectionName } from "../../config";
 import { compose, tap, then } from "fmagic";
 import {
   Photo,
@@ -14,9 +20,10 @@ import {
   EditPhotoFirestoreRequestBody,
 } from "../types";
 import {
-  isInitState,
+  // isInitState,
   makeQueryConstraints,
-  sendRequest,
+  addIsActiveCondition,
+  //sendRequest,
   //addTagsTerms,
   //createQuery,
   //withCond,
@@ -24,12 +31,18 @@ import {
   //addOrderBy,
   //addStartAt,
   //addYearsOldTerms,
-  makeGetAllPhotosResData,
+  //makeGetAllPhotosResData,
   //sendRequest,
-} from "./helper";
+} from "./firestore.helper";
 import { SearchTerms } from "./../../search/types";
+import { OrderBy, ResponseWithCursor } from "../../firebase/types";
+import {
+  DocumentData,
+  QueryConstraint,
+  QuerySnapshot,
+} from "firebase/firestore";
 
-export const makeReq = (
+/* export const makeReq = (
   _isInitState: boolean,
   searchTerms: SearchTerms,
   nextPageDocRef?: any
@@ -40,9 +53,9 @@ export const makeReq = (
     sendRequest,
     then(tap(() => console.log("--------AFTER SEND REQUEST"))),
     then(makeGetAllPhotosResData)
-  );
+  ); */
 
-export const getAllBySearchTerms = (
+/* export const getAllBySearchTerms = (
   searchTerms: SearchTerms,
   initSearchTerms: SearchTerms,
   nextPageDocRef?: any
@@ -55,9 +68,29 @@ export const getAllBySearchTerms = (
 
   // prepare query
   return makeReq(_isInitState, searchTerms, nextPageDocRef)();
-};
+}; */
 
-export const addOne = (photo: Photo<Date>) => {
+// orderBy: [fieldName, desc]
+export const getAllBySearchTerms = async (
+  searchTerms: SearchTerms,
+  startAt: any,
+  limit: number,
+  orderBy?: OrderBy
+) =>
+  compose<unknown, Promise<ResponseWithCursor<Photo<FirestoreDate>>>>(
+    () => makeQueryConstraints(searchTerms, startAt, limit, orderBy),
+    addIsActiveCondition,
+    getAllWithCursor(photosCollectionName, limit)
+  )();
+
+export const addOne = addOne_(photosCollectionName);
+
+export const editOne = editOne_(photosCollectionName);
+
+export const getOne: (photoId: string) => Promise<Photo<FirestoreDate>> =
+  getOne_(photosCollectionName);
+
+/* export const addOne = (photo: Photo<Date>) => {
   const db = getFirestore();
 
   return setDoc(doc(db, photosCollectionName, photo.id), photo);
@@ -84,7 +117,7 @@ export const getById = async (
     ...res.data(),
     id: res.id,
   } as Photo<FirestoreDate>;
-};
+}; */
 
 /*
 export interface PhotosRepository {

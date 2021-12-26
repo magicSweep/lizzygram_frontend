@@ -4,6 +4,7 @@ import { GlobalState } from "../../../types";
 import { SearchTerms, SearchPhotoFormData } from "../../types";
 import { MutableRefObject, useCallback, useRef } from "react";
 import { isDiffSearchState } from "./helper";
+import { getOnlyTrueTags } from "../../../utils/app";
 
 export const useSearchPhotoForm = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,10 @@ export const useSearchPhotoForm = () => {
 
       if (isDiffSearchState(prevSearchTerms, data) === true) {
         dispatch(
-          setSearchTermsAC({ tags: data.tags, age: parseInt(data.age) })
+          setSearchTermsAC({
+            tags: getOnlyTrueTags(data.tags),
+            age: parseInt(data.age),
+          })
         );
       }
       dispatch(hideSearchFormAC());

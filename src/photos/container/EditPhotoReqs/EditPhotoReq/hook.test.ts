@@ -3,7 +3,7 @@ import { Next, Done, then, map, chain, _catch } from "fmagic";
 import wait from "waait";
 import {
   editPhoto as editPhotoFirestoreReq,
-  getPhotoById,
+  getPhoto,
 } from "../../../service/DbService";
 import { editPhoto as editPhotoWorkerReq } from "../../../service/WorkerService";
 import { request } from "./hook";
@@ -28,7 +28,7 @@ jest.mock("react-redux", () => ({
 jest.mock("../../../service/DbService", () => ({
   __esModule: true,
   editPhoto: jest.fn(),
-  getPhotoById: jest.fn(),
+  getPhoto: jest.fn(),
 }));
 
 jest.mock("../../../service/WorkerService", () => ({
@@ -135,7 +135,7 @@ describe("useEditPhotoReq", () => {
       isNeedWorkerReq = false;
 
       (editPhotoFirestoreReq as jest.Mock).mockResolvedValueOnce(true);
-      (getPhotoById as jest.Mock).mockResolvedValueOnce("edited photo");
+      (getPhoto as jest.Mock).mockResolvedValueOnce("edited photo");
 
       const start = request(
         dispatch,
@@ -168,8 +168,8 @@ describe("useEditPhotoReq", () => {
         photoId: "12334324243558",
       }); */
 
-      expect(getPhotoById).toHaveBeenCalledTimes(1);
-      expect(getPhotoById).toHaveBeenNthCalledWith(1, iphoto.id);
+      expect(getPhoto).toHaveBeenCalledTimes(1);
+      expect(getPhoto).toHaveBeenNthCalledWith(1, iphoto.id);
 
       expect(setState).toHaveBeenCalledTimes(3);
 
@@ -207,8 +207,8 @@ describe("useEditPhotoReq", () => {
       });
 
       // GET ADDED PHOTO REQUEST
-      expect(getPhotoById).toHaveBeenCalledTimes(1);
-      expect(getPhotoById).toHaveBeenNthCalledWith(1, "12334324243558");
+      expect(getPhoto).toHaveBeenCalledTimes(1);
+      expect(getPhoto).toHaveBeenNthCalledWith(1, "12334324243558");
     });
 
     test(`If we don't add photo file we only send request to firestore - 
@@ -234,7 +234,7 @@ describe("useEditPhotoReq", () => {
       isNeedWorkerReq = false;
 
       (editPhotoFirestoreReq as jest.Mock).mockResolvedValueOnce(true);
-      (getPhotoById as jest.Mock).mockResolvedValueOnce("edited photo");
+      (getPhoto as jest.Mock).mockResolvedValueOnce("edited photo");
 
       const start = request(
         dispatch,
@@ -252,7 +252,7 @@ describe("useEditPhotoReq", () => {
 
       await wait(1000);
 
-      expect(getPhotoById).toHaveBeenCalledTimes(0);
+      expect(getPhoto).toHaveBeenCalledTimes(0);
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
         photoOrId: iphoto.id,
@@ -283,7 +283,7 @@ describe("useEditPhotoReq", () => {
       isNeedWorkerReq = true;
 
       (editPhotoWorkerReq as jest.Mock).mockResolvedValueOnce(true);
-      (getPhotoById as jest.Mock).mockResolvedValueOnce("edited photo");
+      (getPhoto as jest.Mock).mockResolvedValueOnce("edited photo");
 
       const start = request(
         dispatch,
@@ -316,8 +316,8 @@ describe("useEditPhotoReq", () => {
         userUid: "userUid",
       });  */
 
-      expect(getPhotoById).toHaveBeenCalledTimes(1);
-      expect(getPhotoById).toHaveBeenNthCalledWith(1, iphoto.id);
+      expect(getPhoto).toHaveBeenCalledTimes(1);
+      expect(getPhoto).toHaveBeenNthCalledWith(1, iphoto.id);
 
       expect(setState).toHaveBeenCalledTimes(3);
 
@@ -348,8 +348,8 @@ describe("useEditPhotoReq", () => {
       });
 
       // GET ADDED PHOTO REQUEST
-      expect(getPhotoById).toHaveBeenCalledTimes(1);
-      expect(getPhotoById).toHaveBeenNthCalledWith(1, "12334324243558");
+      expect(getPhoto).toHaveBeenCalledTimes(1);
+      expect(getPhoto).toHaveBeenNthCalledWith(1, "12334324243558");
     });
 
     describe("Possibel errors", () => {
@@ -394,7 +394,7 @@ describe("useEditPhotoReq", () => {
 
         expect(editPhotoWorkerReq).toHaveBeenCalledTimes(1);
 
-        expect(getPhotoById).toHaveBeenCalledTimes(0);
+        expect(getPhoto).toHaveBeenCalledTimes(0);
 
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -422,7 +422,7 @@ describe("useEditPhotoReq", () => {
           //showForm: false,
         });
 
-        expect(getPhotoById).toHaveBeenCalledTimes(0);
+        expect(getPhoto).toHaveBeenCalledTimes(0);
       });
 
       test(`If we got error in request message - we dispatch error`, async () => {
@@ -449,7 +449,7 @@ describe("useEditPhotoReq", () => {
 
         expect(editPhotoWorkerReq).toHaveBeenCalledTimes(1);
 
-        expect(getPhotoById).toHaveBeenCalledTimes(0);
+        expect(getPhoto).toHaveBeenCalledTimes(0);
 
         expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
@@ -479,7 +479,7 @@ describe("useEditPhotoReq", () => {
           //showForm: false,
         });
 
-        expect(getPhotoById).toHaveBeenCalledTimes(0);
+        expect(getPhoto).toHaveBeenCalledTimes(0);
       });
     });
   });

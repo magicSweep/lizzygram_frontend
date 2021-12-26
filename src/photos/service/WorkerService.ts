@@ -1,21 +1,33 @@
-import { post } from "../../service/fetch";
-import { WorkerRequestBody } from "./../types";
-import { addPhotoUrl, editPhotoUrl } from "./../../config";
-//import { post } from "../../service/fetch/fake";
+//import { add, edit } from "../api/worker.fake";
+import { FirestoreFieldsToEdit, WorkerRequestBody } from "./../types";
+//import { addPhotoUrl, editPhotoUrl } from "./../../config";
+import { add, edit } from "../api/worker";
 
-export const editPhoto = async (data: WorkerRequestBody) => {
+export const editPhoto = async (
+  data: {
+    photoId: string;
+    userUid: string;
+    photoFile: File;
+  } & FirestoreFieldsToEdit
+) => {
   const formData = new FormData();
 
-  formData.append("description", data.description ? data.description : "");
-  formData.append("date", data.date ? data.date : "");
+  if (data.description !== undefined)
+    formData.append("description", data.description);
+
+  if (data.date !== undefined) formData.append("date", data.date.toUTCString());
   //formData.append("yearsOld", data.yearsOld ? `${data.yearsOld}` : "");
-  formData.append("tags", data.tags ? data.tags : "");
+
+  if (data.tags !== undefined)
+    formData.append("tags", JSON.stringify(data.tags));
 
   formData.append("photoId", data.photoId);
   formData.append("userUid", data.userUid);
   formData.append("file", data.photoFile);
 
-  const res = await post(editPhotoUrl, formData, {
+  return edit(formData);
+
+  /* const res = await post(editPhotoUrl, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -23,7 +35,7 @@ export const editPhoto = async (data: WorkerRequestBody) => {
 
   //console.log("ADD RESPONSE", res);
 
-  return res.json();
+  return res.json(); */
 };
 
 export const addPhoto = async (data: WorkerRequestBody) => {
@@ -39,7 +51,8 @@ export const addPhoto = async (data: WorkerRequestBody) => {
   formData.append("userUid", data.userUid);
   formData.append("file", data.photoFile);
 
-  const res = await post(addPhotoUrl, formData, {
+  return add(formData);
+  /* const res = await post(addPhotoUrl, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
@@ -47,9 +60,5 @@ export const addPhoto = async (data: WorkerRequestBody) => {
 
   //console.log("ADD RESPONSE", res);
 
-  return res.json();
-
-  /* if (resData.status === "error") {
-    throw new Error(`Server return some error - ${resData.data}`);
-  } */
+  return res.json(); */
 };

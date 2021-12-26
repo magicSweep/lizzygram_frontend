@@ -3,7 +3,7 @@ import { tap, _catch, then, compose } from "fmagic";
 import { makeAddPhotoData, makeAddPhotoWorkerData } from "./helper";
 import {
   addPhoto as addPhotoFirestoreReq,
-  getPhotoById,
+  getPhoto,
 } from "../../../service/DbService";
 import { addPhoto as addPhotoWorkerReq } from "../../../service/WorkerService";
 import {
@@ -80,7 +80,7 @@ export const getAddedPhotoReq = (
   dispatch: any,
   setState: any
 ) => {
-  getPhotoById(photoId)
+  getPhoto(photoId)
     .then((photo) => {
       batch(() => {
         dispatch(getAddedPhotoSuccessAC(photo));
@@ -149,12 +149,13 @@ export const request = (
   );
 
   return compose(
-    async () => {
+    /* async () => {
       // dispatch
       // prepare data
       // send request
       await sendFirestoreReq();
-    },
+    }, */
+    sendFirestoreReq,
     then(() =>
       addPhotoWorkerReq(makeAddPhotoWorkerData(formData, userUid, photoId))
     ),

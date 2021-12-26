@@ -77,8 +77,14 @@ export const isInSearchTerms = (
     searchTerms.tags !== undefined &&
     isEmptyObj(searchTerms.tags) === false
   ) {
-    if (!isEqual(fieldsToUpdate.tags, searchTerms.tags)) {
+    /* if (!isEqual(fieldsToUpdate.tags, searchTerms.tags)) {
       return false;
+    } */
+
+    for (let id in searchTerms.tags) {
+      if (searchTerms.tags[id] === true && fieldsToUpdate.tags[id] !== true) {
+        return false;
+      }
     }
   }
 

@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { PaletteOptions } from "@mui/material/styles";
 import { AppBar } from "../AppBar";
+import useMediaQuery from "@mui/material/useMediaQuery";
 /* import { navigate } from "gatsby";
 import { useLocation, useNavigate, Redirect } from "@reach/router";
 import { useAuth } from "./../../auth";
@@ -48,22 +49,29 @@ type WrapperProps = {
   children: any;
 };
 
-const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => (
-  <Box
-    className="z-10 relative p-5 -mt-16 mx-8 rounded-lg"
-    sx={{
-      bgcolor: "background.paper",
-      minHeight: "600px",
-      boxShadow: 4,
-    }}
-  >
-    <ThemeSwitch
-      checked={mode === "dark" ? true : false}
-      onChange={toggleMode}
-    />
-    {children}
-  </Box>
-);
+const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => {
+  const matches = useMediaQuery("(min-width:450px)");
+
+  return (
+    <Box
+      className={`z-10 relative p-5 -mt-16 ${
+        matches === false ? "mx-1" : "mx-8"
+      } rounded-lg`}
+      sx={{
+        bgcolor: "background.paper",
+        minWidth: "400px",
+        minHeight: "600px",
+        boxShadow: 4,
+      }}
+    >
+      <ThemeSwitch
+        checked={mode === "dark" ? true : false}
+        onChange={toggleMode}
+      />
+      {children}
+    </Box>
+  );
+};
 
 export const Layout: FC<LayoutProps> = ({ children }) => {
   //const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
