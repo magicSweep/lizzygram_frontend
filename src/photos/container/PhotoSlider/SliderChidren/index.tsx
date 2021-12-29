@@ -4,7 +4,7 @@ import SliderImage, {
   SliderImageProps,
 } from "../../../../component/images/SliderImage";
 import LabledSpinner from "../../../../component/progress/LabledSpinner";
-import { Photo, FirestoreDate } from "../../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export type SliderChildrenProps = {
   photos: Photo<FirestoreDate>[];

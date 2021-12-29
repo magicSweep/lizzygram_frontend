@@ -1,17 +1,18 @@
+/*import {
+  getAllBySearchTerms,
+  addOne,
+  getOne,
+  editOne,
+} from "../repository/firestore";*/
 import {
   getAllBySearchTerms,
   addOne,
   getOne,
   editOne,
-} from "../repository/firestore";
-/* import {
-  getAllBySearchTerms,
-  addOne,
-  getOne,
-  editOne,
-} from "../repository/firestore.fake"; */
+} from "../repository/firestore.fake";
 import { numberOfPhotosPerQuery } from "../../config";
-import { Photo, EditPhotoFirestoreRequestBody } from "../types";
+import { EditPhotoFirestoreRequestBody } from "../types";
+import { Photo } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "../../search/types";
 //import { initSearchState } from "../../search";
 

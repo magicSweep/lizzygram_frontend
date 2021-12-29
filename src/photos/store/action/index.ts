@@ -1,9 +1,9 @@
 import {
   PhotosAction,
   GetAllPhotosResData,
-  Photo,
-  FirestoreDate,
 } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+
 //import { TPhotoData } from "../../types";
 
 export const allPhotosStartNewRequestAC = (): PhotosAction => {

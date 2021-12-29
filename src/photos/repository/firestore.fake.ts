@@ -4,17 +4,12 @@ import {
   photosCollectionName,
   //numberOfPhotosPerQuery,
 } from "../../config";
-import {
-  Photo,
-  GetAllPhotosResData,
-  FirestoreDate,
-  EditPhotoFirestoreRequestBody,
-} from "../types";
+import { GetAllPhotosResData, EditPhotoFirestoreRequestBody } from "../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "./../../search/types";
 import { photos as photosToAdd } from "../mock/fake.data";
 import { photos as initPhotos } from "../mock/photos.db";
 import { OrderBy } from "../../firebase/types";
-import { QuerySnapshot } from "firebase/firestore";
 //import { isInitState } from "./helper";
 
 const photos = [...initPhotos];

@@ -1,5 +1,8 @@
 import { compose, elif, tap } from "fmagic";
 import { TagsFormState } from "./types";
+import { isValidTags } from "lizzygram-common-data";
+
+export const tagsValidate = isValidTags;
 
 // tagsState = {tags: string[]}
 
@@ -13,7 +16,7 @@ import { TagsFormState } from "./types";
   (isTap: boolean) => isTap || "Добавьте хотя бы один тэг."
 );
 */
-const hasTrueValue = (obj: any) => {
+/* const hasTrueValue = (obj: any) => {
   for (let prop in obj) {
     if (obj[prop] === true) return true;
   }
@@ -28,8 +31,4 @@ export const tagsValidate = compose<TagsFormState, boolean | string>(
     () => false
   ),
   (isTap: boolean) => isTap || "Добавьте хотя бы один тэг."
-);
-
-export const tagsRules = {
-  validate: tagsValidate,
-};
+); */

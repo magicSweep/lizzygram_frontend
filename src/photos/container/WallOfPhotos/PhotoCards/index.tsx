@@ -7,7 +7,7 @@ import PhotoCardSkeletons, {
 //import { numberOfPhotosPerQuery } from "../../../../../config";
 //import classes from "./PhotoCards.module.scss";
 //import Card from "@material-ui/core/Card";
-import { Photo, FirestoreDate } from "../../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export interface PhotoCardsProps {
   //tagsState: ITagsState;

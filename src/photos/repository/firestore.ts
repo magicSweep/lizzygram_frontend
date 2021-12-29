@@ -13,12 +13,7 @@ import {
 } from "../../firebase/firestore";
 import { photosCollectionName } from "../../config";
 import { compose, tap, then } from "fmagic";
-import {
-  Photo,
-  GetAllPhotosResData,
-  FirestoreDate,
-  EditPhotoFirestoreRequestBody,
-} from "../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import {
   // isInitState,
   makeQueryConstraints,

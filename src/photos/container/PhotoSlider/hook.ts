@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { hidePhotoSliderAC, editPhotoStartRequestAC } from "../../store/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
-//import { Photo, FirestoreDate } from "../../types";
+//import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { usePhotos } from "../../hook/usePhotos";
 import { GlobalState } from "../../../types";
 import { makeDownloadPhotoUrl } from "../../helper";

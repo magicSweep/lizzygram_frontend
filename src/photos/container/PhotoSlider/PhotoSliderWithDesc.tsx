@@ -4,7 +4,7 @@ import React, { FC, useState, useCallback } from "react";
 import PhotoSliderWidget, { PhotoSliderProps } from "./PhotoSliderWidget";
 import CloseIcon from "@mui/icons-material/Close";
 import PhotoDesc from "../../component/PhotoDesc";
-import { Photo, FirestoreDate } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export type PhotoSliderWithDescProps = Omit<
   PhotoSliderProps,

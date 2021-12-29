@@ -14,7 +14,7 @@ import { photos } from "./../../mock/fake.data";
 //import thunk from "redux-thunk";
 import PhotoSliderWithDesc from "./PhotoSliderWithDesc";
 import Button from "@mui/material/Button";
-import { Photo, FirestoreDate } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import wait from "waait";
 import {
   fetchMorePhotos,

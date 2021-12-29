@@ -6,7 +6,7 @@ import PhotoCardSkeletons, {
 //import { numberOfPhotosPerQuery } from "../../../../../config";
 //import classes from "./PhotoCards.module.scss";
 //import Card from "@material-ui/core/Card";
-import { Photo, FirestoreDate } from "../../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { getDoesRenderElements } from "./helper";
 import { compose } from "fmagic";
 import PhotoCards from "../PhotoCards";

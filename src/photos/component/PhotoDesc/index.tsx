@@ -10,7 +10,7 @@ import Tags from "../../../tags/container/Tags";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Link from "@mui/material/Link";
-import { Photo, FirestoreDate } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export interface PhotoDescProps {
   photo: Photo<FirestoreDate> | undefined;

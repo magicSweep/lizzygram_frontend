@@ -7,7 +7,7 @@ import React, {
   useRef,
 } from "react";
 import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
-import { Photo, FirestoreDate } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { useImgZoom } from "../../hook/useImgZoom";
 import SliderBar from "../SliderBar";
 import SliderChildren from "./SliderChidren";

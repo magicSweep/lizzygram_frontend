@@ -1,7 +1,7 @@
 import React, { FC, MutableRefObject, useRef } from "react";
 import EditPhotoForm from "../../../form/EditPhotoForm";
 import { useEditPhotoReq } from "./hook";
-import { Photo, FirestoreDate } from "./../../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { GlobalState } from "./../../../../types";
 import FormModal from "./../../../../component/FormModal";
 import { useSelector } from "react-redux";

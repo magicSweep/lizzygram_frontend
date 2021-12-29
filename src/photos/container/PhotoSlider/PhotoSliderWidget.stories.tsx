@@ -15,7 +15,7 @@ import { photos } from "./../../mock/fake.data";
 import PhotoSliderWidget, { PhotoSliderProps } from "./PhotoSliderWidget";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import { Photo, FirestoreDate } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import wait from "waait";
 import {
   fetchMorePhotos,

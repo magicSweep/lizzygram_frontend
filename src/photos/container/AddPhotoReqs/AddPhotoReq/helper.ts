@@ -1,12 +1,13 @@
 import { set, compose } from "fmagic";
 import { getOnlyTrueTags, getYearsOld } from "../../../../utils/app";
-import { AddPhotoFormData, WorkerRequestBody, Photo } from "./../../../types";
+import { AddPhotoFormData } from "./../../../types";
+import { Photo, WorkerRequest } from "lizzygram-common-data/dist/types";
 
 export const makeAddPhotoWorkerData = (
   formData: AddPhotoFormData,
   userUid: string,
   photoId: string
-): WorkerRequestBody => {
+): WorkerRequest => {
   return {
     photoFile: formData.photoFile[0],
     userUid: userUid,
@@ -26,7 +27,7 @@ export const makeAddPhotoData = (
       addedByUserUID: userUid,
       isActive: false,
     }),
-    set("description", formData.desc ? formData.desc : ""),
+    set("description", formData.desc !== undefined ? formData.desc : ""),
     set("tags", getOnlyTrueTags(formData.tags)),
     set("date", new Date(formData.date)),
     set("yearsOld", (photo: any) => getYearsOld(photo.date)),

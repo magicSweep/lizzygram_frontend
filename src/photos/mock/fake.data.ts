@@ -1,4 +1,4 @@
-import { FirestoreDate, Photo } from "./../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 //@ts-ignore
 import image1 from "./../../images/12.jpg";
 //@ts-ignore

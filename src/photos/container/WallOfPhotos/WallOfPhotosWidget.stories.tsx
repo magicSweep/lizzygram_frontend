@@ -1,7 +1,4 @@
-import Box from "@mui/system/Box";
-import Button from "@mui/material/Button";
 import WallOfPhotosWidget, { WallOfPhotosProps } from "./WallOfPhotosWidget";
-import { useState } from "react";
 import { photos, addedPhoto } from "./../../mock/fake.data";
 //import useFakePhotos from "../../mock/useFakePhotos";
 //import { getItemsArrays } from "./InfiniteScroll/hook/useHelper/helper";

@@ -1,5 +1,5 @@
-import { isUserExists } from "../repository/firestore";
-//import { isUserExists } from "../repository/firestore.fake";
+//import { isUserExists } from "../repository/firestore";
+import { isUserExists } from "../repository/firestore.fake";
 import { AuthUser } from "./../types";
 
 export const isEditor = async (user: AuthUser): Promise<AuthUser> => {

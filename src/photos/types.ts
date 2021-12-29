@@ -1,10 +1,11 @@
 import { Action } from "redux";
 import { TagsFormState } from "./../tags/types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 // PHOTOS
 
-export type ImgExt = "jpeg" | "jpg" | "png";
-export type FirestoreDate = {
+//export type ImgExt = "jpeg" | "jpg" | "png";
+/* export type FirestoreDate = {
   toDate: () => Date;
 };
 
@@ -30,7 +31,7 @@ export interface Photo<T> {
   addedByUserUID: string;
   // do we make changes by express
   isActive: boolean;
-}
+} */
 
 export type AddPhotoFormData = {
   desc?: string;
@@ -43,7 +44,7 @@ export type AddPhotoFormData = {
   extends Omit<IAddPhotoFormData, "photoFile"> {} */
 export type EditPhotoFormData = {
   desc?: string;
-  date?: Date;
+  date?: Date | null;
   photoFile?: FileList;
   tags: TagsFormState;
 };
@@ -56,10 +57,10 @@ export type FirestoreFieldsToEdit = {
   tags?: { [name: string]: boolean };
 };
 
-export type UtcDateString = string;
-export type JsonString = string;
+//export type UtcDateString = string;
+//export type JsonString = string;
 
-export type WorkerRequestBody = {
+/* export type WorkerRequestBody = {
   photoId: string;
   userUid: string;
   photoFile: File;
@@ -69,7 +70,7 @@ export type WorkerRequestBody = {
   //isActive?: boolean;
   //yearsOld?: number;
   // tags?: { [name: string]: boolean };
-};
+}; */
 
 /* export type AddPhotoWorkerData = {
   photoId: string;

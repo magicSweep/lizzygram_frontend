@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Photo, FirestoreDate } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { makeDownloadPhotoUrl } from "../../../utils/app";
 /* import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";

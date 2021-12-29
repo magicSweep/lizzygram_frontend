@@ -1,6 +1,6 @@
 import Button from "@mui/material/Button";
 import React, { FC } from "react";
-import { Photo, FirestoreDate } from "../../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export interface ILoadMoreBtnProps {
   photos: Photo<FirestoreDate>[] | undefined;

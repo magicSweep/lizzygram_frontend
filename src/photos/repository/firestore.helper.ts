@@ -1,22 +1,12 @@
 import {
   limit,
-  Query,
   QueryConstraint,
-  QuerySnapshot,
   where,
   startAt,
   orderBy,
-  getDocs,
-  query,
-  getFirestore,
-  Firestore,
-  collection,
 } from "firebase/firestore";
 import { compose, elif, justReturn, tap } from "fmagic";
 import { SearchTerms } from "./../../search/types";
-import { FirestoreTagsData } from "./../../tags/types";
-import { numberOfPhotosPerQuery, photosCollectionName } from "./../../config";
-import { FirestoreDate, GetAllPhotosResData, Photo } from "../types";
 import { OrderBy } from "../../firebase/types";
 
 export const makeQueryConstraints_ =

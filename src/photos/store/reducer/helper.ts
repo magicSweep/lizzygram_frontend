@@ -1,5 +1,6 @@
 import /* IPhotosAction, IPhotosState, TPhotosData */ "../../types";
-import { PhotosState, PhotosAction, Photo, FirestoreDate } from "./../../types";
+import { PhotosState, PhotosAction } from "./../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export const getPhotoIndexByPhotoId = (
   photos: Photo<FirestoreDate>[],

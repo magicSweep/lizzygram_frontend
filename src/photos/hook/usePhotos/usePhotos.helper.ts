@@ -1,8 +1,6 @@
 import { SearchTerms } from "./../../../search/types";
 import { FirestoreTagsData } from "./../../../tags/types";
-import { Photo, FirestoreDate, GetAllPhotosResData } from "./../../types";
-import { numberOfPhotosPerQuery } from "../../../config";
-import { QuerySnapshot } from "firebase/firestore";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { ResponseWithCursor } from "../../../firebase/types";
 //import { numberOfPhotosPerQuery, photosCollectionName } from "./../../../config";
 //import { FirestoreDate, GetAllPhotosResData, Photo } from "../../types";

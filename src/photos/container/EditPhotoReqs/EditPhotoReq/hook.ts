@@ -11,13 +11,14 @@ import {
 import { showAlertAC } from "../../../../alert";
 import { isEmptyObj } from "../../../../utils/other";
 import {
-  Photo,
-  FirestoreDate,
+  //Photo,
+  //FirestoreDate,
   EditPhotoFormData,
-  WorkerRequestBody,
+  //WorkerRequestBody,
   EditPhotoFirestoreRequestBody,
   FirestoreFieldsToEdit,
 } from "./../../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "../../../../search/types";
 import { isInSearchTerms, makeEditPhotoData } from "./helper";
 import {

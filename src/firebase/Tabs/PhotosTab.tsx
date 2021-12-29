@@ -2,7 +2,7 @@ import Box from "@mui/system/Box";
 import { LoadableSearchPhotoForm } from "../../search";
 import SearchBtn from "../../search/container/SearchBtn/SearchBtn";
 import { usePhotos } from "../../photos";
-import { Photo, FirestoreDate } from "../../photos/types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import {
   collection,
   query,

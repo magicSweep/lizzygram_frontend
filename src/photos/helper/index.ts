@@ -1,7 +1,7 @@
 //import { generatePhotos } from "./dataGenerator/photos";
 //import { getTagsIds } from "./dataGenerator/tags";
 import { downloadPhotoUrl } from "../../config";
-import { Photo, FirestoreDate } from "../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export const makeDownloadPhotoUrl = (activePhoto: Photo<FirestoreDate>) => {
   let downloadUrl = `${downloadPhotoUrl}/${activePhoto.googleDriveId}`;

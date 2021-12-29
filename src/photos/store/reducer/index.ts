@@ -1,6 +1,7 @@
 import { Reducer } from "redux";
 import { makePhotoId } from "../../../utils/app";
-import { PhotosState, PhotosAction, FirestoreDate, Photo } from "../../types";
+import { PhotosState, PhotosAction } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 //import { onFetchMorePhotosRequestSuccess } from "./helper";
 import {

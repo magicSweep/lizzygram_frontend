@@ -1,11 +1,12 @@
 import { isEqual, trim } from "lodash-es";
 import { getOnlyTrueTags, getYearsOld } from "../../../../utils/app";
 import {
-  Photo,
+  //Photo,
   EditPhotoFormData,
-  FirestoreDate,
+  //FirestoreDate,
   FirestoreFieldsToEdit,
 } from "./../../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "../../../../search/types";
 import { FirestoreTagsData } from "./../../../../tags/types";
 import { Done, map, Next, chain, compose } from "fmagic";
@@ -25,7 +26,8 @@ export const makeEditPhotoData = (
       );
     }, */
     () =>
-      formData.date &&
+      formData.date !== undefined &&
+      formData.date !== null &&
       new Date(formData.date).toDateString() !==
         photo.date.toDate().toDateString()
         ? { date: new Date(formData.date) }

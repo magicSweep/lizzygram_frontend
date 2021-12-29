@@ -8,12 +8,13 @@ import {
   allPhotosRequestErrorAC,
 } from "../../store/action";
 import { compose, tap, then, _catch } from "fmagic";
-import { Photo, FirestoreDate, GetAllPhotosResData } from "./../../types";
+//import { GetAllPhotosResData } from "./../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { SearchState } from "./../../../search/types";
 import { GlobalState } from "./../../../types";
 import { MutableRefObject, useEffect, useRef } from "react";
 import { isNeedNewRequest, makeGetAllPhotosResData } from "./usePhotos.helper";
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
+//import { DocumentData, QuerySnapshot } from "firebase/firestore";
 import { ResponseWithCursor } from "../../../firebase/types";
 
 export interface IPhotosReqData {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import wait from "waait";
 import { photos } from "./../../photos/mock/fake.data";
-import { Photo, FirestoreDate } from "./../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 const firstPagePhotos: Photo<FirestoreDate>[] = [];
 const secondPagePhotos: Photo<FirestoreDate>[] = [];

@@ -7,7 +7,8 @@ import LinearProgress from "@mui/material/LinearProgress";
 import { useForm } from "react-hook-form";
 import TagCheckboxes from "../../../tags/container/TagCheckboxes";
 import { TagsFormState } from "../../../tags/types";
-import { Photo, FirestoreDate, EditPhotoFormData } from "../../types";
+import { EditPhotoFormData } from "../../types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import {
   dateValidateOnEdit,
   descValidate,
