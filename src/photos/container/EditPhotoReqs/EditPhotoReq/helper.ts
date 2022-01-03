@@ -9,7 +9,7 @@ import {
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "../../../../search/types";
 import { FirestoreTagsData } from "./../../../../tags/types";
-import { Done, map, Next, chain, compose } from "fmagic";
+import { Done, map, Next, chain, compose, tap } from "fmagic";
 import { isEmptyObj } from "../../../../utils/other";
 
 export const makeEditPhotoData = (
@@ -47,7 +47,7 @@ export const makeEditPhotoData = (
             : Next.of(tags)
         ),
         (result: Next<FirestoreTagsData> | Done) =>
-          result.isDone === true
+          result.__IS_DONE === true
             ? fieldsToUpdate
             : { ...fieldsToUpdate, tags: result.value }
       )(),

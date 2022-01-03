@@ -38,7 +38,7 @@ jest.mock("../../../service/WorkerService", () => ({
 
 export const formData = {
   desc: "Go to hell...",
-  date: "2019-05-06",
+  date: new Date("2019-05-06"),
   tags: {
     hello: true,
     bye: false,
@@ -87,7 +87,7 @@ describe("useEditPhotoReq", () => {
   });
 
   describe("request", () => {
-    test("If we don't make changes with form - we show nothing changed message and do nothing", () => {
+    test("If we don't make changes with form - we show nothing changed message and do nothing", async () => {
       isNeedWorkerReq = false;
 
       const start = request(
@@ -102,7 +102,7 @@ describe("useEditPhotoReq", () => {
         photo
       );
 
-      start();
+      await start();
 
       expect(dispatch).toHaveBeenCalledTimes(1);
       expect(dispatch).toHaveBeenCalledWith({

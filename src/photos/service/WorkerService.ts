@@ -1,8 +1,6 @@
-import { add, edit } from "../api/worker.fake";
+import { add, edit } from "../api/worker";
 import { FirestoreFieldsToEdit } from "./../types";
 import { WorkerRequest } from "lizzygram-common-data/dist/types";
-//import { addPhotoUrl, editPhotoUrl } from "./../../config";
-//import { add, edit } from "../api/worker";
 
 export const editPhoto = async (
   data: {

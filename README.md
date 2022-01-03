@@ -12,3 +12,8 @@
 
 - how to protect download url
 - how to protect photo forms
+
+# For production build
+
+- In config.ts change expressUrl to heroku
+- Number of photos per query

@@ -77,10 +77,10 @@ const onSuccess = (
   //if (isLastReq && !this.anotherForm) this.dispatch(hideAddFormAC());
 
   if (isInSearchTerms(searchTerms, fieldsToUpdate)) {
-    console.log("-------IN SEARCH TERM", searchTerms, fieldsToUpdate);
+    //console.log("-------IN SEARCH TERM", searchTerms, fieldsToUpdate);
     getEditedPhotoReq(photoId, dispatch, setState);
   } else {
-    console.log("-------NOT IN SEARCH TERM", searchTerms, fieldsToUpdate);
+    //console.log("-------NOT IN SEARCH TERM", searchTerms, fieldsToUpdate);
     batch(() => {
       dispatch(editPhotoSuccessAC(photoId));
 
@@ -114,7 +114,7 @@ export const getEditedPhotoReq = (
 ) => {
   getPhoto(photoId)
     .then((photo) => {
-      console.log("EDITED PHOTO", photo);
+      //console.log("EDITED PHOTO", photo);
       batch(() => {
         dispatch(editPhotoSuccessAC(photo));
         dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
@@ -149,7 +149,7 @@ export const request = (
   mainRef: MutableRefObject<any>,
   photo: Photo<FirestoreDate>
 ) =>
-  compose(
+  compose<void, Promise<void>>(
     makeEditPhotoData(formData, photo),
     //tap((fieldsToUpdate) => console.log("FIELDS TO UPDATE", fieldsToUpdate)),
     (fieldsToUpdate: FirestoreFieldsToEdit) =>
@@ -167,6 +167,7 @@ export const request = (
         }));
       })
     ),
+    //map(tap((val: any) => console.log("Hello", val))),
     chain((fieldsToUpdate: FirestoreFieldsToEdit) =>
       compose(
         () => dispatch(editPhotoSendRequestAC(photoId)),
@@ -209,7 +210,7 @@ export const request = (
             throw new Error(`Error from worker...`);
         }),
         then(() => {
-          console.log("SUCCESS BEFORE GET EDITED PHOTO");
+          //console.log("SUCCESS BEFORE GET EDITED PHOTO");
           onSuccess(dispatch, setState, searchTerms, fieldsToUpdate, photoId);
         }),
         _catch((err) => {

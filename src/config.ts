@@ -41,7 +41,7 @@ export const themeLocalStorageKey = "lg_theme_info_1234";
 //export const expressUrl = "https://lizzygram.herokuapp.com";
 export const expressUrl = "http://localhost:3009";
 
-export const herokuPingUrl = `${expressUrl}/sleep_q23we4rt5`;
+//export const herokuPingUrl = `${expressUrl}/sleep_q23we4rt5`;
 
 export const addPhotoUrl = `${expressUrl}/add-photo`;
 export const editPhotoUrl = `${expressUrl}/edit-photo`;
