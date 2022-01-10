@@ -1,222 +1,306 @@
-//import { useState, Fragment, useEffect, useRef, useCallback, FC } from "react";
-import { tap, _catch, then, compose } from "fmagic";
-import { makeAddPhotoData, makeAddPhotoWorkerData } from "./helper";
+import { compose, tap, then, _catch } from "fmagic";
+import { AddPhotoFormData, PhotoReqData } from "../../../types";
+
 import {
-  addPhoto as addPhotoFirestoreReq,
-  getPhoto,
-} from "../../../service/DbService";
-import { addPhoto as addPhotoWorkerReq } from "../../../service/WorkerService";
+  Photo,
+  WorkerRequest,
+  WorkerResponse,
+} from "lizzygram-common-data/dist/types";
 import {
-  addPhotoSendRequestAC,
-  addPhotoRequestErrorAC,
-  //addPhotoRequestSuccessAC,
-  getAddedPhotoSuccessAC,
-  getAddedPhotoErrorAC,
+  makeAddPhotoData as makeAddPhotoData_,
+  makeAddPhotoWorkerData as makeAddPhotoWorkerData_,
+} from "./helper";
+import {
   addPhotoRequestEndAC,
+  addPhotoRequestErrorAC,
+  addPhotoSendRequestAC,
+  getAddedPhotoErrorAC,
+  getAddedPhotoSuccessAC,
 } from "../../../store/action";
-/* import {
-  AddPhotoWorkerData,
-  IAddPhotoFormData,
-  IPhoto,
-} from "./../../../types"; */
-import { batch } from "react-redux";
+import {
+  addPhoto as addPhotoFirestoreReq_,
+  getPhoto as getPhoto_,
+} from "../../../service/DbService";
+import { addPhoto as addPhotoWorkerReq_ } from "../../../service/WorkerService";
+import { batch as batch_, useDispatch } from "react-redux";
 import { showAlertAC } from "../../../../alert";
-import { usePhotoReq } from "../../../hook/usePhotoReq";
+import { Dispatch, MutableRefObject, SetStateAction, useRef } from "react";
+import { PhotoReqState, usePhotoReq } from "../../../hook/usePhotoReq";
 
-const onError = (
-  error: any,
-  dispatch: any,
-  setState: any,
-  photoName: string
-) => {
-  batch(() => {
-    dispatch(addPhotoRequestErrorAC());
-
-    dispatch(
-      showAlertAC(
-        `К сожалению, мы не смогли сохранить фото - ${photoName}`,
-        "error"
-      )
-    );
-  });
-
-  setState((prevState: any) => ({
-    ...prevState,
-    end: true,
-    uploadLoading: false,
-    //errorReq: error.msg ? error.msg : JSON.stringify(error),
-  }));
+export type AddPhotoReqRefData = {
+  formData: AddPhotoFormData;
 };
 
-const onSuccess = (
-  dispatch: any,
-  setState: any,
-  photoName: string,
-  photoId: string
-) => {
-  //getPhotoById(id).then(() => dispatch(getAddedPhotoSuccessAC()));
-
-  /* batch(() => {
-    dispatch(showAlertAC(`Фото успешно добавлено - ${photoName}`, "success"));
-  }); */
-
-  setState((prevState: any) => ({
-    ...prevState,
-    //successReq: true,
-    //errorReq: "",
-    uploadLoading: false,
-    showForm: false,
-    formWasClosed: true,
-  }));
-
-  // Get new added photo info from firestore
-  // And add to store
-  getAddedPhotoReq(photoId, photoName, dispatch, setState);
+export type AddPhotoReqServiceData = {
+  //isFormSubmited?: boolean;
+  //photo: Photo<Date>;
+  firestorePhotoToAdd?: Photo<Date>;
+  //editPhotoWorkerProps?: TPhotoWorkerProps;
+  //addPhotoFirestoreRequestBody?: TPhotoFirestoreReqBody;
+  workerRequest?: WorkerRequest;
+  workerResponse?: WorkerResponse;
+  isInSearchTerms?: boolean;
 };
 
-export const getAddedPhotoReq = (
-  photoId: string,
-  photoName: string,
-  dispatch: any,
-  setState: any
-) => {
-  getPhoto(photoId)
-    .then((photo) => {
-      batch(() => {
-        dispatch(getAddedPhotoSuccessAC(photo));
-        dispatch(
-          showAlertAC(`Фото успешно добавлено - ${photoName}`, "success")
-        );
-      });
-
-      setState((prevState: any) => ({
-        ...prevState,
-        end: true,
-      }));
-    })
-    .catch((err) => {
-      batch(() => {
-        dispatch(getAddedPhotoErrorAC());
-        dispatch(
-          showAlertAC(`Фото успешно добавлено - ${photoName}`, "success")
-        );
-      });
-
-      setState((prevState: any) => ({
-        ...prevState,
-        end: true,
-      }));
-    });
-};
-
-export const firestoreReq = (
-  dispatch: any,
-  setState: any,
-  formData: any,
-  userUid: string,
-  photoId: string
-) =>
-  compose(
-    tap(() => dispatch(addPhotoSendRequestAC())),
-    tap(() =>
-      setState((prevState: any) => ({ ...prevState, uploadLoading: true }))
-    ),
-    makeAddPhotoData(formData, userUid, photoId),
-    addPhotoFirestoreReq
-    /* _catch((e) => {
-      // do stuff
-      throw { type: "ERROR_FIRESTORE_ADD", error: e };
-    }) */
-  );
-
-export const request = (
-  dispatch: any,
-  setState: any,
-  userUid: string,
-  photoId: string,
-  formData: any
-) => {
-  //flow(photoFormData: IAddPhotoFormData)
-
-  //console.log("BEFORE FIRESTORE REQUEST", formData, userUid, photoId);
-
-  const sendFirestoreReq = firestoreReq(
-    dispatch,
-    setState,
-    formData,
-    userUid,
-    photoId
-  );
-
-  return compose(
-    /* async () => {
-      // dispatch
-      // prepare data
-      // send request
-      await sendFirestoreReq();
-    }, */
-    sendFirestoreReq,
-    then(() =>
-      addPhotoWorkerReq(makeAddPhotoWorkerData(formData, userUid, photoId))
-    ),
-    /* then((res: any) => {
-      console.log("AFTER WORKER REQUEST", res);
-      return res;
-    }), */
-    //then((data: AddPhotoWorkerData) => addPhotoWorkerReq(data)),
-    then((res: any) => {
-      res.status === "success"
-        ? onSuccess(dispatch, setState, formData.photoFile[0].name, photoId)
-        : onError(res.data, dispatch, setState, formData.photoFile[0].name);
-    }),
-    _catch((e) => {
-      console.error("ERROR", e.message);
-      //main catch
-      /* if (!e.type || e.type !== "ERROR_FIRESTORE_ADD") {
-        // REMOVE FIRESTORE RECORD
-      } */
-
-      onError(e, dispatch, setState, formData.photoFile[0].name);
-    })
-  );
-};
-
-//
-// open formModel
-// if form closed before submit - remove self
-// formSubmit -> send request
-// if form closed - do nothing, if not - show loading
-//
-
-export const useAddPhotoReq = (
-  id: string
-  /* removeRequest: (id: string) => void */
-) => {
-  const removeRequest = (dispatch: any) => {
-    dispatch(addPhotoRequestEndAC(id));
+export type UseAddPhotoReqData = PhotoReqData &
+  AddPhotoReqServiceData & {
+    //photoId: string;
+    //userUid: string;
+    //isFormSubmited: boolean;
+    mainRef: MutableRefObject<AddPhotoReqRefData>;
+    state: PhotoReqState;
+    setState: Dispatch<SetStateAction<PhotoReqState>>;
+    dispatch: any;
+    /* formData: AddPhotoFormData;
+  photo: Photo<Date>;
+  workerRequest: WorkerRequest;
+  workerResponse: WorkerResponse; */
   };
 
-  const { onFormClose, state, setState, userUid, dispatch, mainRef } =
-    usePhotoReq(id, removeRequest);
+export const request_ =
+  (
+    makeAddPhotoData: typeof makeAddPhotoData_,
+    addPhotoFirestoreReq: typeof addPhotoFirestoreReq_,
+    makeAddPhotoWorkerData: typeof makeAddPhotoWorkerData_,
+    addPhotoWorkerReq: typeof addPhotoWorkerReq_,
+    onSuccess_: typeof onSuccess,
+    onError_: typeof onError
+  ) =>
+  (data: UseAddPhotoReqData) =>
+    compose<UseAddPhotoReqData, Promise<void>>(
+      // SEND FIRESTORE REQUEST
+      compose<UseAddPhotoReqData, Promise<UseAddPhotoReqData>>(
+        tap(({ dispatch }: UseAddPhotoReqData) =>
+          dispatch(addPhotoSendRequestAC())
+        ),
+        tap(({ setState }: UseAddPhotoReqData) =>
+          setState((prevState: any) => ({
+            ...prevState,
+            uploadLoading: true,
+            isFormSubmited: true,
+          }))
+        ),
+        (data: UseAddPhotoReqData) => ({
+          ...data,
+          firestorePhotoToAdd: makeAddPhotoData(
+            data.mainRef.current.formData,
+            data.userUid,
+            data.photoId
+          ),
+        }),
+        async (data: UseAddPhotoReqData) => {
+          await addPhotoFirestoreReq(data.firestorePhotoToAdd);
+          return data;
+        }
+      ),
 
-  const addPhoto = (formData: any) => {
-    mainRef.current.isSubmited = true;
-    mainRef.current.formData = formData;
+      // SEND WORKER REQUEST
+      then(
+        compose<UseAddPhotoReqData, Promise<UseAddPhotoReqData>>(
+          (data: UseAddPhotoReqData) => ({
+            ...data,
+            workerRequest: makeAddPhotoWorkerData(
+              data.mainRef.current.formData,
+              data.userUid,
+              data.photoId
+            ),
+          }),
+          async (data: UseAddPhotoReqData) => ({
+            ...data,
+            workerResponse: await addPhotoWorkerReq(data.workerRequest),
+          })
+        )
+      ),
+
+      // PARSE WORKER RESPONSE
+      then((data: UseAddPhotoReqData) => {
+        data.workerResponse.status === "success"
+          ? onSuccess_(
+              data.dispatch,
+              data.setState,
+              data.mainRef.current.formData.photoFile[0].name,
+              data.photoId
+            )
+          : onError_(
+              data.dispatch,
+              data.setState,
+              data.mainRef.current.formData.photoFile[0].name
+            );
+      }),
+
+      _catch((e: any) => {
+        console.error("ERROR", e.message, data);
+        //main catch
+        /* if (!e.type || e.type !== "ERROR_FIRESTORE_ADD") {
+          // REMOVE FIRESTORE RECORD
+        } */
+
+        onError_(
+          data.dispatch,
+          data.setState,
+          data.mainRef.current.formData.photoFile[0].name
+        );
+      })
+    )(data);
+
+export const onError_ =
+  (batch: typeof batch_) =>
+  (
+    //error: any,
+    dispatch: any,
+    setState: any,
+    photoName: string
+  ) => {
+    batch(() => {
+      dispatch(addPhotoRequestErrorAC());
+
+      dispatch(
+        showAlertAC(
+          `К сожалению, мы не смогли сохранить фото - ${photoName}`,
+          "error"
+        )
+      );
+    });
+
+    setState((prevState: any) => ({
+      ...prevState,
+      isEndReq: true,
+      uploadLoading: false,
+      //errorReq: error.msg ? error.msg : JSON.stringify(error),
+    }));
+  };
+
+export const onSuccess_ =
+  (getAddedPhotoReq_: typeof getAddedPhotoReq) =>
+  (
+    dispatch: any,
+    setState: Dispatch<SetStateAction<PhotoReqState>>,
+    photoName: string,
+    photoId: string
+  ) => {
+    //getPhotoById(id).then(() => dispatch(getAddedPhotoSuccessAC()));
+
+    /* batch(() => {
+      dispatch(showAlertAC(`Фото успешно добавлено - ${photoName}`, "success"));
+    }); */
 
     setState((prevState) => ({
       ...prevState,
-      uploadLoading: true,
+      //successReq: true,
+      //errorReq: "",
+      uploadLoading: false,
+      showForm: false,
+      formWasClosed: true,
     }));
 
-    // Add countAddReq++ to global state
-    // Set uploadLoading = true
-
-    console.log("-------------useAddPhotoReq", userUid);
-
-    const start = request(dispatch, setState, userUid, id, formData);
-
-    start();
+    // Get new added photo info from firestore
+    // And add to store
+    getAddedPhotoReq_(photoId, photoName, dispatch, setState);
   };
+
+export const getAddedPhotoReq_ =
+  (batch: typeof batch_, getPhoto: typeof getPhoto_) =>
+  (
+    photoId: string,
+    photoName: string,
+    dispatch: any,
+    setState: Dispatch<SetStateAction<PhotoReqState>>
+  ) => {
+    getPhoto(photoId)
+      .then((photo) => {
+        batch(() => {
+          dispatch(getAddedPhotoSuccessAC(photo));
+          dispatch(
+            showAlertAC(`Фото успешно добавлено - ${photoName}`, "success")
+          );
+        });
+
+        setState((prevState) => ({
+          ...prevState,
+          isEndReq: true,
+        }));
+      })
+      .catch((err) => {
+        batch(() => {
+          dispatch(getAddedPhotoErrorAC());
+          dispatch(
+            showAlertAC(`Фото успешно добавлено - ${photoName}`, "success")
+          );
+        });
+
+        setState((prevState) => ({
+          ...prevState,
+          isEndReq: true,
+        }));
+      });
+  };
+
+export const getAddedPhotoReq = getAddedPhotoReq_(batch_, getPhoto_);
+export const onError = onError_(batch_);
+export const onSuccess = onSuccess_(getAddedPhotoReq);
+export const request = request_(
+  makeAddPhotoData_,
+  addPhotoFirestoreReq_,
+  makeAddPhotoWorkerData_,
+  addPhotoWorkerReq_,
+  onSuccess,
+  onError
+);
+
+const addPhoto_ =
+  (
+    state: PhotoReqState,
+    setState: Dispatch<SetStateAction<PhotoReqState>>,
+    dispatch: any,
+    mainRef: MutableRefObject<AddPhotoReqRefData>,
+    photoId: string,
+    userUid: string
+    //searchTerms: SearchTerms
+  ) =>
+  (formData: any) => {
+    mainRef.current = {
+      formData,
+    };
+
+    request({
+      dispatch,
+      state,
+      setState,
+      photoId,
+      userUid,
+      mainRef,
+      //searchTerms,
+    });
+  };
+
+export const useAddPhotoReq = (
+  photoId: string
+  /* removeRequest: (id: string) => void */
+) => {
+  const dispatch = useDispatch();
+
+  const mainRef: MutableRefObject<any> = useRef();
+
+  const removeRequest = () => {
+    dispatch(addPhotoRequestEndAC(photoId));
+  };
+
+  const { state, setState, onFormClose, userUid } = usePhotoReq({
+    removeRequest,
+  });
+
+  //const searchTerms = useSelector<GlobalState, SearchTerms>(
+  //(state) => state.search.terms
+  //);
+
+  const addPhoto = addPhoto_(
+    state,
+    setState,
+    dispatch,
+    mainRef,
+    photoId,
+    userUid
+  );
 
   return {
     addPhoto,

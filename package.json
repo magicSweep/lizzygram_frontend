@@ -16,7 +16,7 @@
     "compile:create:func": "tsc src/console/createReactFunc.ts",
     "start:create:func": "node src/console/createReactFunc.js",
     "compile:switchImports": "tsc src/console/switchImports.ts",
-    "start:switchImports": "node src/console/switchImports.js isFake=false",
+    "run:switchImports": "node src/console/switchImports.js isFake=true",
     "develop": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build",

@@ -1,4 +1,53 @@
-import { makeEditPhotoData, isInSearchTerms } from "./helper";
+import { FirestoreFieldsToEdit } from "../../../types";
+import {
+  makeEditPhotoData,
+  isInSearchTerms,
+  makeEditPhotoWorkerProps,
+} from "./helper";
+
+describe("makeEditPhotoWorkerProps", () => {
+  test("If empty fieldsToUpdate", () => {
+    const data = makeEditPhotoWorkerProps(
+      {},
+      "photoId",
+      "userUid",
+      "photoFile" as any
+    );
+
+    expect(data).toEqual({
+      photoFile: "photoFile",
+      photoId: "photoId",
+      userUid: "userUid",
+    });
+  });
+
+  test("", () => {
+    const fieldsToUpdate: FirestoreFieldsToEdit = {
+      tags: { wertet: true, erwqre: true },
+      description: "Super description",
+      date: new Date("2020-08-05"),
+    };
+    let photoId = "photoId";
+    let userUid = "userUid";
+    let photoFile = "photoFile";
+
+    const data = makeEditPhotoWorkerProps(
+      fieldsToUpdate,
+      photoId,
+      userUid,
+      photoFile as any
+    );
+
+    expect(data).toEqual({
+      date: "Wed, 05 Aug 2020 00:00:00 GMT",
+      description: "Super description",
+      photoFile: "photoFile",
+      photoId: "photoId",
+      tags: '{"wertet":true,"erwqre":true}',
+      userUid: "userUid",
+    });
+  });
+});
 
 describe("makeEditPhotoData - depends on what fields on form fill user - what change in photo", () => {
   let photo: any = {
@@ -42,15 +91,15 @@ describe("makeEditPhotoData - depends on what fields on form fill user - what ch
   test("If we set empty data - we got nothing to change", () => {
     //const fieldsToUpdate = makeEditPhotoData({} as any, photo);
 
-    const start = makeEditPhotoData({} as any, photo);
-    const fieldsToUpdate = start();
+    const fieldsToUpdate = makeEditPhotoData({} as any, photo);
+    //const fieldsToUpdate = start();
 
     expect(fieldsToUpdate).toEqual({});
   });
 
   test("", () => {
-    const start = makeEditPhotoData(editPhotoFormData, photo);
-    const fieldsToUpdate = start();
+    const fieldsToUpdate = makeEditPhotoData(editPhotoFormData, photo);
+    //const fieldsToUpdate = start();
 
     expect(fieldsToUpdate).toEqual({});
     //expect(Object.keys(fieldsToUpdate).length).toEqual(0);
@@ -70,8 +119,8 @@ describe("makeEditPhotoData - depends on what fields on form fill user - what ch
       },
     };
 
-    const start = makeEditPhotoData(editPhotoFormData, photo);
-    const fieldsToUpdate = start();
+    const fieldsToUpdate = makeEditPhotoData(editPhotoFormData, photo);
+    //const fieldsToUpdate = start();
 
     expect(fieldsToUpdate.date.toString()).toEqual(
       "Tue May 05 2020 03:00:00 GMT+0300 (Moscow Standard Time)"
@@ -82,7 +131,7 @@ describe("makeEditPhotoData - depends on what fields on form fill user - what ch
   });
 });
 
-describe.only("isInSearchTerms", () => {
+describe("isInSearchTerms", () => {
   test.each([
     {
       count: 0,

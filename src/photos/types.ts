@@ -1,6 +1,14 @@
 import { Action } from "redux";
 import { TagsFormState } from "./../tags/types";
-import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+import {
+  Photo,
+  FirestoreDate,
+  JsonString,
+  DateUTCString,
+  WorkerRequest,
+  WorkerResponse,
+} from "lizzygram-common-data/dist/types";
+import { SearchTerms } from "../search/types";
 
 // PHOTOS
 
@@ -88,6 +96,17 @@ export type EditPhotoWorkerData = {
   yearsOld?: number;
   tags?: { [name: string]: boolean };
 }; */
+
+export type EditPhotoWorkerProps = {
+  photoId: string;
+  userUid: string;
+  photoFile: File;
+  description?: string;
+  date?: DateUTCString;
+  //isActive?: boolean;
+  //yearsOld?: number;
+  tags?: JsonString;
+};
 
 export type EditPhotoFirestoreRequestBody = {
   photoId: string;
@@ -192,4 +211,35 @@ export type GetAllPhotosResData = {
   hasNextPage: boolean;
   nextPageDocRef: any | undefined | null;
   photos: Photo<FirestoreDate>[];
+};
+
+// ADD/EDIT PHOTO REQUESTS DATA
+
+// data that must be new
+export type PhotoReqData = {
+  photoId: string;
+  userUid: string;
+  searchTerms?: SearchTerms;
+};
+
+// data we need to store
+export type PhotoReqRefData<TFormData> = {
+  editedPhoto: Photo<FirestoreDate>;
+  formData: TFormData;
+  isNeedWorkerReq: boolean;
+};
+
+export type PhotoReqServiceData<
+  TFieldsToUpdate,
+  TPhotoWorkerProps,
+  TPhotoFirestoreReqBody
+> = {
+  //isFormSubmited?: boolean;
+  //photo: Photo<Date>;
+  fieldsToUpdate?: TFieldsToUpdate;
+  editPhotoWorkerProps?: TPhotoWorkerProps;
+  editPhotoFirestoreRequestBody?: TPhotoFirestoreReqBody;
+  photoWorker?: WorkerRequest;
+  workerResponse?: WorkerResponse;
+  isInSearchTerms?: boolean;
 };

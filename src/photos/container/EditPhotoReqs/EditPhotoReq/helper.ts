@@ -3,14 +3,57 @@ import { getOnlyTrueTags, getYearsOld } from "../../../../utils/app";
 import {
   //Photo,
   EditPhotoFormData,
+  EditPhotoWorkerProps,
   //FirestoreDate,
   FirestoreFieldsToEdit,
 } from "./../../../types";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "../../../../search/types";
 import { FirestoreTagsData } from "./../../../../tags/types";
-import { Done, map, Next, chain, compose, tap } from "fmagic";
+import {
+  Done,
+  map,
+  Next,
+  chain,
+  compose,
+  tap,
+  cond,
+  elif,
+  set,
+  justReturn,
+} from "fmagic";
 import { isEmptyObj } from "../../../../utils/other";
+
+export const makeEditPhotoWorkerProps = (
+  fieldsToUpdate: FirestoreFieldsToEdit,
+  photoId: string,
+  userUid: string,
+  photoFile: File
+) =>
+  compose<void, EditPhotoWorkerProps>(
+    () => ({}),
+    /* tap((data: any) =>
+      console.log("makeEditPhotoWorkerProps", data, fieldsToUpdate)
+    ), */
+    elif(
+      () => fieldsToUpdate.description !== undefined,
+      set("description", fieldsToUpdate.description),
+      justReturn
+    ),
+    elif(
+      () => fieldsToUpdate.date !== undefined,
+      set("date", () => fieldsToUpdate.date.toUTCString()),
+      justReturn
+    ),
+    elif(
+      () => fieldsToUpdate.tags !== undefined,
+      set("tags", JSON.stringify(fieldsToUpdate.tags)),
+      justReturn
+    ),
+    set("photoId", photoId),
+    set("userUid", userUid),
+    set("photoFile", photoFile)
+  )();
 
 export const makeEditPhotoData = (
   formData: EditPhotoFormData, //IEditPhotoFormData
@@ -63,7 +106,7 @@ export const makeEditPhotoData = (
       formData.desc && trim(formData.desc) !== trim(photo.description)
         ? { ...fieldsToUpdate, description: formData.desc }
         : fieldsToUpdate
-  );
+  )();
 
 export const isInSearchTerms = (
   searchTerms: SearchTerms,

@@ -50,7 +50,7 @@ describe("", () => {
     expect(returnPromisify).toHaveBeenLastCalledWith(
       workerPhotosService,
       // CHANGE COMMENTS MANUALLY
-      fileContent.replace(/\s+/g, ""),
+      fileContent,
       {
         encoding: "utf-8",
       }

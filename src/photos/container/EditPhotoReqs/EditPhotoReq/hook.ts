@@ -1,227 +1,537 @@
-//import { cond, flow } from "lodash";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { batch, useDispatch, useSelector } from "react-redux";
+import { Dispatch, SetStateAction, MutableRefObject, useRef } from "react";
 import {
-  editPhotoSendRequestAC,
-  editPhotoRequestErrorAC,
-  editPhotoSuccessAC,
-  editPhotoRequestEndAC,
-  getEditedPhotoErrorAC,
-} from "../../../store/action";
-import { showAlertAC } from "../../../../alert";
-import { isEmptyObj } from "../../../../utils/other";
-import {
-  //Photo,
-  //FirestoreDate,
-  EditPhotoFormData,
-  //WorkerRequestBody,
-  EditPhotoFirestoreRequestBody,
-  FirestoreFieldsToEdit,
-} from "./../../../types";
-import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
-import { SearchTerms } from "../../../../search/types";
-import { isInSearchTerms, makeEditPhotoData } from "./helper";
-import {
-  editPhoto as editPhotoFirestoreReq,
-  getPhoto,
-} from "../../../service/DbService";
-import { editPhoto as editPhotoWorkerReq } from "../../../service/WorkerService";
-import {
-  then,
-  _catch,
-  Done,
-  Next,
-  map,
-  tap,
   chain,
   compose,
-  cond,
+  Done,
   elif,
+  map,
+  Next,
+  set,
+  tap,
+  then,
+  _catch,
 } from "fmagic";
+import {
+  EditPhotoFormData,
+  EditPhotoWorkerProps,
+  FirestoreFieldsToEdit,
+  EditPhotoFirestoreRequestBody,
+  PhotoReqData,
+  PhotoReqRefData,
+  PhotoReqServiceData,
+} from "../../../types";
+import {
+  FirestoreDate,
+  Photo,
+  WorkerRequest,
+  WorkerResponse,
+} from "lizzygram-common-data/dist/types";
+import {
+  isInSearchTerms as isInSearchTerms_,
+  //makeEditPhotoData,
+  makeEditPhotoData as makeEditPhotoData_,
+  makeEditPhotoWorkerProps,
+  makeEditPhotoWorkerProps as makeEditPhotoWorkerProps_,
+} from "./helper";
+import {
+  editPhotoRequestEndAC,
+  editPhotoRequestErrorAC,
+  editPhotoSendRequestAC,
+  editPhotoSuccessAC,
+  getEditedPhotoErrorAC,
+} from "../../../store/action";
+import {
+  editPhoto as editPhotoFirestoreReq_,
+  getPhoto as getPhoto_,
+} from "../../../service/DbService";
+import { editPhoto as editPhotoWorkerReq_ } from "../../../service/WorkerService";
+import { batch, useDispatch, useSelector } from "react-redux";
+import { showAlertAC } from "../../../../alert";
+//import { SearchTerms } from "../../../../search/types";
+import { isEmptyObj } from "../../../../utils/other";
+import { PhotoReqState, usePhotoReq } from "../../../hook/usePhotoReq";
 import { GlobalState } from "../../../../types";
-import { usePhotoReq } from "../../../hook/usePhotoReq";
+import { SearchTerms } from "../../../../search/types";
 
-const onError = (error: any, dispatch: any, setState: any, photoId: string) => {
-  console.log("ERROR", error);
-
-  batch(() => {
-    dispatch(editPhotoRequestErrorAC(photoId));
-
-    dispatch(
-      showAlertAC(`К сожалению, мы не смогли сохранить изменения`, "error")
-    );
-  });
-
-  setState((prevState: any) => ({
-    ...prevState,
-    uploadLoading: false,
-    end: true,
-    //errorReq: error.msg ? error.msg : JSON.stringify(error),
-  }));
+/* export type PhotoReqState = {
+  showForm: boolean;
+  formWasClosed: boolean;
+  uploadLoading: boolean;
+  isFormSubmited: boolean;
+  //end: false,
+  isEndReq: boolean;
 };
 
-const onSuccess = (
-  dispatch: any,
-  setState: any,
-  searchTerms: SearchTerms,
-  fieldsToUpdate: any,
-  photoId: string
-) => {
-  //getPhotoById(id).then(() => dispatch(getAddedPhotoSuccessAC()));
+// data that must be new
+export type PhotoReqData = {
+  photoId: string;
+  userUid: string;
+  searchTerms: SearchTerms;
+};
 
-  //const isLastReq = this.requests.size === 0;
-  //dispatch(addPhotoRequestSuccessAC());
+// data we need to store
+export type PhotoReqRefData = {
+  editedPhoto: Photo<FirestoreDate>;
+  formData: EditPhotoFormData;
+  isNeedWorkerReq: boolean;
+};
 
-  //console.log("-------BATCH");
+export type PhotoReqServiceData = {
+  //isFormSubmited?: boolean;
+  //photo: Photo<Date>;
+  fieldsToUpdate?: FirestoreFieldsToEdit;
+  editPhotoWorkerProps?: EditPhotoWorkerProps;
+  editPhotoFirestoreRequestBody?: EditPhotoFirestoreRequestBody;
+  photoWorker?: WorkerRequest;
+  workerResponse?: WorkerResponse;
+  isInSearchTerms?: boolean;
+}; */
 
-  //if (isLastReq && !this.anotherForm) this.dispatch(hideAddFormAC());
+type EditPhotoReqRefData = PhotoReqRefData<EditPhotoFormData>;
+type EditPhotoReqServiceData = PhotoReqServiceData<
+  FirestoreFieldsToEdit,
+  EditPhotoWorkerProps,
+  EditPhotoFirestoreRequestBody
+>;
 
-  if (isInSearchTerms(searchTerms, fieldsToUpdate)) {
-    //console.log("-------IN SEARCH TERM", searchTerms, fieldsToUpdate);
-    getEditedPhotoReq(photoId, dispatch, setState);
-  } else {
-    //console.log("-------NOT IN SEARCH TERM", searchTerms, fieldsToUpdate);
+export type UseEditPhotoReqData = PhotoReqData &
+  EditPhotoReqServiceData & {
+    mainRef: MutableRefObject<EditPhotoReqRefData>;
+    state: PhotoReqState;
+    setState: Dispatch<SetStateAction<PhotoReqState>>;
+    dispatch: any;
+  };
+
+// TODO: mainRef.isSubmitted
+export const request_ =
+  (
+    editPhotoFirestoreReq: typeof editPhotoFirestoreReq_,
+    editPhotoWorkerReq: typeof editPhotoWorkerReq_,
+    onError_: typeof onError,
+    onSuccess_: typeof onSuccess,
+    makeEditPhotoData: typeof makeEditPhotoData_,
+    makeEditPhotoWorkerProps: typeof makeEditPhotoWorkerProps_
+  ) =>
+  (data: UseEditPhotoReqData) =>
+    compose<UseEditPhotoReqData, Promise<void>>(
+      // SET FIELDS TO UPDATE
+      (data: UseEditPhotoReqData) => ({
+        ...data,
+        fieldsToUpdate: makeEditPhotoData(
+          data.mainRef.current.formData,
+          data.mainRef.current.editedPhoto
+        ),
+      }),
+      //tap((data: UseEditPhotoReqData) => console.log("TAAAPPP 1", data)),
+      // CHECK FORM FIELDS FOR NEW VALUES
+      (data: UseEditPhotoReqData) =>
+        isEmptyObj(data.fieldsToUpdate) &&
+        data.mainRef.current.isNeedWorkerReq === false
+          ? Done.of(
+              data.dispatch(showAlertAC("Вы ничего не изменили.", "error"))
+            )
+          : Next.of(data),
+      //tap((data: UseEditPhotoReqData) => console.log("TAAAPPP 2", data)),
+      // SET START LOADING TO STATE
+      map(
+        tap(({ setState }: UseEditPhotoReqData) => {
+          setState((prevState) => ({
+            ...prevState,
+            uploadLoading: true,
+            isFormSubmited: true,
+          }));
+        })
+      ),
+      chain((data: UseEditPhotoReqData) =>
+        compose<UseEditPhotoReqData, Promise<UseEditPhotoReqData>>(
+          //tap((data: UseEditPhotoReqData) => console.log("TAAAPPP 3", data)),
+          tap(({ dispatch }: UseEditPhotoReqData) =>
+            dispatch(editPhotoSendRequestAC(data.photoId))
+          ),
+          elif(
+            (data: UseEditPhotoReqData) => data.mainRef.current.isNeedWorkerReq,
+            // SEND WORKER REQUEST
+            compose<UseEditPhotoReqData, Promise<UseEditPhotoReqData>>(
+              tap((data: UseEditPhotoReqData) =>
+                console.log("TAAAPPP 4", data)
+              ),
+              (data: UseEditPhotoReqData) => ({
+                ...data,
+                editPhotoWorkerProps: makeEditPhotoWorkerProps(
+                  data.fieldsToUpdate,
+                  data.photoId,
+                  data.userUid,
+                  data.mainRef.current.formData.photoFile[0]
+                ),
+              }),
+              /* tap((data: UseEditPhotoReqData) =>
+                console.log("TAAAPPP 5", data)
+              ), */
+              async (data: UseEditPhotoReqData) => ({
+                ...data,
+                workerResponse: await editPhotoWorkerReq(
+                  data.editPhotoWorkerProps
+                ),
+              }) /* {
+              await editPhotoWorkerReq(data.editPhotoWorkerProps);
+              return data;
+            } */
+            ),
+            // SEND FIRESTORE REQUEST
+            compose<UseEditPhotoReqData, Promise<UseEditPhotoReqData>>(
+              (data: UseEditPhotoReqData) => ({
+                ...data,
+                editPhotoFirestoreRequestBody: {
+                  photoId: data.photoId,
+                  fieldsToUpdate: data.fieldsToUpdate,
+                },
+              }),
+              async (data: UseEditPhotoReqData) => {
+                await editPhotoFirestoreReq(data.editPhotoFirestoreRequestBody);
+                return data;
+              }
+            )
+          ),
+          then((data: UseEditPhotoReqData) => {
+            console.log("DATA", data);
+            return data;
+          }),
+          then((data: UseEditPhotoReqData) => {
+            if (
+              data.workerResponse !== undefined &&
+              data.workerResponse.status === "error"
+            )
+              throw new Error(`Error from worker...`);
+
+            return data;
+          }),
+
+          then((data: UseEditPhotoReqData) => {
+            //console.log("SUCCESS BEFORE GET EDITED PHOTO", data);
+            onSuccess_(data);
+          }),
+          _catch((err) => {
+            //console.error("ERROR BEFORE GET EDITED PHOTO", err.message, data);
+            onError_(data.dispatch, data.setState, data.photoId);
+          })
+        )(data)
+      )
+    )(data);
+
+export const onError_ =
+  (batch: any) =>
+  (
+    dispatch: any,
+    setState: Dispatch<SetStateAction<PhotoReqState>>,
+    photoId: string
+  ) => {
+    //console.log("ERROR", error);
     batch(() => {
-      dispatch(editPhotoSuccessAC(photoId));
+      dispatch(editPhotoRequestErrorAC(photoId));
 
-      dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
+      dispatch(
+        showAlertAC(`К сожалению, мы не смогли сохранить изменения`, "error")
+      );
     });
 
     setState((prevState: any) => ({
       ...prevState,
-      end: true,
+      uploadLoading: false,
+      isEndReq: true,
+      //errorReq: error.msg ? error.msg : JSON.stringify(error),
     }));
-  }
+  };
 
-  setState((prevState: any) => ({
-    ...prevState,
-    //successReq: true,
-    //errorReq: "",
-    uploadLoading: false,
-    showForm: false,
-    formWasClosed: true,
-  }));
+export const onSuccess_ =
+  (
+    getEditedPhotoReq_: typeof getEditedPhotoReq,
+    batch: any,
+    isInSearchTerms: typeof isInSearchTerms_
+  ) =>
+  (data: UseEditPhotoReqData) => {
+    //getPhotoById(id).then(() => dispatch(getAddedPhotoSuccessAC()));
 
-  // Get new added photo info from firestore
-  // And add to store
-  //getAddedPhotoReq(photoId, dispatch);
-};
+    //const isLastReq = this.requests.size === 0;
+    //dispatch(addPhotoRequestSuccessAC());
 
-export const getEditedPhotoReq = (
-  photoId: string,
-  dispatch: any,
-  setState: any
-) => {
-  getPhoto(photoId)
-    .then((photo) => {
-      //console.log("EDITED PHOTO", photo);
+    //console.log("-------BATCH");
+
+    //if (isLastReq && !this.anotherForm) this.dispatch(hideAddFormAC());
+
+    data.isInSearchTerms = isInSearchTerms(
+      data.searchTerms,
+      data.fieldsToUpdate
+    );
+
+    if (data.isInSearchTerms === true) {
+      //console.log("-------IN SEARCH TERM", searchTerms, fieldsToUpdate);
+      getEditedPhotoReq_(data.photoId, data.dispatch, data.setState);
+    } else {
+      //console.log("-------NOT IN SEARCH TERM", searchTerms, fieldsToUpdate);
       batch(() => {
-        dispatch(editPhotoSuccessAC(photo));
-        dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
+        data.dispatch(editPhotoSuccessAC(data.photoId));
+
+        data.dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
       });
 
-      setState((prevState: any) => ({
+      /* data.setState((prevState) => ({
         ...prevState,
-        end: true,
-      }));
-    })
-    .catch((err) => {
-      batch(() => {
-        dispatch(getEditedPhotoErrorAC(photoId));
-        dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
-      });
+        isEndReq: true,
+      })); */
+    }
 
-      setState((prevState: any) => ({
+    //console.log("SUCCESS EDIT PHOTO", data);
+
+    data.setState((prevState: any) => ({
+      ...prevState,
+      //successReq: true,
+      //errorReq: "",
+      isEndReq: data.isInSearchTerms === true ? false : true,
+      uploadLoading: false,
+      showForm: false,
+      formWasClosed: true,
+    }));
+
+    // Get new added photo info from firestore
+    // And add to store
+    //getAddedPhotoReq(photoId, dispatch);
+  };
+
+export const getEditedPhotoReq_ =
+  (getPhoto: typeof getPhoto_, batch: any) =>
+  (
+    photoId: string,
+    dispatch: any,
+    setState: Dispatch<SetStateAction<PhotoReqState>>
+  ) => {
+    getPhoto(photoId)
+      .then((photo) => {
+        //console.log("EDITED PHOTO", photo);
+        batch(() => {
+          dispatch(editPhotoSuccessAC(photo));
+          dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
+        });
+
+        /* setState((prevState: any) => ({
         ...prevState,
-        end: true,
-      }));
-    });
-};
+        isEndReq: true,
+      })); */
+      })
+      .catch((err) => {
+        console.error("GET EDITED PHOTO", err);
+        batch(() => {
+          dispatch(getEditedPhotoErrorAC(photoId));
+          dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
+        });
 
-export const request = (
-  dispatch: any,
-  setState: any,
-  formData: EditPhotoFormData,
-  userUid: string,
-  isNeedWorkerReq: boolean,
-  photoId: string,
-  searchTerms: SearchTerms,
-  mainRef: MutableRefObject<any>,
-  photo: Photo<FirestoreDate>
-) =>
-  compose<void, Promise<void>>(
-    makeEditPhotoData(formData, photo),
-    //tap((fieldsToUpdate) => console.log("FIELDS TO UPDATE", fieldsToUpdate)),
-    (fieldsToUpdate: FirestoreFieldsToEdit) =>
-      isEmptyObj(fieldsToUpdate) && !isNeedWorkerReq
-        ? Done.of(dispatch(showAlertAC("Вы ничего не изменили.", "error")))
-        : Next.of(fieldsToUpdate),
-    map(
-      tap((fieldsToUpdate: FirestoreFieldsToEdit) => {
-        mainRef.current.isSubmited = true;
-        mainRef.current.formData = formData;
-
+        /*  setState((prevState: any) => ({
+        ...prevState,
+        isEndReq: true,
+      })) */
+      })
+      .finally(() => {
         setState((prevState) => ({
           ...prevState,
-          uploadLoading: true,
+          isEndReq: true,
         }));
-      })
-    ),
-    //map(tap((val: any) => console.log("Hello", val))),
-    chain((fieldsToUpdate: FirestoreFieldsToEdit) =>
-      compose(
-        () => dispatch(editPhotoSendRequestAC(photoId)),
-        //tap(() => console.log("FIELDS TO UPDATE 2", fieldsToUpdate)),
-        elif(
-          () => isNeedWorkerReq,
-          compose(
-            (): {
-              photoId: string;
-              userUid: string;
-              photoFile: File;
-            } & FirestoreFieldsToEdit => ({
-              photoId,
-              userUid,
-              photoFile: (formData.photoFile as FileList)[0],
-              ...fieldsToUpdate,
-              /*  description: fieldsToUpdate.description,
-              date:
-                fieldsToUpdate.date !== undefined
-                  ? fieldsToUpdate.date.toUTCString()
-                  : undefined,
-              tags:
-                fieldsToUpdate.tags !== undefined
-                  ? JSON.stringify(fieldsToUpdate.tags)
-                  : undefined, */
-            }),
-            //tap((data) => console.log("FIELDS TO UPDATE 3", data)),
-            editPhotoWorkerReq
-          ),
-          compose(
-            (): EditPhotoFirestoreRequestBody => ({
-              photoId,
-              fieldsToUpdate,
-            }),
-            editPhotoFirestoreReq
-          )
-        ),
-        then((res: any) => {
-          if (res && res.status === "error")
-            throw new Error(`Error from worker...`);
-        }),
-        then(() => {
-          //console.log("SUCCESS BEFORE GET EDITED PHOTO");
-          onSuccess(dispatch, setState, searchTerms, fieldsToUpdate, photoId);
-        }),
-        _catch((err) => {
-          console.error("ERROR BEFORE GET EDITED PHOTO", err.message);
-          onError(err, dispatch, setState, photoId);
-        })
-      )()
-    )
+      });
+  };
+
+export const getEditedPhotoReq = getEditedPhotoReq_(getPhoto_, batch);
+
+export const onSuccess = onSuccess_(getEditedPhotoReq, batch, isInSearchTerms_);
+
+export const onError = onError_(batch);
+
+export const request = request_(
+  editPhotoFirestoreReq_,
+  editPhotoWorkerReq_,
+  onError,
+  onSuccess,
+  makeEditPhotoData_,
+  makeEditPhotoWorkerProps
+);
+
+///////////////////
+
+const editPhoto_ =
+  (
+    state: PhotoReqState,
+    setState: Dispatch<SetStateAction<PhotoReqState>>,
+    dispatch: any,
+    mainRef: MutableRefObject<EditPhotoReqRefData>,
+    photoId: string,
+    userUid: string,
+    editedPhoto: Photo<FirestoreDate>,
+    searchTerms: SearchTerms
+  ) =>
+  (formData: any) => {
+    mainRef.current = {
+      isNeedWorkerReq: formData.photoFile
+        ? formData.photoFile.length > 0
+        : false,
+      formData,
+      editedPhoto,
+    };
+
+    request({
+      dispatch,
+      state,
+      setState,
+      photoId,
+      userUid,
+      mainRef,
+      searchTerms,
+    });
+  };
+
+export const useEditPhotoReq = (
+  photoId: string,
+  photo: Photo<FirestoreDate>
+) => {
+  const dispatch = useDispatch();
+
+  const mainRef: MutableRefObject<any> = useRef();
+
+  const removeRequest = () => {
+    dispatch(editPhotoRequestEndAC(photoId));
+  };
+
+  const { state, setState, onFormClose, userUid } = usePhotoReq({
+    removeRequest,
+  });
+
+  const searchTerms = useSelector<GlobalState, SearchTerms>(
+    (state) => state.search.terms
   );
 
-export const useEditPhotoReq = (id: string, photo: Photo<FirestoreDate>) => {
+  const editPhoto = editPhoto_(
+    state,
+    setState,
+    dispatch,
+    mainRef,
+    photoId,
+    userUid,
+    photo,
+    searchTerms
+  );
+
+  return {
+    editPhoto,
+    onFormClose,
+    showForm: state.showForm,
+    uploadLoading: state.uploadLoading,
+  };
+};
+
+//////////////////
+
+/* 
+// TODO: mainRef.isSubmitted
+export const request =
+  (
+    dispatch: any,
+    setState: Dispatch<SetStateAction<PhotoReqState>>,
+    mainRef: MutableRefObject<PhotoReqRefData>
+  ) =>
+  (data: EditPhotoReqData) =>
+    compose<EditPhotoReqData, Promise<void>>(
+      (data: EditPhotoReqData) => ({
+        ...data,
+        fieldsToUpdate: makeEditPhotoData(data.formData, data.editedPhoto),
+      }),
+      (data: EditPhotoReqData) =>
+        isEmptyObj(data.fieldsToUpdate) && data.isNeedWorkerReq === false
+          ? Done.of(dispatch(showAlertAC("Вы ничего не изменили.", "error")))
+          : Next.of(data),
+      map(
+        tap((data: EditPhotoReqData) => {
+          //mainRef.current.isSubmited = true;
+          //mainRef.current.formData = formData;
+
+          setState((prevState) => ({
+            ...prevState,
+            uploadLoading: true,
+            isFormSubmited: true,
+          }));
+        })
+      ),
+      chain((data: EditPhotoReqData) =>
+        compose<EditPhotoReqData, Promise<EditPhotoReqData>>(
+          tap(() => dispatch(editPhotoSendRequestAC(data.photoId))),
+          elif(
+            (data: EditPhotoReqData) => data.isNeedWorkerReq,
+            // SEND WORKER REQUEST
+            compose<EditPhotoReqData, Promise<EditPhotoReqData>>(
+              (data: EditPhotoReqData) => ({
+                ...data,
+                editPhotoWorkerProps: makeEditPhotoWorkerProps(
+                  data.fieldsToUpdate,
+                  data.photoId,
+                  data.userUid,
+                  data.formData.photoFile[0]
+                ),
+              }),
+              async (data: EditPhotoReqData) => {
+                await editPhotoWorkerReq(data.editPhotoWorkerProps);
+                return data;
+              }
+            ),
+            // SEND FIRESTORE REQUEST
+            compose<EditPhotoReqData, Promise<EditPhotoReqData>>(
+              (data: EditPhotoReqData) => ({
+                ...data,
+                editPhotoFirestoreRequestBody: {
+                  photoId: data.photoId,
+                  fieldsToUpdate: data.fieldsToUpdate,
+                },
+              }),
+              async (data: EditPhotoReqData) => {
+                await editPhotoFirestoreReq(data.editPhotoFirestoreRequestBody);
+                return data;
+              }
+            )
+          ),
+          then((res: any) => {
+            if (res && res.status === "error")
+              throw new Error(`Error from worker...`);
+          }),
+          then(() => {
+            console.log("SUCCESS BEFORE GET EDITED PHOTO", data);
+            onSuccess(dispatch, setState, data);
+          }),
+          _catch((err) => {
+            console.error("ERROR BEFORE GET EDITED PHOTO", err.message, data);
+            onError(dispatch, setState, data.photoId);
+          })
+        )
+      )
+    )(data);
+*/
+
+//////////////////
+
+/* type UseEditPhotoReqData = ReturnType<typeof usePhotoReq> & {
+  id: string, 
+  photo: Photo<FirestoreDate>,
+  removeRequest: (id: string, dispatch: any) => void;
+}
+
+export const useEditPhotoReq = (usePhotoReq_: typeof usePhotoReq, editPhotoRequestEndAC_: typeof editPhotoRequestEndAC) => compose<UseEditPhotoReqData, any>(
+  set("removeRequest", (self: UseEditPhotoReqData) => {
+    const removeRequest_ = (id: string) => (dispatch: any) => {
+      dispatch(editPhotoRequestEndAC_(id));
+    }
+    return removeRequest_(self.id);
+  }),
+  (data: UseEditPhotoReqData) => ({
+    ...data,
+    ...usePhotoReq_(data.id, data.removeRequest)
+  }),
+  (data: UseEditPhotoReqData)
+);
+
+(id: string, photo: Photo<FirestoreDate>) => {
   const removeRequest = (dispatch: any) => {
     dispatch(editPhotoRequestEndAC(id));
   };
@@ -252,141 +562,11 @@ export const useEditPhotoReq = (id: string, photo: Photo<FirestoreDate>) => {
 
     start();
   };
-
+ 
   return {
     editPhoto,
     onFormClose,
     showForm: state.showForm,
     uploadLoading: state.uploadLoading,
   };
-};
-
-/* export const useEditPhotoReq = (
-  id: string,
-  removeRequest: (id: string) => void,
-  photo: IPhoto<FirestoreDate>
-) => {
-  const mainRef = useRef<any>({
-    isSubmited: false,
-    formData: {},
-    selfKilling: false,
-    timerId: null,
-  });
-
-  const [state, setState] = useState({
-    showForm: false,
-    formWasClosed: false,
-    uploadLoading: false,
-    successReq: false,
-    errorReq: "",
-  });
-
-  const dispatch = useDispatch();
-
-  // TODO:
-  /* const userUid = useSelector((state: any) =>
-        state.auth.user ? state.auth.user.uid : ""
-      ); /
-  const userUid = "userUid";
-
-  const searchState = useSelector<GlobalState, ISearchState>(
-    (state) => state.search
-  );
-
-  const onSelfKilling = () => {
-    console.log("onSelfKilling", mainRef);
-    mainRef.current.selfKilling = true;
-
-    mainRef.current.timerId = setTimeout(() => {
-      removeRequest(id);
-    }, 1000);
-  };
-
-  useEffect(() => {
-    setState({
-      ...state,
-      showForm: true,
-    });
-  }, []);
-
-  // remove self
-  useEffect(() => {
-    // remove request if:
-    // - it successfully done
-    // - it has error and form already closed
-    // - form closed without submit
-    // - form closed and we get error
-
-    if (mainRef.current.selfKilling === true) return;
-
-    //if (state.successReq === true) onSelfKilling();
-
-    if (state.showForm === false && state.formWasClosed === true) {
-      onSelfKilling();
-      /* if (state.errorReq || mainRef.current.isSubmited) {
-        onSelfKilling();
-      } /
-    }
-
-    return () => {
-      if (mainRef.current.timerId) clearTimeout(mainRef.current.timerId);
-    };
-  }, [state.successReq, state.showForm, state.formWasClosed]);
-
-  const onFormClose = () => {
-    ///console.log("ON FORM CLOSE");
-    setState((prevState) => ({
-      ...prevState,
-      showForm: false,
-      formWasClosed: true,
-    }));
-  };
-
-  const editPhoto = (formData: any) => {
-    // check if data changed
-    /*  const fieldsToUpdate = makeEditPhotoData(formData, photo);
-
-    
-    if (isEmptyObj(fieldsToUpdate) && !isNeedWorkerReq) {
-      dispatch(showAlertAC("Вы ничего не изменили.", "error"));
-      return;
-    }
-
-    mainRef.current.isSubmited = true;
-    mainRef.current.formData = formData;
-
-    setState((prevState) => ({
-      ...prevState,
-      uploadLoading: true,
-    })); /
-
-    // Add countAddReq++ to global state
-    // Set uploadLoading = true
-
-    const isNeedWorkerReq = formData.photoFile
-      ? formData.photoFile.length > 0
-      : false;
-
-    const start = request(
-      dispatch,
-      setState,
-      formData,
-      userUid,
-      isNeedWorkerReq,
-      id,
-      searchState,
-      mainRef,
-      photo
-    );
-
-    start();
-  };
-
-  return {
-    editPhoto,
-    onFormClose,
-    showForm: state.showForm,
-    uploadLoading: state.uploadLoading,
-  };
-};
- */
+};*/

@@ -54,7 +54,10 @@ const Wrapper = () => {
   return (
     <div>
       <div className="text-left w-1/2 border-2 p-2 border-yellow-200  rounded">
-        <p>nextPageDocRef - {nextPageDocRef}</p>
+        <p>
+          nextPageDocRef -{" "}
+          {nextPageDocRef === undefined ? "undefined" : nextPageDocRef.id}
+        </p>
         <p>error - {error ? "true" : "false"}</p>
         <p>loading - {loading ? "true" : "false"}</p>
         <p>numberOfAddedPhotoReqs - {numberOfAddedPhotoReqs}</p>
@@ -62,13 +65,17 @@ const Wrapper = () => {
         <p>editedPhotosIds - {JSON.stringify(reqIds)}</p>
         <p>
           photos -
-          {photos
-            ? photos.map((photo) => ` | ${photo.id} - ${photo.description} | `)
+          {photos !== undefined
+            ? photos.map(
+                (photo: any) => ` | ${photo.id} - ${photo.description} | `
+              )
             : "undefined"}
         </p>
       </div>
       <EditPhotoReqs requests={reqIds} />
-      <Button onClick={() => dispatch(editPhotoStartRequestAC("232"))}>
+      <Button
+        onClick={() => dispatch(editPhotoStartRequestAC("1532390460203"))}
+      >
         Edit photo
       </Button>
       <Alerts />
