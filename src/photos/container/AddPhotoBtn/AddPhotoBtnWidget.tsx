@@ -21,6 +21,7 @@ const AddPhotoBtnWidget = ({ onClick }: { onClick: (event?: any) => void }) => {
             minWidth: "auto",
             minHeight: "auto",
             padding: "13px",
+            color: "white",
           }}
           //className={classes.button}
           color="secondary"

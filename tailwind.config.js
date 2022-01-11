@@ -26,14 +26,13 @@ const colors = {
 };
 
 module.exports = {
-  purge: {
-    content: ["./src/**/*.{js,jsx,ts,tsx}"],
-    //safelist: ["width-0-important"],
-    options: {
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  //safelist: ["width-0-important"],
+  /*  options: {
       keyframes: false,
-    },
-  },
-  darkMode: false, // or 'media' or 'class'
+    }, */
+
+  //darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
       colors: {

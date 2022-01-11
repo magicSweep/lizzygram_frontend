@@ -1,4 +1,4 @@
-import { add, edit } from "../api/worker.fake";
+import { add, edit } from "../api/worker";
 import { FirestoreFieldsToEdit, EditPhotoWorkerProps } from "./../types";
 import { WorkerRequest } from "lizzygram-common-data/dist/types";
 

@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { PaletteOptions } from "@mui/material/styles";
 import { AppBar } from "../AppBar";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { Link } from "../../component/Link";
 /* import { navigate } from "gatsby";
 import { useLocation, useNavigate, Redirect } from "@reach/router";
 import { useAuth } from "./../../auth";
@@ -64,10 +65,15 @@ const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => {
         boxShadow: 4,
       }}
     >
-      <ThemeSwitch
-        checked={mode === "dark" ? true : false}
-        onChange={toggleMode}
-      />
+      <div className="flex justify-between items-center">
+        <ThemeSwitch
+          checked={mode === "dark" ? true : false}
+          onChange={toggleMode}
+        />
+        <Link className="text-right" to="/faq">
+          FAQ по работе сайта.
+        </Link>
+      </div>
       {children}
     </Box>
   );

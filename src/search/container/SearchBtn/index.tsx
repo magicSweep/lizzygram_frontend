@@ -1,8 +1,9 @@
 import React, { lazy, Suspense } from "react";
 //import { shallowEqual, useSelector } from "react-redux";
 //import { GlobalState } from "../../../types";
-import { useLocation } from "@reach/router";
+//import { useLocation } from "@reach/router";
 import { useAuth } from "../../../auth";
+//import { navigate } from "gatsby";
 
 const LoadableSearchBtn = lazy(() => import("./SearchBtn"));
 
@@ -13,7 +14,7 @@ const SearchBtn = () => {
     shallowEqual
   ); */
 
-  const location = useLocation();
+  //const location = useLocation();
 
   if (isAuth === false) return null;
 

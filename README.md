@@ -17,3 +17,8 @@
 
 - In config.ts change expressUrl to heroku
 - Number of photos per query
+
+# Commands
+
+- $ npm run run:switchImports - change repositories from real to fake - in package.json set isFake
+- $ npm run start:create:func photos/Hello - create folder with react function component, test and stories files.

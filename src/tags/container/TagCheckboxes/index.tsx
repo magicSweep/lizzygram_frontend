@@ -7,7 +7,7 @@ export const TagCheckboxes: FC<
 > = ({ label, disabled, ...props }) => {
   const otherProps = useFormTagsCheckboxes(props);
 
-  //console.log("[RENDER TAGS CHECKBOX] ");
+  console.log("[RENDER TAGS CHECKBOX] ");
 
   return (
     <TagCheckboxesWidget label={label} disabled={disabled} {...otherProps} />

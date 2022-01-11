@@ -66,8 +66,11 @@ const Form = () => {
 
   // GET VALUES FROM FORM STATE
   const tagsFormState = watch("tags"); */
+  useEffect(() => {
+    return () => console.log("DESTROY ---");
+  }, []);
 
-  console.log("[RENDER FORM]");
+  console.log("[RENDER FORM]", formState);
 
   const onSubmit = (data) => console.log("[SUBMIT]", data);
 

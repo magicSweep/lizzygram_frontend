@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "../component/Link";
 import SEO from "../component/SEO";
 import NotAuth from "../component/NotAuth";
 import {
@@ -23,10 +22,6 @@ const IndexPage = () => {
   return (
     <main>
       <SEO title="Приветствие..." />
-
-      <Link className="text-right" to="/faq">
-        FAQ по работе сайта.
-      </Link>
 
       <NotAuth />
 

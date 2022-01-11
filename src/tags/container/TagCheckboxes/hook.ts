@@ -8,8 +8,9 @@ import {
   UseFormGetValues,
 } from "react-hook-form";
 import { useTags } from "../../hook/useTags";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, MutableRefObject } from "react";
 import { getDefaultTagsFormState } from "../../helper";
+import { TagsFormState } from "../../types";
 
 export type UseFormTagCheckboxesProps = {
   clearErrors: UseFormClearErrors<any>;
@@ -31,7 +32,7 @@ export const useFormTagsCheckboxes = ({
   clearErrors,
   defaultTags,
   validate,
-}) => {
+}: UseFormTagCheckboxesProps) => {
   const { tags, error: fetchError, loading } = useTags();
 
   const onChange = useCallback((event: any) => {
@@ -57,16 +58,29 @@ export const useFormTagsCheckboxes = ({
     //console.log("TAGS STATE use effect");
     if (tags !== undefined) {
       const tagsFormState = getDefaultTagsFormState(tags, defaultTags);
-      //console.log("TAGS STATE use effect", tagsFormState);
+      //console.log("TAGS STATE use effect");
       setValue("tags", tagsFormState, {
         shouldValidate: false,
         shouldDirty: true,
+        //shouldTouch: true,
       });
     }
   }, [tags]);
 
+  ///////////////////////////
+  // this cicle is made cause we can render field if we
+  const defaultTagsFormState: MutableRefObject<TagsFormState | undefined> =
+    useRef();
+
+  if (defaultTagsFormState.current === undefined && tags !== undefined) {
+    defaultTagsFormState.current = getDefaultTagsFormState(tags, defaultTags);
+  }
+  /////////////////////////////
+
   // GET VALUES FROM FORM STATE
-  const tagsFormState = watch("tags");
+  const tagsFormState = watch("tags", defaultTagsFormState.current);
+
+  //console.log("[USE FORM TAGS CHECKBOX] ", defaultTagsFormState.current);
 
   const error = formState.errors["tags"];
 

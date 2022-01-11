@@ -215,47 +215,48 @@ export const getCheckboxes = (
   );
 };
 
-export const TagCheckboxes: FC<TagCheckboxesProps & { tagsState: TagsState }> =
-  ({
-    label,
-    tagsState,
-    tagsFormState,
+export const TagCheckboxes: FC<
+  TagCheckboxesProps & { tagsState: TagsState }
+> = ({
+  label,
+  tagsState,
+  tagsFormState,
+  onChange,
+  disabled,
+  isFormError,
+  helperText,
+}) => {
+  //console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
+
+  const checkboxes = getCheckboxes(
     onChange,
-    disabled,
+    tagsState,
     isFormError,
-    helperText,
-  }) => {
-    //console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
+    disabled === true,
+    tagsFormState
+  );
 
-    const checkboxes = getCheckboxes(
-      onChange,
-      tagsState,
-      isFormError,
-      disabled === true,
-      tagsFormState
-    );
+  //console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
 
-    //console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
-
-    return (
-      <FieldWrapper
-        id="id"
-        //@ts-ignore
-        component="fieldset"
-        className={`
+  return (
+    <FieldWrapper
+      id="id"
+      //@ts-ignore
+      component="fieldset"
+      className={`
           pt-5 pb-2 w-full
           bg-paper
           border-none
         `}
-        error={isFormError}
-        disabled={disabled}
-        helperText={helperText}
-      >
-        <HeroTitle>{label}</HeroTitle>
+      error={isFormError}
+      disabled={disabled}
+      helperText={helperText}
+    >
+      <HeroTitle>{label}</HeroTitle>
 
-        {checkboxes}
-      </FieldWrapper>
-    );
-  };
+      {checkboxes}
+    </FieldWrapper>
+  );
+};
 
 export default TagCheckboxes;

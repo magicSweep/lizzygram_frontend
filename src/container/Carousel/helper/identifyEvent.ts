@@ -26,42 +26,9 @@ export const isMultiTouch = (targetTouches: number) => targetTouches > 1;
 export const identifyOnPointerDown = (targetTouches: number) =>
   targetTouches > 1 ? "MULTI_TOUCH" : "UNKNOWN";
 
-export const identifyOnPointerUp_ = (
-  clickAndLongtapDistThreshold: number,
-  clickTimeThreshold: number
-) => (distX: number, distY: number, elapsedTime: number): EVENT_TYPE => {
-  if (
-    Math.abs(distX) < clickAndLongtapDistThreshold &&
-    Math.abs(distY) < clickAndLongtapDistThreshold
-  ) {
-    if (elapsedTime < clickTimeThreshold) {
-      return "CLICK";
-    } else {
-      return "LONG_TAP";
-    }
-  }
-
-  return "UNKNOWN";
-};
-
-export const identifyOnPointerUp = identifyOnPointerUp_(
-  config.clickAndLongtapDistThreshold,
-  config.clickTimeThreshold
-);
-
-/* export const identify_ = (
-  clickAndLongtapDistThreshold: number,
-  clickTimeThreshold: number
-) => (
-  pointerEvent: PointerEvent,
-  targetTouches: number,
-  distX?: number,
-  distY?: number,
-  elapsedTime?: number
-): EVENT_TYPE => {
-  if (targetTouches > 1) return "MULTI_TOUCH";
-
-  if (pointerEvent === "POINTER_UP") {
+export const identifyOnPointerUp_ =
+  (clickAndLongtapDistThreshold: number, clickTimeThreshold: number) =>
+  (distX: number, distY: number, elapsedTime: number): EVENT_TYPE => {
     if (
       Math.abs(distX) < clickAndLongtapDistThreshold &&
       Math.abs(distY) < clickAndLongtapDistThreshold
@@ -72,7 +39,13 @@ export const identifyOnPointerUp = identifyOnPointerUp_(
         return "LONG_TAP";
       }
     }
-  }
 
-  return "UNKNOWN";
-}; */
+    return "UNKNOWN";
+  };
+
+export const identifyOnPointerUp = identifyOnPointerUp_(15, 150);
+
+/* export const identifyOnPointerUp = identifyOnPointerUp_(
+  config.clickAndLongtapDistThreshold,
+  config.clickTimeThreshold
+); */
