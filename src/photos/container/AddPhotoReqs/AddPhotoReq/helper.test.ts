@@ -1,5 +1,5 @@
 import { makeAddPhotoData } from "./helper";
-import { AddPhotoFormData, AddPhotoWorkerData } from "./../../../types";
+//import { AddPhotoFormData } from "./../../../types";
 
 export const formData = {
   desc: "Go to hell...",
@@ -13,7 +13,7 @@ export const formData = {
 
 describe("makeAddPhotoData", () => {
   test("", () => {
-    const res = makeAddPhotoData(formData as any, "super_user_id", "photoId")();
+    const res = makeAddPhotoData(formData as any, "super_user_id", "photoId");
 
     // we can not check all object cause _timestamp make Date.now
     expect(res.addedByUserUID).toEqual("super_user_id");

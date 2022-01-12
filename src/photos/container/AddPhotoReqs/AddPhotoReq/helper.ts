@@ -9,7 +9,7 @@ export const makeAddPhotoWorkerData = (
   photoId: string
 ): WorkerRequest => {
   return {
-    photoFile: formData.photoFile[0],
+    photoFile: formData.photoFile[0] as any,
     userUid: userUid,
     photoId: photoId,
   };
@@ -52,7 +52,7 @@ export const makeAddPhotoData = (
       ...photo,
       _timestamp: new Date(),
     }) */
-  );
+  )();
 
 /* export const makeAddPhotoData = (
   formData: IAddPhotoFormData,
