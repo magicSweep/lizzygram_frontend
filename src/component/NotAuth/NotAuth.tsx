@@ -1,13 +1,21 @@
 import React, { FC } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
+import { BuildFor } from "lizzygram-common-data/dist/types";
 
 interface NotAuthProps {
   //isAuth: boolean;
   loading: boolean;
+  buildFor: BuildFor;
 }
 
-const NotAuth: FC<NotAuthProps> = ({ loading }) => {
+const lText =
+  "Вам нужно лишь войти на сайт через свой google аккаунт, дабы перед вами открылся дивный мир жизни и творчества Елизаветы Кирилловны.";
+
+const pText =
+  "Вам нужно лишь войти на сайт через свой google аккаунт, дабы перед вами открылся дивный мир фотографии.";
+
+const NotAuth: FC<NotAuthProps> = ({ loading, buildFor }) => {
   if (loading === true)
     return (
       <div className="m-auto pt-8 flex justify-center items-center">
@@ -17,6 +25,8 @@ const NotAuth: FC<NotAuthProps> = ({ loading }) => {
         </Typography>
       </div>
     );
+
+  const text = buildFor === "lizzygram" ? lText : pText;
 
   return (
     <div className="max-w-700 m-auto pt-6">
@@ -40,8 +50,7 @@ const NotAuth: FC<NotAuthProps> = ({ loading }) => {
           textAlign: "justify",
         }}
       >
-        Вам нужно лишь войти на сайт через свой google аккаунт, дабы перед вами
-        открылся дивный мир жизни и творчества Елизаветы Кирилловны.
+        {text}
       </Typography>
     </div>
   );

@@ -6,3 +6,15 @@ export const isUserExists = async (userUid: string) => {
 
   return true;
 };
+
+export const grantPermissions = async (userUid: string) => {
+  await wait(2000);
+
+  return;
+};
+
+export const revokePermissions = async (userUid: string) => {
+  await wait(2000);
+
+  return;
+};

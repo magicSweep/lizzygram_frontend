@@ -21,7 +21,7 @@ import { LoadableSearchPhotoForm } from "./../search";
 const IndexPage = () => {
   return (
     <main>
-      <SEO title="Приветствие..." />
+      <SEO title="Фото альбом" />
 
       <NotAuth />
 

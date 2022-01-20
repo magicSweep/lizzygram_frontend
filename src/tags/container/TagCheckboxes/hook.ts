@@ -93,7 +93,7 @@ export const useFormTagsCheckboxes = ({
   return {
     tagsState: { items: tags, error: fetchError, loading },
     tagsFormState,
-    onChange,
+    handleChange: onChange,
     isFormError: isError,
     helperText,
   };

@@ -1,11 +1,13 @@
-import { compose, tap, cond, elif } from "fmagic";
+import { compose, tap, cond, elif, justReturn } from "fmagic";
 //import { maxFileSizeMB, isValidFileFormat } from "./helper/validation";
 import {
   isValidPhotoFileFrontend,
   isValidDate,
   isValidDesc,
   isValidTags,
+  getBuildFor,
 } from "lizzygram-common-data";
+import { BuildFor } from "lizzygram-common-data/dist/types";
 
 // DATE
 
@@ -16,23 +18,37 @@ import {
   [() => true, () => true],
 ]); */
 
-export const dateValidateOnEdit = elif(
-  (val: Date | undefined | null) => {
-    //console.log("date", val);
-    return val === undefined || val === null;
-  },
-  () => true,
-  (val: Date) => isValidDate(val + "") as any
-);
+export const dateValidateOnEdit_ = (buildFor: BuildFor) =>
+  elif(
+    (val: Date | undefined | null) => {
+      //console.log("date", val);
+      return val === undefined || val === null;
+    },
+    () => true,
+    elif(
+      () => buildFor === "portfolio",
+      () => true,
+      (val: Date) => isValidDate(val + "") as any
+    )
+  );
 
-export const dateValidateOnAdd = elif(
-  (val: Date | undefined | null) => {
-    //console.log("date", val);
-    return val === undefined || val === null;
-  },
-  () => "Пожалуйста, укажите дату съемки, хотя бы примерно.",
-  (val: Date) => isValidDate(val + "") as any
-);
+export const dateValidateOnAdd_ = (buildFor: BuildFor) =>
+  elif(
+    (val: Date | undefined | null) => {
+      //console.log("date", val);
+      return val === undefined || val === null;
+    },
+    () => "Пожалуйста, укажите дату съемки, хотя бы примерно.",
+    elif(
+      () => buildFor === "portfolio",
+      () => true,
+      (val: Date) => isValidDate(val + "") as any
+    )
+  );
+
+export const dateValidateOnEdit = dateValidateOnEdit_(getBuildFor());
+
+export const dateValidateOnAdd = dateValidateOnAdd_(getBuildFor());
 
 // DESCRIPTION
 

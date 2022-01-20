@@ -29,6 +29,11 @@ const reducer: Reducer<AuthState, AuthAction> = (
         user: action.user,
         loading: false,
       };
+    case "AUTH_EDITOR_ERROR":
+      return {
+        ...state,
+        loading: false,
+      };
     case "LOGIN_REQUEST":
       return {
         ...state,
@@ -68,6 +73,24 @@ const reducer: Reducer<AuthState, AuthAction> = (
         //logoutLoading: false,
         loading: false,
         logoutError: true,
+      };
+    case "GRANT_PERMISSIONS_REQUEST_START":
+      return {
+        ...state,
+        //logoutLoading: true,
+        loading: true,
+      };
+    case "REVOKE_PERMISSIONS_REQUEST_START":
+      return {
+        ...state,
+        //logoutLoading: true,
+        loading: true,
+      };
+    case "PERMISSIONS_REQUEST_END":
+      return {
+        ...state,
+        //logoutLoading: true,
+        loading: false,
       };
     /*  case "FORGET_PASS_REQUEST":
       return {

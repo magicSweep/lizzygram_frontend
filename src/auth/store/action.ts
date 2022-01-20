@@ -12,6 +12,13 @@ export const authAC = (user?: AuthUser): AuthAction => {
   };
 };
 
+//AUTH_EDITOR_ERROR
+export const authEditorErrorAC = (): AuthAction => {
+  return {
+    type: "AUTH_EDITOR_ERROR",
+  };
+};
+
 export const loginRequestAC = (): AuthAction => {
   return {
     type: "LOGIN_REQUEST",
@@ -45,5 +52,23 @@ export const logoutRequestAC = (): AuthAction => {
 export const logoutRequestErrorAC = (): AuthAction => {
   return {
     type: "LOGOUT_REQUEST_ERROR",
+  };
+};
+
+export const grantPermissionsRequestStartAC = (): AuthAction => {
+  return {
+    type: "GRANT_PERMISSIONS_REQUEST_START",
+  };
+};
+
+export const revokePermissionsRequestStartAC = (): AuthAction => {
+  return {
+    type: "REVOKE_PERMISSIONS_REQUEST_START",
+  };
+};
+
+export const permissionsRequestEndAC = (): AuthAction => {
+  return {
+    type: "PERMISSIONS_REQUEST_END",
   };
 };

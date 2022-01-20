@@ -1,6 +1,9 @@
 import { Action, Reducer } from "redux";
 
-export type TagType = "where" | "withWho" | "feeling";
+export type LTagType = "where" | "withWho" | "feeling";
+export type PTagType = "genre" | "details" | "where";
+export type TagType = LTagType | PTagType;
+//export type TagType = "where" | "withWho" | "feeling";
 
 export interface TagCheckbox {
   title: string;

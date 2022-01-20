@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { batch as batch_, useDispatch } from "react-redux";
 import { useAuth } from "../useAuth";
 import { AuthUser, AuthAction } from "../../types";
 import {
@@ -14,9 +14,14 @@ import {
   elif,
   cond,
 } from "fmagic";
-import { getUser as getSavedUser, saveUser } from "../../service/UserService";
-import { authAC } from "../../store/action";
+import {
+  getUser as getSavedUser,
+  saveUser,
+  removeUser as removeSavedUser,
+} from "../../service/UserService";
+import { authAC, authEditorErrorAC } from "../../store/action";
 import { isEditor } from "../../service/DbService";
+import { showAlertAC } from "../../../alert";
 
 export let isRequested = false;
 export let numberOfRequests = 0;
@@ -34,10 +39,10 @@ export const isGoodPrevUser = (prevUser: AuthUser | null, user: AuthUser) =>
 
 export const request_ =
   (
+    batch: typeof batch_,
     isGoodPrevUser: (prevUser: AuthUser | null, user: AuthUser) => boolean,
     setIsRequested: (val: boolean) => void,
     getIsRequested: () => boolean,
-    authAC: (user?: AuthUser) => AuthAction,
     isEditor: (user: AuthUser) => Promise<AuthUser>,
     getSavedUser: () => AuthUser | null,
     saveUser: (user: AuthUser) => void
@@ -76,7 +81,18 @@ export const request_ =
                   saveUser(newUser);
                   dispatch(authAC(newUser));
                 }),
-                _catch((err) => console.error(err)),
+                _catch((err) => {
+                  console.error(err);
+                  batch(() => {
+                    dispatch(
+                      showAlertAC(
+                        "Произошла ошибка при идентификации вашего аккаунта, некоторый функции могут быть недоступны.",
+                        "error"
+                      )
+                    );
+                    dispatch(authEditorErrorAC());
+                  });
+                }),
                 _finally(() => setIsRequested(false))
               ),
             ],
@@ -86,10 +102,10 @@ export const request_ =
     );
 
 export const request = request_(
+  batch_,
   isGoodPrevUser,
   setIsRequested,
   getIsRequested,
-  authAC,
   isEditor,
   getSavedUser,
   saveUser
@@ -154,8 +170,14 @@ export const useEditor = () => {
     // }
   }, [user]);
 
+  const reload = () => {
+    removeSavedUser();
+    start({ ...user, isEditor: undefined });
+  };
+
   return {
     user,
     loading,
+    reload,
   };
 };

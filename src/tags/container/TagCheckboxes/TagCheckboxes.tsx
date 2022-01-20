@@ -1,26 +1,20 @@
-import React, { ComponentProps, FC } from "react";
+import React, { ComponentProps, FC, useMemo, Fragment } from "react";
 import TagCheckbox from "../../component/TagCheckbox";
 //import FormFieldWrapper from "../../../component/FormElements/UploadButton/FormFieldWrapper";
 //import Typography, { TypographyProps } from "@mui/material/Typography";
 import { BoxProps } from "@mui/material/Box";
-import { numberOfTagsByType } from "../../../config";
+import { numberOfTagsByType, tagsTitleByType } from "../../../config";
 import HeroTitle from "../../../component/HeroTitle";
-import { TagsState, TagData, TagsFormState } from "../../types";
+import { TagsState, TagData, TagsFormState, TagType } from "../../types";
 import TagSkeleton from "../../component/TagSkeleton";
 import { tagTypeToColor } from "../../helper";
 import FieldWrapper from "../../../component/formElements/FieldWrapper";
+import { compose, cond, elif } from "fmagic";
+import { makeGroupedTags } from "./TagCheckboxes.helper";
 
-export type TagCheckboxesProps = ComponentProps<"input"> & {
-  tagsFormState?: TagsFormState;
-  //onChange: any;
-  //disabled: boolean;
-  //errors?: string[];
-  label: string;
-
-  onChange: (event: any) => void;
-  isFormError: boolean;
-  helperText: string;
-};
+export const TagWrapper: FC<any> = ({ children }) => (
+  <div className="mr-2 pt-3">{children}</div>
+);
 
 interface TagsGroupProps extends BoxProps {
   title: string;
@@ -38,7 +32,7 @@ const TagsGroup: FC<TagsGroupProps> = ({
   return (
     <>
       <h5 className={`text-${color} text-left text-sm pl-3 select-none`}>
-        {title}
+        {`${title}:`}
       </h5>
 
       <ul className="flex flex-wrap justify-start pb-3 list-none last:pb-0">
@@ -62,201 +56,239 @@ const MainContainer: FC<any> = ({ error, children }) => (
   </div>
 );
 
-const TagWrapper: FC<any> = ({ children }) => (
-  <div className="mr-2 pt-3">{children}</div>
-);
-
-const makeCheckboxes = (
+const makeCheckboxElementsByType = (
   handleChange: (event: any) => void,
-  tagsState: TagsState,
-  //tagsState: any,
-  //error: boolean,
+  groupedTags: TagCheckboxesData["groupedTags"],
   disabled: boolean,
-  state?: TagsFormState
+  tagsFormState: TagsFormState
 ) => {
-  const feelingTagsElements: any[] = [];
-  const withWhoTagsElements: any[] = [];
-  const whereTagsElements: any[] = [];
+  const checkboxesByType: TagCheckboxesData["checkboxElements"] = [];
 
-  if (!tagsState.items) throw new Error("No items on tags state");
+  for (let data of groupedTags) {
+    let elements = [];
 
-  tagsState.items.forEach((tagData: TagData, index: number) => {
-    let element = (
-      <TagWrapper key={tagData.id}>
-        <TagCheckbox
-          id={tagData.id + tagData.name}
-          tagType={tagData.type}
-          checked={state !== undefined ? state[tagData.id] : false}
-          onChange={handleChange}
-          name="tags"
-          value={tagData.id}
-          disabled={disabled}
-          label={tagData.title}
-        />
-      </TagWrapper>
-    );
-    switch (tagData.type) {
-      case "feeling":
-        feelingTagsElements.push(element);
-        break;
-      case "where":
-        whereTagsElements.push(element);
-        break;
-      case "withWho":
-        withWhoTagsElements.push(element);
-        break;
+    for (let y = 0; y < data.tags.length; y++) {
+      let tagData = data.tags[y];
 
-      default:
-        throw new Error(`No implementation for tag type - ${tagData.type}`);
-    }
-  });
-
-  return {
-    feelingTagsElements,
-    withWhoTagsElements,
-    whereTagsElements,
-  };
-};
-
-const makeSkeletons = () => {
-  const elements: any[][] = [];
-
-  for (let i in numberOfTagsByType) {
-    elements[i] = [];
-
-    for (let y = 0; y < numberOfTagsByType[i]; y++) {
-      elements[i].push(
-        <TagWrapper key={`skeleton_${i}_${y}`}>
-          <TagSkeleton />
+      elements.push(
+        <TagWrapper key={tagData.id}>
+          <TagCheckbox
+            id={tagData.id + tagData.name}
+            tagType={tagData.type}
+            checked={tagsFormState[tagData.id]}
+            onChange={handleChange}
+            name="tags"
+            value={tagData.id}
+            disabled={disabled}
+            label={tagData.title}
+          />
         </TagWrapper>
       );
     }
+
+    checkboxesByType.push({
+      type: data.type as TagType,
+      jsxElements: elements,
+    });
   }
 
-  return {
-    feelingTagsElements: elements[0],
-    withWhoTagsElements: elements[1],
-    whereTagsElements: elements[2],
-  };
+  return checkboxesByType;
 };
 
-export const getCheckboxes = (
-  handleChange: (event: any) => void,
-  tagsState: TagsState,
-  //tagsState: any,
-  error: boolean,
-  disabled: boolean,
-  tagsFormState?: TagsFormState
-) => {
-  if (tagsState.error) {
-    return (
-      <MainContainer>
-        <p className="text-center text-error pt-5">
-          Упс, тэги не загрузились...
-        </p>
-      </MainContainer>
-    );
-  }
+const makeSkeletonElementsByType =
+  (): TagCheckboxesData["checkboxElements"] => {
+    const skeletonsByType: TagCheckboxesData["checkboxElements"] = [];
 
-  let tagsElements: {
-    feelingTagsElements: any[];
-    withWhoTagsElements: any[];
-    whereTagsElements: any[];
+    for (let data of numberOfTagsByType) {
+      let elements = [];
+
+      for (let y = 0; y < data.quantity; y++) {
+        elements.push(
+          <TagWrapper key={`skeleton_${data.type}_${y}`}>
+            <TagSkeleton />
+          </TagWrapper>
+        );
+      }
+
+      skeletonsByType.push({
+        type: data.type as TagType,
+        jsxElements: elements,
+      });
+    }
+
+    return skeletonsByType;
   };
 
-  if (
-    tagsState.loading ||
-    //tagsState.error ||
-    !tagsFormState ||
-    !tagsState.items
-    //state[items.keys()[0]] === undefined
-  ) {
-    tagsElements = makeSkeletons();
-  } else if (tagsState.items && tagsState.items.length > 0) {
-    tagsElements = makeCheckboxes(
-      handleChange,
-      tagsState,
-      //tagsState: any,
-      //error,
-      disabled,
-      tagsFormState
-    );
-  } else {
-    throw new Error("No implementation for that situation");
-  }
+//////////////////////////////
 
-  return (
-    <MainContainer error={error}>
-      <TagsGroup
-        color={
-          error ? "error" : disabled ? "disabled" : tagTypeToColor("feeling")
-        }
-        title="Настроение:"
-      >
-        {tagsElements.feelingTagsElements}
-      </TagsGroup>
-      <TagsGroup
-        color={
-          error ? "error" : disabled ? "disabled" : tagTypeToColor("withWho")
-        }
-        title="С кем:"
-      >
-        {tagsElements.withWhoTagsElements}
-      </TagsGroup>
-      <TagsGroup
-        color={
-          error ? "error" : disabled ? "disabled" : tagTypeToColor("where")
-        }
-        title="Где:"
-      >
-        {tagsElements.whereTagsElements}
-      </TagsGroup>
-    </MainContainer>
-  );
+export type TagCheckboxesProps = ComponentProps<"input"> & {
+  tagsFormState?: TagsFormState;
+  label: string;
+  tagsState: TagsState;
+  handleChange: (event: any) => void;
+  isFormError: boolean;
+  helperText: string;
 };
 
-export const TagCheckboxes: FC<
-  TagCheckboxesProps & { tagsState: TagsState }
-> = ({
-  label,
-  tagsState,
-  tagsFormState,
-  onChange,
-  disabled,
-  isFormError,
-  helperText,
-}) => {
-  //console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
+export type TagDataGroupedByType = {
+  //title: string;
+  type: TagType;
+  tags: TagData[];
+  //color: BoxProps["color"];
+};
 
-  const checkboxes = getCheckboxes(
-    onChange,
-    tagsState,
-    isFormError,
-    disabled === true,
-    tagsFormState
-  );
+export type TagCheckboxesData = TagCheckboxesProps & {
+  groupedTags: TagDataGroupedByType[] | null;
+  jsxErrorElement?: any;
+  // checkbox or skeletons
+  checkboxElements?: {
+    type: TagType;
+    jsxElements: any[];
+  }[];
+  content?: any;
+};
 
-  //console.log("[TAG CHECKBOXES] RENDER", tagsState, tagsFormState);
+export const TagsError = () => (
+  <p className="text-center text-error pt-5">Упс, тэги не загрузились...</p>
+);
 
-  return (
+export const TagCheckboxes: FC<TagCheckboxesProps> = compose<
+  TagCheckboxesProps,
+  any
+>(
+  (props: TagCheckboxesProps) => ({
+    ...props,
+    groupedTags: useMemo(
+      () =>
+        props.tagsState.items === undefined
+          ? null
+          : makeGroupedTags(props.tagsState.items),
+      [props.tagsState.items]
+    ),
+  }),
+  cond<TagCheckboxesData, TagCheckboxesData>([
+    [
+      (data: TagCheckboxesData) => data.tagsState.error === true,
+      (data: TagCheckboxesData) => ({
+        ...data,
+        jsxErrorElement: <TagsError />,
+      }),
+    ],
+    [
+      (data: TagCheckboxesData) =>
+        data.tagsState.items === undefined ||
+        data.tagsState.loading ||
+        data.tagsFormState === undefined,
+      (data: TagCheckboxesData) => ({
+        ...data,
+        checkboxElements: makeSkeletonElementsByType(),
+      }),
+    ],
+    [
+      (data: TagCheckboxesData) => data.tagsState.items !== undefined,
+      (data: TagCheckboxesData) => ({
+        ...data,
+        checkboxElements: makeCheckboxElementsByType(
+          data.handleChange,
+          data.groupedTags,
+          data.disabled,
+          data.tagsFormState
+        ),
+      }),
+    ],
+  ]),
+  elif(
+    (data: TagCheckboxesData) => data.jsxErrorElement !== undefined,
+    (data: TagCheckboxesData) => ({
+      ...data,
+      content: <MainContainer>{data.jsxErrorElement}</MainContainer>,
+    }),
+    (data: TagCheckboxesData) => ({
+      ...data,
+      content: (() => {
+        const tagGroupElems = data.checkboxElements.map((tagGroup, i) => (
+          <Fragment key={`${tagGroup.type}_${i}`}>
+            <TagsGroup
+              color={
+                data.isFormError === true
+                  ? "error"
+                  : data.disabled
+                  ? "disabled"
+                  : tagTypeToColor(tagGroup.type)
+              }
+              title={tagsTitleByType[tagGroup.type]}
+            >
+              {tagGroup.jsxElements}
+            </TagsGroup>
+          </Fragment>
+        ));
+
+        return (
+          <MainContainer error={data.isFormError}>
+            {tagGroupElems}
+          </MainContainer>
+        );
+      })(),
+    })
+  ),
+  (data: TagCheckboxesData) => (
     <FieldWrapper
       id="id"
       //@ts-ignore
       component="fieldset"
       className={`
+        pt-5 pb-2 w-full
+        bg-paper
+        border-none
+      `}
+      error={data.isFormError}
+      disabled={data.disabled}
+      helperText={data.helperText}
+    >
+      <HeroTitle>{data.label}</HeroTitle>
+
+      {data.content}
+    </FieldWrapper>
+  )
+);
+
+/*   {
+      const tagGroupElems = data.checkboxElements.map((tagGroup) => (
+        <TagsGroup
+          color={
+            data.isFormError === true
+              ? "error"
+              : data.disabled
+              ? "disabled"
+              : tagTypeToColor(tagGroup.type)
+          }
+          title={tagsTitleByType[tagGroup.type]}
+        >
+          {tagGroup.jsxElements}
+        </TagsGroup>
+      ));
+
+      return (
+        <FieldWrapper
+          id="id"
+          //@ts-ignore
+          component="fieldset"
+          className={`
           pt-5 pb-2 w-full
           bg-paper
           border-none
         `}
-      error={isFormError}
-      disabled={disabled}
-      helperText={helperText}
-    >
-      <HeroTitle>{label}</HeroTitle>
+          error={data.isFormError}
+          disabled={data.disabled}
+          helperText={data.helperText}
+        >
+          <HeroTitle>{data.label}</HeroTitle>
 
-      {checkboxes}
-    </FieldWrapper>
-  );
-};
+          <MainContainer error={data.isFormError}>
+            {tagGroupElems}
+          </MainContainer>
+        </FieldWrapper>
+      );
+    } */
 
 export default TagCheckboxes;

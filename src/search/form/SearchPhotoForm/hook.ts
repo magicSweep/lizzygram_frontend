@@ -5,9 +5,16 @@ import { SearchTerms, SearchPhotoFormData } from "../../types";
 import { MutableRefObject, useCallback, useRef } from "react";
 import { isDiffSearchState } from "./helper";
 import { getOnlyTrueTags } from "../../../utils/app";
+import { SearchPhotoFormProps } from "./SearchPhotoForm";
 
-export const useSearchPhotoForm = () => {
+let isNeedAge;
+
+export const useSearchPhotoForm = (): SearchPhotoFormProps => {
   const dispatch = useDispatch();
+
+  if (isNeedAge === undefined) {
+    isNeedAge = process.env.BUILD_FOR !== "portfolio";
+  }
 
   const searchTerms = useSelector<GlobalState, SearchTerms>(
     (state) => state.search.terms
@@ -37,5 +44,6 @@ export const useSearchPhotoForm = () => {
     searchTerms,
     onClose,
     onSubmit,
+    isNeedAge,
   };
 };

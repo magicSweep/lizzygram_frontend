@@ -27,7 +27,16 @@ const colors = {
 
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  safelist: ["bg-success", "bg-primary"],
+  safelist: [
+    "bg-success",
+    "bg-primary",
+    "bg-secondary",
+    "text-success",
+    "text-info",
+    "text-secondary",
+    "text-warning",
+    "text-primary",
+  ],
   /*  options: {
       keyframes: false,
     }, */

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { useDatePickerForm, DatePickerFormProps } from "./hook";
 import DatePickerWidget from "./DatePicker";
 import TextField from "@mui/material/TextField";
+import { maxDate, minDate } from "../../../../config";
 
 export type DatePickerProps = DatePickerFormProps & {
   disabled: boolean;
@@ -16,8 +17,8 @@ const DatePicker: FC<DatePickerProps> = ({ disabled, ...props }) => {
       value={value}
       onChange={onChange}
       disabled={disabled}
-      maxDate={new Date()}
-      minDate={new Date("2018-07-08")}
+      maxDate={maxDate}
+      minDate={minDate}
       renderInput={(params) => (
         <TextField
           {...params}

@@ -4,7 +4,7 @@ import {
   photoCardHeight,
   //maxAppWidth,
 } from "../config";
-import { FirestoreDate } from "./../photos/types";
+import { FirestoreDate } from "lizzygram-common-data/dist/types";
 import { intersection } from "lodash-es";
 
 export const makePhotoId = () => {
@@ -176,7 +176,9 @@ export const getFormattedYearsOld = (yearsOld: number): string => {
       return "16 лет";
 
     default:
-      throw new Error(`No implementation or bad data | ${yearsOld}`);
+      `${yearsOld}`;
+    /* default:
+      throw new Error(`No implementation or bad data | ${yearsOld}`); */
   }
 };
 

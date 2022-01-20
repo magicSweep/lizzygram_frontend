@@ -45,11 +45,15 @@ export const getDefaultTagsFormState = (
 export const tagTypeToColor = (tagType: TagType): ButtonProps["color"] => {
   switch (tagType) {
     case "feeling":
-      return "secondary";
+      return "info";
     case "where":
-      return "warning";
+      return "secondary";
     case "withWho":
       return "success";
+    case "genre":
+      return "primary";
+    case "details":
+      return "warning";
 
     default:
       throw new Error(`No implementation for type - ${tagType}`);

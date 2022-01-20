@@ -1,14 +1,25 @@
-/* require("dotenv").config({
-  path: `.env.${process.env.NODE_ENV}`,
-}) */
+const lSiteMetadata = {
+  siteUrl: "https://www.yourdomain.tld",
+  title: "Lizzygram",
+  description: "Жизнь и приключения малыша в фотографиях.",
+  keywords: `фотографии`,
+  //author: "@magic_man",
+};
+
+const pSiteMetadata = {
+  siteUrl: "https://www.yourdomain.tld",
+  title: "Супер дупер фотки",
+  description: "Фотографии на любой вкус и цвет",
+  keywords: `фотографии`,
+  //author: "@magic_man",
+};
+
+const siteMetadata =
+  process.env.BUILD_FOR === "portfolio" ? pSiteMetadata : lSiteMetadata;
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://www.yourdomain.tld",
-    title: "Puper duper site",
-    description:
-      "Come and enjoy an experience of a lifetime! Watch whales with us!",
-    keywords: `whales, marine life, trip, recreation`,
+    ...siteMetadata,
     author: "@magic_man",
   },
   plugins: [

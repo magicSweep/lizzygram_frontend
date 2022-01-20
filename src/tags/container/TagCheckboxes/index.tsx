@@ -15,19 +15,3 @@ export const TagCheckboxes: FC<
 };
 
 export default TagCheckboxes;
-
-/* export const TagCheckboxes: FC<TagCheckboxesProps> = ({ ...props }) => {
-  const { tags, error, loading } = useTags();
-
-  //loading, data, queryError, tagsState
-  console.log("[RENDER TAGS CHECKBOX] ", tags, error, loading);
-
-  return (
-    <TagCheckboxesWidget
-      tagsState={{ items: tags, error, loading }}
-      {...props}
-    />
-  );
-};
-
-export default TagCheckboxes; */

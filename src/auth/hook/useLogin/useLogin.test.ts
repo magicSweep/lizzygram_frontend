@@ -54,11 +54,17 @@ describe("useLogin", () => {
 
       await wait(500);
 
-      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenCalledTimes(3);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, { type: "LOGIN_REQUEST" });
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
+        alertType: "error",
+        message: "Упс... Какая-то ошибочка...",
+        type: "SHOW_ALERT",
+      });
+
+      expect(dispatch).toHaveBeenNthCalledWith(3, {
         type: "LOGIN_REQUEST_ERROR",
       });
 

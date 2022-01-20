@@ -1,6 +1,6 @@
 import { Story } from "@storybook/react";
 import React, { ComponentProps } from "react";
-import TagCheckboxesWidget from "./TagCheckboxes";
+import TagCheckboxesWidget, { TagCheckboxesProps } from "./TagCheckboxes";
 //import TagCheckboxes from ".";
 import {
   tagsData,
@@ -23,42 +23,56 @@ export default {
   excludeStories: /.*Data$/,
 };
 
-const Template: Story<ComponentProps<typeof TagCheckboxesWidget>> = (args) => (
+const Template: Story<TagCheckboxesProps> = (args) => (
   <TagCheckboxesWidget {...args} />
 );
 
-const args: ComponentProps<typeof TagCheckboxesWidget> = {
+const args: TagCheckboxesProps = {
+  tagsFormState: initTagsState,
+  handleChange: (event: any) => console.log("handleChange"),
   label: "Опишите фото с помощью тэгов:",
   tagsState: {
     items: tagsData,
     error: false,
     loading: false,
   },
-  tagsFormState: initTagsState,
-  onChange: () => console.log("onChange"),
+  //tagsFormState: initTagsState,
   isFormError: false,
   helperText: "",
   disabled: false,
 };
 
-/* export const MainExample = () => (
-  <TagCheckboxes
-    label="Опишите фото с помощью тэгов:"
-    tagsFormState={initTagsState}
-    onChange={() => console.log("onChange")}
-    errors={[]}
-    disabled={false}
-  />
-); */
-
-export const Tags = Template.bind({});
-Tags.args = {
+export const AllOk = Template.bind({});
+AllOk.args = {
   ...args,
 };
 
-export const DefaultValues = Template.bind({});
-DefaultValues.args = {
+export const AllOkTapped = Template.bind({});
+AllOkTapped.args = {
   ...args,
+  tagsFormState: {
+    ...initTagsState,
+    WX6CY5kGx4FXvdZR6g8E: true,
+    ieYx4ke8ms0DJb5APv4u: true,
+    vekwWqVY1222eeXeERmd: true,
+  },
+};
+
+export const TagsLoading = Template.bind({});
+TagsLoading.args = {
+  ...args,
+  tagsState: {
+    items: undefined,
+    error: false,
+    loading: true,
+  },
+  defaultTags,
+};
+
+export const NoFormTagsState = Template.bind({});
+NoFormTagsState.args = {
+  ...args,
+  tagsFormState: undefined,
   defaultTags,
 };
 
@@ -84,74 +98,3 @@ export const DisabledTags = Template.bind({});
   ...args,
   disabled: true,
 };
-
-export const LoadingTags = Template.bind({});
-(LoadingTags as any).args = {
-  ...args,
-  tagsState: {
-    ...args.tagsState,
-    loading: true,
-  },
-};
-
-/* const Form = () => {
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    clearErrors,
-    watch,
-    formState,
-  } = useForm({
-    defaultValues: {
-      tags: initTagsState,
-    },
-  });
-
-  useEffect(() => {
-    register("tags", tagsRules);
-  }, [register]);
-
-  // tagsState = { tag_id: boolean } - in input checkbox we use name={tag._id}
-  const tagsState = watch("tags");
-
-  const onCheckboxChange = (event: any) => {
-    //console.log("onCheckboxChange", event.target);
-    //const newState = { ...state, [event.target.name]: event.target.checked };
-    const newState = {
-      ...tagsState,
-      [event.target.name]: event.target.checked,
-    };
-    clearErrors("tags");
-    setValue("tags", newState);
-    //setState(newState);
-  };
-
-  //console.log("RENDER TAGS STORIES FORM");
-
-  return (
-    <form
-      onSubmit={handleSubmit((data: any) => console.log("SUBMIT", data))}
-    >
-      <TagCheckboxes
-        label={"Опишите фото с помощью тэгов"}
-        tagsState={{
-          tags: tagsData,
-          error: false,
-          loading: false,
-        }}
-        tagsFormState={tagsState}
-        onChange={onCheckboxChange}
-        error={formState.errors.tags}
-        disabled={false}
-      />
-      <br />
-      <button type="submit">Go</button>
-    </form>
-  );
-};
- 
-
-export const Default = () => {
-  return <Form />;
-};*/

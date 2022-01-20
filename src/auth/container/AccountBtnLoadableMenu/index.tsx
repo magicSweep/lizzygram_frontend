@@ -9,6 +9,7 @@ import pMinDelay from "p-min-delay";
 import LoadingWrapperWidget from "../../../component/LoadingWrapper/LoadingWrapperWidget";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Tooltip from "@mui/material/Tooltip";
+import { getBuildFor } from "lizzygram-common-data";
 
 //import FaceIcon from '@material-ui/icons/Face';
 //import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -23,7 +24,20 @@ import Tooltip from "@mui/material/Tooltip";
 );
  */
 //import(/* webpackPrefetch: true */ './OtherComponent'),
-const LazyMenu = lazy(() => pMinDelay(import("../AccountContexMenu"), 200));
+
+console.log("-----------process.env.BUILD_FOR", getBuildFor());
+
+console.log(
+  "-----------process.env.GATSBY_TEST_VAR",
+  process.env.GATSBY_TEST_VAR
+);
+
+const isPortfolio = process.env.BUILD_FOR === "portfolio";
+
+const LazyMenu =
+  isPortfolio === true
+    ? lazy(() => pMinDelay(import("../PortfolioAccountContextMenu"), 200))
+    : lazy(() => pMinDelay(import("../AccountContexMenu"), 200));
 
 export default function AccountBtnWithLoadableMenu({ userName, logout }: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

@@ -14,6 +14,7 @@ const AddPhotoBtnWidget = ({ onClick }: { onClick: (event?: any) => void }) => {
             root: classes.btnRoot,
             label: classes.label,
           }}  */
+          className="bg-secondary"
           sx={{
             borderRadius: "50%",
             width: "auto",

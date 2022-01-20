@@ -12,6 +12,7 @@ import { useLocation, useNavigate, Redirect } from "@reach/router";
 import { useAuth } from "./../../auth";
  */
 import { AlertsLoadableWrapper } from "../../alert";
+import { globalTitle } from "../../config";
 
 export interface LayoutProps {
   children: any;
@@ -31,7 +32,7 @@ const Banner: FC = () => (
   >
     {/*  <Logo /> */}
     <Typography sx={{ fontWeight: 600, color: "#fff" }} variant="h4">
-      Magic site приветствует тебя
+      {globalTitle}
     </Typography>
   </Box>
 );

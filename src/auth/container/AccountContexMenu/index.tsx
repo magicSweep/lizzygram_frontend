@@ -11,6 +11,7 @@ export interface AccountContextMenuProps {
   anchorEl: any;
   handleClose: (event?: any) => void;
   logout: (event?: any) => void;
+  childItems?: any;
 }
 
 const AccountContextMenu: React.FC<AccountContextMenuProps> = ({
@@ -18,6 +19,7 @@ const AccountContextMenu: React.FC<AccountContextMenuProps> = ({
   anchorEl,
   handleClose,
   logout,
+  childItems,
 }) => {
   //const [anchorEl, setAnchorEl] = React.useState(null);
   /* const open = Boolean(anchorEl);
@@ -90,6 +92,9 @@ const AccountContextMenu: React.FC<AccountContextMenuProps> = ({
           </ListItemIcon>
           Settings
         </MenuItem> */}
+
+      {childItems}
+
       <MenuItem
         sx={{ minWidth: "170px", mt: "5px", color: "textPrimary" }}
         onClick={logout}

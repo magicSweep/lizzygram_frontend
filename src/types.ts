@@ -16,6 +16,8 @@ export interface GlobalState {
   theme: ThemeState;
 }
 
+//export type BuildFor = "lizzygram" | "portfolio";
+
 export type Size = { width: number; height: number };
 
 export type StyleSize = { width: string; height: string };

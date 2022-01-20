@@ -1,5 +1,5 @@
 import { useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { batch, useDispatch } from "react-redux";
 import { login } from "../../service/AuthService";
 import {
   //loginRequestSuccessAC,
@@ -7,6 +7,7 @@ import {
   loginRequestAC,
 } from "../../store/action";
 import { then, _catch, _finally, compose, elif } from "fmagic";
+import { showAlertAC } from "../../../alert";
 
 export let isRequested = false;
 
@@ -30,7 +31,10 @@ export const request_ =
         login,
         _catch((err) => {
           console.error(err);
-          dispatch(loginRequestErrorAC());
+          batch(() => {
+            dispatch(showAlertAC("Упс... Какая-то ошибочка...", "error"));
+            dispatch(loginRequestErrorAC());
+          });
         }),
         _finally(() => setIsRequested(false))
       ),

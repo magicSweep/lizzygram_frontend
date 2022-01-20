@@ -12,6 +12,7 @@ import {
   QueryConstraint,
   QuerySnapshot,
   DocumentData,
+  deleteDoc,
 } from "firebase/firestore";
 import { ResponseWithCursor } from "./types";
 
@@ -121,6 +122,14 @@ export const getOne =
       ...res.data(),
       id: res.id,
     };
+  };
+
+export const removeOne =
+  (collectionName: string) =>
+  async (id: string): Promise<void> => {
+    const db = getFirestore();
+
+    deleteDoc(doc(db, collectionName, id));
   };
 
 export const isExists = (collectionName: string) => async (docId: string) => {

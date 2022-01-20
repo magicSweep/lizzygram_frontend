@@ -10,12 +10,14 @@ export interface SearchPhotoFormProps {
   onSubmit: (...args: any) => void;
   onClose: () => void;
   searchTerms: SearchTerms;
+  isNeedAge: boolean;
 }
 
 const SearchPhotoForm: FC<SearchPhotoFormProps> = ({
   searchTerms,
   onSubmit,
   onClose,
+  isNeedAge,
 }) => {
   const {
     handleSubmit,
@@ -39,16 +41,18 @@ const SearchPhotoForm: FC<SearchPhotoFormProps> = ({
       submitBtnTitle={"Искать"}
       disabled={false}
     >
-      <div className="w-full mb-5">
-        <AgeSelect
-          clearErrors={clearErrors}
-          setValue={setValue as any}
-          register={register as any}
-          watch={watch as any}
-          formState={formState}
-          disabled={false}
-        />
-      </div>
+      {isNeedAge === true && (
+        <div className="w-full mb-5">
+          <AgeSelect
+            clearErrors={clearErrors}
+            setValue={setValue as any}
+            register={register as any}
+            watch={watch as any}
+            formState={formState}
+            disabled={false}
+          />
+        </div>
+      )}
 
       <div className="w-full mt-14 mb-5">
         <TagCheckboxes
