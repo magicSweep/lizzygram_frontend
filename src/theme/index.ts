@@ -1,6 +1,6 @@
-export { EmotionCacheProvider } from "./container/EmotionCacheProvider";
+export { default as EmotionCacheProvider } from "./container/EmotionCacheProvider";
 
-export { ThemeProvider } from "./container/ThemeProvider";
+export { default as ThemeProvider } from "./container/ThemeProvider";
 //export { createEmotionCache } from "./utils/createEmotionCache";
 
 // DO NOT MODIFY THIS IMPORT CAUSE IT'S TRIGGER AN ERROR

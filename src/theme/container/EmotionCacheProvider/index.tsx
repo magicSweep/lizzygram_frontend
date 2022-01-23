@@ -21,8 +21,8 @@ export type EmotionCacheProviderProps = {
 
 const cache = createEmotionCache();
 
-export const EmotionCacheProvider: FC<EmotionCacheProviderProps> = ({
-  children,
-}) => {
+const EmotionCacheProvider: FC<EmotionCacheProviderProps> = ({ children }) => {
   return <CacheProvider value={cache}>{children}</CacheProvider>;
 };
+
+export default EmotionCacheProvider;

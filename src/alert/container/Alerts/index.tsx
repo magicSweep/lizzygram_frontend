@@ -1,9 +1,10 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 //import WallOfPhotos from "./WallOfPhotos";
 import { GlobalState } from "../../../types";
+import loadable from "@loadable/component";
 
-const LoadableAlerts = lazy(() => import("./Alerts"));
+const LoadableAlerts = loadable(() => import("./Alerts"));
 
 let isInit = false;
 
@@ -17,11 +18,7 @@ export const AlertsLoadableWrapper = () => {
 
   if (isInit === false) return null;
 
-  return (
-    <Suspense fallback={null}>
-      <LoadableAlerts items={items} />
-    </Suspense>
-  );
+  return <LoadableAlerts items={items} />;
 };
 
 export default AlertsLoadableWrapper;

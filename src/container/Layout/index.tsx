@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ThemeSwitch } from "../../theme/component/ThemeSwitch";
+import ThemeSwitch from "../../theme/component/ThemeSwitch";
 import { useMode } from "../../theme/hook/useMode";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -7,12 +7,17 @@ import { PaletteOptions } from "@mui/material/styles";
 import { AppBar } from "../AppBar";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link } from "../../component/Link";
-/* import { navigate } from "gatsby";
-import { useLocation, useNavigate, Redirect } from "@reach/router";
-import { useAuth } from "./../../auth";
- */
-import { AlertsLoadableWrapper } from "../../alert";
+import AlertsLoadableWrapper from "../../alert/container/Alerts";
 import { globalTitle } from "../../config";
+//import loadable from "@loadable/component";
+import NoSsr from "@mui/material/NoSsr";
+
+/* const LoadableThemeSwitch = loadable(
+  () => import("../../theme/component/ThemeSwitch"),
+  {
+    fallback: <div className="h-8"></div>,
+  }
+); */
 
 export interface LayoutProps {
   children: any;
@@ -39,9 +44,9 @@ const Banner: FC = () => (
 
 const Footer: FC = () => (
   <div className="py-6 pl-12">
-    <Typography variant="body2" color="text.secondary" align="center">
+    <Box typography="body2" className="text-center">
       Copyright © 2021 Made by me
-    </Typography>
+    </Box>
   </div>
 );
 
@@ -52,28 +57,43 @@ type WrapperProps = {
 };
 
 const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => {
-  const matches = useMediaQuery("(min-width:450px)");
+  const matches = useMediaQuery("(min-width:450px)", { defaultMatches: true });
+
+  let isShowFaqLink = false;
+
+  console.log("[RENDER LAYOUT WRAPPER]", mode);
+
+  if (
+    typeof window !== "undefined" &&
+    location.pathname.indexOf("/faq") === -1
+  ) {
+    isShowFaqLink = true;
+  }
 
   return (
     <Box
       className={`z-10 relative p-5 -mt-16 ${
         matches === false ? "mx-1" : "mx-8"
-      } rounded-lg`}
+      } rounded-lg bg-paper`}
       sx={{
-        bgcolor: "background.paper",
+        //bgcolor: "background.paper",
         minWidth: "400px",
         minHeight: "600px",
         boxShadow: 4,
       }}
     >
-      <div className="flex justify-between items-center">
-        <ThemeSwitch
-          checked={mode === "dark" ? true : false}
-          onChange={toggleMode}
-        />
-        <Link className="text-right" to="/faq">
-          FAQ по работе сайта.
-        </Link>
+      <div className="flex min-h-34 justify-between items-center">
+        <NoSsr>
+          <ThemeSwitch
+            checked={mode === "dark" ? true : false}
+            onChange={toggleMode}
+          />
+        </NoSsr>
+        {isShowFaqLink === true && (
+          <Link className="text-right" to="/faq">
+            FAQ по работе сайта.
+          </Link>
+        )}
       </div>
       {children}
     </Box>
@@ -106,10 +126,10 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <Box
-      className="w-full min-h-full relative overflow-auto"
-      sx={{
+      className="w-full min-h-full relative overflow-auto bg-paper"
+      /* sx={{
         bgcolor: "background.paper",
-      }}
+      }} */
     >
       <AppBar />
 

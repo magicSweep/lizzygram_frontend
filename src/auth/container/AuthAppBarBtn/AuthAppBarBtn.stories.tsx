@@ -52,3 +52,21 @@ export const Loading = Template.bind({});
   login: () => {},
   logout: () => {},
 };
+
+export const NotLogedIn = Template.bind({});
+
+(NotLogedIn as any).args = {
+  undefined,
+  loading: false,
+  login: () => {},
+  logout: () => {},
+};
+
+export const NotLogedInLoading = Template.bind({});
+
+(NotLogedInLoading as any).args = {
+  undefined,
+  loading: true,
+  login: () => {},
+  logout: () => {},
+};

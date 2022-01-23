@@ -1,7 +1,8 @@
-import React, { FC, lazy, Suspense } from "react";
+import React, { FC } from "react";
 import LoadingWrapperWidget from "../../../component/LoadingWrapper/LoadingWrapperWidget";
 import { LockIconBtn } from "../../component/LockIconBtn";
 import { UserResponseToClient } from "../../types";
+import loadable from "@loadable/component";
 
 export interface AuthFragmentProps {
   user: UserResponseToClient | undefined;
@@ -10,19 +11,22 @@ export interface AuthFragmentProps {
   logout: () => void;
 }
 
-const LazyTooltipedLockIconBtn = lazy(
-  () => import("../../component/TooltipedLockIconBtn")
-);
-
-const LazyAccountBtnWithLoadableMenu = lazy(
-  () => import("../AccountBtnLoadableMenu")
-);
-
 const Fallback = () => (
   <div className="inline-block relative">
     <LoadingWrapperWidget circle={true} />
     <LockIconBtn disabled={true} />
   </div>
+);
+
+const LazyTooltipedLockIconBtn = loadable(
+  () => import("../../component/TooltipedLockIconBtn")
+);
+
+const LazyAccountBtnWithLoadableMenu = loadable(
+  () => import("../AccountBtnLoadableMenu"),
+  {
+    fallback: <Fallback />,
+  }
 );
 
 const AuthAppBarBtn: FC<AuthFragmentProps> = ({
@@ -34,21 +38,20 @@ const AuthAppBarBtn: FC<AuthFragmentProps> = ({
   if (!loading && user && user.uid) {
     //return <AccountBtnWithLoadableMenu userName={user.name} logout={logout} />;
     return (
-      <Suspense fallback={<Fallback />}>
-        <LazyAccountBtnWithLoadableMenu userName={user.name} logout={logout} />
-      </Suspense>
+      <LazyAccountBtnWithLoadableMenu userName={user.name} logout={logout} />
     );
   } else {
     return (
       <div className="inline-block relative">
-        {loading && <LoadingWrapperWidget circle={true} />}
-        {!loading && (
-          <Suspense fallback={<LockIconBtn onClick={login} />}>
-            <LazyTooltipedLockIconBtn onClick={login} />
-          </Suspense>
+        {loading === true && <LoadingWrapperWidget circle={true} />}
+        {loading !== true && (
+          <LazyTooltipedLockIconBtn
+            fallback={<LockIconBtn onClick={login} />}
+            onClick={login}
+          />
         )}
 
-        {loading && <LockIconBtn disabled={true} onClick={login} />}
+        {loading === true && <LockIconBtn disabled={true} onClick={login} />}
       </div>
     );
   }

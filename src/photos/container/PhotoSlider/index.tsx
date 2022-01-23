@@ -1,11 +1,14 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import ModalFallback from "../../../component/ModalFallback";
 //import WallOfPhotos from "./WallOfPhotos";
 //import { useAuth } from "../../../auth/hook/useAuth";
 import { GlobalState } from "../../../types";
+import loadable from "@loadable/component";
 
-const LoadableModalPhotoSlider = lazy(() => import("./ModalPhotoSlider"));
+const LoadableModalPhotoSlider = loadable(() => import("./ModalPhotoSlider"), {
+  fallback: <ModalFallback />,
+});
 
 let isInit = false;
 
@@ -22,11 +25,7 @@ export const PhotoSliderLoadableWrapper = () => {
 
   //console.log("[PHOTO SLIDER LOADABLE WRAPPER]", isShow);
 
-  return (
-    <Suspense fallback={<ModalFallback />}>
-      <LoadableModalPhotoSlider show={isShow} />
-    </Suspense>
-  );
+  return <LoadableModalPhotoSlider show={isShow} />;
 };
 
 export default PhotoSliderLoadableWrapper;

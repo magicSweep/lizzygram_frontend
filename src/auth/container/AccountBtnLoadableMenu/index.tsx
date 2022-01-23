@@ -1,4 +1,4 @@
-import React, { useState, FC, lazy, Suspense, Children } from "react";
+import React, { useState, FC, Children } from "react";
 //import Backdrop from "@material-ui/core/Backdrop";
 import IconButton from "@mui/material/IconButton";
 //import Menu from "@material-ui/core/Menu";
@@ -10,6 +10,7 @@ import LoadingWrapperWidget from "../../../component/LoadingWrapper/LoadingWrapp
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Tooltip from "@mui/material/Tooltip";
 import { getBuildFor } from "lizzygram-common-data";
+import loadable from "@loadable/component";
 
 //import FaceIcon from '@material-ui/icons/Face';
 //import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -34,10 +35,21 @@ console.log(
 
 const isPortfolio = process.env.BUILD_FOR === "portfolio";
 
-const LazyMenu =
-  isPortfolio === true
-    ? lazy(() => pMinDelay(import("../PortfolioAccountContextMenu"), 200))
-    : lazy(() => pMinDelay(import("../AccountContexMenu"), 200));
+const pLazyMenu = loadable(
+  () => pMinDelay(import("../PortfolioAccountContextMenu"), 200),
+  {
+    fallback: <LoadingWrapperWidget circle={true} />,
+  }
+);
+
+const lLazyMeny = loadable(
+  () => pMinDelay(import("../PortfolioAccountContextMenu"), 200),
+  {
+    fallback: <LoadingWrapperWidget circle={true} />,
+  }
+);
+
+const LazyMenu = isPortfolio === true ? pLazyMenu : lLazyMeny;
 
 export default function AccountBtnWithLoadableMenu({ userName, logout }: any) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -64,14 +76,12 @@ export default function AccountBtnWithLoadableMenu({ userName, logout }: any) {
       </Tooltip>
 
       {anchorEl !== null && (
-        <Suspense fallback={<LoadingWrapperWidget circle={true} />}>
-          <LazyMenu
-            userName={userName}
-            anchorEl={anchorEl}
-            handleClose={handleClose}
-            logout={logout}
-          />
-        </Suspense>
+        <LazyMenu
+          userName={userName}
+          anchorEl={anchorEl}
+          handleClose={handleClose}
+          logout={logout}
+        />
       )}
     </Box>
   );

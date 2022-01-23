@@ -68,6 +68,7 @@ const SliderChildren: FC<SliderChildrenProps> = cond([
         base64={photos[activeIndex].base64}
         photoAspectRatio={photos[activeIndex].aspectRatio}
         src={photos[activeIndex].src}
+        srcSet={photos[activeIndex].srcSet}
         zoom={zoom}
         isLoading={
           isEditingActivePhoto === true ||
@@ -79,7 +80,7 @@ const SliderChildren: FC<SliderChildrenProps> = cond([
             : "Загружаем еще фото..."
         }
         /* src="" */
-        alt="Лиза что-то делает"
+        alt="Фотография"
       />
     ),
   ],

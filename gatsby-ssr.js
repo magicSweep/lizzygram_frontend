@@ -1,5 +1,6 @@
 import { ReduxProvider } from "./src/container/ReduxProvider";
-import { ThemeProvider } from "./src/theme";
+import ThemeProvider from "./src/theme/container/ThemeProvider";
+//import { ThemeProvider } from "./src/theme";
 import * as React from "react";
 import "./src/theme/styles/global.css";
 import { Layout } from "./src/container/Layout";

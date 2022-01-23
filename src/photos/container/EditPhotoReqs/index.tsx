@@ -1,9 +1,12 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import ModalFallback from "../../../component/ModalFallback";
 import { GlobalState } from "../../../types";
+import loadable from "@loadable/component";
 
-const LoadableEditPhotoReqs = lazy(() => import("./EditPhotoReqs"));
+const LoadableEditPhotoReqs = loadable(() => import("./EditPhotoReqs"), {
+  fallback: <ModalFallback />,
+});
 
 let isInit = false;
 
@@ -17,11 +20,7 @@ const EditPhotoReqs = () => {
     else isInit = true;
   }
 
-  return (
-    <Suspense fallback={<ModalFallback />}>
-      <LoadableEditPhotoReqs requests={requests} />
-    </Suspense>
-  );
+  return <LoadableEditPhotoReqs requests={requests} />;
 };
 
 export default EditPhotoReqs;

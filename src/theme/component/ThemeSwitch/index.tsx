@@ -98,8 +98,10 @@ const SwitchTrack = styled("span")(
 `
 );
 
-export const ThemeSwitch: FC<UseSwitchProps> = (props) => {
+const ThemeSwitch: FC<UseSwitchProps> = (props) => {
   const { getInputProps, checked, disabled, focusVisible } = useSwitch(props);
+
+  console.log("--------THEME SWITCH", props, checked);
 
   const stateClasses = {
     checked,
@@ -116,6 +118,8 @@ export const ThemeSwitch: FC<UseSwitchProps> = (props) => {
     </SwitchRoot>
   );
 };
+
+export default ThemeSwitch;
 
 /* export default function UseSwitchesCustom() {
   return <MUISwitch defaultChecked />;

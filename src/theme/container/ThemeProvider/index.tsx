@@ -10,14 +10,14 @@ type ThemeProviderProps = {
   children: any;
 };
 
-export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
+const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
   const { mode } = useMode();
 
   const theme = createTheme(mode);
 
   applyTheme(mode);
 
-  //console.log("RENDER THEME PROVIDER");
+  console.log("RENDER THEME PROVIDER", mode, theme);
 
   return (
     <Fragment>
@@ -36,3 +36,5 @@ export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
     </Fragment>
   );
 };
+
+export default ThemeProvider;

@@ -13,12 +13,12 @@ import thunk from "redux-thunk";
 //import Providers from "./../../provider/container/Providers";
 //import { initApp } from "./firebase/initApp";
 //import { modalReducer, alertReducer, tagsReducer } from "./../../store";
-import { searchReducer } from "./../../search";
-import { photoReducer } from "./../../photos";
-import { authReducer } from "./../../auth";
-import { themeReducer } from "../../theme";
-import { tagsReducer } from "./../../tags";
-import { alertReducer } from "./../../alert";
+import { default as searchReducer } from "./../../search/store/reducer";
+import { default as photoReducer } from "./../../photos/store/reducer";
+import { default as authReducer } from "./../../auth/store/reducer";
+import { themeReducer } from "../../theme/store/reducer";
+import { default as tagsReducer } from "./../../tags/store/reducer";
+import { default as alertReducer } from "./../../alert/store/reducer";
 
 //CONFIG REDUX
 const reducer = combineReducers({

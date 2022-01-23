@@ -8,15 +8,11 @@ import FormModal from "./../../../component/FormModal";
 
 export const ModalSearchPhotoForm = ({ isShow }: { isShow: boolean }) => {
   //close form on set state
-  const { searchTerms, onClose, onSubmit } = useSearchPhotoForm();
+  const props = useSearchPhotoForm();
 
   return (
-    <FormModal open={isShow} onClose={onClose}>
-      <SearchPhotoForm
-        searchTerms={searchTerms}
-        onClose={onClose}
-        onSubmit={onSubmit}
-      />
+    <FormModal open={isShow} onClose={props.onClose}>
+      <SearchPhotoForm {...props} />
     </FormModal>
   );
 };

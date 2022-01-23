@@ -1,12 +1,14 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import ModalFallback from "../../../component/ModalFallback";
-//import WallOfPhotos from "./WallOfPhotos";
-//import { useAuth } from "../../../auth/hook/useAuth";
 import { GlobalState } from "../../../types";
+import loadable from "@loadable/component";
 
-const LoadableModalSearchPhotoForm = lazy(
-  () => import("./ModalSearchPhotoForm")
+const LoadableModalSearchPhotoForm = loadable(
+  () => import("./ModalSearchPhotoForm"),
+  {
+    fallback: <ModalFallback />,
+  }
 );
 
 let isInit = false;
@@ -22,11 +24,7 @@ export const SearchPhotoForm = () => {
 
   if (isInit === false) return null;
 
-  return (
-    <Suspense fallback={<ModalFallback />}>
-      <LoadableModalSearchPhotoForm isShow={isShow} />
-    </Suspense>
-  );
+  return <LoadableModalSearchPhotoForm isShow={isShow} />;
 };
 
 export default SearchPhotoForm;

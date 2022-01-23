@@ -1,9 +1,11 @@
-import { Action, Reducer } from "redux";
+import { Reducer } from "redux";
 import { getInitialMode } from "../utils/main";
 import { ThemeState, ThemeAction } from "./types";
 import { PaletteOptions } from "@mui/material/styles";
 
 const initialMode: PaletteOptions["mode"] = getInitialMode();
+
+//console.log("-----INITIAL THEME MODE", initialMode);
 
 const themeInitialState: ThemeState = {
   mode: initialMode,

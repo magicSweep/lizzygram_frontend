@@ -1,21 +1,19 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 //import WallOfPhotos from "./WallOfPhotos";
 import { useAuth } from "../../../auth/hook/useAuth";
 import Fallback from "./Fallback";
+import loadable from "@loadable/component";
 
-const LoadableWallOfPhotos = lazy(() => import("./WallOfPhotos"));
+const LoadableWallOfPhotos = loadable(() => import("./WallOfPhotos"), {
+  fallback: <Fallback />,
+});
 
 export const WallOfPhotosLoadableWrapper = () => {
   const { userUid } = useAuth();
 
   //console.log("[RENDER WALL_OF_PHOTS MAIN]", userUid);
 
-  if (userUid !== "")
-    return (
-      <Suspense fallback={<Fallback />}>
-        <LoadableWallOfPhotos />
-      </Suspense>
-    );
+  if (userUid !== "") return <LoadableWallOfPhotos />;
 
   return null;
 };

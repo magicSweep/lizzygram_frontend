@@ -23,8 +23,10 @@ module.exports = {
     author: "@magic_man",
   },
   plugins: [
+    //`gatsby-plugin-preact`,
     "gatsby-plugin-postcss",
     `gatsby-plugin-react-helmet`,
+    "gatsby-plugin-loadable-components-ssr",
     "gatsby-plugin-webpack-bundle-analyser-v2",
   ],
 };

@@ -13,6 +13,6 @@ export { useLogin } from "./hook/useLogin";
 
 export { useLogout } from "./hook/useLogout";
 
-export { useEditor } from "./hook/useEditor";
+//export { useEditor } from "./hook/useEditor";
 
 export { useAuthSubscribe } from "./hook/useAuthSubscribe";

@@ -1,14 +1,13 @@
 import React from "react";
 import SEO from "../component/SEO";
 import NotAuth from "../component/NotAuth";
-import {
-  LoadablePhotoSlider,
-  LoadableAddPhotoReqs,
-  LoadableEditPhotoReqs,
-  LoadableAddPhotoBtn,
-  LoadableWallOfPhotos,
-} from "./../photos";
-import { LoadableSearchPhotoForm } from "./../search";
+import LoadableAddPhotoBtn from "../photos/container/AddPhotoBtn";
+//import LoadablePhotoSlider from "../photos/container/PhotoSlider";
+//import LoadableAddPhotoReqs from "../photos/container/AddPhotoReqs";
+//import LoadableEditPhotoReqs from "../photos/container/EditPhotoReqs";
+import LoadableWallOfPhotos from "../photos/container/WallOfPhotos";
+
+//import LoadableSearchPhotoForm from "./../search/form/SearchPhotoForm";
 
 /* 
   This is main page
@@ -29,13 +28,13 @@ const IndexPage = () => {
 
       <LoadableWallOfPhotos />
 
-      <LoadablePhotoSlider />
+      {/* <LoadablePhotoSlider />
 
       <LoadableAddPhotoReqs />
 
       <LoadableEditPhotoReqs />
 
-      <LoadableSearchPhotoForm />
+      <LoadableSearchPhotoForm /> */}
 
       {/* <Link to="/wall-of-photos">Стена фотографий.</Link> */}
     </main>

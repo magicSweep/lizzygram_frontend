@@ -26,7 +26,7 @@ export const lMinDate = new Date("2018-07-08");
 
 // EXPRESS SERVER
 
-//export const expressUrl = "https://lizzygram.herokuapp.com";
+//export const lExpressUrl = "https://lizzygram.herokuapp.com";
 export const lExpressUrl = "http://localhost:3009";
 
 // SITE METADATA

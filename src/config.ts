@@ -91,7 +91,7 @@ export const usersCollectionName = "users";
 export const authLocalStorageKey = "lg_super_puper_user";
 
 // Theme info
-export const themeLocalStorageKey = "lg_theme_info_1234";
+export const themeLocalStorageKey = "lg_theme_info_1ghf2qw34wwqqe";
 
 /* EXPRESS SERVER */
 

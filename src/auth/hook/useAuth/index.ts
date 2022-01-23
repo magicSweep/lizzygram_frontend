@@ -17,7 +17,7 @@ export const useAuth = () => {
     shallowEqual
   );
 
-  const isAuth = user !== null;
+  const isAuth = user !== null && user !== undefined;
   const userUid = user !== null ? user.uid : "";
 
   return {

@@ -4,7 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import React from "react";
 import { Logo } from "../../component/Logo";
 import AuthAppBarBtn from "../../auth/container/AuthAppBarBtn";
-import { LoadableSearchBtn } from "../../search";
+import LoadableSearchBtn from "../../search/container/SearchBtn";
 
 export const AppBar = () => {
   const trigger = useScrollTrigger({

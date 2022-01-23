@@ -73,6 +73,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
         data-index={index}
         photoAspectRatio={photo.aspectRatio}
         onClick={onImageClick}
+        alt="Фотография"
       />
       <div className="absolute left-0 right-0 bottom-0 bg-photocard opacity-50 flex items-center justify-between h-12">
         <span className="flex">

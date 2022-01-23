@@ -1,9 +1,12 @@
-import React, { lazy, Suspense } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import ModalFallback from "../../../component/ModalFallback";
 import { GlobalState } from "../../../types";
+import loadable from "@loadable/component";
 
-const LoadableAddPhotoReqs = lazy(() => import("./AddPhotoReqs"));
+const LoadableAddPhotoReqs = loadable(() => import("./AddPhotoReqs"), {
+  fallback: <ModalFallback />,
+});
 
 let isInit = false;
 
@@ -17,11 +20,7 @@ const AddPhotoReqs = () => {
     else isInit = true;
   }
 
-  return (
-    <Suspense fallback={<ModalFallback />}>
-      <LoadableAddPhotoReqs requests={requests} />
-    </Suspense>
-  );
+  return <LoadableAddPhotoReqs requests={requests} />;
 };
 
 export default AddPhotoReqs;

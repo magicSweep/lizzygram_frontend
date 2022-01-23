@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { GlobalState } from "../../../types";
 import { useSelector, useDispatch } from "react-redux";
 import { PaletteOptions } from "@mui/material/styles";
@@ -12,10 +12,28 @@ export const useMode = () => {
 
   const dispatch = useDispatch();
 
-  const toggleMode = useCallback(() => {
+  const toggleMode = () => {
     saveMode(mode === "dark" ? "light" : "dark");
     dispatch(toggleThemeModeAC());
-  }, []);
+  };
+
+  /* const toggleMode = () => {
+    saveMode(mode === "dark" ? "light" : "dark");
+    dispatch(toggleThemeModeAC());
+  };
+
+  /* const toggleMode = useCallback(() => {
+    saveMode(mode === "dark" ? "dark" : "light");
+    dispatch(toggleThemeModeAC());
+  }, [mode]); /
+
+  useEffect(() => {
+    const initialMode = getInitialMode();
+
+    console.log("-----------INITIAL USE EFFECT", initialMode, mode);
+
+    if (initialMode !== mode) dispatch(toggleThemeModeAC());
+  }, []); */
 
   return {
     mode,
