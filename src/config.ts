@@ -130,7 +130,7 @@ export const numberOfPhotosPerQuery = calcPhotosLimitPerQuery(
   photoCardWidth,
   photoCardHeight
 );
-console.log("numberOfPhotosPerQuery", numberOfPhotosPerQuery);
+//console.log("numberOfPhotosPerQuery", numberOfPhotosPerQuery);
 
 //export const numberOfPhotosPerQuery = 5;
 
