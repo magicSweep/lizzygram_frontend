@@ -1,23 +1,21 @@
-import React, { FC } from "react";
-import ThemeSwitch from "../../theme/component/ThemeSwitch";
+import React, { FC, lazy, Suspense } from "react";
+//import ThemeSwitch from "../../theme/component/ThemeSwitch";
 import { useMode } from "../../theme/hook/useMode";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { PaletteOptions } from "@mui/material/styles";
-import { AppBar } from "../AppBar";
+import AppBar from "../AppBar";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link } from "../../component/Link";
 import AlertsLoadableWrapper from "../../alert/container/Alerts";
 import { globalTitle } from "../../config";
 //import loadable from "@loadable/component";
-import NoSsr from "@mui/material/NoSsr";
+//import NoSsr from "@mui/material/NoSsr";
+import NoSsr from "../../component/NoSsr";
 
-/* const LoadableThemeSwitch = loadable(
-  () => import("../../theme/component/ThemeSwitch"),
-  {
-    fallback: <div className="h-8"></div>,
-  }
-); */
+const LoadableThemeSwitch = lazy(
+  () => import("../../theme/component/ThemeSwitch")
+);
 
 export interface LayoutProps {
   children: any;
@@ -36,7 +34,10 @@ const Banner: FC = () => (
     }}
   >
     {/*  <Logo /> */}
-    <Typography sx={{ fontWeight: 600, color: "#fff" }} variant="h4">
+    <Typography
+      sx={{ userSelect: "none", fontWeight: 600, color: "#fff" }}
+      variant="h4"
+    >
       {globalTitle}
     </Typography>
   </Box>
@@ -61,7 +62,7 @@ const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => {
 
   let isShowFaqLink = false;
 
-  console.log("[RENDER LAYOUT WRAPPER]", mode);
+  //console.log("[RENDER LAYOUT WRAPPER]", mode);
 
   if (
     typeof window !== "undefined" &&
@@ -76,19 +77,27 @@ const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => {
         matches === false ? "mx-1" : "mx-8"
       } rounded-lg bg-paper`}
       sx={{
-        //bgcolor: "background.paper",
+        bgcolor: "background.paper",
         minWidth: "400px",
         minHeight: "600px",
         boxShadow: 4,
       }}
     >
       <div className="flex min-h-34 justify-between items-center">
-        <NoSsr>
+        <NoSsr fallback={<div className="h-8"></div>}>
+          <Suspense fallback={<div className="h-8"></div>}>
+            <LoadableThemeSwitch
+              checked={mode === "dark" ? true : false}
+              onChange={toggleMode}
+            />
+          </Suspense>
+        </NoSsr>
+        {/* <NoSsr>
           <ThemeSwitch
             checked={mode === "dark" ? true : false}
             onChange={toggleMode}
           />
-        </NoSsr>
+        </NoSsr> */}
         {isShowFaqLink === true && (
           <Link className="text-right" to="/faq">
             FAQ по работе сайта.
@@ -100,7 +109,7 @@ const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => {
   );
 };
 
-export const Layout: FC<LayoutProps> = ({ children }) => {
+const Layout: FC<LayoutProps> = ({ children }) => {
   //const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const { mode, toggleMode } = useMode();
 
@@ -145,3 +154,5 @@ export const Layout: FC<LayoutProps> = ({ children }) => {
     </Box>
   );
 };
+
+export default Layout;

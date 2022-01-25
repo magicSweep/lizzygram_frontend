@@ -3,7 +3,7 @@ import ThemeProvider from "./src/theme/container/ThemeProvider";
 //import { ThemeProvider } from "./src/theme";
 import * as React from "react";
 import "./src/theme/styles/global.css";
-import { Layout } from "./src/container/Layout";
+import Layout from "./src/container/Layout";
 
 // DO NOT MODIFY THIS IMPORT CAUSE IT'S TRIGGER AN ERROR
 export { replaceRenderer } from "./src/theme/utils/replaceRenderer";

@@ -1,15 +1,22 @@
 //import { generatePhotos } from "./dataGenerator/photos";
 //import { getTagsIds } from "./dataGenerator/tags";
 import { downloadPhotoUrl } from "../../config";
+import { makeDownloadPhotoUrl as makeDownloadPhotoUrl_ } from "../../utils/app";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
-export const makeDownloadPhotoUrl = (activePhoto: Photo<FirestoreDate>) => {
+export const makeDownloadPhotoUrl = ({
+  googleDriveId,
+  imageExtention,
+}: Photo<FirestoreDate>) =>
+  makeDownloadPhotoUrl_(googleDriveId, imageExtention, downloadPhotoUrl);
+
+/* export const makeDownloadPhotoUrl = (activePhoto: Photo<FirestoreDate>) => {
   let downloadUrl = `${downloadPhotoUrl}/${activePhoto.googleDriveId}`;
   if (activePhoto.imageExtention)
     downloadUrl += `.${activePhoto.imageExtention}`;
 
   return downloadUrl;
-};
+}; */
 
 export const getAll = async (collection: any): Promise<Map<string, any>> => {
   const result = await collection

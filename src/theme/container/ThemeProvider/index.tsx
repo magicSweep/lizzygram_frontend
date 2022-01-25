@@ -17,7 +17,7 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
 
   applyTheme(mode);
 
-  console.log("RENDER THEME PROVIDER", mode, theme);
+  //console.log("RENDER THEME PROVIDER", mode);
 
   return (
     <Fragment>
@@ -25,7 +25,8 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link
           href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
-          rel="stylesheet"
+          rel="preload"
+          as="style"
         />
       </Helmet>
       <ThemeMuiProvider theme={theme}>

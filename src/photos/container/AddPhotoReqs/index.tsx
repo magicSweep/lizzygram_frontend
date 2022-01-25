@@ -1,12 +1,10 @@
-import React from "react";
+import React, { memo, lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
 import ModalFallback from "../../../component/ModalFallback";
 import { GlobalState } from "../../../types";
-import loadable from "@loadable/component";
+//import loadable from "@loadable/component";
 
-const LoadableAddPhotoReqs = loadable(() => import("./AddPhotoReqs"), {
-  fallback: <ModalFallback />,
-});
+const LoadableAddPhotoReqs = lazy(() => import("./AddPhotoReqs"));
 
 let isInit = false;
 
@@ -20,7 +18,11 @@ const AddPhotoReqs = () => {
     else isInit = true;
   }
 
-  return <LoadableAddPhotoReqs requests={requests} />;
+  return (
+    <Suspense fallback={<ModalFallback />}>
+      <LoadableAddPhotoReqs requests={requests} />
+    </Suspense>
+  );
 };
 
-export default AddPhotoReqs;
+export default memo(AddPhotoReqs);

@@ -26,7 +26,7 @@ module.exports = {
     //`gatsby-plugin-preact`,
     "gatsby-plugin-postcss",
     `gatsby-plugin-react-helmet`,
-    "gatsby-plugin-loadable-components-ssr",
+    //"gatsby-plugin-loadable-components-ssr",
     "gatsby-plugin-webpack-bundle-analyser-v2",
   ],
 };

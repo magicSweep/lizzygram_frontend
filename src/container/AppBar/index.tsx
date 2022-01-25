@@ -1,12 +1,17 @@
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import React from "react";
+import React, { memo, lazy, Suspense } from "react";
 import { Logo } from "../../component/Logo";
-import AuthAppBarBtn from "../../auth/container/AuthAppBarBtn";
+import Fallback from "../../auth/container/AuthAppBarBtn/AuthAppBarBtnFallback";
 import LoadableSearchBtn from "../../search/container/SearchBtn";
+import NoSsr from "../../component/NoSsr";
 
-export const AppBar = () => {
+const LazyAuthAppBarBtn = lazy(
+  () => import("../../auth/container/AuthAppBarBtn")
+);
+
+const AppBar = () => {
   const trigger = useScrollTrigger({
     disableHysteresis: true,
     threshold: 0,
@@ -33,8 +38,14 @@ export const AppBar = () => {
 
         <LoadableSearchBtn />
 
-        <AuthAppBarBtn />
+        <NoSsr fallback={<Fallback />}>
+          <Suspense fallback={<Fallback />}>
+            <LazyAuthAppBarBtn />
+          </Suspense>
+        </NoSsr>
       </Toolbar>
     </MuiAppBar>
   );
 };
+
+export default AppBar;

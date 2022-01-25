@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { makeDownloadPhotoUrl } from "../../../utils/app";
+import { downloadPhotoUrl } from "../../../config";
 /* import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardActions from "@mui/material/CardActions";
@@ -61,7 +62,8 @@ const PhotoCard: FC<PhotoCardProps> = ({
 
   const downloadOriginalPhotoUrl = makeDownloadPhotoUrl(
     photo.googleDriveId,
-    photo.imageExtention
+    photo.imageExtention,
+    downloadPhotoUrl
   );
 
   return (
@@ -175,7 +177,8 @@ const PhotoCardWithoutDesc: FC<PhotoCardWithoutDescProps> = ({
 
   const downloadOriginalPhotoUrl = makeDownloadPhotoUrl(
     photo.googleDriveId,
-    photo.imageExtention
+    photo.imageExtention,
+    downloadPhotoUrl
   );
 
   return (

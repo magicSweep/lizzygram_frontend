@@ -1,12 +1,10 @@
-import React from "react";
+import React, { memo, lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
 import ModalFallback from "../../../component/ModalFallback";
 import { GlobalState } from "../../../types";
-import loadable from "@loadable/component";
+//import loadable from "@loadable/component";
 
-const LoadableEditPhotoReqs = loadable(() => import("./EditPhotoReqs"), {
-  fallback: <ModalFallback />,
-});
+const LoadableEditPhotoReqs = lazy(() => import("./EditPhotoReqs"));
 
 let isInit = false;
 
@@ -20,7 +18,11 @@ const EditPhotoReqs = () => {
     else isInit = true;
   }
 
-  return <LoadableEditPhotoReqs requests={requests} />;
+  return (
+    <Suspense fallback={<ModalFallback />}>
+      <LoadableEditPhotoReqs requests={requests} />
+    </Suspense>
+  );
 };
 
-export default EditPhotoReqs;
+export default memo(EditPhotoReqs);

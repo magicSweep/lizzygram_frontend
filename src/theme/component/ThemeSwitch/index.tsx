@@ -101,7 +101,7 @@ const SwitchTrack = styled("span")(
 const ThemeSwitch: FC<UseSwitchProps> = (props) => {
   const { getInputProps, checked, disabled, focusVisible } = useSwitch(props);
 
-  console.log("--------THEME SWITCH", props, checked);
+  //console.log("--------THEME SWITCH", props, checked);
 
   const stateClasses = {
     checked,

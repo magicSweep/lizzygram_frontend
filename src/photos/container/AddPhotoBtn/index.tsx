@@ -1,17 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { memo, lazy, Suspense } from "react";
 //import { shallowEqual, useSelector } from "react-redux";
 //import { GlobalState } from "../../../types";
 import { useAuth } from "./../../../auth/hook/useAuth";
-import loadable from "@loadable/component";
+//import loadable from "@loadable/component";
 
-const LoadableAddPhotoBtn = loadable(() => import("./AddPhotoBtn"));
+const LoadableAddPhotoBtn = lazy(() => import("./AddPhotoBtn"));
 
 const AddPhotoBtn = () => {
   const { isAuth } = useAuth();
 
   if (isAuth === false) return null;
 
-  return <LoadableAddPhotoBtn />;
+  return (
+    <Suspense fallback={null}>
+      <LoadableAddPhotoBtn />
+    </Suspense>
+  );
 };
 
-export default AddPhotoBtn;
+export default memo(AddPhotoBtn);

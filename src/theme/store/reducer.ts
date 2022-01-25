@@ -3,7 +3,8 @@ import { getInitialMode } from "../utils/main";
 import { ThemeState, ThemeAction } from "./types";
 import { PaletteOptions } from "@mui/material/styles";
 
-const initialMode: PaletteOptions["mode"] = getInitialMode();
+const initialMode: PaletteOptions["mode"] = "light";
+//const initialMode: PaletteOptions["mode"] = getInitialMode();
 
 //console.log("-----INITIAL THEME MODE", initialMode);
 

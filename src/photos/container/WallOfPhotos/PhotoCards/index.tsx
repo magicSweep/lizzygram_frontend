@@ -37,45 +37,11 @@ const PhotoCards: FC<PhotoCardsProps> = ({
   //numberOfAddedPhotos,
 }) => {
   const elements: any[] = [];
-  //let index = 0;
-  //let photoCardIndex = 1;
 
-  /*  if (isShowPhotoSlider) {
-    const size = photos.length;
-
-    for (let i = 0; i < size; i++) {
-      elements.push(
-        <div
-          key={`photo_card_wrapper_${i}`}
-          className="w-345 mr-6 mb-6 h-310"
-          data-observer-index={photoCardIndex}
-          id={`OBSERVER_${photoCardIndex}`}
-        ></div>
-      );
-
-      index++;
-      photoCardIndex = index + 1;
-    }
-
-    return <>{elements}</>;
-  } */
+  //console.log("RENDER PHOTO CARDS");
 
   photos.forEach((photo, index) => {
-    /* const isRender =
-      !isShowPhotoSlider &&
-      photoCardIndex > indexObservable - numberOfPhotosPerQuery &&
-      photoCardIndex <= indexObservable + numberOfPhotosPerQuery; */
-
-    /*   if (!isRender) {
-      elements.push(
-        <Card
-          key={id}
-          className={classes.root}
-          data-observer-index={photoCardIndex}
-          id={`OBSERVER_${photoCardIndex}`}
-        ></Card>
-      );
-    } else */ if (
+    if (
       photo === null ||
       (editedPhotoIds.length > 0 && editedPhotoIds.includes(photo.id))
     ) {
@@ -99,16 +65,6 @@ const PhotoCards: FC<PhotoCardsProps> = ({
             onImageClick={onShowPhotoSlider}
             showEditPhotoForm={onShowEditPhotoForm}
             index={index}
-            /* observerIndex={photoCardIndex}
-            observerId={`OBSERVER_${photoCardIndex}`}
-            isRender={
-              isShowPhotoSlider === true
-                ? false
-                : isRender === false
-                ? isRender
-                : undefined
-            } */
-            //alt="Лиза что-то делает"
           />
         </div>
       );

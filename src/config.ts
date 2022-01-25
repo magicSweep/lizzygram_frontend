@@ -1,4 +1,4 @@
-//import { getLizzyYearsOld, calcPhotosLimitPerQuery } from "./utils/app";
+import { calcPhotosLimitPerQuery } from "./utils/app";
 import {
   lNumberOfTagsByType,
   lExpressUrl,
@@ -126,9 +126,13 @@ export const lizzyBirthday = new Date("2018-07-08");
 
 // NUMBER OF PHOTOS PER QUERY
 
-//export const numberOfPhotosPerQuery = calcPhotosLimitPerQuery();
+export const numberOfPhotosPerQuery = calcPhotosLimitPerQuery(
+  photoCardWidth,
+  photoCardHeight
+);
+console.log("numberOfPhotosPerQuery", numberOfPhotosPerQuery);
 
-export const numberOfPhotosPerQuery = 5;
+//export const numberOfPhotosPerQuery = 5;
 
 // WALL OF PHOTOS | USE OBSERVABLE PHOTOS
 

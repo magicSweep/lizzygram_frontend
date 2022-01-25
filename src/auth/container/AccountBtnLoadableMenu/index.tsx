@@ -1,4 +1,4 @@
-import React, { useState, FC, Children } from "react";
+import React, { useState, lazy, Suspense } from "react";
 //import Backdrop from "@material-ui/core/Backdrop";
 import IconButton from "@mui/material/IconButton";
 //import Menu from "@material-ui/core/Menu";
@@ -10,7 +10,7 @@ import LoadingWrapperWidget from "../../../component/LoadingWrapper/LoadingWrapp
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Tooltip from "@mui/material/Tooltip";
 import { getBuildFor } from "lizzygram-common-data";
-import loadable from "@loadable/component";
+//import loadable from "@loadable/component";
 
 //import FaceIcon from '@material-ui/icons/Face';
 //import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
@@ -26,27 +26,21 @@ import loadable from "@loadable/component";
  */
 //import(/* webpackPrefetch: true */ './OtherComponent'),
 
-console.log("-----------process.env.BUILD_FOR", getBuildFor());
+/* console.log("-----------process.env.BUILD_FOR", getBuildFor());
 
 console.log(
   "-----------process.env.GATSBY_TEST_VAR",
   process.env.GATSBY_TEST_VAR
-);
+); */
 
 const isPortfolio = process.env.BUILD_FOR === "portfolio";
 
-const pLazyMenu = loadable(
-  () => pMinDelay(import("../PortfolioAccountContextMenu"), 200),
-  {
-    fallback: <LoadingWrapperWidget circle={true} />,
-  }
+const pLazyMenu = lazy(() =>
+  pMinDelay(import("../PortfolioAccountContextMenu"), 200)
 );
 
-const lLazyMeny = loadable(
-  () => pMinDelay(import("../PortfolioAccountContextMenu"), 200),
-  {
-    fallback: <LoadingWrapperWidget circle={true} />,
-  }
+const lLazyMeny = lazy(() =>
+  pMinDelay(import("../PortfolioAccountContextMenu"), 200)
 );
 
 const LazyMenu = isPortfolio === true ? pLazyMenu : lLazyMeny;
@@ -76,12 +70,14 @@ export default function AccountBtnWithLoadableMenu({ userName, logout }: any) {
       </Tooltip>
 
       {anchorEl !== null && (
-        <LazyMenu
-          userName={userName}
-          anchorEl={anchorEl}
-          handleClose={handleClose}
-          logout={logout}
-        />
+        <Suspense fallback={<LoadingWrapperWidget circle={true} />}>
+          <LazyMenu
+            userName={userName}
+            anchorEl={anchorEl}
+            handleClose={handleClose}
+            logout={logout}
+          />
+        </Suspense>
       )}
     </Box>
   );

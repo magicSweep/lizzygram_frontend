@@ -1,14 +1,11 @@
-import React from "react";
+import React, { memo, lazy, Suspense } from "react";
 import { useSelector } from "react-redux";
 import ModalFallback from "../../../component/ModalFallback";
 import { GlobalState } from "../../../types";
-import loadable from "@loadable/component";
+//import loadable from "@loadable/component";
 
-const LoadableModalSearchPhotoForm = loadable(
-  () => import("./ModalSearchPhotoForm"),
-  {
-    fallback: <ModalFallback />,
-  }
+const LoadableModalSearchPhotoForm = lazy(
+  () => import("./ModalSearchPhotoForm")
 );
 
 let isInit = false;
@@ -24,7 +21,11 @@ export const SearchPhotoForm = () => {
 
   if (isInit === false) return null;
 
-  return <LoadableModalSearchPhotoForm isShow={isShow} />;
+  return (
+    <Suspense fallback={<ModalFallback />}>
+      <LoadableModalSearchPhotoForm isShow={isShow} />
+    </Suspense>
+  );
 };
 
-export default SearchPhotoForm;
+export default memo(SearchPhotoForm);

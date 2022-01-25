@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo, lazy, Suspense } from "react";
 //import { shallowEqual, useSelector } from "react-redux";
 //import { GlobalState } from "../../../types";
 //import { useLocation } from "@reach/router";
 import { useAuth } from "../../../auth/hook/useAuth";
-import loadable from "@loadable/component";
+//import loadable from "@loadable/component";
 
-const LoadableSearchBtn = loadable(() => import("./SearchBtn"));
+const LoadableSearchBtn = lazy(() => import("./SearchBtn"));
 
 const SearchBtn = () => {
   const { isAuth } = useAuth();
@@ -22,7 +22,11 @@ const SearchBtn = () => {
     return null;
   }
 
-  return <LoadableSearchBtn />;
+  return (
+    <Suspense fallback={null}>
+      <LoadableSearchBtn />
+    </Suspense>
+  );
 };
 
-export default SearchBtn;
+export default memo(SearchBtn);

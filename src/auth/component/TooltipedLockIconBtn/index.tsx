@@ -12,7 +12,9 @@ import { IconButtonProps } from "@mui/material/IconButton";
 const TooltipedLockIconBtn: FC<IconButtonProps> = (props) => {
   return (
     <Tooltip title="Войти">
-      <span className="min-w-44 min-h-44 inline-block" /* ref={props.ref} */>
+      <span
+        className="min-w-44 min-h-44 inline-flex justify-center items center" /* ref={props.ref} */
+      >
         <LockIconBtn {...props} />
       </span>
     </Tooltip>

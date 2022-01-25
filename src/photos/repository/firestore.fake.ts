@@ -1,4 +1,3 @@
-import { flow } from "lodash-es";
 import {
   tagsCollectionName,
   photosCollectionName,

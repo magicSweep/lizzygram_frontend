@@ -1,11 +1,32 @@
-import {
-  downloadPhotoUrl,
-  photoCardWidth,
-  photoCardHeight,
-  //maxAppWidth,
-} from "../config";
 import { FirestoreDate } from "lizzygram-common-data/dist/types";
 import { intersection } from "lodash-es";
+
+export const calcPhotosLimitPerQuery = (
+  photoCardWidth: number,
+  photoCardHeight: number
+) => {
+  if (typeof window !== "undefined") {
+    let width = screen.width;
+    const height = screen.height;
+
+    //width = width > maxAppWidth ? maxAppWidth : width;
+
+    let numberOfElementsByWidth = Math.floor(width / photoCardWidth);
+
+    numberOfElementsByWidth =
+      numberOfElementsByWidth === 0 ? 1 : numberOfElementsByWidth;
+
+    //Math.ceil(height / photoCardHeight)
+    // we add two additional rows
+    let numberOfElementsByHeight = Math.floor(height / photoCardHeight) + 2;
+
+    const res = numberOfElementsByWidth * numberOfElementsByHeight;
+
+    return res < 5 ? 5 : res;
+  } else {
+    return 0;
+  }
+};
 
 export const makePhotoId = () => {
   return (90000000000000 - Date.now()).toString();
@@ -13,7 +34,8 @@ export const makePhotoId = () => {
 
 export const makeDownloadPhotoUrl = (
   googleDriveId: string,
-  imageExtention: string
+  imageExtention: string,
+  downloadPhotoUrl: string
 ) => {
   let downloadUrl = `${downloadPhotoUrl}/${googleDriveId}`;
   if (imageExtention) downloadUrl += `.${imageExtention}`;
@@ -111,30 +133,6 @@ export const getAlphabetMonth = (date: Date, withDay: boolean = false) => {
 
     default:
       throw new Error(`Unknown month number  ${month}`);
-  }
-};
-
-export const calcPhotosLimitPerQuery = () => {
-  if (typeof window !== "undefined") {
-    let width = screen.width;
-    const height = screen.height;
-
-    //width = width > maxAppWidth ? maxAppWidth : width;
-
-    let numberOfElementsByWidth = Math.floor(width / photoCardWidth);
-
-    numberOfElementsByWidth =
-      numberOfElementsByWidth === 0 ? 1 : numberOfElementsByWidth;
-
-    //Math.ceil(height / photoCardHeight)
-    // we add two additional rows
-    let numberOfElementsByHeight = Math.floor(height / photoCardHeight) + 2;
-
-    const res = numberOfElementsByWidth * numberOfElementsByHeight;
-
-    return res < 5 ? 5 : res;
-  } else {
-    return 0;
   }
 };
 

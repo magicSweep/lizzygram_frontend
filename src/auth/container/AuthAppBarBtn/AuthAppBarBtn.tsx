@@ -1,8 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, lazy, Suspense } from "react";
 import LoadingWrapperWidget from "../../../component/LoadingWrapper/LoadingWrapperWidget";
 import { LockIconBtn } from "../../component/LockIconBtn";
 import { UserResponseToClient } from "../../types";
-import loadable from "@loadable/component";
+//import loadable from "@loadable/component";
+import Fallback from "./AuthAppBarBtnFallback";
 
 export interface AuthFragmentProps {
   user: UserResponseToClient | undefined;
@@ -11,22 +12,19 @@ export interface AuthFragmentProps {
   logout: () => void;
 }
 
-const Fallback = () => (
+/* export const Fallback = () => (
   <div className="inline-block relative">
     <LoadingWrapperWidget circle={true} />
     <LockIconBtn disabled={true} />
   </div>
-);
+); */
 
-const LazyTooltipedLockIconBtn = loadable(
+const LazyTooltipedLockIconBtn = lazy(
   () => import("../../component/TooltipedLockIconBtn")
 );
 
-const LazyAccountBtnWithLoadableMenu = loadable(
-  () => import("../AccountBtnLoadableMenu"),
-  {
-    fallback: <Fallback />,
-  }
+const LazyAccountBtnWithLoadableMenu = lazy(
+  () => import("../AccountBtnLoadableMenu")
 );
 
 const AuthAppBarBtn: FC<AuthFragmentProps> = ({
@@ -38,17 +36,18 @@ const AuthAppBarBtn: FC<AuthFragmentProps> = ({
   if (!loading && user && user.uid) {
     //return <AccountBtnWithLoadableMenu userName={user.name} logout={logout} />;
     return (
-      <LazyAccountBtnWithLoadableMenu userName={user.name} logout={logout} />
+      <Suspense fallback={<Fallback />}>
+        <LazyAccountBtnWithLoadableMenu userName={user.name} logout={logout} />
+      </Suspense>
     );
   } else {
     return (
       <div className="inline-block relative">
         {loading === true && <LoadingWrapperWidget circle={true} />}
         {loading !== true && (
-          <LazyTooltipedLockIconBtn
-            fallback={<LockIconBtn onClick={login} />}
-            onClick={login}
-          />
+          <Suspense fallback={<LockIconBtn onClick={login} />}>
+            <LazyTooltipedLockIconBtn onClick={login} />
+          </Suspense>
         )}
 
         {loading === true && <LockIconBtn disabled={true} onClick={login} />}

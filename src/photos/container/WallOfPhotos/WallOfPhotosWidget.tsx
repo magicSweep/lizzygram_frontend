@@ -1,11 +1,8 @@
-import React, { ComponentProps, FC, useEffect, Fragment } from "react";
+import React, { ComponentProps, FC, Fragment } from "react";
 //import { TTagsData } from "../../store/types";
 //import { TPhotosData } from "./../../photos/types";
-import PhotoCardSkeletons from "../../component/PhotoCardSkeletons";
-import PhotoCards from "./PhotoCards";
 //import { rootDivId } from "../../../config";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
-import { cond, compose, elif } from "fmagic";
 import Button from "@mui/material/Button";
 import Page from "./Page";
 import Box from "@mui/system/Box";
@@ -113,6 +110,8 @@ const getPages = ({ photos, numberOfPages, ...props }: WallOfPhotosProps) =>
   };
 
 const WallOfPhotos: FC<WallOfPhotosProps> = (props) => {
+  //console.log("RENDER WallOfPhotoswidget");
+
   // if error - we add error msg in the end of page
   if (props.isError === true && props.photos === undefined) {
     return (

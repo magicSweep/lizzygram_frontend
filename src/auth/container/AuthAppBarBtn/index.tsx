@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import AuthAppBarBtnWidget from "./AuthAppBarBtn";
 import { useAuthAppBarBtn } from "./hook";
 
@@ -15,4 +15,4 @@ export const AuthAppBarBtn = () => {
   );
 };
 
-export default AuthAppBarBtn;
+export default memo(AuthAppBarBtn);

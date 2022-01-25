@@ -1,13 +1,12 @@
-import React from "react";
+import React, { memo } from "react";
 import SEO from "../component/SEO";
 import NotAuth from "../component/NotAuth";
 import LoadableAddPhotoBtn from "../photos/container/AddPhotoBtn";
-//import LoadablePhotoSlider from "../photos/container/PhotoSlider";
-//import LoadableAddPhotoReqs from "../photos/container/AddPhotoReqs";
-//import LoadableEditPhotoReqs from "../photos/container/EditPhotoReqs";
+import LoadablePhotoSlider from "../photos/container/PhotoSlider";
+import LoadableAddPhotoReqs from "../photos/container/AddPhotoReqs";
+import LoadableEditPhotoReqs from "../photos/container/EditPhotoReqs";
 import LoadableWallOfPhotos from "../photos/container/WallOfPhotos";
-
-//import LoadableSearchPhotoForm from "./../search/form/SearchPhotoForm";
+import LoadableSearchPhotoForm from "./../search/form/SearchPhotoForm";
 
 /* 
   This is main page
@@ -18,6 +17,7 @@ import LoadableWallOfPhotos from "../photos/container/WallOfPhotos";
 */
 
 const IndexPage = () => {
+  //console.log("RENDER INDEX PAGE");
   return (
     <main>
       <SEO title="Фото альбом" />
@@ -28,13 +28,13 @@ const IndexPage = () => {
 
       <LoadableWallOfPhotos />
 
-      {/* <LoadablePhotoSlider />
+      <LoadablePhotoSlider />
 
       <LoadableAddPhotoReqs />
 
       <LoadableEditPhotoReqs />
 
-      <LoadableSearchPhotoForm /> */}
+      <LoadableSearchPhotoForm />
 
       {/* <Link to="/wall-of-photos">Стена фотографий.</Link> */}
     </main>
