@@ -26,7 +26,6 @@ export const pMinDate = new Date("1826-07-08");
 // EXPRESS SERVER
 
 export const pExpressUrl = "https://photo-album-worker.herokuapp.com";
-//export const pExpressUrl = "http://localhost:3009";
 
 // SITE METADATA
 

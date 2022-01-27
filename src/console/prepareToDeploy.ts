@@ -4,9 +4,7 @@ import { join } from "path";
 
 ////////////////////// CONFIG //////////////////
 
-const isPortfolioBuild = process.env.BUILD_FOR === "portfolio";
-
-const numberOfPhotosPerQueryConfig = {
+const numberOfPhotosPerQueryConfig: ReplacerConfig = {
   pathToConfigFile: join(process.cwd(), "src", "config.ts"),
   strPartToIdentify: "numberOfPhotosPerQuery",
   strStart: "export",
@@ -17,24 +15,34 @@ const numberOfPhotosPerQueryConfig = {
   neededVariantIndex: 0,
 };
 
-const expressUrlConfig = {
-  pathToConfigFile:
-    isPortfolioBuild === true
-      ? join(process.cwd(), "src", "config.portfolio.ts")
-      : join(process.cwd(), "src", "config.lizzygram.ts"),
-  strPartToIdentify: isPortfolioBuild === true ? "pExpressUrl" : "lExpressUrl",
+const pExpressUrlConfig: ReplacerConfig = {
+  pathToConfigFile: join(process.cwd(), "src", "config.portfolio.ts"),
+  strPartToIdentify: "pExpressUrl",
   strStart: "export",
   strEnd: ";",
   variants: [
-    isPortfolioBuild === true
-      ? 'export const pExpressUrl = "https://photo-album-worker.herokuapp.com"'
-      : 'export const lExpressUrl = "https://lizzygram-worker.herokuapp.com"',
+    'export const pExpressUrl = "https://photo-album-worker.herokuapp.com"',
+  ],
+  neededVariantIndex: 0,
+};
+
+const lExpressUrlConfig: ReplacerConfig = {
+  pathToConfigFile: join(process.cwd(), "src", "config.lizzygram.ts"),
+  strPartToIdentify: "lExpressUrl",
+  strStart: "export",
+  strEnd: ";",
+  variants: [
+    'export const lExpressUrl = "https://lizzygram-worker.herokuapp.com"',
   ],
   neededVariantIndex: 0,
 };
 
 ////////////////// EVAL //////////////////
 
-const promises = [numberOfPhotosPerQueryConfig, expressUrlConfig].map(replacer);
+const promises = [
+  numberOfPhotosPerQueryConfig,
+  pExpressUrlConfig,
+  lExpressUrlConfig,
+].map(replacer);
 
 Promise.all(promises).catch((err: any) => console.error(err));
