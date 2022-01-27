@@ -1,0 +1,37 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-XSS-Protection",
+          "value": "1; mode=block"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains"
+        },
+        {
+          "key": "Feature-Policy",
+          "value": "geolocation 'none' ; camera 'none'; payment 'none'; sync-xhr 'none';"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=604800, immutable"
+        },
+        {
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'none'; script-src 'self' https://apis.google.com; style-src 'self'; connect-src 'self' https://www.googleapis.com https://firestore.googleapis.com https://photo-album-worker.herokuapp.com; img-src 'self' data: https://res.cloudinary.com; manifest-src 'self'; form-action 'none'; font-src 'none'; object-src 'none';  media-src 'none'; child-src https://amazing-hub-338313.firebaseapp.com;"
+        }
+      ]
+    }
+  ]
+}
