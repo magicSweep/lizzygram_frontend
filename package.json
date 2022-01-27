@@ -15,8 +15,11 @@
   "scripts": {
     "compile:create:func": "tsc src/console/createReactFunc.ts",
     "start:create:func": "node src/console/createReactFunc.js",
-    "compile:switchImports": "tsc src/console/switchImports.ts",
-    "run:switchImports": "node src/console/switchImports.js isFake=false",
+    "compile:fakeImports": "tsc src/console/fakeImports.ts",
+    "start:fakeImports:false": "node src/console/fakeImports.js isFake=false",
+    "start:fakeImports:true": "node src/console/fakeImports.js isFake=true",
+    "compile:prepareToDeploy": "tsc src/console/prepareToDeploy.ts",
+    "start:prepareToDeploy": "npm run start:fakeImports:false && node src/console/prepareToDeploy.js",
     "develop": "gatsby develop",
     "start": "cross-env BUILD_FOR=portfolio gatsby develop",
     "build": "gatsby build",

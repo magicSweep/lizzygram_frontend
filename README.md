@@ -15,10 +15,13 @@
 
 # For production build
 
+- Set real api urls
 - In config.ts change expressUrl to heroku
 - Number of photos per query
 
 # Commands
 
-- $ npm run run:switchImports - change repositories from real to fake - in package.json set isFake
+- $ npm run start:fakeImports:true - change repositories from real to fake.
+- $ npm run start:fakeImports:false - change repositories from fake to real.
 - $ npm run start:create:func photos/Hello - create folder with react function component, test and stories files.
+- $ npm run start:prepareToDeploy - first run start:fakeImports:false, then set expressUrl and number of photos per query
