@@ -25,11 +25,11 @@ export const pMinDate = new Date("1826-07-08");
 
 // EXPRESS SERVER
 
-export const pExpressUrl = "https://photo-album-worker.herokuapp.com";
+export const pExpressUrl = "https://photo-boom-worker.herokuapp.com";
 
 // SITE METADATA
 
-export const pGlobalTitle = "Фото альбом приветствует тебя";
+export const pGlobalTitle = "Фотобум приветствует тебя";
 
 ////////////////
 // search form - remove age select

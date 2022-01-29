@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../images/lizzygram_icon_white_128x128.png";
+import logo from "../../icons/lizzygram_icon_white_128x128.png";
 import { Link } from "../Link";
 
 export const Logo = () => {

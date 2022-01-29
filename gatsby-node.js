@@ -1,4 +1,4 @@
-exports.onCreateWebpackConfig = ({
+/* exports.onCreateWebpackConfig = ({
   stage,
   rules,
   loaders,
@@ -9,10 +9,10 @@ exports.onCreateWebpackConfig = ({
   if (stage === "build-javascript") {
     const config = getConfig();
 
-    /*  console.log("========CREATE WEBPACK CONFIG");
-    console.log("========STAGE=======", stage);
-    console.log("OPTIMIZATION", config["optimization"]);
-    console.log("==================END============"); */
+    ///  console.log("========CREATE WEBPACK CONFIG");
+   // console.log("========STAGE=======", stage);
+   // console.log("OPTIMIZATION", config["optimization"]);
+   // console.log("==================END============"); 
 
     const minimizer = config.optimization.minimizer;
 
@@ -38,14 +38,14 @@ exports.onCreateWebpackConfig = ({
               return `npm.${packageName.replace("@", "")}`;
             },
           },
-        }, */
+        },/
       },
     };
 
     // This will completely replace the webpack config with the modified object.
     actions.replaceWebpackConfig(config);
   }
-};
+}; */
 
 /* {
     minimize: true,

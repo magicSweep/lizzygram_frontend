@@ -8,14 +8,14 @@ const lSiteMetadata = {
 
 const pSiteMetadata = {
   siteUrl: "https://www.yourdomain.tld",
-  title: "Супер дупер фотки",
+  title: "Фотобум",
   description: "Фотографии на любой вкус и цвет",
   keywords: `фотографии`,
   //author: "@magic_man",
 };
 
 const siteMetadata =
-  process.env.BUILD_FOR === "portfolio" ? pSiteMetadata : lSiteMetadata;
+  process.env.BUILD_FOR === "lizzygram" ? lSiteMetadata : pSiteMetadata;
 
 module.exports = {
   siteMetadata: {
@@ -23,10 +23,22 @@ module.exports = {
     author: "@magic_man",
   },
   plugins: [
-    //`gatsby-plugin-preact`,
     "gatsby-plugin-postcss",
-    `gatsby-plugin-react-helmet`,
-    //"gatsby-plugin-loadable-components-ssr",
+    "gatsby-plugin-react-helmet",
+    {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        name: "Photo album, portfolio",
+        short_name: "Photo album",
+        start_url: "/",
+        lang: "ru",
+        background_color: "#f7f0eb",
+        theme_color: "#a2466c",
+        display: "standalone",
+        icon: "src/icons/favicon_color_512x512.png",
+        theme_color_in_head: false,
+      },
+    },
     "gatsby-plugin-webpack-bundle-analyser-v2",
   ],
 };

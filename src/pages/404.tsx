@@ -1,42 +1,52 @@
 import React, { CSSProperties } from "react";
 import { Link } from "gatsby";
-
-// styles
-const pageStyles: CSSProperties = {
-  color: "#232129",
-  padding: "96px",
-  fontFamily: "-apple-system, Roboto, sans-serif, serif",
-};
-const headingStyles: CSSProperties = {
-  marginTop: 0,
-  marginBottom: 64,
-  maxWidth: 320,
-};
-
-const paragraphStyles: CSSProperties = {
-  marginBottom: 48,
-};
-const codeStyles: CSSProperties = {
-  color: "#8A6534",
-  padding: 4,
-  backgroundColor: "#FFF4DB",
-  fontSize: "1.25rem",
-  borderRadius: 4,
-};
+import Box from "@mui/material/Box";
+import SEO from "../component/SEO";
 
 // markup
 const NotFoundPage = () => {
   return (
-    <main style={pageStyles}>
-      <title>Not found</title>
-      <h1 style={headingStyles}>Page not found</h1>
-      <p style={paragraphStyles}>
-        Sorry{" "}
+    <main className="p-12">
+      <SEO title="Не найдена..." />
+      <Box
+        typography="h5"
+        component="h5"
+        sx={{
+          textAlign: "center",
+          paddingBottom: "20px",
+        }}
+      >
+        Страница не найдена.
+      </Box>
+      <Box
+        component="p"
+        typography="body1"
+        sx={{ maxWidth: "600px", margin: "auto", textIndent: "15px" }}
+      >
+        К сожалению{" "}
         <span role="img" aria-label="Pensive emoji">
           😔
         </span>{" "}
-        we couldn’t find what you were looking for.
-        <br />
+        страницы с таким именем не существует...
+        <Link to="/"> Вернуться на главную страницу.</Link>.
+      </Box>
+      <Box
+        component="p"
+        typography="body1"
+        sx={{
+          maxWidth: "600px",
+          margin: "auto",
+          textAlign: "center",
+          paddingTop: "15px",
+        }}
+      >
+        <Link to="/">Вернуться на главную страницу.</Link>.
+      </Box>
+    </main>
+  );
+};
+
+/*  <br />
         {process.env.NODE_ENV === "development" ? (
           <>
             <br />
@@ -44,11 +54,6 @@ const NotFoundPage = () => {
             <br />
           </>
         ) : null}
-        <br />
-        <Link to="/">Go home</Link>.
-      </p>
-    </main>
-  );
-};
+        <br /> */
 
 export default NotFoundPage;

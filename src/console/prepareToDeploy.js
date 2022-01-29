@@ -19,7 +19,7 @@ var pExpressUrlConfig = {
     strStart: "export",
     strEnd: ";",
     variants: [
-        'export const pExpressUrl = "https://photo-album-worker.herokuapp.com"',
+        'export const pExpressUrl = "https://photo-boom-worker.herokuapp.com"',
     ],
     neededVariantIndex: 0
 };
@@ -33,10 +33,20 @@ var lExpressUrlConfig = {
     ],
     neededVariantIndex: 0
 };
+// disable gatsby-plugin-webpack-bundle-analyser-v2
+var bundleAnalyzerConfig = {
+    pathToConfigFile: (0, path_1.join)(process.cwd(), "gatsby-config.js"),
+    strPartToIdentify: "gatsby-plugin-webpack-bundle-analyser-v2",
+    strStart: '"',
+    strEnd: ",",
+    variants: ["//"],
+    neededVariantIndex: 0
+};
 ////////////////// EVAL //////////////////
 var promises = [
     numberOfPhotosPerQueryConfig,
     pExpressUrlConfig,
     lExpressUrlConfig,
+    bundleAnalyzerConfig,
 ].map(replacer_1.replacer);
 Promise.all(promises)["catch"](function (err) { return console.error(err); });

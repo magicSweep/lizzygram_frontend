@@ -17,6 +17,12 @@ const AppBar = () => {
     threshold: 0,
   });
 
+  let isShowSearchBtn = false;
+
+  if (typeof window !== "undefined" && location.pathname === "/") {
+    isShowSearchBtn = true;
+  }
+
   return (
     <MuiAppBar
       sx={{
@@ -36,7 +42,7 @@ const AppBar = () => {
       >
         <Logo />
 
-        <LoadableSearchBtn />
+        {isShowSearchBtn === true && <LoadableSearchBtn />}
 
         <NoSsr fallback={<Fallback />}>
           <Suspense fallback={<Fallback />}>

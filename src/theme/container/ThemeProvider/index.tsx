@@ -21,14 +21,13 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
 
   return (
     <Fragment>
-      <Helmet>
+      {/* <Helmet>
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <link
           href="https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap"
-          rel="preload"
-          as="style"
+          rel="stylesheet"
         />
-      </Helmet>
+      </Helmet> */}
       <ThemeMuiProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />

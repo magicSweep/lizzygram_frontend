@@ -18,6 +18,7 @@
 - Set real api urls
 - In config.ts change expressUrl to heroku
 - Number of photos per query
+- Off bundle analyze plugin
 
 # Commands
 
