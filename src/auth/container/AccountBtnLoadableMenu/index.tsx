@@ -9,7 +9,7 @@ import pMinDelay from "p-min-delay";
 import LoadingWrapperWidget from "../../../component/LoadingWrapper/LoadingWrapperWidget";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import Tooltip from "@mui/material/Tooltip";
-import { getBuildFor } from "lizzygram-common-data";
+//import { getBuildFor } from "lizzygram-common-data";
 //import loadable from "@loadable/component";
 
 //import FaceIcon from '@material-ui/icons/Face';

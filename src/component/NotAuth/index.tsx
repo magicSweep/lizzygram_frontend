@@ -9,6 +9,9 @@ const NotAuth: FC = () => {
 
   const buildFor = getBuildFor();
 
+  console.log("BUILD_FOR", process.env.BUILD_FOR);
+  console.log("HELLO", process.env.HELLO);
+
   /* if (user !== null) {
     navigate("/wall-of-photos");
 
