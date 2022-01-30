@@ -20,7 +20,7 @@ import {
   pMinDate,
 } from "./config.portfolio";
 
-export const buildFor = process.env.BUILD_FOR;
+export const buildFor = process.env.GATSBY_BUILD_FOR;
 
 // DIFFERENCE
 // - Tags, SearchForm - ageSelect, config - firestore and worker

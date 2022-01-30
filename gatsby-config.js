@@ -15,7 +15,7 @@ const pSiteMetadata = {
 };
 
 const siteMetadata =
-  process.env.BUILD_FOR === "lizzygram" ? lSiteMetadata : pSiteMetadata;
+  process.env.GATSBY_BUILD_FOR === "lizzygram" ? lSiteMetadata : pSiteMetadata;
 
 module.exports = {
   siteMetadata: {

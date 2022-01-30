@@ -26,14 +26,14 @@ import Tooltip from "@mui/material/Tooltip";
  */
 //import(/* webpackPrefetch: true */ './OtherComponent'),
 
-/* console.log("-----------process.env.BUILD_FOR", getBuildFor());
+/* console.log("-----------process.env.GATSBY_BUILD_FOR", getBuildFor());
 
 console.log(
   "-----------process.env.GATSBY_TEST_VAR",
   process.env.GATSBY_TEST_VAR
 ); */
 
-const isPortfolio = process.env.BUILD_FOR === "portfolio";
+const isPortfolio = process.env.GATSBY_BUILD_FOR === "portfolio";
 
 const pLazyMenu = lazy(() =>
   pMinDelay(import("../PortfolioAccountContextMenu"), 200)

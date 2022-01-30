@@ -13,7 +13,7 @@ export const useSearchPhotoForm = (): SearchPhotoFormProps => {
   const dispatch = useDispatch();
 
   if (isNeedAge === undefined) {
-    isNeedAge = process.env.BUILD_FOR !== "portfolio";
+    isNeedAge = process.env.GATSBY_BUILD_FOR !== "portfolio";
   }
 
   const searchTerms = useSelector<GlobalState, SearchTerms>(

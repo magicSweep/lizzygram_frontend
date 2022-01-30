@@ -9,8 +9,7 @@ const NotAuth: FC = () => {
 
   const buildFor = getBuildFor();
 
-  console.log("BUILD_FOR", process.env.BUILD_FOR);
-  console.log("HELLO", process.env.HELLO);
+  console.log("GATSBY_BUILD_FOR", process.env.GATSBY_BUILD_FOR);
 
   /* if (user !== null) {
     navigate("/wall-of-photos");
