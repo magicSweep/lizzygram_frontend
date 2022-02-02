@@ -27,16 +27,19 @@ const AppBar = () => {
     <MuiAppBar
       sx={{
         width: "100%",
-        background: "linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%)",
+        //backgroundColor: "#2196F3",
+        //height: "50px",
+        background: "linear-gradient(45deg, #2196F3 20%, #21CBF3 90%)",
       }}
       elevation={trigger ? 4 : 0}
     >
       <Toolbar
+        variant="dense"
         sx={{
           width: "100%",
           maxWidth: "1140px",
           m: "auto",
-          minHeight: "70px",
+          minHeight: "50px",
           justifyContent: "space-between",
         }}
       >

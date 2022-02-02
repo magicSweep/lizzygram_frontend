@@ -19,3 +19,9 @@ export const wrapRootElement = ({ element }) => {
 export const wrapPageElement = ({ element }) => {
   return <Layout>{element}</Layout>;
 };
+
+export const onRenderBody = ({ setBodyAttributes }) => {
+  setBodyAttributes({
+    className: "bg-paper",
+  });
+};

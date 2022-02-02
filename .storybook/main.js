@@ -3,7 +3,6 @@ module.exports = {
   addons: [
     "@storybook/addon-links",
     "@storybook/addon-essentials",
-    "storybook-addon-gatsby",
     {
       name: "@storybook/addon-postcss",
       options: {
@@ -12,6 +11,7 @@ module.exports = {
         },
       },
     },
+    "storybook-addon-gatsby",
   ],
   framework: "@storybook/react",
   core: {

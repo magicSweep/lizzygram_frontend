@@ -47,7 +47,8 @@ const calcStateSizes = (
     cardWidth
   );
 
-  //console.log("numberOfItemsByWidth", numberOfItemsByWidth);
+  //console.log("---------------numberOfItemsByWidth", numberOfItemsByWidth);
+  //console.log("---------------containerWidth", containerWidth, cardWidth);
 
   return {
     itemsWrapperHeight: calcItemsWrapperHeight(
@@ -65,7 +66,7 @@ const calcStateSizes = (
 
 let init = false;
 
-// This hook is responsble for creating blocks with round number of items in it
+// This hook is responsble for creating blocks with round number of items in each
 // It is calculate size of block, number of blocks, number of items in each block
 // and it get initial items array and make from it array of arrays by blocks
 // (Each block has an index with wich we can determine is this block in viewport or not )

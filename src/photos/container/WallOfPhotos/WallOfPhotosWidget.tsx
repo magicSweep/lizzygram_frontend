@@ -116,7 +116,7 @@ const WallOfPhotos: FC<WallOfPhotosProps> = (props) => {
   if (props.isError === true && props.photos === undefined) {
     return (
       <Wrapper textAlign="center" width={props.containerWidth}>
-        <p className="text-error p-6">Какая-то ошибка при загрузке фото...</p>
+        <p className="text-error">Какая-то ошибка при загрузке фото...</p>
         <Button onClick={props.reLoadPhotos}>Попробовать еще раз</Button>
       </Wrapper>
     );

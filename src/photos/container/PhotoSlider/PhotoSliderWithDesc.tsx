@@ -23,7 +23,7 @@ const PhotoSliderWithDesc: FC<PhotoSliderWithDescProps> = ({
   const [width, setWidth] = useState(0);
 
   const toggleDesc = useCallback(
-    () => setWidth((width) => (width === 0 ? 300 : 0)),
+    () => setWidth((width) => (width === 0 ? 290 : 0)),
     []
   );
 
@@ -38,8 +38,12 @@ const PhotoSliderWithDesc: FC<PhotoSliderWithDescProps> = ({
       />
       <Box
         sx={{
-          //height: "100%",
+          height: "100%",
           width: `${width}px`,
+          flexShrink: 0,
+          flexGrow: 1,
+          overflowY: "auto",
+          overflowX: "hidden",
           transitionProperty: "width",
           transitionDuration: "0.5s",
           bgcolor: "background.paper",

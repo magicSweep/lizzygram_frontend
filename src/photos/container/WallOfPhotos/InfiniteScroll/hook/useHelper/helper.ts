@@ -45,7 +45,10 @@ export const getItemsArrays = (
 
 export const calcContainerWidth = () => {
   // padding 20px, margin 32px
-  return Math.round(document.body.clientWidth - 104);
+  // 640 - 8
+  // - 64
+  const bodyWidth = Math.round(document.body.clientWidth);
+  return bodyWidth <= 640 ? bodyWidth - 8 : bodyWidth - 64;
   //return Math.round(document.querySelector("main").clientWidth * 0.9);
 };
 

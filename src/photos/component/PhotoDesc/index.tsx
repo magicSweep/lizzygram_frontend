@@ -109,7 +109,7 @@ const PhotoDesc = ({
   };
 
   return (
-    <div className="w-80 h-full overflow-auto">
+    <div className="w-80 pl-2">
       <Wrapper title="Дата">
         <Box component="span" typography="body2">
           {formatDate}

@@ -334,7 +334,7 @@ export const useSwipeCarousel = (
           setState,
           touches.pageX,
           touches.pageY,
-          0,
+          event.targetTouches.length,
           addTouchEventListeners,
           removeTouchEventListeners
         );
@@ -398,6 +398,7 @@ export const useSwipeCarousel = (
   };
 
   return {
+    debugData: mainRef.current,
     translateX: Math.round(state.translateX),
     isTranslated: state.isTranslated,
     onMouseDown,

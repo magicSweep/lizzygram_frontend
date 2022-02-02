@@ -1,3 +1,3 @@
-import { getAll } from "../repository/firestore";
+import { getAll } from "../repository/firestore.fake";
 
 export const getTags = () => getAll();

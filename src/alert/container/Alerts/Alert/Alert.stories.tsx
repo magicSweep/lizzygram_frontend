@@ -11,7 +11,7 @@ export default {
 const AlertManager = () => {
   const [state, setState] = useState<any>({
     open: false,
-    type: "",
+    type: "success",
     message: "",
   });
 

@@ -3,7 +3,7 @@
 @import "tailwindcss/utilities";
 
 body {
-  min-width: 471px;
+  min-width: 362px;
 }
 
 @layer utilities {

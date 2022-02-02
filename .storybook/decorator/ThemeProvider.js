@@ -3,7 +3,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "./../../src/theme";
 //import Switch from "@mui/material/Switch";
 import Box from "@mui/material/Box";
-import { ThemeSwitch } from "../../src/theme/component/ThemeSwitch";
+import ThemeSwitch from "../../src/theme/component/ThemeSwitch";
 import CssBaseline from "@mui/material/CssBaseline";
 import { applyTheme } from "../../src/theme/tailwind/utils";
 

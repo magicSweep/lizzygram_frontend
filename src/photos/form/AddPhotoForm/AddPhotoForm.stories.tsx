@@ -1,3 +1,4 @@
+import Box from "@mui/material/Box";
 import { useState } from "react";
 import AddPhotoForm from ".";
 
@@ -27,5 +28,43 @@ export const Default = () => {
         uploadLoading={loading}
       />
     </div>
+  );
+};
+
+export const Test = () => {
+  return (
+    <Box sx={{ position: "relative", bgcolor: "warning.main", pt: "100px" }}>
+      <Box
+        sx={{
+          position: "relative",
+          width: "400px",
+          height: "500px",
+          mt: "100px",
+          bgcolor: "primary.main",
+        }}
+      >
+        <Box
+          sx={{
+            position: "relative",
+            width: "300px",
+            height: "200px",
+            bgcolor: "secondary.main",
+            //mt: "-100px",
+            zIndex: 10,
+          }}
+        ></Box>
+        <Box
+          sx={{
+            position: "relative",
+            width: "100%",
+            height: "200px",
+            bgcolor: "info.main",
+            mt: "-100px",
+          }}
+        >
+          <p>Hello, my friend</p>
+        </Box>
+      </Box>
+    </Box>
   );
 };

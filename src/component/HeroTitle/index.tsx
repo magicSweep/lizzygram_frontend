@@ -14,6 +14,7 @@ const HeroTitle: FC = ({ children }) => {
           p: "10px 20px",
           /* boxShadow: 1, */
           width: "80%",
+          maxHeight: "47px",
           /* bgcolor: "background.paper", */
           bgcolor: "background.paper",
           borderRadius: 1,
@@ -26,6 +27,9 @@ const HeroTitle: FC = ({ children }) => {
           sx={{
             /* color: "text.primary", */
             fontSize: 18,
+            overflow: "hidden",
+            whiteSpace: "nowrap",
+            textOverflow: "ellipsis",
           }}
         >
           {children}

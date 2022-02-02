@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { PaletteOptions } from "@mui/material/styles";
 import AppBar from "../AppBar";
-import useMediaQuery from "@mui/material/useMediaQuery";
+//import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link } from "../../component/Link";
 import AlertsLoadableWrapper from "../../alert/container/Alerts";
 import { globalTitle } from "../../config";
@@ -27,9 +27,9 @@ const Banner: FC = () => (
   <Box
     className="text-center relative overflow-hidden"
     sx={{
-      background: "linear-gradient(45deg, #fe6b8b 30%, #ff8e53 90%)",
-      pt: "130px",
-      pb: "130px",
+      background: "linear-gradient(105deg, #2196f3 20%, #21cbf3 90%)",
+      pt: "90px",
+      pb: "100px",
       maxHeight: "1000px",
     }}
   >
@@ -44,7 +44,7 @@ const Banner: FC = () => (
 );
 
 const Footer: FC = () => (
-  <div className="py-6 pl-12">
+  <div className="py-6 px-4">
     <Box typography="body2" className="text-center">
       Copyright © 2021 Made by me
     </Box>
@@ -58,7 +58,7 @@ type WrapperProps = {
 };
 
 const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => {
-  const matches = useMediaQuery("(min-width:450px)", { defaultMatches: true });
+  //const matches = useMediaQuery("(min-width:450px)", { defaultMatches: true });
 
   let isShowFaqLink = false;
 
@@ -71,19 +71,20 @@ const Wrapper: FC<WrapperProps> = ({ mode, toggleMode, children }) => {
     isShowFaqLink = true;
   }
 
+  /*  className={`z-10 relative p-5 -mt-16 ${
+        matches === false ? "mx-1" : "mx-8"
+      } rounded-lg bg-paper`} */
   return (
     <Box
-      className={`z-10 relative p-5 -mt-16 ${
-        matches === false ? "mx-1" : "mx-8"
-      } rounded-lg bg-paper`}
+      className={`z-10 relative pt-5 -mt-16 mx-1 sm:mx-8 rounded-lg bg-paper`}
       sx={{
         bgcolor: "background.paper",
-        minWidth: "400px",
-        minHeight: "600px",
+        minWidth: "356px",
+        minHeight: "400px",
         boxShadow: 4,
       }}
     >
-      <div className="flex min-h-34 justify-between items-center">
+      <div className="flex min-h-34 px-4 justify-between items-center">
         <NoSsr fallback={<div className="h-8"></div>}>
           <Suspense fallback={<div className="h-8"></div>}>
             <LoadableThemeSwitch

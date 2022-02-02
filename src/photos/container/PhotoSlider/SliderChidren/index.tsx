@@ -74,11 +74,8 @@ const SliderChildren: FC<SliderChildrenProps> = cond([
           isEditingActivePhoto === true ||
           (photosLoading === true && isLast(photos, activeIndex) === true)
         }
-        loadText={
-          isEditingActivePhoto === true
-            ? "Применяем изменения..."
-            : "Загружаем еще фото..."
-        }
+        //Применяем изменения
+        loadText={isEditingActivePhoto === true ? "" : "Загружаем еще фото..."}
         /* src="" */
         alt="Фотография"
       />

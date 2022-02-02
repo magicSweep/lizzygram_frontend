@@ -47,7 +47,7 @@ const PhotoCards: FC<PhotoCardsProps> = ({
     ) {
       elements.push(
         <div
-          className="ml-2 mb-2"
+          className="ml-0 sm:ml-2 mb-2"
           key={photo === null ? `added_photo_${index}` : photo.id}
         >
           <PhotoCardSkeleton />
@@ -58,7 +58,7 @@ const PhotoCards: FC<PhotoCardsProps> = ({
       const onShowEditPhotoForm = () => showEditPhotoForm(photo.id);
 
       elements.push(
-        <div key={photo.id} className="ml-2 mb-2">
+        <div key={photo.id} className="ml-0 sm:ml-2 mb-2">
           <PhotoCard
             isEditable={userUID === photo.addedByUserUID}
             photo={photo}

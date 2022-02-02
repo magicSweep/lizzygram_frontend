@@ -26,3 +26,10 @@ export const wrapRootElement = ({ element }) => {
 export const wrapPageElement = ({ element }) => {
   return <Layout>{element}</Layout>;
 };
+
+export const onClientEntry = () => {
+  window.addEventListener("load", () => {
+    if (document.body.classList.contains("bg-paper") === false)
+      document.body.classList.add("bg-paper");
+  });
+};

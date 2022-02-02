@@ -51,11 +51,15 @@ export const onTouchStart = (
   targetTouches: number
 ) =>
   compose<Metricks, Metricks>(
-    tap((metricks: Metricks) =>
+    /* tap((metricks: Metricks) =>
       metricks.isTranslated === false
         ? (metricks.targetTouches = targetTouches)
         : (metricks.targetTouches += targetTouches)
-    ),
+    ), */
+    //tap((metricks: Metricks) => (metricks.targetTouches += targetTouches)),
+    set("targetTouches", (metricks: Metricks) => {
+      return metricks.targetTouches + targetTouches;
+    }),
     set("isTranslated", true),
     set("startX", pageX),
     set("startY", pageY),

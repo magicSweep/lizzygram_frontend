@@ -9,7 +9,7 @@ export default {
 export const Default = () => {
   return (
     <FormWrapper
-      title={"Добавить фото"}
+      title={"Добавить два супер пупер фото"}
       onSubmit={() => console.log("onSubmit")}
       onClose={() => console.log("onClose")}
       submitBtnTitle={"Отправить"}
