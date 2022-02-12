@@ -1,4 +1,4 @@
-import { calcTranslateXOnMove } from "./translateX";
+import { calcTranslateXOnMove } from ".";
 
 describe("calcTranslateXOnMove", () => {
   test("", () => {

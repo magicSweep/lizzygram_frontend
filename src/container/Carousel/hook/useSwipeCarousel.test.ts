@@ -1,10 +1,10 @@
-import { batch } from "react-redux";
+/* import { batch } from "react-redux";
 import {
-  pointerDown,
-  pointerMove,
-  pointerUp,
-  initMain,
-  Main,
+  pointerDown_,
+  pointerMove_,
+  pointerUp_,
+  initMain as initMain_,
+  UseSwipeData,
 } from "./useSwipeCarousel";
 
 jest.mock("react-redux", () => ({
@@ -15,6 +15,23 @@ jest.mock("react-redux", () => ({
 Object.defineProperty(global.document.documentElement, "clientWidth", {
   value: 1200,
 });
+
+const initMain: UseSwipeData = {
+  ...initMain_,
+  itemsLength: 6,
+};
+
+let useSwipeData: UseSwipeData;
+
+const getUseSwipeData = jest.fn(() => useSwipeData);
+
+const setUseSwipeData = jest.fn((data: UseSwipeData) => (useSwipeData = data));
+
+const abort = jest.fn();
+
+const pointerDown = pointerDown_(abort);
+const pointerMove = pointerMove_(abort);
+const pointerUp = pointerUp_(abort);
 
 describe("useSwipeCarousel", () => {
   const setState = jest.fn();
@@ -28,10 +45,13 @@ describe("useSwipeCarousel", () => {
     jest.clearAllMocks();
   });
 
-  describe("pointerDown", () => {
-    test("", () => {
-      const result = pointerDown(
-        { ...initMain },
+  describe("pointerDown_", () => {
+    test("If itemsLength === 0 - it means we have some error or not loading yet - we do nothing ", () => {
+      setUseSwipeData({ ...initMain_ });
+
+      pointerDown(
+        getUseSwipeData,
+        setUseSwipeData,
         initMain,
         setState,
         101,
@@ -41,32 +61,56 @@ describe("useSwipeCarousel", () => {
         removeEventListeners
       );
 
-      expect(result.eventType).toEqual("UNKNOWN");
+      expect(useSwipeData).toEqual(initMain_);
+    });
 
-      expect(result.bodyWidth).toEqual(1200);
-      expect(result.distX).toEqual(0);
-      expect(result.distY).toEqual(0);
-      expect(result.elapsedTime).toEqual(0);
-      expect(result.elapsedTimeAfterMove).toEqual(0);
-      expect(result.isTranslated).toEqual(true);
-      expect(result.lastFiveXTouchMove).toEqual([]);
-      expect(result.lastFiveXToucheMoveSum).toEqual(0);
-      expect(result.prevPageX).toEqual(101);
-      expect(result.startTimeAfterMove).toEqual(0);
-      expect(result.startX).toEqual(101);
-      expect(result.startY).toEqual(222);
-      expect(result.targetTouches).toEqual(1);
-      expect(result.translateX).toEqual(0);
+    test("", () => {
+      setUseSwipeData({ ...initMain });
+
+      pointerDown(
+        getUseSwipeData,
+        setUseSwipeData,
+        initMain,
+        setState,
+        101,
+        222,
+        1,
+        addEventListeners,
+        removeEventListeners
+      );
+
+      expect(useSwipeData.eventType).toEqual("UNKNOWN");
+
+      expect(useSwipeData.bodyWidth).toEqual(1200);
+      expect(useSwipeData.distX).toEqual(0);
+      expect(useSwipeData.distY).toEqual(0);
+      expect(useSwipeData.elapsedTime).toEqual(0);
+      expect(useSwipeData.elapsedTimeAfterMove).toEqual(0);
+      expect(useSwipeData.isTranslated).toEqual(true);
+      expect(useSwipeData.lastFiveXTouchMove).toEqual([]);
+      expect(useSwipeData.lastFiveXToucheMoveSum).toEqual(0);
+      expect(useSwipeData.prevPageX).toEqual(101);
+      expect(useSwipeData.startTimeAfterMove).toEqual(0);
+      expect(useSwipeData.startX).toEqual(101);
+      expect(useSwipeData.startY).toEqual(222);
+      expect(useSwipeData.targetTouches).toEqual(1);
+      expect(useSwipeData.translateX).toEqual(0);
 
       expect(setState).toHaveBeenCalledTimes(1);
 
       expect(addEventListeners).toHaveBeenCalledTimes(1);
       expect(removeEventListeners).toHaveBeenCalledTimes(0);
+
+      expect(abort).toHaveBeenCalledTimes(0);
     });
 
-    test("If we already have targetTouch and translated is true - it means we get multi touch event - we reset and end all actions", () => {
-      const result = pointerDown(
-        { ...initMain, targetTouches: 1, isTranslated: true },
+    // and translated is true
+    test("If we already have targetTouch - it means we get multi touch event - we reset and end all actions", () => {
+      setUseSwipeData({ ...initMain, targetTouches: 1, isTranslated: true });
+
+      pointerDown(
+        getUseSwipeData,
+        setUseSwipeData,
         initMain,
         setState,
         101,
@@ -76,36 +120,39 @@ describe("useSwipeCarousel", () => {
         removeEventListeners
       );
 
-      expect(result.eventType).toEqual("UNKNOWN");
+      expect(useSwipeData.eventType).toEqual("MULTI_TOUCH");
 
-      expect(result.bodyWidth).toEqual(0);
-      expect(result.distX).toEqual(0);
-      expect(result.distY).toEqual(0);
-      expect(result.elapsedTime).toEqual(0);
-      expect(result.elapsedTimeAfterMove).toEqual(0);
-      expect(result.isTranslated).toEqual(false);
-      expect(result.lastFiveXTouchMove).toEqual([]);
-      expect(result.lastFiveXToucheMoveSum).toEqual(0);
-      expect(result.prevPageX).toEqual(0);
-      expect(result.startTimeAfterMove).toEqual(0);
-      expect(result.startX).toEqual(0);
-      expect(result.startY).toEqual(0);
-      expect(result.targetTouches).toEqual(0);
-      expect(result.translateX).toEqual(0);
+      expect(useSwipeData.bodyWidth).toEqual(0);
+      expect(useSwipeData.distX).toEqual(0);
+      expect(useSwipeData.distY).toEqual(0);
+      expect(useSwipeData.elapsedTime).toEqual(0);
+      expect(useSwipeData.elapsedTimeAfterMove).toEqual(0);
+      expect(useSwipeData.isTranslated).toEqual(true);
+      expect(useSwipeData.lastFiveXTouchMove).toEqual([]);
+      expect(useSwipeData.lastFiveXToucheMoveSum).toEqual(0);
+      expect(useSwipeData.prevPageX).toEqual(101);
+      expect(useSwipeData.startTimeAfterMove).toEqual(0);
+      expect(useSwipeData.startX).toEqual(101);
+      expect(useSwipeData.startY).toEqual(222);
+      expect(useSwipeData.targetTouches).toEqual(2);
+      expect(useSwipeData.translateX).toEqual(0);
 
-      //expect(result.isTimeDelayTresholdPass).toEqual(false);
-      // expect(result.isXDirection).toEqual(false);
+      //expect(useSwipeData.isTimeDelayTresholdPass).toEqual(false);
+      // expect(useSwipeData.isXDirection).toEqual(false);
 
-      expect(setState).toHaveBeenCalledTimes(1);
+      // that methods calls in abort
+      expect(setState).toHaveBeenCalledTimes(0);
+      expect(removeEventListeners).toHaveBeenCalledTimes(0);
 
       expect(addEventListeners).toHaveBeenCalledTimes(0);
-      expect(removeEventListeners).toHaveBeenCalledTimes(1);
+
+      expect(abort).toHaveBeenCalledTimes(1);
     });
   });
 
   describe("pointerMove", () => {
-    test("", () => {
-      const main: Main = {
+    test("Valid move...", () => {
+      const data: UseSwipeData = {
         ...initMain,
         eventType: "UNKNOWN",
         translateX: 23,
@@ -119,8 +166,11 @@ describe("useSwipeCarousel", () => {
         activeIndex: 3,
       };
 
-      const result = pointerMove(
-        main,
+      setUseSwipeData(data);
+
+      pointerMove(
+        getUseSwipeData,
+        setUseSwipeData,
         6,
         224,
         123,
@@ -129,44 +179,44 @@ describe("useSwipeCarousel", () => {
         initMain
       );
 
-      //expect(result).toEqual("UNKNOWN");
-      expect(result.eventType).toEqual("UNKNOWN");
+      //expect(useSwipeData).toEqual("UNKNOWN");
+      expect(useSwipeData.eventType).toEqual("UNKNOWN");
 
-      expect(result.bodyWidth).toEqual(1300);
-      expect(result.distX).toEqual(0);
-      expect(result.distY).toEqual(0);
-      expect(result.elapsedTime).toEqual(0);
-      expect(result.elapsedTimeAfterMove).toEqual(0);
-      expect(result.isTranslated).toEqual(true);
-      expect(result.lastFiveXTouchMove).toEqual([-22]);
-      expect(result.lastFiveXToucheMoveSum).toEqual(0);
-      expect(result.prevPageX).toEqual(123);
-      //expect(result.startTimeAfterMove).toEqual(0);
-      expect(result.startTime).toEqual(1321232);
-      expect(result.startX).toEqual(101);
-      expect(result.startY).toEqual(222);
-      expect(result.targetTouches).toEqual(1);
-      expect(result.translateX).toEqual(23);
+      expect(useSwipeData.bodyWidth).toEqual(1300);
+      expect(useSwipeData.distX).toEqual(0);
+      expect(useSwipeData.distY).toEqual(0);
+      expect(useSwipeData.elapsedTime).toEqual(0);
+      expect(useSwipeData.elapsedTimeAfterMove).toEqual(0);
+      expect(useSwipeData.isTranslated).toEqual(true);
+      expect(useSwipeData.lastFiveXTouchMove).toEqual([-22]);
+      expect(useSwipeData.lastFiveXToucheMoveSum).toEqual(0);
+      expect(useSwipeData.prevPageX).toEqual(123);
+      //expect(useSwipeData.startTimeAfterMove).toEqual(0);
+      expect(useSwipeData.startTime).toEqual(1321232);
+      expect(useSwipeData.startX).toEqual(101);
+      expect(useSwipeData.startY).toEqual(222);
+      expect(useSwipeData.targetTouches).toEqual(1);
+      expect(useSwipeData.translateX).toEqual(23);
 
-      //expect(result.isPointerChecked).toEqual(true);
-      //expect(result.isPointerValid).toEqual(true);
+      //expect(useSwipeData.isPointerChecked).toEqual(true);
+      //expect(useSwipeData.isPointerValid).toEqual(true);
 
       expect(setState).toHaveBeenCalledTimes(1);
       //removeEventListeners
       expect(removeEventListeners).toHaveBeenCalledTimes(0);
+      expect(abort).toHaveBeenCalledTimes(0);
     });
 
     //isPointerChecked === true && main.isPointerValid === false
     test("If not isTimeDelayTresholdPass - we only collect metricks", () => {
-      const main: Main = {
+      setUseSwipeData({
         ...initMain,
         startTime: Date.now(),
-        //isPointerChecked: true,
-        //isPointerValid: false,
-      };
+      });
 
-      const result = pointerMove(
-        main,
+      pointerMove(
+        getUseSwipeData,
+        setUseSwipeData,
         6,
         224,
         123,
@@ -175,22 +225,21 @@ describe("useSwipeCarousel", () => {
         initMain
       );
 
-      expect(result.prevPageX).toEqual(123);
-
+      expect(useSwipeData.prevPageX).toEqual(123);
       expect(setState).toHaveBeenCalledTimes(0);
       expect(removeEventListeners).toHaveBeenCalledTimes(0);
+      expect(abort).toHaveBeenCalledTimes(0);
     });
 
     test("If not isXDirection - we set state to init and remove move and mouseUp listeners", () => {
-      const main: Main = {
+      setUseSwipeData({
         ...initMain,
         startTime: 123456564,
-        //isPointerChecked: true,
-        //isPointerValid: false,
-      };
+      });
 
-      const result = pointerMove(
-        main,
+      pointerMove(
+        getUseSwipeData,
+        setUseSwipeData,
         6,
         224,
         10,
@@ -199,14 +248,15 @@ describe("useSwipeCarousel", () => {
         initMain
       );
 
-      expect(result.prevPageX).toEqual(10);
+      expect(useSwipeData.prevPageX).toEqual(0);
 
-      expect(setState).toHaveBeenCalledTimes(1);
-      expect(removeEventListeners).toHaveBeenCalledTimes(1);
+      expect(setState).toHaveBeenCalledTimes(0);
+      expect(removeEventListeners).toHaveBeenCalledTimes(0);
+      expect(abort).toHaveBeenCalledTimes(1);
     });
   });
 
-  describe.only("pointerUp_", () => {
+  describe("pointerUp", () => {
     /* test("If we do not complite conditions - we do nothing", () => {
 
       const main: Main = {
@@ -227,10 +277,31 @@ describe("useSwipeCarousel", () => {
       expect(setState).toHaveBeenCalledTimes(0);
       expect(increaseIndex).toHaveBeenCalledTimes(0);
       expect(decreaseIndex).toHaveBeenCalledTimes(0);
-    }); */
+    }); /
+
+    test("If event type is equals MULTI_TOUCH - it means we already abort all - we do nothing", () => {
+      setUseSwipeData({ ...initMain, eventType: "MULTI_TOUCH" });
+
+      pointerUp(
+        getUseSwipeData,
+        setUseSwipeData,
+        135,
+        226,
+        setState,
+        increaseIndex,
+        decreaseIndex,
+        removeEventListeners,
+        initMain
+      );
+
+      expect(setState).toHaveBeenCalledTimes(0);
+      expect(removeEventListeners).toHaveBeenCalledTimes(0);
+      expect(increaseIndex).toHaveBeenCalledTimes(0);
+      expect(decreaseIndex).toHaveBeenCalledTimes(0);
+    });
 
     test("If event type is not specialized and pointer past enough dist - we increase/decrease index and set state to initial values", () => {
-      const main: Main = {
+      const data: UseSwipeData = {
         ...initMain,
         eventType: "MOVE",
         translateX: 23,
@@ -245,48 +316,53 @@ describe("useSwipeCarousel", () => {
         activeIndex: 3,
       };
 
-      const result = pointerUp(
-        main,
+      setUseSwipeData(data);
+
+      pointerUp(
+        getUseSwipeData,
+        setUseSwipeData,
         135,
         226,
         setState,
         increaseIndex,
         decreaseIndex,
-        removeEventListeners
+        removeEventListeners,
+        initMain
       );
 
-      //expect(result).toEqual("hell");
+      //expect(useSwipeData).toEqual("hell");
 
-      //expect(result.metricks).toEqual("hello");
+      //expect(useSwipeData.metricks).toEqual("hello");
 
       //expect(onFetchMore).toHaveBeenCalledTimes(0);
-      expect(setState).toHaveBeenCalledTimes(1);
-      expect(removeEventListeners).toHaveBeenCalledTimes(1);
+      expect(setState).toHaveBeenCalledTimes(0);
+      expect(removeEventListeners).toHaveBeenCalledTimes(0);
       expect(increaseIndex).toHaveBeenCalledTimes(0);
       expect(decreaseIndex).toHaveBeenCalledTimes(1);
 
-      //expect(onIndexChange).toHaveBeenCalledTimes(1);
+      expect(abort).toHaveBeenCalledTimes(1);
 
-      expect(result.distX).toEqual(34);
-      expect(result.eventType).toEqual("UNKNOWN");
+      expect(useSwipeData.distX).toEqual(34);
+      expect(useSwipeData.eventType).toEqual("UNKNOWN");
 
-      expect(result.distX).toEqual(34);
-      expect(result.distY).toEqual(4);
-      //expect(result.metricks.elapsedTime).toEqual(0);
-      //expect(result.metricks.elapsedTimeAfterMove).toEqual(0);
-      expect(result.isTranslated).toEqual(false);
-      expect(result.lastFiveXTouchMove).toEqual([-22, -14]);
-      expect(result.lastFiveXToucheMoveSum).toEqual(-36);
-      expect(result.prevPageX).toEqual(101);
-      expect(result.startTime).toEqual(1321232);
-      //expect(result.metricks.startTimeAfterMove).toEqual(0);
-      expect(result.startX).toEqual(101);
-      expect(result.startY).toEqual(222);
-      expect(result.targetTouches).toEqual(1);
-      expect(result.translateX).toEqual(23);
+      expect(useSwipeData.distX).toEqual(34);
+      expect(useSwipeData.distY).toEqual(4);
+      //expect(useSwipeData.metricks.elapsedTime).toEqual(0);
+      //expect(useSwipeData.metricks.elapsedTimeAfterMove).toEqual(0);
+      expect(useSwipeData.isTranslated).toEqual(false);
+      expect(useSwipeData.lastFiveXTouchMove).toEqual([-22, -14]);
+      expect(useSwipeData.lastFiveXToucheMoveSum).toEqual(-36);
+      expect(useSwipeData.prevPageX).toEqual(101);
+      expect(useSwipeData.startTime).toEqual(1321232);
+      //expect(useSwipeData.metricks.startTimeAfterMove).toEqual(0);
+      expect(useSwipeData.startX).toEqual(101);
+      expect(useSwipeData.startY).toEqual(222);
+      expect(useSwipeData.targetTouches).toEqual(1);
+      expect(useSwipeData.translateX).toEqual(23);
 
-      //expect(result.isPointerChecked).toEqual(false);
-      // expect(result.isPointerValid).toEqual(false);
+      //expect(useSwipeData.isPointerChecked).toEqual(false);
+      // expect(useSwipeData.isPointerValid).toEqual(false);
     });
   });
 });
+ */

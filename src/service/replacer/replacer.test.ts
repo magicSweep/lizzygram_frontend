@@ -1,4 +1,4 @@
-import { replacer_ } from ".";
+import { ReplacerConfig, replacer_ } from ".";
 
 const configContent = `
 import { FirestoreFieldsToEdit, EditPhotoWorkerProps } from "./../types";
@@ -49,6 +49,26 @@ plugins: [
   photoCardWidth,
   photoCardHeight
 ) */
+
+describe("", () => {
+  test.skip("", () => {
+    const indOf = configContent.indexOf(
+      '"gatsby-plugin-webpack-bundle-analyser-v2"'
+    );
+
+    // 34 - "", 39 - ', 44 - ",", 32 - space, 10 - \n, 9 - \t
+    for (let i = 0; i < 5; i++) {
+      console.log(
+        `CHAR_${i}`,
+        configContent[1136 + i],
+        " | ",
+        configContent[1136 + i].charCodeAt(0)
+      );
+    }
+
+    expect(indOf).toEqual(1096);
+  });
+});
 
 describe("replacer_", () => {
   const existsSync = jest.fn(() => true);
@@ -134,14 +154,19 @@ describe("replacer_", () => {
     //expect(writeFile).toHaveBeenNthCalledWith(1, "hello");
   });
 
-  test.only("Remove plugin from config", async () => {
-    const iconfig = {
+  test("Remove plugin from config", async () => {
+    const iconfig: ReplacerConfig = {
       pathToConfigFile: "hello.ts",
       strPartToIdentify: "plugin-webpack-bundle",
-      strStart: '"',
-      strEnd: ",",
-      variants: ["//"],
+      strStart: "\n",
+      strEnd: "\n",
+      variants: [
+        '//"gatsby-plugin-webpack-bundle-analyser-v2",',
+        '"gatsby-plugin-webpack-bundle-analyser-v2",',
+      ],
       neededVariantIndex: 0,
+      doesIncludeFirstSymbol: false,
+      //doesIncludeLastSymbol: true,
     };
 
     const existsSync = jest.fn(() => true);

@@ -83,6 +83,12 @@ var replacer_ = function (existsSync_, promisify_, readFile_, writeFile_) {
         var chunkIndex = data.content.indexOf(data.strPartToIdentify);
         var startIndex = data.content.lastIndexOf(data.strStart, chunkIndex);
         var endIndex = data.content.indexOf(data.strEnd, chunkIndex);
+        //console.log("BOOM1-----------", data.content[endIndex].charCodeAt(0));
+        startIndex =
+            data.doesIncludeFirstSymbol === false ? startIndex + 1 : startIndex;
+        endIndex =
+            data.doesIncludeLastSymbol === true ? endIndex + 1 : endIndex;
+        //console.log("BOOM2-----------", data.content[endIndex].charCodeAt(0));
         data.fullSearchedString = data.content.substring(startIndex, endIndex);
         return data;
     })), 

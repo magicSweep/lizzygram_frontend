@@ -39,6 +39,8 @@ export type ReplacerConfig = {
   variants: string[];
   // needed variant index
   neededVariantIndex: number;
+  doesIncludeFirstSymbol?: boolean;
+  doesIncludeLastSymbol?: boolean;
 };
 
 // numberOfPhotosPerQuery from number to calcPhotosLimitPerQuery
@@ -75,8 +77,17 @@ export const replacer_ = (
     then(
       map((data: ReplacerData) => {
         const chunkIndex = data.content.indexOf(data.strPartToIdentify);
-        const startIndex = data.content.lastIndexOf(data.strStart, chunkIndex);
-        const endIndex = data.content.indexOf(data.strEnd, chunkIndex);
+        let startIndex = data.content.lastIndexOf(data.strStart, chunkIndex);
+        let endIndex = data.content.indexOf(data.strEnd, chunkIndex);
+
+        //console.log("BOOM1-----------", data.content[endIndex].charCodeAt(0));
+
+        startIndex =
+          data.doesIncludeFirstSymbol === false ? startIndex + 1 : startIndex;
+        endIndex =
+          data.doesIncludeLastSymbol === true ? endIndex + 1 : endIndex;
+
+        //console.log("BOOM2-----------", data.content[endIndex].charCodeAt(0));
 
         data.fullSearchedString = data.content.substring(startIndex, endIndex);
 

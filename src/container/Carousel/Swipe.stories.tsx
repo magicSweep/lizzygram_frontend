@@ -31,9 +31,12 @@ export default {
 const items = [0, 1, 2, 3, 4, 5];
 
 const Swipe = () => {
-  const [targetTouches, setTargetTouches] = useState(0);
+  const [state, setState] = useState({
+    targetTouches: 0,
+    moveTouches: 0,
+  });
 
-  const { debugData, translateX, isTranslated, onMouseDown, onTouchStart } =
+  const { getDebugData, translateX, isTranslated, onMouseDown, onTouchStart } =
     useSwipeCarousel(
       5,
       3,
@@ -41,12 +44,52 @@ const Swipe = () => {
       () => console.log("Decrease index")
     );
 
-  const ionTouchStart = (event: any) => {
-    setTargetTouches((targetTouches) => targetTouches + 1);
+  const debugData = getDebugData();
+
+  /* const ionTouchStart = (event: any) => {
+    setState((state) => ({ ...state, targetTouches: state.targetTouches + 1 }));
 
     console.log(event.targetTouches);
 
     onTouchStart(event);
+  }; */
+
+  /* const ionTouchMove = (event: any) => {
+    const touchesLength = event.changedTouches.length;
+
+    const res: any = {};
+
+    /* for (let i = 0; i < touchesLength; i++) {
+      res[i] = {
+        pageX: event.changedTouches[i].pageX,
+        pageY: event.changedTouches[i].pagey,
+      };
+    } /
+
+    setState((state) => ({
+      ...state,
+      moveTouches: touchesLength,
+    }));
+
+    console.log(event.targetTouches);
+
+    //onTouchStart(event);
+  }; */
+
+  /* const ionTouchEnd = (event: any) => {
+    setState((state) => ({ ...state, targetTouches: state.targetTouches - 1 }));
+
+    console.log(event.targetTouches);
+
+    //onTouchStart(event);
+  }; */
+
+  const onTouchCancel = (event: any) => {
+    setState((state) => ({ ...state, targetTouches: state.targetTouches - 1 }));
+
+    console.log(event.targetTouches);
+
+    //onTouchStart(event);
   };
 
   console.log("[RENDER SWIPE]");
@@ -56,16 +99,22 @@ const Swipe = () => {
       width="700px"
       height="500px"
       bgcolor="violet"
-      className="relative m-auto"
+      className="relative m-auto select-none"
       onMouseDown={onMouseDown}
-      onTouchStart={ionTouchStart}
+      onTouchStart={onTouchStart}
+      //onTouchMove={onTouchMove}
+      //onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchCancel}
       p="30px"
     >
       <Box typography="body2">eventType: {debugData.eventType}</Box>
       <Box typography="body2">
         isTranslated: {debugData.isTranslated === true ? "true" : "false"}
       </Box>
-      <Box typography="body2">BOOOM targetTouches: {targetTouches}</Box>
+      <Box typography="body2">BOOOM targetTouches: {state.targetTouches}</Box>
+      <Box typography="body2">
+        BOOOM MOVE targetTouches: {JSON.stringify(state.moveTouches)}
+      </Box>
       <Box typography="body2">targetTouches: {debugData.targetTouches}</Box>
 
       <Box typography="body2">------------------------------</Box>
@@ -106,4 +155,70 @@ const Swipe = () => {
 
 export const Default = () => {
   return <Swipe />;
+};
+
+export const Simple = () => {
+  const [state, setState] = useState({
+    touches: 0,
+    targetTouches: 0,
+    changedTouches: 0,
+  });
+
+  const onTouchStart = (event: any) => {
+    const targetTouches = event.targetTouches.length;
+    const touches = event.touches.length;
+    const changedTouches = event.changedTouches.length;
+
+    setState((state) => ({ ...state, targetTouches, touches, changedTouches }));
+
+    console.log();
+  };
+
+  const onTouchMove = (event: any) => {
+    const targetTouches = event.targetTouches.length;
+    const touches = event.touches.length;
+    const changedTouches = event.changedTouches.length;
+
+    setState((state) => ({ ...state, targetTouches, touches, changedTouches }));
+
+    console.log(event.targetTouches);
+  };
+
+  const onTouchEnd = (event: any) => {
+    const targetTouches = event.targetTouches.length;
+    const touches = event.touches.length;
+    const changedTouches = event.changedTouches.length;
+
+    setState((state) => ({ ...state, targetTouches, touches, changedTouches }));
+
+    console.log(event.targetTouches);
+  };
+
+  const onTouchCancel = (event: any) => {
+    const targetTouches = event.targetTouches.length;
+    const touches = event.touches.length;
+    const changedTouches = event.changedTouches.length;
+
+    setState((state) => ({ ...state, targetTouches, touches, changedTouches }));
+
+    console.log(event.targetTouches);
+  };
+
+  return (
+    <Box
+      width="700px"
+      height="500px"
+      bgcolor="violet"
+      className="relative m-auto select-none"
+      onTouchStart={onTouchStart}
+      onTouchMove={onTouchMove}
+      onTouchEnd={onTouchEnd}
+      onTouchCancel={onTouchCancel}
+      p="30px"
+    >
+      <Box typography="body2">touches: {state.touches}</Box>
+      <Box typography="body2">targetTouches: {state.targetTouches}</Box>
+      <Box typography="body2">changedTouches: {state.changedTouches}</Box>
+    </Box>
+  );
 };

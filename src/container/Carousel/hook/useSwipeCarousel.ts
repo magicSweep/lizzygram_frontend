@@ -1,7 +1,19 @@
 import { MutableRefObject, useCallback, useRef, useState } from "react";
 import { batch } from "react-redux";
-import { compose, elif, NI_Box, set, tap } from "fmagic";
 import {
+  SwipeData,
+  PointerDownProps,
+  PointerMoveProps,
+  PointerUpProps,
+  TouchCancelProps,
+  pointerDown as pointerDown_,
+  pointerMove as pointerMove_,
+  pointerUp as pointerUp_,
+  touchCancel_,
+} from "./../service/swipe";
+import { Metricks, initMetricks } from "../service/metricks";
+
+/* import {
   isEnoughDist,
   isIndexIncrease,
   isTimeDelayTresholdPass,
@@ -20,11 +32,13 @@ import {
   onTouchMove as collectMetricksOnMove,
   onTouchEnd as collectMetricksOnEnd,
 } from "./../helper/metricks";
-import { calcTranslateXOnMove } from "./../helper/translateX";
+import { calcTranslateXOnMove } from "./../helper/translateX"; */
 //import { calcDecreasedIndex, calcIncreasedIndex, clamp } from "./../utils";
 
-export type Main = Metricks & {
+/* export type UseSwipeData = Metricks & {
   //opacity: number;
+  resultDebug: string;
+  itemsLength: number;
   bodyWidth: number;
   translateX: number;
   isTranslated: boolean;
@@ -33,76 +47,124 @@ export type Main = Metricks & {
   //isTimeDelayTresholdPass: boolean;
   //isXDirection: boolean;
   // isMultiTouch: boolean;
-};
+}; */
 
-export const initMain: Main = {
+/* const abort = (
+  removeEventListeners: () => void,
+  initMain: UseSwipeData,
+  setTranslateState: any,
+  setUseSwipeData: (data: UseSwipeData) => void
+) =>
+  compose<undefined, void>(() => {
+    setUseSwipeData({ ...initMain });
+    removeEventListeners();
+    setTranslateState((state) => ({
+      ...state,
+      isTranslated: false,
+      translateX: 0,
+    }));
+  })();
+ */
+
+export const initData: SwipeData = {
   ...initMetricks,
-  //opacity: 1,
+  state: "IDLE",
+  isMoveInit: false,
+  resultDebug: "",
+  itemsLength: 0,
   bodyWidth: 0,
   translateX: 0,
+  isTranslated: false,
   activeIndex: 0,
   eventType: "UNKNOWN",
-  //isTimeDelayTresholdPass: false,
-  //isXDirection: false,
-  //isMultiTouch: false,
 };
 
-const abort = (
-  removeEventListeners: () => void,
-  initMain: Main,
-  setTranslateState: any
-) =>
-  compose<any, Main>(
-    () => {
-      removeEventListeners();
-      setTranslateState((state) => ({
-        ...state,
-        isTranslated: false,
-        translateX: 0,
-      }));
-    },
-    () => ({ ...initMain })
-  );
+export const touchCancel = ({
+  setSwipeData,
+  setTranslateState,
+  ...props
+}: TouchCancelProps & {
+  setSwipeData: (data: SwipeData) => void;
+  setTranslateState: any;
+}) => {
+  const swipeData = touchCancel_(props);
 
-export const pointerDown_ =
-  (
-    abort: (
-      removeEventListeners: () => void,
-      initMain: Main,
-      setTranslateState: any
-    ) => () => Main
-  ) =>
-  (
-    main: Main,
-    initMain: Main,
-    setTranslateState: any,
-    pageX: number,
-    pageY: number,
-    targetTouches: number,
-    addEventListeners: () => void,
-    removeEventListeners: () => void
-  ) =>
-    compose<Main, Main>(
+  setTranslateState((state) => ({
+    ...state,
+    translateX: 0,
+    isTranslated: false,
+  }));
+
+  setSwipeData(swipeData);
+};
+
+export const pointerDown = ({
+  setSwipeData,
+  setTranslateState,
+  ...props
+}: PointerDownProps & {
+  setSwipeData: (data: SwipeData) => void;
+  setTranslateState: any;
+}) => {
+  const swipeData = pointerDown_(props);
+
+  setTranslateState((state) => ({
+    ...state,
+    isTranslated: true,
+  }));
+
+  setSwipeData(swipeData);
+};
+/*  NI_Next.of(getUseSwipeData())
+      // CHECK FOR ITEMSLENGTH
+      .chain((data: UseSwipeData): NI_Next<any> | Done =>
+        data.itemsLength === 0
+          ? Done.of({ ...data, resultDebug: "NO_ITEMS" })
+          : NI_Next.of(data)
+      )
+      .map(collectMetricksOnStart(pageX, pageY, targetTouches))
+      .map(
+        set("eventType", (data: UseSwipeData) =>
+          isMultiTouch(data.targetTouches) === true ? "MULTI_TOUCH" : "UNKNOWN"
+        )
+      )
+      // CHECK FOR MULTI TOUCH
+      .chain((data: UseSwipeData): NI_Next<any> | Done =>
+        data.eventType === "MULTI_TOUCH"
+          ? Done.of({ ...data, resultDebug: "MULTI_TOUCH" })
+          : NI_Next.of(data)
+      )
+      .map(set("bodyWidth", document.documentElement.clientWidth))
+      .tap(() => {
+        addEventListeners();
+        setTranslateState((state) => ({
+          ...state,
+          isTranslated: true,
+        }));
+      })
+      .fold((data: UseSwipeData) => {
+        //console.log("POINTER DOWN DONE", data);
+        return data.resultDebug === "MULTI_TOUCH"
+          ? abort(
+              removeEventListeners,
+              initMain,
+              setTranslateState,
+              setUseSwipeData
+            )
+          : undefined;
+      }, setUseSwipeData); */
+
+/*  compose<undefined, UseSwipeData>(
+      getUseSwipeData,
       collectMetricksOnStart(pageX, pageY, targetTouches),
       elif(
-        (main: Main) => isMultiTouch(main.targetTouches) === true,
+        (main: UseSwipeData) => isMultiTouch(main.targetTouches) === true,
         set("eventType", "MULTI_TOUCH"),
         set("eventType", "UNKNOWN")
       ),
       elif(
-        ({ eventType }: Main) => eventType === "MULTI_TOUCH",
+        ({ eventType }: UseSwipeData) => eventType === "MULTI_TOUCH",
         abort(removeEventListeners, initMain, setTranslateState),
-        /* compose(
-        tap(() => {
-          removeEventListeners();
-          setTranslateState((state) => ({
-            ...state,
-            isTranslated: false,
-            translateX: 0,
-          }));
-        }),
-        () => ({ ...initMain })
-      ), */
         compose(
           set("bodyWidth", document.documentElement.clientWidth),
           tap(() => {
@@ -111,96 +173,309 @@ export const pointerDown_ =
               ...state,
               isTranslated: true,
             }));
-          })
+          }),
+          setUseSwipeData
         )
       )
-    )(main);
+    )(); */
 
-export const pointerDown = pointerDown_(abort);
+//export const pointerDown = pointerDown_(abort);
 
-export const pointerMove_ =
+export const pointerMove = ({
+  setSwipeData,
+  setTranslateState,
+  ...props
+}: PointerMoveProps & {
+  setSwipeData: (data: SwipeData) => void;
+  setTranslateState: any;
+}) => {
+  const swipeData = pointerMove_(props);
+
+  if (swipeData.state !== "ABORT") {
+    setTranslateState((state: any) => ({
+      ...state,
+      translateX: swipeData.translateX,
+    }));
+  }
+
+  setSwipeData(swipeData);
+};
+
+/*  NI_Next.of(getUseSwipeData())
+      .chain((data: UseSwipeData) =>
+        data.eventType === "MULTI_TOUCH"
+          ? Done.of({ ...data, resultDebug: "MULTI_TOUCH" })
+          : NI_Next.of(data)
+      )
+      .map(collectMetricksOnMove(pageX))
+      .chain((data: UseSwipeData) =>
+        isTimeDelayTresholdPass(data.startTime) === true
+          ? NI_Next.of(data)
+          : Done.of({ ...data, resultDebug: "NOT_PASS_TIME_DELAY_TRESHOLD" })
+      )
+      .chain((data: UseSwipeData) =>
+        isXDirection(pageX, pageY, data.startX, data.startY) === true
+          ? NI_Next.of(data)
+          : Done.of({ ...data, resultDebug: "NOT_X_DIRECTION" })
+      )
+      .tap((data: UseSwipeData) => {
+        setTranslateState((state: any) => ({
+          ...state,
+          translateX: calcTranslateXOnMove(
+            pageX,
+            data.prevPageX,
+            data.activeIndex,
+            itemsLength,
+            state.translateX
+          ),
+        }));
+      })
+      .fold(
+        cond([
+          [
+            ({ resultDebug }: UseSwipeData) =>
+              resultDebug === "NOT_PASS_TIME_DELAY_TRESHOLD",
+            (data: UseSwipeData) => {
+              data.prevPageX = pageX;
+              setUseSwipeData(data);
+            },
+          ],
+          [
+            ({ resultDebug }: UseSwipeData) =>
+              resultDebug === "NOT_X_DIRECTION",
+            () =>
+              abort(
+                removeEventListeners,
+                initMain,
+                setTranslateState,
+                setUseSwipeData
+              ),
+          ],
+        ]),
+        (data: UseSwipeData) => {
+          data.prevPageX = pageX;
+          setUseSwipeData(data);
+        }
+      ); */
+
+/* .chain(
+        //compose(
+        elif(
+          ({ startTime }: UseSwipeData) =>
+            isTimeDelayTresholdPass(startTime) === true,
+          elif(
+            ({ startX, startY }: UseSwipeData) =>
+              isXDirection(pageX, pageY, startX, startY) === true,
+            compose(
+              tap((main: UseSwipeData) => {
+                setTranslateState((state: any) => ({
+                  ...state,
+                  translateX: calcTranslateXOnMove(
+                    pageX,
+                    main.prevPageX,
+                    main.activeIndex,
+                    itemsLength,
+                    state.translateX
+                  ),
+                }));
+              }),
+              NI_Next.of
+            ),
+            () => {
+              abort(
+                removeEventListeners,
+                initMain,
+                setTranslateState,
+                setUseSwipeData
+              );
+              return Done.of("XDirection");
+            }
+          ),
+          NI_Next.of //(main: UseSwipeData) => main
+          //),
+          //set("prevPageX", pageX),
+          //setUseSwipeData
+        )
+      )
+      .map(set("prevPageX", pageX))
+      .map(setUseSwipeData); */
+
+/* compose<undefined, UseSwipeData>(
+  getUseSwipeData,
+  collectMetricksOnMove(pageX),
+  elif(
+    ({ startTime }: UseSwipeData) =>
+      isTimeDelayTresholdPass(startTime) === true,
+    elif(
+      ({ startX, startY }: UseSwipeData) =>
+        isXDirection(pageX, pageY, startX, startY) === true,
+      tap((main: UseSwipeData) => {
+        setTranslateState((state: any) => ({
+          ...state,
+          translateX: calcTranslateXOnMove(
+            pageX,
+            main.prevPageX,
+            main.activeIndex,
+            itemsLength,
+            state.translateX
+          ),
+        }));
+      }),
+      abort(removeEventListeners, initMain, setTranslateState)
+    ),
+    (main: UseSwipeData) => main
+  ),
+  set("prevPageX", pageX)
+)(); */
+
+//export const pointerMove = pointerMove_(abort);
+
+export const pointerUp = ({
+  setSwipeData,
+  setTranslateState,
+  ...props
+}: PointerUpProps & {
+  setSwipeData: (data: SwipeData) => void;
+  setTranslateState: any;
+}) => {
+  const swipeData = pointerUp_(props);
+
+  setTranslateState((state: any) => ({
+    ...state,
+    isTranslated: false,
+    translateX: 0,
+  }));
+
+  setSwipeData(swipeData);
+};
+
+/* export const pointerUp_ =
   (
     abort: (
       removeEventListeners: () => void,
-      initMain: Main,
-      setTranslateState: any
-    ) => () => Main
+      initMain: UseSwipeData,
+      setTranslateState: any,
+      setUseSwipeData: (data: UseSwipeData) => void
+    ) => void
   ) =>
   (
-    main: Main,
-    itemsLength: number,
-    pageY: number,
+    getUseSwipeData: () => UseSwipeData,
+    setUseSwipeData: (data: UseSwipeData) => void,
     pageX: number,
+    pageY: number,
     setTranslateState: any,
+    increaseIndex: () => void,
+    decreaseIndex: () => void,
     removeEventListeners: () => void,
-    initMain: Main
+    initData: UseSwipeData
+
+    //setActiveIndex: (newActiveIndex: number) => void
+    //fetchMore?: any,
+    //resetZoom?: any
   ) =>
-    compose<Main, Main>(
-      collectMetricksOnMove(pageX),
-      elif(
-        ({ startTime }: Main) => isTimeDelayTresholdPass(startTime) === true,
-        elif(
-          ({ startX, startY }: Main) =>
-            isXDirection(pageX, pageY, startX, startY) === true,
-          tap((main: Main) => {
-            setTranslateState((state: any) => ({
-              ...state,
-              translateX: calcTranslateXOnMove(
-                pageX,
-                main.prevPageX,
-                main.activeIndex,
-                itemsLength,
-                state.translateX
-              ),
-            }));
-          }),
-          abort(removeEventListeners, initMain, setTranslateState)
-        ),
-        (main: Main) => main
-      ),
-      set("prevPageX", pageX)
-    )(main);
-
-export const pointerMove = pointerMove_(abort);
-
-export const pointerUp = (
-  main: Main,
-  pageX: number,
-  pageY: number,
-  setTranslateState: any,
-  increaseIndex: () => void,
-  decreaseIndex: () => void,
-  removeEventListeners: () => void
-  //setActiveIndex: (newActiveIndex: number) => void
-  //fetchMore?: any,
-  //resetZoom?: any
-) =>
-  compose<Main, Main>(
-    collectMetricksOnEnd(pageX, pageY),
-    set("eventType", (self: Main) =>
-      identifyOnPointerUp(self.distX, self.distY, self.elapsedTime)
-    ),
-    tap(
-      compose(
-        elif(
-          (main: Main) =>
-            main.eventType === "UNKNOWN" && isEnoughDist(main.distX) === true,
-          elif(
-            (main: Main) => isIndexIncrease(main.distX),
-            () => increaseIndex(),
-            () => decreaseIndex()
-          ),
-          () => {}
-        ),
-        removeEventListeners,
-        () =>
-          setTranslateState({
-            translateX: 0,
-            isTranslated: false,
-          })
+    NI_Next.of(getUseSwipeData())
+      .chain((data: UseSwipeData) =>
+        data.eventType === "MULTI_TOUCH"
+          ? Done.of({ ...data, resultDebug: "MULTI_TOUCH" })
+          : NI_Next.of(data)
       )
+      .map(collectMetricksOnEnd(pageX, pageY))
+      .map(
+        set("eventType", (self: UseSwipeData) =>
+          identifyOnPointerUp(self.distX, self.distY, self.elapsedTime)
+        )
+      )
+      .chain((data: UseSwipeData) =>
+        data.eventType === "UNKNOWN"
+          ? NI_Next.of(data)
+          : Done.of({ ...data, resultDebug: `EVENT_TYPE | ${data.eventType}` })
+      )
+      .chain((data: UseSwipeData) =>
+        isEnoughDist(data.distX) === true
+          ? NI_Next.of(data)
+          : Done.of({ ...data, resultDebug: "NOT_ENOUGH_DIST" })
+      )
+      .map(
+        elif(
+          (data: UseSwipeData) => isIndexIncrease(data.distX),
+          () => increaseIndex(),
+          () => decreaseIndex()
+        )
+      )
+      .fold(
+        (data: UseSwipeData) => {
+          console.log("POINTER_UP_RESULT DONE", data.resultDebug);
+          if (data.resultDebug !== "MULTI_TOUCH") {
+            abort(
+              removeEventListeners,
+              initData,
+              setTranslateState,
+              setUseSwipeData
+            );
+          }
+        },
+        (data: UseSwipeData) => {
+          console.log("POINTER_UP_RESULT NEXT", data);
+          abort(
+            removeEventListeners,
+            initData,
+            setTranslateState,
+            setUseSwipeData
+          );
+        }
+      );
+ */
+/* .fold(
+        () => {},
+        compose(
+          elif(
+            (main: UseSwipeData) =>
+              main.eventType === "UNKNOWN" && isEnoughDist(main.distX) === true,
+            elif(
+              (main: UseSwipeData) => isIndexIncrease(main.distX),
+              () => increaseIndex(),
+              () => decreaseIndex()
+            ),
+            () => {}
+          ),
+          () =>
+            abort(
+              removeEventListeners,
+              initData,
+              setTranslateState,
+              setUseSwipeData
+            )
+        )
+      ) */
+
+//export const pointerUp = pointerUp_(abort);
+
+/* compose<UseSwipeData, UseSwipeData>(
+  collectMetricksOnEnd(pageX, pageY),
+  set("eventType", (self: UseSwipeData) =>
+    identifyOnPointerUp(self.distX, self.distY, self.elapsedTime)
+  ),
+  tap(
+    compose(
+      elif(
+        (main: UseSwipeData) =>
+          main.eventType === "UNKNOWN" && isEnoughDist(main.distX) === true,
+        elif(
+          (main: UseSwipeData) => isIndexIncrease(main.distX),
+          () => increaseIndex(),
+          () => decreaseIndex()
+        ),
+        () => {}
+      ),
+      removeEventListeners,
+      () =>
+        setTranslateState({
+          translateX: 0,
+          isTranslated: false,
+        })
     )
-  )(main);
+  )
+)(main); */
 
 export const useSwipeCarousel = (
   itemsLength: number,
@@ -209,8 +484,8 @@ export const useSwipeCarousel = (
   decreaseIndex: () => void
   //onIndexChange?: (newActiveIndex: number, activeIndex: number) => void
 ) => {
-  const mainRef: MutableRefObject<Main> = useRef({
-    ...initMain,
+  const swipeDataRef: MutableRefObject<SwipeData> = useRef({
+    ...initData,
   });
 
   const [state, setState] = useState({
@@ -220,94 +495,76 @@ export const useSwipeCarousel = (
     //activeIndex: initActiveIndex,
   });
 
-  mainRef.current.translateX = state.translateX;
-  mainRef.current.activeIndex = activeIndex;
+  swipeDataRef.current.itemsLength = itemsLength;
+  swipeDataRef.current.translateX = state.translateX;
+  swipeDataRef.current.activeIndex = activeIndex;
 
-  const setMain = useCallback((value: Main | ((main: Main) => Main)) => {
-    if (typeof value === "function") {
-      mainRef.current = value(mainRef.current);
-    } else {
-      mainRef.current = value;
-    }
+  const setSwipeData = useCallback((value: SwipeData) => {
+    swipeDataRef.current = value;
   }, []);
 
-  const onMouseUp = useCallback(
-    (event: any) => {
-      //console.log("RCatrousel mouse up");
-      event.preventDefault();
-      event.stopPropagation();
+  const getSwipeData = useCallback(() => {
+    return swipeDataRef.current;
+  }, []);
 
-      //console.log("onMouseUp");
+  const onMouseUp = useCallback((event: any) => {
+    //console.log("RCatrousel mouse up");
+    event.preventDefault();
+    event.stopPropagation();
 
-      // removeEventListeners();
-      /* window.removeEventListener("mousemove", onMouseMove, false);
+    //console.log("onMouseUp");
+
+    // removeEventListeners();
+    /* window.removeEventListener("mousemove", onMouseMove, false);
       window.removeEventListener("mouseup", onMouseUp, false); */
 
-      batch(() => {
-        setMain((main) =>
-          pointerUp(
-            main,
-            event.pageX,
-            event.pageY,
-            setState,
-            increaseIndex,
-            decreaseIndex,
-            removeMouseEventListeners
-          )
-        );
+    batch(() => {
+      pointerUp({
+        getSwipeData,
+        setSwipeData,
+        pageX: event.pageX,
+        pageY: event.pageY,
+        targetTouches: 0,
+        setTranslateState: setState,
+        increaseIndex,
+        decreaseIndex,
+        removeEventListeners: removeMouseEventListeners,
+        initData,
       });
-    },
-    [itemsLength]
-  );
+    });
+  }, []);
 
-  const onMouseMove = useCallback(
-    (event: any) => {
-      event.preventDefault();
-      event.stopPropagation();
+  const onMouseMove = useCallback((event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-      //console.log("onMouseMove", mainRef.current.translateX);
+    //console.log("onMouseMove", mainRef.current.translateX);
 
-      setMain((main) =>
-        pointerMove(
-          main,
-          itemsLength,
-          event.pageY,
-          event.pageX,
-          setState,
-          removeMouseEventListeners,
-          initMain
-        )
-      );
-    },
-    [itemsLength]
-  );
+    pointerMove({
+      getSwipeData,
+      setSwipeData,
+      pageX: event.pageX,
+      pageY: event.pageY,
+      setTranslateState: setState,
+    });
+  }, []);
 
-  const onMouseDown = useCallback(
-    (event: any) => {
-      event.preventDefault();
-      event.stopPropagation();
+  const onMouseDown = useCallback((event: any) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-      //console.log("onMouseDown");
+    //console.log("onMouseDown");
 
-      setMain((main) => {
-        if (itemsLength === 0) return main;
-
-        //addEventListeners();
-
-        return pointerDown(
-          main,
-          initMain,
-          setState,
-          event.pageX,
-          event.pageY,
-          0,
-          addMouseEventListeners,
-          removeMouseEventListeners
-        );
-      });
-    },
-    [itemsLength]
-  );
+    pointerDown({
+      getSwipeData,
+      setSwipeData,
+      setTranslateState: setState,
+      pageX: event.pageX,
+      pageY: event.pageY,
+      targetTouches: 0,
+      addEventListeners: addMouseEventListeners,
+    });
+  }, []);
 
   const removeMouseEventListeners = () => {
     window.removeEventListener("mousemove", onMouseMove, false);
@@ -319,93 +576,94 @@ export const useSwipeCarousel = (
     window.addEventListener("mouseup", onMouseUp, false);
   };
 
-  const onTouchStart = useCallback(
-    (event: any) => {
-      const touches = event.changedTouches[0];
+  const onTouchStart = useCallback((event: any) => {
+    const touches = event.changedTouches[0];
 
-      setMain((main) => {
-        if (itemsLength === 0) return main;
+    pointerDown({
+      getSwipeData,
+      setSwipeData,
+      setTranslateState: setState,
+      pageX: touches.pageX,
+      pageY: touches.pageY,
+      targetTouches: event.targetTouches.length,
+      addEventListeners: addTouchEventListeners,
+    });
+  }, []);
 
-        //addEventListeners();
+  const onTouchMove = useCallback((event: any) => {
+    const touches = event.changedTouches[0];
 
-        return pointerDown(
-          main,
-          initMain,
-          setState,
-          touches.pageX,
-          touches.pageY,
-          event.targetTouches.length,
-          addTouchEventListeners,
-          removeTouchEventListeners
-        );
+    //console.log("onMouseMove", mainRef.current.translateX);
+
+    pointerMove({
+      getSwipeData,
+      setSwipeData,
+      pageX: touches.pageX,
+      pageY: touches.pageY,
+      setTranslateState: setState,
+    });
+  }, []);
+
+  const onTouchEnd = useCallback((event: any) => {
+    const touches = event.changedTouches[0];
+
+    //console.log("onMouseDown");
+
+    batch(() => {
+      pointerUp({
+        getSwipeData,
+        setSwipeData,
+        pageX: touches.pageX,
+        pageY: touches.pageY,
+        targetTouches: event.targetTouches.length,
+        setTranslateState: setState,
+        increaseIndex,
+        decreaseIndex,
+        removeEventListeners: removeTouchEventListeners,
+        initData,
       });
-    },
-    [itemsLength]
-  );
+    });
+  }, []);
 
-  const onTouchMove = useCallback(
-    (event: any) => {
-      const touches = event.changedTouches[0];
+  const onTouchCancel = useCallback((event: any) => {
+    //const touches = event.changedTouches[0];
 
-      //console.log("onMouseMove", mainRef.current.translateX);
+    //console.log("onMouseDown");
 
-      setMain((main) =>
-        pointerMove(
-          main,
-          itemsLength,
-          touches.pageY,
-          touches.pageX,
-          setState,
-          removeTouchEventListeners,
-          initMain
-        )
-      );
-    },
-    [itemsLength]
-  );
-
-  const onTouchEnd = useCallback(
-    (event: any) => {
-      const touches = event.changedTouches[0];
-
-      //console.log("onMouseDown");
-
-      batch(() => {
-        setMain((main) =>
-          pointerUp(
-            main,
-            touches.pageX,
-            touches.pageY,
-            setState,
-            increaseIndex,
-            decreaseIndex,
-            removeTouchEventListeners
-          )
-        );
-      });
-    },
-    [itemsLength]
-  );
+    touchCancel({
+      getSwipeData,
+      setSwipeData,
+      targetTouches: event.targetTouches.length,
+      setTranslateState: setState,
+      removeEventListeners: removeTouchEventListeners,
+      initData,
+    });
+  }, []);
 
   const removeTouchEventListeners = () => {
     window.removeEventListener("touchmove", onTouchMove, false);
     window.removeEventListener("touchend", onTouchEnd, false);
+    window.removeEventListener("touchcancel", onTouchCancel, false);
   };
 
   const addTouchEventListeners = () => {
     window.addEventListener("touchmove", onTouchMove, false);
     window.addEventListener("touchend", onTouchEnd, false);
+    window.addEventListener("touchcancel", onTouchCancel, false);
   };
 
   return {
-    debugData: mainRef.current,
+    getDebugData: getSwipeData,
     translateX: Math.round(state.translateX),
     isTranslated: state.isTranslated,
     onMouseDown,
     onTouchStart,
-    opacity:
+    /* opacity:
       state.translateX === 0
         ? 1
-        : calcOpacityByTranslateX(state.translateX, mainRef.current.bodyWidth),
+        : calcOpacityByTranslateX(
+            state.translateX,
+            getUseSwipeData().bodyWidth
+          ), */
   };
 };

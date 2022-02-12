@@ -57,9 +57,7 @@ export const onTouchStart = (
         : (metricks.targetTouches += targetTouches)
     ), */
     //tap((metricks: Metricks) => (metricks.targetTouches += targetTouches)),
-    set("targetTouches", (metricks: Metricks) => {
-      return metricks.targetTouches + targetTouches;
-    }),
+    set("targetTouches", targetTouches),
     set("isTranslated", true),
     set("startX", pageX),
     set("startY", pageY),
@@ -94,7 +92,11 @@ export const onTouchMoveAfterAll = (
   //pageY: number
 ) => set("prevPageX", pageX);
 
-export const onTouchEnd = (pageX: number, pageY: number) =>
+export const onTouchEnd = (
+  pageX: number,
+  pageY: number,
+  targetTouches: number
+) =>
   compose<Metricks, Metricks>(
     set("distX", (self: Metricks) => pageX - self.startX),
     set("distY", (self: Metricks) => pageY - self.startY),
@@ -105,12 +107,16 @@ export const onTouchEnd = (pageX: number, pageY: number) =>
         0
       )
     ),
+    set("targetTouches", targetTouches),
     set(
       "elapsedTimeAfterMove",
       (self: Metricks) => Date.now() - self.startTimeAfterMove
     ),
     set("isTranslated", false)
   );
+
+export const onTouchCancel = (targetTouches: number) =>
+  set("targetTouches", targetTouches);
 
 /* {
   metricks.distX = pageX - metricks.startX; // get total dist traveled by finger while in contact with surface

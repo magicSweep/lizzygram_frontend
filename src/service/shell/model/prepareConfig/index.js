@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
-var replacer_1 = require("../service/replacer");
+exports.main = void 0;
+var replacer_1 = require("../../../replacer");
 var path_1 = require("path");
 ////////////////////// CONFIG //////////////////
 var numberOfPhotosPerQueryConfig = {
@@ -36,17 +37,24 @@ var lExpressUrlConfig = {
 // disable gatsby-plugin-webpack-bundle-analyser-v2
 var bundleAnalyzerConfig = {
     pathToConfigFile: (0, path_1.join)(process.cwd(), "gatsby-config.js"),
-    strPartToIdentify: "gatsby-plugin-webpack-bundle-analyser-v2",
-    strStart: '"',
-    strEnd: ",",
-    variants: ["//"],
-    neededVariantIndex: 0
+    strPartToIdentify: "plugin-webpack-bundle",
+    strStart: "\n",
+    strEnd: "\n",
+    variants: [
+        '//"gatsby-plugin-webpack-bundle-analyser-v2",',
+        '"gatsby-plugin-webpack-bundle-analyser-v2",',
+    ],
+    neededVariantIndex: 0,
+    doesIncludeFirstSymbol: false
 };
 ////////////////// EVAL //////////////////
-var promises = [
-    numberOfPhotosPerQueryConfig,
-    pExpressUrlConfig,
-    lExpressUrlConfig,
-    bundleAnalyzerConfig,
-].map(replacer_1.replacer);
-Promise.all(promises)["catch"](function (err) { return console.error(err); });
+var main = function () {
+    var promises = [
+        numberOfPhotosPerQueryConfig,
+        pExpressUrlConfig,
+        lExpressUrlConfig,
+        bundleAnalyzerConfig,
+    ].map(replacer_1.replacer);
+    return Promise.all(promises)["catch"](function (err) { return console.error(err); });
+};
+exports.main = main;
