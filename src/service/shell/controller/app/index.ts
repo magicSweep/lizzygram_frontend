@@ -8,8 +8,8 @@ export type Variants = "-fake-imports" | "-real-imports" | "-prepare-to-deploy";
 
 export const main = compose(
   () => parse()[0],
-  tap((variant: Variants) => console.log("---------ARGS", variant))
-  /* cond([
+  tap((variant: Variants) => console.log("---------ARGS", variant)),
+  cond([
     [
       (variant: Variants) => variant === "-fake-imports",
       () => fakeImports(true),
@@ -31,5 +31,5 @@ export const main = compose(
         throw new Error(`Unknown variant ${variant}`);
       },
     ],
-  ]) */
+  ])
 );

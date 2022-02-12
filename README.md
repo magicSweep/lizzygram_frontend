@@ -20,9 +20,11 @@
 - Number of photos per query
 - Off bundle analyze plugin
 
+- PUSH TO GITHUB ONLY PREPARE FOR DEPLOY VERSION
+
 # Commands
 
-- $ npm run start:fakeImports:true - change repositories from real to fake.
-- $ npm run start:fakeImports:false - change repositories from fake to real.
+- $ npm run app:fake-imports - change imports for api from real to fake.
+- $ npm run app:real-imports - change imports for api from fake to real.
 - $ npm run start:create:func photos/Hello - create folder with react function component, test and stories files.
-- $ npm run start:prepareToDeploy - first run start:fakeImports:false, then set expressUrl and number of photos per query
+- $ npm run app:prepare-to-deploy - change imports and configs for deploy
