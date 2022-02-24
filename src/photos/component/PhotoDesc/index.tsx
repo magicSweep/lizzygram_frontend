@@ -9,8 +9,10 @@ import CircularProgress from "@mui/material/CircularProgress";
 import Tags from "../../../tags/container/Tags";
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
+//import Link from "@mui/material/Link";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+import DownloadPhotoLink from "../DownloadPhoto/Link";
+//import { DownloadOriginalPhotoData } from "../../types";
 
 export interface PhotoDescProps {
   photo: Photo<FirestoreDate> | undefined;
@@ -18,7 +20,9 @@ export interface PhotoDescProps {
   photoError: boolean;
   isEditable: boolean;
   isPhotoEditing: boolean;
-  downloadOriginalPhotoUrl: string;
+  //downloadOriginalPhotoUrl: string;
+  //downloadPhotoData: DownloadOriginalPhotoData;
+  userUid: string;
   //tagsState: ITagsState;
   showEditPhotoForm?: () => void;
 }
@@ -56,10 +60,11 @@ const PhotoDesc = ({
   photoError,
   isEditable,
   isPhotoEditing,
+  userUid,
   //tagsState,
   showEditPhotoForm,
-  downloadOriginalPhotoUrl,
-}: PhotoDescProps) => {
+}: //downloadPhotoData,
+PhotoDescProps) => {
   //console.log("RENDER PHOTO DESC", photo, photoLoading, isPhotoEditing);
 
   if (photo === undefined)
@@ -123,7 +128,11 @@ const PhotoDesc = ({
       </Wrapper>
 
       <Wrapper title="Оригинал фото">
-        <Link href={downloadOriginalPhotoUrl}>Скачать</Link>
+        <DownloadPhotoLink
+          userUid={userUid}
+          googleDriveId={photo.googleDriveId}
+          imageExtension={photo.imageExtention}
+        />
       </Wrapper>
 
       {photo.description && (

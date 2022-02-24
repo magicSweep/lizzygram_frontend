@@ -72,7 +72,7 @@ export const addPhoto = async (data: WorkerRequest) => {
 
   formData.append("photoId", data.photoId);
   formData.append("userUid", data.userUid);
-  formData.append("file", data.photoFile);
+  formData.append("file", data.photoFile as any);
 
   return add(formData);
   /* const res = await post(addPhotoUrl, formData, {

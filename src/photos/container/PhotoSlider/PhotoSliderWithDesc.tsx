@@ -63,7 +63,7 @@ const PhotoSliderWithDesc: FC<PhotoSliderWithDescProps> = ({
           photoError={props.error}
           isEditable={props.isEditableActivePhoto}
           isPhotoEditing={isEditingActivePhoto}
-          downloadOriginalPhotoUrl={props.downloadOriginalPhotoUrl}
+          userUid={props.userUid}
           //tagsState: ITagsState;
           showEditPhotoForm={props.showEditPhotoForm}
         />

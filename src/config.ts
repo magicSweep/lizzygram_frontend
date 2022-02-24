@@ -126,7 +126,10 @@ export const lizzyBirthday = new Date("2018-07-08");
 
 // NUMBER OF PHOTOS PER QUERY
 
-export const numberOfPhotosPerQuery = calcPhotosLimitPerQuery( photoCardWidth, photoCardHeight);
+export const numberOfPhotosPerQuery = calcPhotosLimitPerQuery(
+  photoCardWidth,
+  photoCardHeight
+);
 
 // WALL OF PHOTOS | USE OBSERVABLE PHOTOS
 

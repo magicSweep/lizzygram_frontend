@@ -7,6 +7,7 @@ import {
   DateUTCString,
   WorkerRequest,
   WorkerResponse,
+  ImgExt,
 } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "../search/types";
 
@@ -40,6 +41,11 @@ export interface Photo<T> {
   // do we make changes by express
   isActive: boolean;
 } */
+
+export type DownloadOriginalPhotoData = {
+  href: string;
+  downloadAttr: string;
+};
 
 export type AddPhotoFormData = {
   desc?: string;

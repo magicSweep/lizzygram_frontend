@@ -13,6 +13,7 @@ import SliderBar from "../SliderBar";
 import SliderChildren from "./SliderChidren";
 import SliderControls from "../SliderControls";
 import { isIncreaseAfterLoading } from "./helper";
+import { DownloadOriginalPhotoData } from "./../../types";
 
 export type PhotoSliderProps = {
   //editedPhotoIds: string[];
@@ -28,7 +29,9 @@ export type PhotoSliderProps = {
   isEditingActivePhoto: boolean;
   isEditableActivePhoto: boolean;
   showEditPhotoForm: () => void;
-  downloadOriginalPhotoUrl: string;
+  //downloadOriginalPhotoUrl: string;
+  //downloadPhotoData: DownloadOriginalPhotoData;
+  userUid: string;
   activeIndex: number;
   increaseIndex: () => void;
   decreaseIndex: () => void;
@@ -81,7 +84,8 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
   onClose,
   onToggleDesc,
   showEditPhotoForm,
-  downloadOriginalPhotoUrl,
+  //downloadPhotoData,
+  userUid,
   loading,
   error,
   hasNextPage,
@@ -153,7 +157,10 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
           onToggleDesc={onToggleDesc}
           isEditable={isEditableActivePhoto}
           showEditPhotoForm={showEditPhotoForm}
-          downloadOriginalPhotoUrl={downloadOriginalPhotoUrl}
+          //downloadPhotoData={downloadPhotoData}
+          userUid={userUid}
+          imageExtension={photos[activeIndex].imageExtention}
+          googleDriveId={photos[activeIndex].googleDriveId}
         />
       </div>
     </>

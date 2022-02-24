@@ -8,6 +8,7 @@ import PhotoCardSkeletons, {
 //import classes from "./PhotoCards.module.scss";
 //import Card from "@material-ui/core/Card";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+//import { DownloadOriginalPhotoData } from "../../../types";
 
 export interface PhotoCardsProps {
   //tagsState: ITagsState;
@@ -18,8 +19,9 @@ export interface PhotoCardsProps {
   showPhotoSlider: (photoId: string) => void;
   showEditPhotoForm: (photoId: string) => void;
   //showPhotoDesc: (photo: TPhotoData) => void;
-  userUID: string;
+  userUid: string;
   editedPhotoIds: string[];
+  //downloadPhotoData: DownloadOriginalPhotoData;
   //numberOfAddedPhotos: number;
 }
 
@@ -32,7 +34,8 @@ const PhotoCards: FC<PhotoCardsProps> = ({
   showEditPhotoForm,
   //numberOfPhotosPerQuery,
   //showPhotoDesc,
-  userUID,
+  //downloadPhotoData,
+  userUid,
   editedPhotoIds,
   //numberOfAddedPhotos,
 }) => {
@@ -60,11 +63,13 @@ const PhotoCards: FC<PhotoCardsProps> = ({
       elements.push(
         <div key={photo.id} className="ml-0 sm:ml-2 mb-2">
           <PhotoCard
-            isEditable={userUID === photo.addedByUserUID}
+            isEditable={userUid === photo.addedByUserUID}
             photo={photo}
             onImageClick={onShowPhotoSlider}
             showEditPhotoForm={onShowEditPhotoForm}
             index={index}
+            //downloadPhotoData={downloadPhotoData}
+            userUid={userUid}
           />
         </div>
       );

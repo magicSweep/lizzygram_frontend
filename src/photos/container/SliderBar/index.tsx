@@ -5,12 +5,15 @@ import DescriptionIcon from "@mui/icons-material/Description";
 import CloseIcon from "@mui/icons-material/Close";
 import Tooltip from "@mui/material/Tooltip";
 //import GetAppIcon from "@material-ui/icons/GetApp";
-import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+//import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
+import { DownloadPhotoProps } from "../../component/DownloadPhoto/types";
 import ZoomBtn, { ZoomBtnProps } from "../ZoomBtn";
+//import { DownloadOriginalPhotoData } from "../../types";
+import DownloadPhotoIcon from "../../component/DownloadPhoto/Icon";
 
-export interface SliderBarProps extends ZoomBtnProps {
+export interface SliderBarProps extends ZoomBtnProps, DownloadPhotoProps {
   isEditable: boolean;
-  downloadOriginalPhotoUrl: string;
+  //downloadPhotoData: DownloadOriginalPhotoData;
   showEditPhotoForm: () => void;
   onClose: (event: any) => void;
   onToggleDesc: (event: any) => void;
@@ -25,7 +28,9 @@ const SliderBar: FC<SliderBarProps> = ({
   onToggleDesc,
   isEditable,
   showEditPhotoForm,
-  downloadOriginalPhotoUrl,
+  userUid,
+  googleDriveId,
+  imageExtension,
   ...props
 }) => {
   /* left: 0;
@@ -48,7 +53,7 @@ const SliderBar: FC<SliderBarProps> = ({
             <ZoomBtn {...props} />
           </ItemWrapper>
 
-          <ItemWrapper>
+          {/* <ItemWrapper>
             <Tooltip title="Скачать оригинальный файл">
               <IconButton
                 aria-label="скачать фото"
@@ -57,6 +62,13 @@ const SliderBar: FC<SliderBarProps> = ({
                 <CloudDownloadIcon sx={{ fill: "white" }} fontSize="small" />
               </IconButton>
             </Tooltip>
+          </ItemWrapper> */}
+          <ItemWrapper>
+            <DownloadPhotoIcon
+              userUid={userUid}
+              googleDriveId={googleDriveId}
+              imageExtension={imageExtension}
+            />
           </ItemWrapper>
 
           {isEditable && (

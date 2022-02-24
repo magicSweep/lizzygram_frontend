@@ -11,8 +11,6 @@ export type TagsProps = {
 const Tags: FC<TagsProps> = ({ photoTags, isTexted = false }) => {
   const tagsState = useTags();
 
-  //console.log("[RENDER PHOTO DESC TAGS]");
-
   if (isTexted === true)
     return <TagsTextedWidget {...tagsState} photoTags={photoTags} />;
 

@@ -1,39 +1,45 @@
 //import { generatePhotos } from "./dataGenerator/photos";
 //import { getTagsIds } from "./dataGenerator/tags";
 import { downloadPhotoUrl } from "../../config";
-import { makeDownloadPhotoUrl as makeDownloadPhotoUrl_ } from "../../utils/app";
-import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+//import { makeDownloadPhotoUrl as makeDownloadPhotoUrl_ } from "../../utils/app";
+//import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
-export const makeDownloadPhotoUrl = ({
-  googleDriveId,
-  imageExtention,
-}: Photo<FirestoreDate>) =>
-  makeDownloadPhotoUrl_(googleDriveId, imageExtention, downloadPhotoUrl);
+import { ImgExt } from "lizzygram-common-data/dist/types";
+import {
+  makeDownloadPhotoName as makeDownloadPhotoName_,
+  makeDownloadPhotoUrl as makeDownloadPhotoUrl_,
+} from "../../utils/app";
+import { DownloadOriginalPhotoData } from "../types";
 
-/* export const makeDownloadPhotoUrl = (activePhoto: Photo<FirestoreDate>) => {
-  let downloadUrl = `${downloadPhotoUrl}/${activePhoto.googleDriveId}`;
-  if (activePhoto.imageExtention)
-    downloadUrl += `.${activePhoto.imageExtention}`;
+export const makeDownloadPhotoData_ =
+  (
+    makeDownloadPhotoUrl: typeof makeDownloadPhotoUrl_,
+    makeDownloadPhotoName: typeof makeDownloadPhotoName_,
+    downloadPhotoUrl: string
+  ) =>
+  (
+    googleDriveId: string,
+    userUid: string,
+    imageExtension: ImgExt
+  ): DownloadOriginalPhotoData => {
+    const photoFleName = makeDownloadPhotoName(imageExtension);
 
-  return downloadUrl;
-}; */
+    return {
+      href: makeDownloadPhotoUrl(
+        googleDriveId,
+        userUid,
+        downloadPhotoUrl,
+        photoFleName
+      ),
+      downloadAttr: makeDownloadPhotoName(imageExtension),
+    };
+  };
 
-export const getAll = async (collection: any): Promise<Map<string, any>> => {
-  const result = await collection
-    //.where("tags.YxX09wTx6kWOfZQ0ORFs", "==", true)
-    //.where("date", "<=", new Date(2019, 12, 17))
-    //.orderBy("date", "desc")
-    .limit(100)
-    .get(); //orderBy("_timestamp")
-  //console.log("SUCCESS GET");
-  const res = new Map<string, any>();
-
-  result.docs.map((item: any) => {
-    res.set(item.id, item.data());
-  });
-
-  return res;
-};
+export const makeDownloadPhotoData = makeDownloadPhotoData_(
+  makeDownloadPhotoUrl_,
+  makeDownloadPhotoName_,
+  downloadPhotoUrl
+);
 
 export const resFirestoreToMapObj = (result: any): Map<string, any> => {
   const res = new Map<string, any>();
@@ -44,27 +50,6 @@ export const resFirestoreToMapObj = (result: any): Map<string, any> => {
 
   return res;
 };
-
-/* export const generateAndSavePhotosData = (
-  collection: any,
-  tags: Map<string, any>
-) => {
-  const tagsIds = getTagsIds(tags);
-
-  const photos = generatePhotos(9, tagsIds);
-
-  //console.log("Success generate", photos);
-
-  const photosPromises = [];
-
-  //@ts-ignore
-  for (let photo of photos) {
-    //console.log("PUSH", photo);
-    photosPromises.push(collection.doc(photo[0]).set(photo[1]));
-  }
-
-  return Promise.all(photosPromises);
-}; */
 
 export const updatePhotosWithTagsArrField = async (collection: any) => {
   const resPromises = [];
@@ -87,6 +72,58 @@ export const makeTagsArr = (tags: { [id: string]: boolean }): string[] => {
 
   return tagsArr;
 };
+
+/* export const makeDownloadPhotoUrl = ({
+  googleDriveId,
+  userUid,
+}: Photo<FirestoreDate>) =>
+  makeDownloadPhotoUrl_(googleDriveId, userUid, downloadPhotoUrl); */
+
+/* export const makeDownloadPhotoUrl = (activePhoto: Photo<FirestoreDate>) => {
+  let downloadUrl = `${downloadPhotoUrl}/${activePhoto.googleDriveId}`;
+  if (activePhoto.imageExtention)
+    downloadUrl += `.${activePhoto.imageExtention}`;
+
+  return downloadUrl;
+}; */
+
+/* export const getAll = async (collection: any): Promise<Map<string, any>> => {
+  const result = await collection
+    //.where("tags.YxX09wTx6kWOfZQ0ORFs", "==", true)
+    //.where("date", "<=", new Date(2019, 12, 17))
+    //.orderBy("date", "desc")
+    .limit(100)
+    .get(); //orderBy("_timestamp")
+  //console.log("SUCCESS GET");
+  const res = new Map<string, any>();
+
+  result.docs.map((item: any) => {
+    res.set(item.id, item.data());
+  });
+
+  return res;
+}; */
+
+/* export const generateAndSavePhotosData = (
+  collection: any,
+  tags: Map<string, any>
+) => {
+  const tagsIds = getTagsIds(tags);
+
+  const photos = generatePhotos(9, tagsIds);
+
+  //console.log("Success generate", photos);
+
+  const photosPromises = [];
+
+  //@ts-ignore
+  for (let photo of photos) {
+    //console.log("PUSH", photo);
+    photosPromises.push(collection.doc(photo[0]).set(photo[1]));
+  }
+
+  return Promise.all(photosPromises);
+}; */
 
 /* export const make = (tagsIds: string[]) => {
   let count = 0;

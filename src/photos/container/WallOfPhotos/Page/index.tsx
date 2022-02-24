@@ -6,13 +6,13 @@ import PhotoCardSkeletons, {
 //import { numberOfPhotosPerQuery } from "../../../../../config";
 //import classes from "./PhotoCards.module.scss";
 //import Card from "@material-ui/core/Card";
-import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+//import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { getDoesRenderElements } from "./helper";
-import { compose } from "fmagic";
-import PhotoCards from "../PhotoCards";
+//import { compose } from "fmagic";
+import PhotoCards, { PhotoCardsProps } from "../PhotoCards";
 import { Box } from "@mui/system";
 
-export interface PageProps {
+export type PageProps = PhotoCardsProps & {
   //tagsState: ITagsState;
   loading: boolean;
   pageHeight: number;
@@ -21,18 +21,18 @@ export interface PageProps {
   //numberOfPhotosPerQuery: number;
   isShowPhotoSlider: boolean;
   activeObservableIndex: number;
-  photos: Photo<FirestoreDate>[];
-  showPhotoSlider: (photoId: string) => void;
-  showEditPhotoForm: (photoId: string) => void;
+  //photos: Photo<FirestoreDate>[];
+  //showPhotoSlider: (photoId: string) => void;
+  //showEditPhotoForm: (photoId: string) => void;
   //showPhotoDesc: (photo: TPhotoData) => void;
-  userUID: string;
-  editedPhotoIds: string[];
+  //userUid: string;
+  //editedPhotoIds: string[];
   //numberOfAddedPhotos: number;
   hasNextPage: boolean;
   isLast: boolean;
   //cardWidth: number;
   //cardHeight: number;
-}
+};
 
 export const getPhotoElements = ({
   doesRenderElements,

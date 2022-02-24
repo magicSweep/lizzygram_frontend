@@ -122,7 +122,7 @@ export const useWallOfPhotos = (): WallOfPhotosProps => {
     isSearch,
     showEditPhotoForm,
     showPhotoSlider,
-    userUID: userUid,
+    userUid,
     //numberOfPhotosPerQuery,
     isShowPhotoSlider,
 

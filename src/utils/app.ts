@@ -32,13 +32,19 @@ export const makePhotoId = () => {
   return (90000000000000 - Date.now()).toString();
 };
 
+export const makeDownloadPhotoName = (imageExtention: string) => {
+  return `photo_${Math.round(Math.random() * 100000)}.${imageExtention}`;
+};
+
 export const makeDownloadPhotoUrl = (
   googleDriveId: string,
-  imageExtention: string,
-  downloadPhotoUrl: string
+  userUid: string,
+  //imageExtention: string,
+  downloadPhotoUrl: string,
+  photoFileName: string
 ) => {
-  let downloadUrl = `${downloadPhotoUrl}/${googleDriveId}`;
-  if (imageExtention) downloadUrl += `.${imageExtention}`;
+  let downloadUrl = `${downloadPhotoUrl}/${userUid}${googleDriveId}/${photoFileName}`;
+  //if (imageExtention) downloadUrl += `.${imageExtention}`;
 
   return downloadUrl;
 };
