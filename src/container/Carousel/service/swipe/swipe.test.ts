@@ -249,6 +249,7 @@ describe("swipe", () => {
         isMoveInit: true,
         prevPageX: 0,
         translateX: 213,
+        resultDebug: "TRANSLATE X",
       });
     });
   });
