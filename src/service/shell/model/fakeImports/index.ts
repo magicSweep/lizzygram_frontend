@@ -7,6 +7,17 @@ export const main = (isFake: boolean) => {
   const strEnd = ";";
   const neededVariantIndex = isFake === true ? 1 : 0;
 
+  // ./src/firebase/init
+  // firebase init
+  const firebaseInitConfig: ReplacerConfig = {
+    pathToConfigFile: join(process.cwd(), "gatsby-browser.js"),
+    strPartToIdentify: "firebase/init",
+    strStart,
+    strEnd,
+    variants: ['"./src/firebase/init"', '"./src/firebase/init.fake"'],
+    neededVariantIndex,
+  };
+
   // "../repository/firestore"
   const photosDbServiceConfig: ReplacerConfig = {
     pathToConfigFile: join(process.cwd(), "src/photos/service/DbService.ts"),
@@ -77,6 +88,7 @@ export const main = (isFake: boolean) => {
   };
 
   const promises = [
+    firebaseInitConfig,
     photosDbServiceConfig,
     photosWorkerServiceConfig,
     authPermissionsConfig,

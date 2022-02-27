@@ -7,6 +7,16 @@ var main = function (isFake) {
     var strStart = '"';
     var strEnd = ";";
     var neededVariantIndex = isFake === true ? 1 : 0;
+    // ./src/firebase/init
+    // firebase init
+    var firebaseInitConfig = {
+        pathToConfigFile: (0, path_1.join)(process.cwd(), "gatsby-browser.js"),
+        strPartToIdentify: "firebase/init",
+        strStart: strStart,
+        strEnd: strEnd,
+        variants: ['"./src/firebase/init"', '"./src/firebase/init.fake"'],
+        neededVariantIndex: neededVariantIndex
+    };
     // "../repository/firestore"
     var photosDbServiceConfig = {
         pathToConfigFile: (0, path_1.join)(process.cwd(), "src/photos/service/DbService.ts"),
@@ -65,6 +75,7 @@ var main = function (isFake) {
         neededVariantIndex: neededVariantIndex
     };
     var promises = [
+        firebaseInitConfig,
         photosDbServiceConfig,
         photosWorkerServiceConfig,
         authPermissionsConfig,

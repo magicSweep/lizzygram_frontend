@@ -3,14 +3,11 @@ import {
   addOne,
   getOne,
   editOne,
-  init as init_,
 } from "../repository/firestore";
 import { numberOfPhotosPerQuery } from "../../config";
 import { EditPhotoFirestoreRequestBody } from "../types";
 import { Photo } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "../../search/types";
-
-export const init = init_;
 
 export const getAllPhotos = (
   searchTerms: SearchTerms,
