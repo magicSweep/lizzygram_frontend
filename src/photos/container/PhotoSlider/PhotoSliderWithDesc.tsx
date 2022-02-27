@@ -62,6 +62,7 @@ const PhotoSliderWithDesc: FC<PhotoSliderWithDescProps> = ({
           photoLoading={props.loading}
           photoError={props.error}
           isEditable={props.isEditableActivePhoto}
+          isEditor={props.isEditor}
           isPhotoEditing={isEditingActivePhoto}
           userUid={props.userUid}
           //tagsState: ITagsState;

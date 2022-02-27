@@ -19,6 +19,7 @@
     "app:fake-imports": "node src/console/app.js -fake-imports",
     "app:real-imports": "node src/console/app.js -real-imports",
     "app:prepare-to-deploy": "node src/console/app.js -prepare-to-deploy",
+    "app:prepare-to-develop": "node src/console/app.js -prepare-to-develop",
     "develop": "gatsby develop",
     "start": "cross-env GATSBY_BUILD_FOR=portfolio gatsby develop",
     "build": "gatsby build",

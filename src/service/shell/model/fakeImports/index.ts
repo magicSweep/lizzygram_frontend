@@ -30,6 +30,21 @@ export const main = (isFake: boolean) => {
     neededVariantIndex,
   };
 
+  const authPermissionsConfig: ReplacerConfig = {
+    pathToConfigFile: join(
+      process.cwd(),
+      "src/auth/hook/usePermissions/index.ts"
+    ),
+    strPartToIdentify: "repository/firestore",
+    strStart,
+    strEnd,
+    variants: [
+      '"../../repository/firestore"',
+      '"../../repository/firestore.fake"',
+    ],
+    neededVariantIndex,
+  };
+
   const authServiceConfig: ReplacerConfig = {
     pathToConfigFile: join(process.cwd(), "src/auth/service/AuthService.ts"),
     strPartToIdentify: "firebase/firebase.auth",
@@ -64,6 +79,7 @@ export const main = (isFake: boolean) => {
   const promises = [
     photosDbServiceConfig,
     photosWorkerServiceConfig,
+    authPermissionsConfig,
     authServiceConfig,
     authDbServiceConfig,
     tagsServiceConfig,

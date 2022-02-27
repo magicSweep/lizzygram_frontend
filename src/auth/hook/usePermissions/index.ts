@@ -16,7 +16,7 @@ import { useEditor } from "./../useEditor";
 type PermissionsReqData = {
   userUid: string;
   dispatch: any;
-  reload: () => void;
+  onChangeEditorStatus: (isEditor: boolean) => void;
 };
 
 export const grantPermissionsReq_ =
@@ -33,8 +33,8 @@ export const grantPermissionsReq_ =
         await sendGrantPermissionsReq(data.userUid);
         return data;
       },
-      then(({ dispatch, reload }: PermissionsReqData) => {
-        reload();
+      then(({ dispatch, onChangeEditorStatus }: PermissionsReqData) => {
+        onChangeEditorStatus(true);
         batch(() => {
           //dispatch(permissionsRequestEndAC());
           dispatch(
@@ -72,8 +72,8 @@ export const revokePermissionsReq_ =
         await sendRevokePermissionsReq(data.userUid);
         return data;
       },
-      then(({ dispatch, reload }: PermissionsReqData) => {
-        reload();
+      then(({ dispatch, onChangeEditorStatus }: PermissionsReqData) => {
+        onChangeEditorStatus(false);
         batch(() => {
           //dispatch(permissionsRequestEndAC());
           dispatch(
@@ -117,7 +117,7 @@ export const usePermissions_ =
   () => {
     const {
       user: { uid: userUid },
-      reload,
+      onChangeEditorStatus,
     } = useEditor();
     const dispatch = useDispatch();
 
@@ -125,14 +125,14 @@ export const usePermissions_ =
       grantPermissionsReq_({
         userUid,
         dispatch,
-        reload,
+        onChangeEditorStatus,
       });
 
     const revokePermissions = () =>
       revokePermissionsReq_({
         userUid,
         dispatch,
-        reload,
+        onChangeEditorStatus,
       });
 
     return {

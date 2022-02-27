@@ -1,7 +1,9 @@
 import Box from "@mui/system/Box";
 import { Story } from "@storybook/react";
 import { defaultTags } from "../../../tags/mock/data";
-import DescTooltipedIcon, { DescTooltipedIconProps } from ".";
+import { DescTooltipedIconProps, DescTooltipedIcon_ } from ".";
+
+const DescTooltipedIcon = DescTooltipedIcon_("portfolio");
 
 export default {
   component: DescTooltipedIcon,

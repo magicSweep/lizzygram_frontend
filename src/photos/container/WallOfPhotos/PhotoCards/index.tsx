@@ -18,6 +18,7 @@ export interface PhotoCardsProps {
   photos: Photo<FirestoreDate>[];
   showPhotoSlider: (photoId: string) => void;
   showEditPhotoForm: (photoId: string) => void;
+  isEditor: boolean;
   //showPhotoDesc: (photo: TPhotoData) => void;
   userUid: string;
   editedPhotoIds: string[];
@@ -32,6 +33,7 @@ const PhotoCards: FC<PhotoCardsProps> = ({
   photos,
   showPhotoSlider,
   showEditPhotoForm,
+  isEditor,
   //numberOfPhotosPerQuery,
   //showPhotoDesc,
   //downloadPhotoData,
@@ -64,6 +66,7 @@ const PhotoCards: FC<PhotoCardsProps> = ({
         <div key={photo.id} className="ml-0 sm:ml-2 mb-2">
           <PhotoCard
             isEditable={userUid === photo.addedByUserUID}
+            isEditor={isEditor}
             photo={photo}
             onImageClick={onShowPhotoSlider}
             showEditPhotoForm={onShowEditPhotoForm}

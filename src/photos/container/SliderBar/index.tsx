@@ -13,6 +13,7 @@ import DownloadPhotoIcon from "../../component/DownloadPhoto/Icon";
 
 export interface SliderBarProps extends ZoomBtnProps, DownloadPhotoProps {
   isEditable: boolean;
+  isEditor: boolean;
   //downloadPhotoData: DownloadOriginalPhotoData;
   showEditPhotoForm: () => void;
   onClose: (event: any) => void;
@@ -27,6 +28,7 @@ const SliderBar: FC<SliderBarProps> = ({
   onClose,
   onToggleDesc,
   isEditable,
+  isEditor,
   showEditPhotoForm,
   userUid,
   googleDriveId,
@@ -63,15 +65,17 @@ const SliderBar: FC<SliderBarProps> = ({
               </IconButton>
             </Tooltip>
           </ItemWrapper> */}
-          <ItemWrapper>
-            <DownloadPhotoIcon
-              userUid={userUid}
-              googleDriveId={googleDriveId}
-              imageExtension={imageExtension}
-            />
-          </ItemWrapper>
+          {isEditor === true && (
+            <ItemWrapper>
+              <DownloadPhotoIcon
+                userUid={userUid}
+                googleDriveId={googleDriveId}
+                imageExtension={imageExtension}
+              />
+            </ItemWrapper>
+          )}
 
-          {isEditable && (
+          {isEditor === true && isEditable === true && (
             <ItemWrapper>
               <Tooltip title="Редактировать">
                 <IconButton

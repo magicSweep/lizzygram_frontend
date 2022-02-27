@@ -36,6 +36,7 @@ export interface WallOfPhotosProps {
   showPhotoSlider: (photoId: string) => void;
   showEditPhotoForm: (photoId: string) => void;
   userUid: string;
+  isEditor: boolean;
   //numberOfPhotosPerQuery: number | undefined;
   isShowPhotoSlider: boolean;
 

@@ -28,3 +28,4 @@
 - $ npm run app:real-imports - change imports for api from fake to real.
 - $ npm run start:create:func photos/Hello - create folder with react function component, test and stories files.
 - $ npm run app:prepare-to-deploy - change imports and configs for deploy
+- $ npm run app:prepare-to-develop - change imports and configs for develop

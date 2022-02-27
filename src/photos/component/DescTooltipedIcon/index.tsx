@@ -8,6 +8,8 @@ import {
   makeYearsOldStringify,
   getDate,
 } from "./../../../utils/app";
+import { getBuildFor } from "lizzygram-common-data";
+import { BuildFor } from "lizzygram-common-data/dist/types";
 
 export type DescTooltipedIconProps = {
   date: Date;
@@ -15,14 +17,14 @@ export type DescTooltipedIconProps = {
   photoTags: FirestoreTagsData;
 };
 
-const DescTooltipedIcon: FC<DescTooltipedIconProps> = ({
-  date,
-  desc,
-  photoTags,
-}) => {
-  const [open, setOpen] = React.useState(false);
+export const DescTooltipedIcon_: (
+  buildFor: BuildFor
+) => FC<DescTooltipedIconProps> =
+  (buildFor) =>
+  ({ date, desc, photoTags }) => {
+    const [open, setOpen] = React.useState(false);
 
-  /* const handleTooltipClose = () => {
+    /* const handleTooltipClose = () => {
     setOpen(false);
   };
 
@@ -30,44 +32,48 @@ const DescTooltipedIcon: FC<DescTooltipedIconProps> = ({
     setOpen(true);
   }; */
 
-  const toggleTooltip = () => {
-    setOpen((open) => !open);
+    const toggleTooltip = () => {
+      setOpen((open) => !open);
+    };
+
+    const finalDate = getDate(date);
+
+    const yearsOldFormated = makeYearsOldStringify(finalDate);
+
+    return (
+      <Tooltip
+        placement="top-end"
+        arrow
+        //onClose={handleTooltipClose}
+        disableFocusListener
+        disableHoverListener
+        disableTouchListener
+        open={open}
+        title={
+          <>
+            {buildFor === "lizzygram" && (
+              <p className="pb-1">Boзраст: {yearsOldFormated}.</p>
+            )}
+            {desc !== undefined && desc.length > 0 && (
+              <p className="block w-full max-h-16 overflow-hidden mb-2">
+                Комментарий: {desc}
+              </p>
+            )}
+            <p>
+              Тэги: <Tags photoTags={photoTags} isTexted={true} />
+            </p>
+          </>
+        }
+      >
+        <InfoIcon
+          onClick={toggleTooltip}
+          sx={{ fill: "white", /* mr: "20px", */ cursor: "pointer" }}
+          fontSize="small"
+        />
+      </Tooltip>
+    );
   };
 
-  const finalDate = getDate(date);
-
-  const yearsOldFormated = makeYearsOldStringify(finalDate);
-
-  return (
-    <Tooltip
-      placement="top-end"
-      arrow
-      //onClose={handleTooltipClose}
-      disableFocusListener
-      disableHoverListener
-      disableTouchListener
-      open={open}
-      title={
-        <>
-          <p className="pb-1">Boзраст: {yearsOldFormated}.</p>
-          {desc !== undefined && desc.length > 0 && (
-            <p className="block w-full max-h-16 overflow-hidden mb-2">
-              Комментарий: {desc}
-            </p>
-          )}
-          <p>
-            Тэги: <Tags photoTags={photoTags} isTexted={true} />
-          </p>
-        </>
-      }
-    >
-      <InfoIcon
-        onClick={toggleTooltip}
-        sx={{ fill: "white", mr: "20px", cursor: "pointer" }}
-        fontSize="small"
-      />
-    </Tooltip>
-  );
-};
+const DescTooltipedIcon = DescTooltipedIcon_(getBuildFor());
 
 export default DescTooltipedIcon;

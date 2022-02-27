@@ -25,6 +25,17 @@ var main = function (isFake) {
         variants: ['"../api/worker"', '"../api/worker.fake"'],
         neededVariantIndex: neededVariantIndex
     };
+    var authPermissionsConfig = {
+        pathToConfigFile: (0, path_1.join)(process.cwd(), "src/auth/hook/usePermissions/index.ts"),
+        strPartToIdentify: "repository/firestore",
+        strStart: strStart,
+        strEnd: strEnd,
+        variants: [
+            '"../../repository/firestore"',
+            '"../../repository/firestore.fake"',
+        ],
+        neededVariantIndex: neededVariantIndex
+    };
     var authServiceConfig = {
         pathToConfigFile: (0, path_1.join)(process.cwd(), "src/auth/service/AuthService.ts"),
         strPartToIdentify: "firebase/firebase.auth",
@@ -56,6 +67,7 @@ var main = function (isFake) {
     var promises = [
         photosDbServiceConfig,
         photosWorkerServiceConfig,
+        authPermissionsConfig,
         authServiceConfig,
         authDbServiceConfig,
         tagsServiceConfig,

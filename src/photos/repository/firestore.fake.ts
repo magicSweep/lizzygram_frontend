@@ -87,6 +87,8 @@ export const getAllBySearchTerms = async (
   });
 };
 
+export const init = () => {};
+
 let newPhotosIndex = 0;
 
 export const addOne = (photo: Photo<FirestoreDate>) => {

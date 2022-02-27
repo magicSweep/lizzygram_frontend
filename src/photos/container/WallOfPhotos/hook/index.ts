@@ -15,7 +15,8 @@ import {
 } from "../../../store/action";
 import { useInfiniteScroll } from "../InfiniteScroll/hook/useInfiniteScroll";
 import { WallOfPhotosProps } from "../WallOfPhotosWidget";
-import { useAuth } from "../../../../auth";
+//import { useAuth } from "../../../../auth";
+import { useEditor } from "../../../../auth/hook/useEditor";
 
 export const useWallOfPhotos = (): WallOfPhotosProps => {
   const dispatch = useDispatch();
@@ -52,7 +53,10 @@ export const useWallOfPhotos = (): WallOfPhotosProps => {
       shallowEqual
     );
 
-  const { userUid } = useAuth();
+  const {
+    userUid,
+    user: { isEditor },
+  } = useEditor();
   //const userUID = "userUID";
   /* const userUID = useSelector<GlobalState, string>((state) =>
         state.auth.user ? state.auth.user.uid : ""
@@ -123,6 +127,7 @@ export const useWallOfPhotos = (): WallOfPhotosProps => {
     showEditPhotoForm,
     showPhotoSlider,
     userUid,
+    isEditor,
     //numberOfPhotosPerQuery,
     isShowPhotoSlider,
 

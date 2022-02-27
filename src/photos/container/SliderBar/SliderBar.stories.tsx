@@ -18,14 +18,37 @@ const Template: Story<SliderBarProps> = (args) => (
   </Box>
 );
 
-export const Default = Template.bind({});
-Default.args = {
+const args: SliderBarProps = {
   isEditable: true,
+  isEditor: true,
   cancel: () => console.log("Cancel"),
   zoom: 0,
   handleSliderChange: () => console.log("Change"),
-  downloadOriginalPhotoUrl: "downloadOriginalPhotoUrl.com",
+  userUid: "userUid",
+  googleDriveId: "googleDriveId",
+  imageExtension: "jpeg",
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   onClose: () => console.log("onClose"),
   onToggleDesc: () => console.log("onToggleDesc"),
+};
+
+export const Default = Template.bind({});
+Default.args = {
+  ...args,
+  isEditable: true,
+  isEditor: true,
+};
+
+export const NotEditable = Template.bind({});
+NotEditable.args = {
+  ...args,
+  isEditable: false,
+  isEditor: true,
+};
+
+export const OnlyViewer = Template.bind({});
+OnlyViewer.args = {
+  ...args,
+  isEditable: false,
+  isEditor: false,
 };

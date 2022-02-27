@@ -18,3 +18,9 @@ export const removeUser = () => {
   //set user to localStorage
   remove(authLocalStorageKey);
 };
+
+export const setIsEditor = (isEditor: boolean) => {
+  const user: any = getObjByKey(authLocalStorageKey);
+
+  addObj({ name: user.name, email: user.email, isEditor }, authLocalStorageKey);
+};

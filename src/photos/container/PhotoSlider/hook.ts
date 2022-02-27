@@ -6,7 +6,7 @@ import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
 import { usePhotos } from "../../hook/usePhotos";
 import { GlobalState } from "../../../types";
 import { PhotoSliderWithDescProps } from "./PhotoSliderWithDesc";
-import { useAuth } from "../../../auth";
+import { useEditor } from "../../../auth/hook/useEditor";
 import { FirestoreDate, Photo } from "lizzygram-common-data/dist/types";
 
 export const usePhotoSlider = (): PhotoSliderWithDescProps => {
@@ -20,7 +20,12 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
     (state) => state.photos.activePhotoIndex
   );
 
-  const { userUid } = useAuth();
+  //const { userUid } = useAuth();
+
+  const {
+    userUid,
+    user: { isEditor },
+  } = useEditor();
 
   const editedPhotoIds = useSelector<GlobalState, string[]>(
     (state) => state.photos.editReqs.reqIds
@@ -54,6 +59,7 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
     loadMorePhotos: loadMore,
     onClose,
     isEditableActivePhoto,
+    isEditor,
     showEditPhotoForm,
     userUid,
     activeIndex,

@@ -18,7 +18,14 @@ exports.main = (0, fmagic_1.compose)(function () { return (0, args_1.parse)()[0]
         function (variant) { return variant === "-prepare-to-deploy"; },
         function () {
             (0, fakeImports_1.main)(false);
-            (0, prepareConfig_1.main)();
+            (0, prepareConfig_1.prepareConfigToDeploy)();
+        },
+    ],
+    [
+        function (variant) { return variant === "-prepare-to-develop"; },
+        function () {
+            (0, fakeImports_1.main)(true);
+            (0, prepareConfig_1.prepareConfigToDevelop)();
         },
     ],
     [

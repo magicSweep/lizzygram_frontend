@@ -2,9 +2,16 @@ import { exec } from "../../service/process";
 import { parse } from "../../service/args";
 import { compose, cond, tap } from "fmagic";
 import { main as fakeImports } from "../../model/fakeImports";
-import { main as prepareConfig } from "../../model/prepareConfig";
+import {
+  prepareConfigToDeploy,
+  prepareConfigToDevelop,
+} from "../../model/prepareConfig";
 
-export type Variants = "-fake-imports" | "-real-imports" | "-prepare-to-deploy";
+export type Variants =
+  | "-fake-imports"
+  | "-real-imports"
+  | "-prepare-to-deploy"
+  | "-prepare-to-develop";
 
 export const main = compose(
   () => parse()[0],
@@ -22,7 +29,14 @@ export const main = compose(
       (variant: Variants) => variant === "-prepare-to-deploy",
       () => {
         fakeImports(false);
-        prepareConfig();
+        prepareConfigToDeploy();
+      },
+    ],
+    [
+      (variant: Variants) => variant === "-prepare-to-develop",
+      () => {
+        fakeImports(true);
+        prepareConfigToDevelop();
       },
     ],
     [

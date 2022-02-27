@@ -12,6 +12,7 @@ export interface PhotoCardProps {
   //downloadPhotoData: DownloadOriginalPhotoData;
   userUid: string;
   isEditable: boolean;
+  isEditor: boolean;
   index: number;
   onImageClick?: (event: any) => void | undefined;
   showEditPhotoForm: () => void;
@@ -20,6 +21,7 @@ export interface PhotoCardProps {
 const PhotoCard: FC<PhotoCardProps> = ({
   photo,
   isEditable,
+  isEditor,
   index,
   userUid,
   showEditPhotoForm,
@@ -38,25 +40,27 @@ const PhotoCard: FC<PhotoCardProps> = ({
         onClick={onImageClick}
         alt="Фотография"
       />
-      <div className="absolute left-0 right-0 bottom-0 bg-photocard opacity-50 flex items-center justify-between h-12">
+      <div className="absolute left-0 right-0 px-4 bottom-0 bg-photocard opacity-50 flex items-center justify-between h-12">
         <span className="flex">
-          {isEditable === true && (
+          {isEditor === true && isEditable === true && (
             <Tooltip title="Редактировать">
               <IconButton
                 onClick={showEditPhotoForm}
                 aria-label="edit photo"
-                sx={{ ml: "14px" }}
+                //sx={{ ml: "14px" }}
               >
                 <EditIcon sx={{ fill: "white" }} fontSize="small" />
               </IconButton>
             </Tooltip>
           )}
 
-          <DownloadPhotoIcon
-            userUid={userUid}
-            googleDriveId={photo.googleDriveId}
-            imageExtension={photo.imageExtention}
-          />
+          {isEditor === true && (
+            <DownloadPhotoIcon
+              userUid={userUid}
+              googleDriveId={photo.googleDriveId}
+              imageExtension={photo.imageExtention}
+            />
+          )}
         </span>
         <DescTooltipedIcon
           date={date}

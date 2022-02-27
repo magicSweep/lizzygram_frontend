@@ -60,7 +60,7 @@ export const photos: Photo<FirestoreDate>[] = [
     date: {
       toDate: () => new Date(2018, 11, 17),
     } as any,
-    description: "",
+    description: "Hello, my friend from this beautifull country...",
     tags: { bCcRcxADj2xP9fkSXNpH: true, vekwWqVY1222d3XeERmd: true },
     yearsOld: 0,
     googleDriveId: "",

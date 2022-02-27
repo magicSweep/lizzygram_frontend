@@ -42,6 +42,7 @@ export const Default = Template.bind({});
 Default.args = {
   photo: photos[1],
   isEditable: true,
+  isEditor: true,
   index: 32,
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   onImageClick: () => console.log("ON IMAGE CLICK"),
@@ -55,6 +56,21 @@ export const NotEditable = Template.bind({});
 NotEditable.args = {
   photo: photos[0],
   isEditable: false,
+  isEditor: true,
+  index: 32,
+  showEditPhotoForm: () => console.log("showEditPhotoForm"),
+  onImageClick: () => console.log("ON IMAGE CLICK"),
+  /*  observerIndex: 23,
+  observerId: "id233",
+  isRender: true, */
+};
+
+export const OnlyViewer = Template.bind({});
+
+OnlyViewer.args = {
+  photo: photos[0],
+  isEditable: true,
+  isEditor: false,
   index: 32,
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   onImageClick: () => console.log("ON IMAGE CLICK"),

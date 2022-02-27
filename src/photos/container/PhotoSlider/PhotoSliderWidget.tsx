@@ -28,6 +28,7 @@ export type PhotoSliderProps = {
   onToggleDesc: (event: any) => void;
   isEditingActivePhoto: boolean;
   isEditableActivePhoto: boolean;
+  isEditor: boolean;
   showEditPhotoForm: () => void;
   //downloadOriginalPhotoUrl: string;
   //downloadPhotoData: DownloadOriginalPhotoData;
@@ -81,6 +82,7 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
   //initActiveIndex,
   isEditableActivePhoto,
   isEditingActivePhoto,
+  isEditor,
   onClose,
   onToggleDesc,
   showEditPhotoForm,
@@ -156,6 +158,7 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
           onClose={onClose}
           onToggleDesc={onToggleDesc}
           isEditable={isEditableActivePhoto}
+          isEditor={isEditor}
           showEditPhotoForm={showEditPhotoForm}
           //downloadPhotoData={downloadPhotoData}
           userUid={userUid}

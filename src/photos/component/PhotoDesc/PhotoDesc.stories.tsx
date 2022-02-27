@@ -1,8 +1,10 @@
 import React from "react";
-import PhotoDesc, { PhotoDescProps } from ".";
+import { PhotoDescProps, PhotoDesc_ } from ".";
 import { Story } from "@storybook/react";
 import Box from "@mui/system/Box";
 import { photos } from "../../mock/fake.data";
+
+const PhotoDesc = PhotoDesc_("portfolio");
 
 export default {
   component: PhotoDesc,
@@ -24,67 +26,48 @@ const Template: Story<PhotoDescProps> = (args) => {
   );
 };
 
-export const Default = Template.bind({});
-
-Default.args = {
+const args: PhotoDescProps = {
   photo: photos[0],
   photoLoading: false,
   photoError: false,
   isEditable: true,
+  isEditor: true,
   isPhotoEditing: false,
   //tagsState,
-  downloadOriginalPhotoUrl: "https://google.com",
+  userUid: "userUid",
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
+};
+
+export const Default = Template.bind({});
+
+Default.args = {
+  ...args,
 };
 
 export const NoPhoto = Template.bind({});
 
 NoPhoto.args = {
+  ...args,
   photo: undefined,
-  photoLoading: false,
-  photoError: false,
-  isEditable: true,
-  isPhotoEditing: false,
-  //tagsState,
-  downloadOriginalPhotoUrl: "https://google.com",
-  showEditPhotoForm: () => console.log("showEditPhotoForm"),
 };
 
 export const Error = Template.bind({});
 
 Error.args = {
-  photo: photos[0],
-  photoLoading: false,
+  ...args,
   photoError: true,
-  isEditable: true,
-  isPhotoEditing: false,
-  //tagsState,
-  downloadOriginalPhotoUrl: "https://google.com",
-  showEditPhotoForm: () => console.log("showEditPhotoForm"),
 };
 
 export const Loading = Template.bind({});
 
 Loading.args = {
-  photo: photos[0],
+  ...args,
   photoLoading: true,
-  photoError: false,
-  isEditable: true,
-  isPhotoEditing: false,
-  //tagsState,
-  downloadOriginalPhotoUrl: "https://google.com",
-  showEditPhotoForm: () => console.log("showEditPhotoForm"),
 };
 
 export const Editing = Template.bind({});
 
 Editing.args = {
-  photo: photos[0],
-  photoLoading: false,
-  photoError: false,
-  isEditable: true,
+  ...args,
   isPhotoEditing: true,
-  //tagsState,
-  downloadOriginalPhotoUrl: "https://google.com",
-  showEditPhotoForm: () => console.log("showEditPhotoForm"),
 };

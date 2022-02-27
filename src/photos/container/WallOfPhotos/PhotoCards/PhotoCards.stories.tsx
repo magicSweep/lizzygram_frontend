@@ -29,24 +29,26 @@ const Template: Story<PhotoCardsProps> = (args) => (
 
 //const numberOfPhotosPerQuery = 3;
 
-export const Default = Template.bind({}) as any;
+export const Default = Template.bind({});
 Default.args = {
   photos: photos,
   showPhotoSlider: () => console.log("showPhotoSlider"),
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   editedPhotoIds: [],
-  userUID: "user13",
+  userUid: "user13",
+  isEditor: false,
 };
 
 const newPhotos = [...photos];
 newPhotos.unshift(null);
 newPhotos.unshift(null);
 
-export const AddAndEditPhotos = Template.bind({}) as any;
+export const AddAndEditPhotos = Template.bind({});
 AddAndEditPhotos.args = {
   photos: newPhotos,
   showPhotoSlider: () => console.log("showPhotoSlider"),
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   editedPhotoIds: ["3309", "334477"],
-  userUID: "user13",
+  userUid: "user13",
+  isEditor: true,
 };

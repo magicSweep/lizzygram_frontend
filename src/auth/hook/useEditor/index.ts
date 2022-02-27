@@ -18,6 +18,7 @@ import {
   getUser as getSavedUser,
   saveUser,
   removeUser as removeSavedUser,
+  setIsEditor,
 } from "../../service/UserService";
 import { authAC, authEditorErrorAC } from "../../store/action";
 import { isEditor } from "../../service/DbService";
@@ -154,7 +155,7 @@ export const request = request_(
 export const useEditor = () => {
   const dispatch = useDispatch();
 
-  const { user, loading } = useAuth();
+  const { user, loading, userUid, isAuth } = useAuth();
 
   const start = useCallback(request(dispatch), []);
 
@@ -170,14 +171,29 @@ export const useEditor = () => {
     // }
   }, [user]);
 
-  const reload = () => {
+  const onChangeEditorStatus = (isEditor: boolean) => {
+    // set isEditor to false on local storage
+    setIsEditor(isEditor);
+    // set isEditor to false on state
+    dispatch(
+      authAC({
+        ...(user as AuthUser),
+        isEditor,
+      })
+    );
+  };
+
+  /* const reload = () => {
     removeSavedUser();
     start({ ...user, isEditor: undefined });
-  };
+  }; */
 
   return {
     user,
     loading,
-    reload,
+    userUid,
+    isAuth,
+    //reload,
+    onChangeEditorStatus,
   };
 };
