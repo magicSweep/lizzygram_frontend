@@ -1,13 +1,20 @@
-import React, { FC } from "react";
-import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+import React, { FC, useCallback } from "react";
+import {
+  Photo,
+  FirestoreDate,
+  FavoriteData,
+} from "lizzygram-common-data/dist/types";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import EditIcon from "@mui/icons-material/Edit";
 import WallOfPhotosImg from "../../../component/images/WallOfPhotosImg";
 import DescTooltipedIcon from "../DescTooltipedIcon";
 import DownloadPhotoIcon from "../DownloadPhoto/Icon";
+import PhotoFavorite, { PhotoFavoriteProps } from "../PhotoFavorite";
+import { FavoriteReqs } from "../../types";
+//import Favorite, { FavoriteProps } from "../../../component/Favorite";
 
-export interface PhotoCardProps {
+export type PhotoCardProps = PhotoFavoriteProps & {
   photo: Photo<FirestoreDate>;
   //downloadPhotoData: DownloadOriginalPhotoData;
   userUid: string;
@@ -16,7 +23,11 @@ export interface PhotoCardProps {
   index: number;
   onImageClick?: (event: any) => void | undefined;
   showEditPhotoForm: () => void;
-}
+  //loadingFavorite: boolean;
+  favoriteReqs: FavoriteReqs;
+  addFavorite: (photoId: string, favoriteBy: FavoriteData) => Promise<void>;
+  removeFavorite: (photoId: string, favoriteBy: FavoriteData) => Promise<void>;
+};
 
 const PhotoCard: FC<PhotoCardProps> = ({
   photo,
@@ -26,8 +37,20 @@ const PhotoCard: FC<PhotoCardProps> = ({
   userUid,
   showEditPhotoForm,
   onImageClick,
+  //loadingFavorite,
+  favoriteReqs,
+  addFavorite,
+  removeFavorite,
 }) => {
   const date: Date = photo.date.toDate();
+
+  /*  const addToFavorite = useCallback(() => {
+    return addFavorite(photo.id, photo.favoriteBy);
+  }, [photo]);
+
+  const removeFromFavorite = useCallback(() => {
+    return removeFavorite(photo.id, photo.favoriteBy);
+  }, [photo]); */
 
   return (
     <div className="relative w-345 bg-photocard h-194 overflow-hidden flex items-center justify-center rounded-sm shadow-md">
@@ -59,6 +82,17 @@ const PhotoCard: FC<PhotoCardProps> = ({
               userUid={userUid}
               googleDriveId={photo.googleDriveId}
               imageExtension={photo.imageExtention}
+            />
+          )}
+
+          {isEditor === true && (
+            <PhotoFavorite
+              addFavorite={addFavorite}
+              removeFavorite={removeFavorite}
+              favoriteReqs={favoriteReqs}
+              favoriteBy={photo.favoriteBy}
+              photoId={photo.id}
+              userUid={userUid}
             />
           )}
         </span>

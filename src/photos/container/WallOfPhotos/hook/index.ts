@@ -17,6 +17,7 @@ import { useInfiniteScroll } from "../InfiniteScroll/hook/useInfiniteScroll";
 import { WallOfPhotosProps } from "../WallOfPhotosWidget";
 //import { useAuth } from "../../../../auth";
 import { useEditor } from "../../../../auth/hook/useEditor";
+import { useFavorite } from "../../../hook/useFavorite";
 
 export const useWallOfPhotos = (): WallOfPhotosProps => {
   const dispatch = useDispatch();
@@ -92,6 +93,12 @@ export const useWallOfPhotos = (): WallOfPhotosProps => {
     loadMorePhotos
   );
 
+  const {
+    favoriteReqs,
+    add: addToFavorite,
+    remove: removeFromFavorite,
+  } = useFavorite(userUid);
+
   /*  activeObservableIndex: number;
   photos: Photo<FirestoreDate>[][] | undefined;
   loadMorePhotos: () => void;
@@ -135,5 +142,9 @@ export const useWallOfPhotos = (): WallOfPhotosProps => {
     pageHeight: itemsWrapperHeight,
     containerWidth,
     numberOfPhotosByPage: numberOfItemsByPage,
+
+    favoriteReqs,
+    addToFavorite,
+    removeFromFavorite,
   };
 };

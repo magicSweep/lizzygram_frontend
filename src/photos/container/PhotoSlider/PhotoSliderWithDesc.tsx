@@ -1,6 +1,6 @@
 import IconButton from "@mui/material/IconButton";
 import Box from "@mui/system/Box";
-import React, { FC, useState, useCallback } from "react";
+import React, { FC, useState, useCallback, MutableRefObject } from "react";
 import PhotoSliderWidget, { PhotoSliderProps } from "./PhotoSliderWidget";
 import CloseIcon from "@mui/icons-material/Close";
 import PhotoDesc from "../../component/PhotoDesc";
@@ -13,11 +13,13 @@ export type PhotoSliderWithDescProps = Omit<
   activePhoto?: Photo<FirestoreDate>;
   //showEditPhotoForm?: () => void;
   isEditingActivePhoto: boolean;
+  fullscreenElemRef: MutableRefObject<any>;
 };
 
 const PhotoSliderWithDesc: FC<PhotoSliderWithDescProps> = ({
   activePhoto,
   isEditingActivePhoto,
+  fullscreenElemRef,
   ...props
 }) => {
   const [width, setWidth] = useState(0);
@@ -30,7 +32,11 @@ const PhotoSliderWithDesc: FC<PhotoSliderWithDescProps> = ({
   //console.log("[RENDER PHOTO SLIDER WITH DESC]");
 
   return (
-    <Box className="w-full h-full flex flex-nowrap flex-grow-0 flex-shrink-0 bg-black overflow-hidden">
+    <Box
+      ref={fullscreenElemRef}
+      id="super_photo_slider_23klj2342"
+      className="w-full h-full flex flex-nowrap flex-grow-0 flex-shrink-0 bg-black overflow-hidden"
+    >
       <PhotoSliderWidget
         {...props}
         isEditingActivePhoto={isEditingActivePhoto}

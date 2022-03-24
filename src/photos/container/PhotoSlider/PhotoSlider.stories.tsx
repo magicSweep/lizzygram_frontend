@@ -11,15 +11,19 @@ export default {
 };
 
 const Slider = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
-  const onClick = () => dispatch(showPhotoSliderAC(0));
+  // WE NEED FIRST CALL USE PHOTOS
+
+  //const onClick = () => dispatch(showPhotoSliderAC("hello"));
+
+  const onClick = () => console.log("SHOW PHOTOS");
 
   return (
     <>
       <Button onClick={onClick}>Show photo slider</Button>
 
-      <PhotoSliderLoadableWrapper />
+      {/* <PhotoSliderLoadableWrapper /> */}
     </>
   );
 };

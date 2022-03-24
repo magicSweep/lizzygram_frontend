@@ -4,7 +4,7 @@ import React, { ComponentProps, FC, Fragment } from "react";
 //import { rootDivId } from "../../../config";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import Button from "@mui/material/Button";
-import Page from "./Page";
+import Page, { PageProps } from "./Page";
 import Box from "@mui/system/Box";
 
 export const Wrapper: FC<ComponentProps<typeof Box>> = ({
@@ -22,7 +22,19 @@ export const Wrapper: FC<ComponentProps<typeof Box>> = ({
   </Box>
 );
 
-export interface WallOfPhotosProps {
+export type WallOfPhotosProps = Omit<
+  PageProps,
+  "photos" | "isLast" | "pageIndex"
+> & {
+  photos: Photo<FirestoreDate>[][] | undefined;
+  numberOfPages: number;
+  isError: boolean;
+  isSearch: boolean;
+  reLoadPhotos: () => void;
+  containerWidth: number;
+  loadMorePhotos: () => void;
+};
+/*  {
   activeObservableIndex: number;
   photos: Photo<FirestoreDate>[][] | undefined;
   loadMorePhotos: () => void;
@@ -39,12 +51,10 @@ export interface WallOfPhotosProps {
   isEditor: boolean;
   //numberOfPhotosPerQuery: number | undefined;
   isShowPhotoSlider: boolean;
-
   containerWidth: number;
   pageHeight: number;
-  numberOfPages: number;
   numberOfPhotosByPage: number;
-}
+}  */
 
 const getPages = ({ photos, numberOfPages, ...props }: WallOfPhotosProps) =>
   /* photos: any[][],

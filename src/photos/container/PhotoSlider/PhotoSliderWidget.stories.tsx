@@ -7,7 +7,7 @@ import React, {
 } from "react";
 //import { action } from "@storybook/addon-actions";
 import { Story } from "@storybook/react";
-import { photos } from "./../../mock/fake.data";
+//import { photos } from "./../../mock/fake.data";
 
 //import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 //import { Provider } from "react-redux";
@@ -50,7 +50,7 @@ export const Default = () => {
     error: false,
   });
 
-  const length = photos === undefined ? 0 : photos.length;
+  const length = photoState.photos === undefined ? 0 : photoState.photos.length;
 
   const { activeIndex, increaseIndex, decreaseIndex } = useCarousel(length, 0);
 
@@ -73,6 +73,8 @@ export const Default = () => {
     }
   }, [show]);
 
+  console.log("---------------RENDER PHOTO SLIDER", photoState.photos);
+
   return (
     <>
       <Button onClick={() => setShow(true)}>Show photo slider</Button>
@@ -92,7 +94,12 @@ export const Default = () => {
           onToggleDesc={() => console.log("onToggleDesc")}
           showEditPhotoForm={() => console.log("showEditPhotoForm")}
           isEditableActivePhoto={isEditableActivePhoto}
-          downloadOriginalPhotoUrl="http://download.photo.url"
+          isEditor={false}
+          userUid="uid"
+          //downloadOriginalPhotoUrl="http://download.photo.url"
+          exitFullscreen={() => {}}
+          requestFullscreen={() => {}}
+          isFullscreen={false}
         />
       </SliderModal>
     </>

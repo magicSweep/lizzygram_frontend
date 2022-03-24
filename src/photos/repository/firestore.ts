@@ -31,11 +31,6 @@ import {
 } from "./firestore.helper";
 import { SearchTerms } from "./../../search/types";
 import { OrderBy, ResponseWithCursor } from "../../firebase/types";
-import {
-  DocumentData,
-  QueryConstraint,
-  QuerySnapshot,
-} from "firebase/firestore";
 
 /* export const makeReq = (
   _isInitState: boolean,

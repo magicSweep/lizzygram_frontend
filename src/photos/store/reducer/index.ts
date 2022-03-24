@@ -20,6 +20,8 @@ import {
   // onDeletePhoto,
   onEditPhotoSuccess,
   getPhotoIndexByPhotoId,
+  deleteFromFavoriteReqs,
+  updateFavoriteByOnPhotos,
   // onGetEditedPhotoError,
 } from "./helper";
 
@@ -39,6 +41,7 @@ const photosInitialState: PhotosState = {
     activeReqIds: [],
     reqIds: [],
   },
+  favoriteReqs: [],
   //editLoading: false,
   //editError: false,
   //editAnotherForm: false,
@@ -182,6 +185,43 @@ const reducer: Reducer<PhotosState, PhotosAction> = (
       return {
         ...state,
         showPhotoSlider: false,
+      };
+
+    case "FAVORITE_REQUEST_START":
+      return {
+        ...state,
+        favoriteReqs: [
+          ...state.favoriteReqs,
+          action.photoId,
+          /* {
+            photoId: action.photoId,
+            loading: true,
+          }, */
+        ],
+      };
+
+    case "FAVORITE_REQUEST_ERROR":
+      return {
+        ...state,
+        favoriteReqs: deleteFromFavoriteReqs(
+          state.favoriteReqs,
+          action.photoId
+        ),
+      };
+
+    case "FAVORITE_REQUEST_END":
+      // update favoriteBy on photo and photos
+      return {
+        ...state,
+        photos: updateFavoriteByOnPhotos(
+          state.photos,
+          action.photoId,
+          action.userUid
+        ),
+        favoriteReqs: deleteFromFavoriteReqs(
+          state.favoriteReqs,
+          action.photoId
+        ),
       };
 
     /* case "EDIT_PHOTO_REQUEST_SUCCESS":

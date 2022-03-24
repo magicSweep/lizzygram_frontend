@@ -49,7 +49,12 @@ export const Default = () => {
 
   return (
     <form className="w-3/5 m-auto" onSubmit={handleSubmit(onSubmit)}>
-      <Description formState={formState} register={register} disabled={false} />
+      <Description
+        formState={formState}
+        register={register}
+        validate={() => true}
+        disabled={false}
+      />
       <Box sx={{ textAlign: "center", p: "20px" }}>
         <Button type="submit">Submit</Button>
       </Box>

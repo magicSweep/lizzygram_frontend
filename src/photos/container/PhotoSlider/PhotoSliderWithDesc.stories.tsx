@@ -1,4 +1,5 @@
 import React, {
+  FC,
   useCallback,
   useEffect,
   useMemo,
@@ -24,6 +25,7 @@ import {
 } from "./../../mock/fetch";
 import SliderModal from "../../component/SliderModal";
 import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
+import useFullscreen from "../../../hook/useFullscreen";
 
 export default {
   component: PhotoSliderWithDesc,
@@ -38,9 +40,10 @@ const editedPhotoIds = [
   /* "234234" */
 ];
 
-export const Default = () => {
-  const [show, setShow] = useState(false);
-
+const PhotoSlider: FC<{ show: boolean; setShow: any }> = ({
+  show,
+  setShow,
+}) => {
   const length = photos === undefined ? 0 : photos.length;
 
   const { activeIndex, increaseIndex, decreaseIndex } = useCarousel(length, 0);
@@ -65,6 +68,9 @@ export const Default = () => {
 
   const isEditableActivePhoto = false;
 
+  const { isFullscreen, exitFullscreen, requestFullscreen, fullscreenElemRef } =
+    useFullscreen();
+
   useEffect(() => {
     if (show && !init) {
       loadPhotos();
@@ -74,26 +80,42 @@ export const Default = () => {
 
   return (
     <>
+      <PhotoSliderWithDesc
+        activePhoto={photos[activeIndex]}
+        isEditingActivePhoto={false}
+        activeIndex={activeIndex}
+        increaseIndex={increaseIndex}
+        decreaseIndex={decreaseIndex}
+        //editedPhotoIds={editedPhotoIds}
+        photos={photoState.photos}
+        loading={photoState.loading}
+        hasNextPage={photoState.hasNextPage}
+        error={photoState.error}
+        loadMorePhotos={loadMorePhotos}
+        onClose={onClose}
+        showEditPhotoForm={() => console.log("showEditPhotoForm")}
+        isEditableActivePhoto={isEditableActivePhoto}
+        //downloadOriginalPhotoUrl="http://download.photo.url"
+        exitFullscreen={exitFullscreen}
+        requestFullscreen={requestFullscreen}
+        isFullscreen={isFullscreen}
+        fullscreenElemRef={fullscreenElemRef}
+        isEditor={true}
+        userUid="uid"
+      />
+    </>
+  );
+};
+
+export const Default = () => {
+  const [show, setShow] = useState(false);
+
+  return (
+    <>
       <Button onClick={() => setShow(true)}>Show photo slider</Button>
 
       <SliderModal open={show}>
-        <PhotoSliderWithDesc
-          activePhoto={photos[activeIndex]}
-          isEditingActivePhoto={false}
-          activeIndex={activeIndex}
-          increaseIndex={increaseIndex}
-          decreaseIndex={decreaseIndex}
-          //editedPhotoIds={editedPhotoIds}
-          photos={photoState.photos}
-          loading={photoState.loading}
-          hasNextPage={photoState.hasNextPage}
-          error={photoState.error}
-          loadMorePhotos={loadMorePhotos}
-          onClose={onClose}
-          showEditPhotoForm={() => console.log("showEditPhotoForm")}
-          isEditableActivePhoto={isEditableActivePhoto}
-          downloadOriginalPhotoUrl="http://download.photo.url"
-        />
+        <PhotoSlider show={show} setShow={setShow} />
       </SliderModal>
     </>
   );

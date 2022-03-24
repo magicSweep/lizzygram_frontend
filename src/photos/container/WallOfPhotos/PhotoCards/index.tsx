@@ -7,7 +7,12 @@ import PhotoCardSkeletons, {
 //import { numberOfPhotosPerQuery } from "../../../../../config";
 //import classes from "./PhotoCards.module.scss";
 //import Card from "@material-ui/core/Card";
-import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+import {
+  Photo,
+  FirestoreDate,
+  FavoriteData,
+} from "lizzygram-common-data/dist/types";
+import { FavoriteReqs } from "../../../types";
 //import { DownloadOriginalPhotoData } from "../../../types";
 
 export interface PhotoCardsProps {
@@ -22,6 +27,12 @@ export interface PhotoCardsProps {
   //showPhotoDesc: (photo: TPhotoData) => void;
   userUid: string;
   editedPhotoIds: string[];
+  addToFavorite: (photoId: string, favoriteBy: FavoriteData) => Promise<void>;
+  removeFromFavorite: (
+    photoId: string,
+    favoriteBy: FavoriteData
+  ) => Promise<void>;
+  favoriteReqs: FavoriteReqs;
   //downloadPhotoData: DownloadOriginalPhotoData;
   //numberOfAddedPhotos: number;
 }
@@ -39,6 +50,9 @@ const PhotoCards: FC<PhotoCardsProps> = ({
   //downloadPhotoData,
   userUid,
   editedPhotoIds,
+  addToFavorite,
+  removeFromFavorite,
+  favoriteReqs,
   //numberOfAddedPhotos,
 }) => {
   const elements: any[] = [];
@@ -72,7 +86,12 @@ const PhotoCards: FC<PhotoCardsProps> = ({
             showEditPhotoForm={onShowEditPhotoForm}
             index={index}
             //downloadPhotoData={downloadPhotoData}
+            photoId={photo.id}
+            favoriteBy={photo.favoriteBy}
             userUid={userUid}
+            favoriteReqs={favoriteReqs}
+            addFavorite={addToFavorite}
+            removeFavorite={removeFromFavorite}
           />
         </div>
       );

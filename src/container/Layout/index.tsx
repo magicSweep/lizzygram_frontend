@@ -12,6 +12,7 @@ import { globalTitle } from "../../config";
 //import loadable from "@loadable/component";
 //import NoSsr from "@mui/material/NoSsr";
 import NoSsr from "../../component/NoSsr";
+import Copyright from "../../component/Copyright";
 
 const LoadableThemeSwitch = lazy(
   () => import("../../theme/component/ThemeSwitch")
@@ -149,7 +150,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         {children}
       </Wrapper>
 
-      <Footer />
+      {/* <Footer /> */}
+
+      <div className="py-6 px-4">
+        <Copyright />
+      </div>
 
       <AlertsLoadableWrapper />
     </Box>

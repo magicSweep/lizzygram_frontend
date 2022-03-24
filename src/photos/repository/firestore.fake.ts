@@ -1,9 +1,4 @@
-import {
-  tagsCollectionName,
-  photosCollectionName,
-  //numberOfPhotosPerQuery,
-} from "../../config";
-import { GetAllPhotosResData, EditPhotoFirestoreRequestBody } from "../types";
+import { EditPhotoFirestoreRequestBody } from "../types";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { SearchTerms } from "./../../search/types";
 import { photos as photosToAdd } from "../mock/fake.data";
@@ -112,10 +107,6 @@ export const editOne = (data: EditPhotoFirestoreRequestBody) => {
 
   const fieldsToUpdate = data.fieldsToUpdate;
 
-  /* if (fieldsToUpdate.yearsOld !== undefined) {
-    photoToEdit.yearsOld = fieldsToUpdate.yearsOld;
-  } */
-
   if (fieldsToUpdate.tags !== undefined) {
     photoToEdit.tags = fieldsToUpdate.tags as any;
   }
@@ -132,6 +123,10 @@ export const editOne = (data: EditPhotoFirestoreRequestBody) => {
       nanoseconds: 0,
       toDate: () => new Date(seconds * 1000),
     };
+  }
+
+  if (fieldsToUpdate.favoriteBy !== undefined) {
+    (photoToEdit as any).favoriteBy = fieldsToUpdate.favoriteBy;
   }
 
   newPhotos.unshift(photoToEdit as any);

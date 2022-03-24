@@ -1,7 +1,4 @@
-import {
-  PhotosAction,
-  GetAllPhotosResData,
-} from "../../types";
+import { PhotosAction, GetAllPhotosResData } from "../../types";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 //import { TPhotoData } from "../../types";
@@ -134,6 +131,39 @@ export const editPhotoRequestErrorAC = (photoId: string): PhotosAction => {
     photoId,
   };
 };
+
+export const favoritePhotoStartRequestAC = (photoId: string): PhotosAction => {
+  return {
+    type: "FAVORITE_REQUEST_START",
+    photoId,
+  };
+};
+
+//FAVORITE_REQUEST_ERROR
+export const favoritePhotoErrorRequestAC = (photoId: string): PhotosAction => {
+  return {
+    type: "FAVORITE_REQUEST_ERROR",
+    photoId,
+  };
+};
+
+export const favoritePhotoEndRequestAC = (
+  photoId: string,
+  userUid: string
+): PhotosAction => {
+  return {
+    type: "FAVORITE_REQUEST_END",
+    photoId,
+    userUid,
+  };
+};
+
+/* export const favoritePhotoRequestErrorAC = (photoId: string): PhotosAction => {
+  return {
+    type: "FAVORITE_REQUEST_ERROR",
+    photoId,
+  };
+}; */
 
 /* export const editPhotoRequestSuccessAC = (
   isLastEditPhotoReq: boolean,

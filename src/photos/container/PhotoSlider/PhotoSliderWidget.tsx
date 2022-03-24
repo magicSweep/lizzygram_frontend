@@ -10,33 +10,40 @@ import { useCarousel } from "../../../container/Carousel/hook/useCarousel";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import { useImgZoom } from "../../hook/useImgZoom";
 import SliderBar from "../SliderBar";
+import { FullscreenProps } from "../../../component/Fullscreen";
 import SliderChildren from "./SliderChidren";
 import SliderControls from "../SliderControls";
 import { isIncreaseAfterLoading } from "./helper";
-import { DownloadOriginalPhotoData } from "./../../types";
+import { PhotoFavoriteProps } from "../../component/PhotoFavorite";
+//import { DownloadOriginalPhotoData } from "./../../types";
 
-export type PhotoSliderProps = {
-  //editedPhotoIds: string[];
-  //initActiveIndex: number;
-  //photoState: IPhotosState;
-  photos: Photo<FirestoreDate>[] | undefined;
-  loading: boolean;
-  hasNextPage: boolean;
-  error: boolean;
-  loadMorePhotos: () => void;
-  onClose: (event: any) => void;
-  onToggleDesc: (event: any) => void;
-  isEditingActivePhoto: boolean;
-  isEditableActivePhoto: boolean;
-  isEditor: boolean;
-  showEditPhotoForm: () => void;
-  //downloadOriginalPhotoUrl: string;
-  //downloadPhotoData: DownloadOriginalPhotoData;
-  userUid: string;
-  activeIndex: number;
-  increaseIndex: () => void;
-  decreaseIndex: () => void;
-};
+export type PhotoSliderProps = Omit<
+  PhotoFavoriteProps,
+  "photoId" | "favoriteBy"
+> &
+  FullscreenProps & {
+    //editedPhotoIds: string[];
+    //initActiveIndex: number;
+    //photoState: IPhotosState;
+    photos: Photo<FirestoreDate>[] | undefined;
+    loading: boolean;
+    hasNextPage: boolean;
+    error: boolean;
+    loadMorePhotos: () => void;
+    onClose: (event: any) => void;
+    onToggleDesc: (event: any) => void;
+    isEditingActivePhoto: boolean;
+    isEditableActivePhoto: boolean;
+    isEditor: boolean;
+    showEditPhotoForm: () => void;
+    //downloadOriginalPhotoUrl: string;
+    //downloadPhotoData: DownloadOriginalPhotoData;
+    userUid: string;
+    activeIndex: number;
+    increaseIndex: () => void;
+    decreaseIndex: () => void;
+    //fullscreenElemRef: MutableRefObject<any>;
+  };
 
 const useIncreaseIndexAfterFetchPhotos = (
   photosLength: number,
@@ -95,6 +102,11 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
   activeIndex,
   increaseIndex,
   decreaseIndex,
+  requestFullscreen,
+  exitFullscreen,
+  isFullscreen,
+  ...props
+  //fullscreenElemRef,
 }) => {
   const photosLength = photos === undefined ? 0 : photos.length;
 
@@ -130,7 +142,11 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
 
   return (
     <>
-      <div className="relative w-full h-full bg-photocard overflow-auto">
+      <div
+        /* ref={fullscreenElemRef}
+        id="super_photo_slider_23klj2342" */
+        className="relative w-full h-full bg-photocard overflow-auto"
+      >
         <SliderChildren
           photos={photos}
           activeIndex={activeIndex}
@@ -152,6 +168,8 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
         )}
 
         <SliderBar
+          photos={photos}
+          activeIndex={activeIndex}
           handleSliderChange={handleSliderChange}
           zoom={value}
           cancel={cancel}
@@ -162,8 +180,16 @@ const PhotoSliderWidget: FC<PhotoSliderProps> = ({
           showEditPhotoForm={showEditPhotoForm}
           //downloadPhotoData={downloadPhotoData}
           userUid={userUid}
-          imageExtension={photos[activeIndex].imageExtention}
-          googleDriveId={photos[activeIndex].googleDriveId}
+          imageExtension={
+            photos === undefined ? "" : photos[activeIndex].imageExtention
+          }
+          googleDriveId={
+            photos === undefined ? "" : photos[activeIndex].googleDriveId
+          }
+          requestFullscreen={requestFullscreen}
+          exitFullscreen={exitFullscreen}
+          isFullscreen={isFullscreen}
+          {...props}
         />
       </div>
     </>

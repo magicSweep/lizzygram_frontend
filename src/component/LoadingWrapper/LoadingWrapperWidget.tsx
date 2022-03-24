@@ -5,14 +5,20 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 export type LoadingWrapperWidgetProps = {
   circle: boolean;
+  transparentBg?: boolean;
+  thickness?: number;
 };
 
-const LoadingWrapperWidget: FC<LoadingWrapperWidgetProps> = ({ circle }) => {
+const LoadingWrapperWidget: FC<LoadingWrapperWidgetProps> = ({
+  circle,
+  transparentBg,
+  thickness,
+}) => {
   return (
     <div
       className={`
         absolute top-0 left-0
-        bg-gray-200
+        ${transparentBg === true ? "bg-transparent" : "bg-gray-200"}
         w-full h-full
         flex justify-center items-center
         ${circle === true ? "rounded-full" : "rounded"}
@@ -29,7 +35,11 @@ const LoadingWrapperWidget: FC<LoadingWrapperWidgetProps> = ({ circle }) => {
       borderRadius="4px"
       {...props} */
     >
-      <CircularProgress size="20px" thickness={2.4} color="primary" />
+      <CircularProgress
+        size="20px"
+        thickness={thickness === undefined ? 2.4 : thickness}
+        color="primary"
+      />
     </div>
   );
 };

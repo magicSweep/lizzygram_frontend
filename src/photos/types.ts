@@ -69,6 +69,7 @@ export type FirestoreFieldsToEdit = {
   //isActive?: boolean;
   yearsOld?: number;
   tags?: { [name: string]: boolean };
+  favoriteBy?: Photo<any>["favoriteBy"];
 };
 
 //export type UtcDateString = string;
@@ -119,6 +120,15 @@ export type EditPhotoFirestoreRequestBody = {
   fieldsToUpdate: FirestoreFieldsToEdit;
 };
 
+/* export type FavoriteReqData = {
+  photoId: string;
+  error?: any;
+  loading: boolean;
+}; */
+export type PhotoId = string;
+//export type FavoriteReqData = PhotoId[];
+export type FavoriteReqs = PhotoId[];
+
 // PHOTOS STATE
 export interface PhotosState {
   activePhotoIndex: number;
@@ -136,6 +146,7 @@ export interface PhotosState {
     activeReqIds: string[];
     reqIds: string[];
   };
+  favoriteReqs: FavoriteReqs;
   //numberOfAddedPhotoReqs: number;
   //editedPhotosIds: string[];
 }
@@ -171,8 +182,12 @@ export type PhotosActionTypes =
   | "FETCH_MORE_PHOTO_REQUEST_SUCCESS"
   | "FETCH_MORE_PHOTO_REQUEST_ERROR"
   | "SHOW_PHOTO_SLIDER"
-  | "HIDE_PHOTO_SLIDER";
-//| "REMOVE_PHOTO_REQUEST_INFO";
+  | "HIDE_PHOTO_SLIDER"
+  //| "REMOVE_PHOTO_REQUEST_INFO";
+  | "FAVORITE_REQUEST_START"
+  | "FAVORITE_REQUEST_END"
+  //| "FAVORITE_REQUEST_SUCCESS"
+  | "FAVORITE_REQUEST_ERROR";
 
 export interface PhotosAction extends Action<any> {
   type: PhotosActionTypes;
@@ -187,6 +202,7 @@ export interface PhotosAction extends Action<any> {
   photoId?: string;
   hasNextPage?: boolean;
   nextPageDocRef?: any;
+  userUid?: string;
   //isLastEditPhotoReq?: boolean;
   //isLastAddPhotoReq?: boolean;
 }

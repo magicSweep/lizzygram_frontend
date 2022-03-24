@@ -1,6 +1,10 @@
 import /* IPhotosAction, IPhotosState, TPhotosData */ "../../types";
-import { PhotosState, PhotosAction } from "./../../types";
-import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+import { PhotosState, PhotosAction, FavoriteReqs } from "./../../types";
+import {
+  Photo,
+  FirestoreDate,
+  FavoriteData,
+} from "lizzygram-common-data/dist/types";
 
 export const getPhotoIndexByPhotoId = (
   photos: Photo<FirestoreDate>[],
@@ -13,6 +17,44 @@ export const getPhotoIndexByPhotoId = (
       return i;
     }
   }
+};
+
+export const updateFavoriteByOnPhotos = (
+  photos: Photo<FirestoreDate>[],
+  photoId: string,
+  userUid: string
+) => {
+  return photos.map((photo) => {
+    if (photo.id === photoId) {
+      if (
+        photo.favoriteBy !== undefined &&
+        photo.favoriteBy[userUid] === true
+      ) {
+        const newFavoriteBy = {};
+
+        for (let prop in photo.favoriteBy) {
+          if (prop !== userUid) newFavoriteBy[prop] = photo.favoriteBy[prop];
+        }
+
+        photo.favoriteBy = newFavoriteBy;
+      } else {
+        const newFavoriteBy: FavoriteData = {
+          ...photo.favoriteBy,
+          [userUid]: true,
+        };
+        photo.favoriteBy = newFavoriteBy;
+      }
+    }
+
+    return photo;
+  });
+};
+
+export const deleteFromFavoriteReqs = (
+  favoriteReqs: FavoriteReqs,
+  actionPhotoId: string
+) => {
+  return favoriteReqs.filter((photoId) => photoId !== actionPhotoId);
 };
 
 export const onFetchMorePhotosRequestSuccess = (

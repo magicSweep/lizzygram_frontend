@@ -12,7 +12,13 @@ export const Default = () => {
 
   return (
     <Box width="700px" height="400px" className="relative m-auto bg-white">
-      <ArrowControls next={next} prev={prev} />
+      <ArrowControls
+        next={next}
+        prev={prev}
+        itemsLength={6}
+        activeIndex={0}
+        hasNextPage={true}
+      />
     </Box>
   );
 };

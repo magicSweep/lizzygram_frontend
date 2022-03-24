@@ -3,7 +3,7 @@ import FormWrapper from "../../../container/FormWrapper";
 import { useForm } from "react-hook-form";
 import TagCheckboxes from "../../../tags/container/TagCheckboxes";
 //import { TagsFormState } from "../../../tags/types";
-import AgeSelect from "../../container/formElements/AgeSelect";
+import AgeSelect from "../../component/formElements/AgeSelect";
 import { SearchTerms, SearchPhotoFormData } from "../../types";
 
 export interface SearchPhotoFormProps {

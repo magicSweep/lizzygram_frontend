@@ -4,11 +4,15 @@ import { FirestoreTagsData, TagsFormState } from "./../tags/types";
 export interface SearchTerms {
   tags?: FirestoreTagsData;
   age: number;
+  mine: boolean;
+  favorites: boolean;
 }
 
 export type SearchPhotoFormData = {
   age: string;
   tags: TagsFormState;
+  mine: boolean;
+  favorites: boolean;
 };
 
 export interface SearchState {

@@ -10,21 +10,35 @@ import { DownloadPhotoProps } from "../../component/DownloadPhoto/types";
 import ZoomBtn, { ZoomBtnProps } from "../ZoomBtn";
 //import { DownloadOriginalPhotoData } from "../../types";
 import DownloadPhotoIcon from "../../component/DownloadPhoto/Icon";
+import Fullscreen, { FullscreenProps } from "../../../component/Fullscreen";
+import Orientation from "../../../component/Orientation";
+//import Favorite from "../../../component/Favorite";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
+import PhotoFavorite, {
+  PhotoFavoriteProps,
+} from "../../component/PhotoFavorite";
 
-export interface SliderBarProps extends ZoomBtnProps, DownloadPhotoProps {
-  isEditable: boolean;
-  isEditor: boolean;
-  //downloadPhotoData: DownloadOriginalPhotoData;
-  showEditPhotoForm: () => void;
-  onClose: (event: any) => void;
-  onToggleDesc: (event: any) => void;
-}
+export type SliderBarProps = ZoomBtnProps &
+  DownloadPhotoProps &
+  FullscreenProps &
+  Omit<PhotoFavoriteProps, "photoId" | "favoriteBy"> & {
+    photos: Photo<FirestoreDate>[];
+    activeIndex: number;
+    isEditable: boolean;
+    isEditor: boolean;
+    //downloadPhotoData: DownloadOriginalPhotoData;
+    showEditPhotoForm: () => void;
+    onClose: (event: any) => void;
+    onToggleDesc: (event: any) => void;
+  };
 
 const ItemWrapper = ({ children }: { children: any }) => {
   return <div className="w-12 h-12 mr-1.5">{children}</div>;
 };
 
 const SliderBar: FC<SliderBarProps> = ({
+  photos,
+  activeIndex,
   onClose,
   onToggleDesc,
   isEditable,
@@ -33,14 +47,14 @@ const SliderBar: FC<SliderBarProps> = ({
   userUid,
   googleDriveId,
   imageExtension,
+  exitFullscreen,
+  requestFullscreen,
+  isFullscreen,
+  favoriteReqs,
+  addFavorite,
+  removeFavorite,
   ...props
 }) => {
-  /* left: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 72px;
-  background-color: transparent; */
   return (
     <div className="absolute top-0 left-0 right-0 h-18 bg-transparent z-50">
       <div className="absolute w-full shadow-none top-0 h-16 slider-bar-gradient"></div>
@@ -95,6 +109,33 @@ const SliderBar: FC<SliderBarProps> = ({
               </IconButton>
             </Tooltip>
           </ItemWrapper>
+
+          {isEditor === true && (
+            <ItemWrapper>
+              <PhotoFavorite
+                addFavorite={addFavorite}
+                removeFavorite={removeFavorite}
+                favoriteReqs={favoriteReqs}
+                favoriteBy={photos[activeIndex].favoriteBy}
+                photoId={photos[activeIndex].id}
+                userUid={userUid}
+              />
+            </ItemWrapper>
+          )}
+
+          <ItemWrapper>
+            <Fullscreen
+              exitFullscreen={exitFullscreen}
+              requestFullscreen={requestFullscreen}
+              isFullscreen={isFullscreen}
+            />
+          </ItemWrapper>
+
+          {isFullscreen === true && (
+            <ItemWrapper>
+              <Orientation />
+            </ItemWrapper>
+          )}
         </div>
       </div>
     </div>

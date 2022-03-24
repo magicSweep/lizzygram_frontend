@@ -8,6 +8,8 @@ import { GlobalState } from "../../../types";
 import { PhotoSliderWithDescProps } from "./PhotoSliderWithDesc";
 import { useEditor } from "../../../auth/hook/useEditor";
 import { FirestoreDate, Photo } from "lizzygram-common-data/dist/types";
+import useFullscreenElem from "../../../hook/useFullscreen";
+import { useFavorite } from "../../hook/useFavorite";
 
 export const usePhotoSlider = (): PhotoSliderWithDescProps => {
   const dispatch = useDispatch();
@@ -36,7 +38,16 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
     activePhotoIndex
   );
 
-  const onClose = useCallback(() => dispatch(hidePhotoSliderAC()), []);
+  const { requestFullscreen, exitFullscreen, isFullscreen, fullscreenElemRef } =
+    useFullscreenElem();
+
+  const onClose = useCallback(() => {
+    exitFullscreen();
+
+    setTimeout(() => {
+      dispatch(hidePhotoSliderAC());
+    }, 100);
+  }, []);
 
   const activePhoto: Photo<FirestoreDate> =
     photos === undefined ? undefined : photos[activeIndex];
@@ -44,12 +55,24 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
   const showEditPhotoForm =
     activePhoto === undefined
       ? () => {}
-      : () => dispatch(editPhotoStartRequestAC(activePhoto.id));
+      : () => {
+          if (isFullscreen === true) exitFullscreen();
+
+          setTimeout(() => {
+            dispatch(editPhotoStartRequestAC(activePhoto.id));
+          }, 100);
+        };
 
   const isEditableActivePhoto =
     activePhoto === undefined ? false : userUid === activePhoto.addedByUserUID;
   const isEditingActivePhoto =
     activePhoto === undefined ? false : editedPhotoIds.includes(activePhoto.id);
+
+  const {
+    favoriteReqs,
+    add: addFavorite,
+    remove: removeFavorite,
+  } = useFavorite(userUid);
 
   return {
     photos,
@@ -67,5 +90,12 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
     decreaseIndex,
     activePhoto,
     isEditingActivePhoto,
+    requestFullscreen,
+    exitFullscreen,
+    isFullscreen,
+    fullscreenElemRef,
+    favoriteReqs,
+    addFavorite,
+    removeFavorite,
   };
 };

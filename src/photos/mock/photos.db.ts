@@ -1,3 +1,5 @@
+import { Photo } from "lizzygram-common-data/dist/types";
+
 export const photos = [
   {
     id: "1531699239048",

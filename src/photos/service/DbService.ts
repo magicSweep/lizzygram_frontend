@@ -20,6 +20,16 @@ export const getAllPhotos = (
   );
 };
 
+export const changeFavorites = (data: {
+  photoId: string;
+  fieldsToUpdate: {
+    favoriteBy: Photo<any>["favoriteBy"];
+  };
+}) => {
+  //
+  return editOne(data);
+};
+
 /* export const getAllPhotos = (
   searchState: SearchTerms,
   nextPageDocRef?: any
