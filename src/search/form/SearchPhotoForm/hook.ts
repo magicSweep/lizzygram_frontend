@@ -33,6 +33,8 @@ export const useSearchPhotoForm = (): SearchPhotoFormProps => {
           setSearchTermsAC({
             tags: getOnlyTrueTags(data.tags),
             age: parseInt(data.age),
+            mine: data.mine,
+            favorites: data.favorites,
           })
         );
       }

@@ -16,6 +16,7 @@ import { MutableRefObject, useEffect, useRef } from "react";
 import { isNeedNewRequest, makeGetAllPhotosResData } from "./usePhotos.helper";
 //import { DocumentData, QuerySnapshot } from "firebase/firestore";
 import { ResponseWithCursor } from "../../../firebase/types";
+import { useAuth } from "../../../auth";
 
 export interface IPhotosReqData {
   isLoadMore: boolean;
@@ -24,6 +25,7 @@ export interface IPhotosReqData {
 }
 
 export const startNew = (
+  userUid: string,
   dispatch: any,
   isLoadMore: boolean,
   searchState: SearchState,
@@ -40,7 +42,7 @@ export const startNew = (
       }
     },
     // SEND REQUEST
-    () => getAllPhotos(searchState.terms, nextPageDocRef),
+    () => getAllPhotos(userUid, searchState.terms, nextPageDocRef),
     then((resData: ResponseWithCursor<Photo<FirestoreDate>>) => {
       const photosStateData = makeGetAllPhotosResData(resData);
 
@@ -53,8 +55,8 @@ export const startNew = (
       }
     }),
     _catch((err) => {
-      console.log("GET ALL PHOTOS ERROR");
-      console.log(err.message);
+      console.error("GET ALL PHOTOS ERROR");
+      console.error(err.message);
       dispatch(allPhotosRequestErrorAC());
     })
   );
@@ -87,6 +89,8 @@ export const usePhotos = () => {
 
   const mainRef: MutableRefObject<any> = useRef({});
 
+  const { userUid } = useAuth();
+
   mainRef.current = useSelector<
     GlobalState,
     {
@@ -115,9 +119,15 @@ export const usePhotos = () => {
     shallowEqual
   );
 
-  const loadPhotos = startNew(dispatch, false, mainRef.current.searchState);
+  const loadPhotos = startNew(
+    userUid,
+    dispatch,
+    false,
+    mainRef.current.searchState
+  );
 
   const loadMore = startNew(
+    userUid,
     dispatch,
     true,
     mainRef.current.searchState,
@@ -125,9 +135,12 @@ export const usePhotos = () => {
   );
 
   useEffect(() => {
-    /*  console.log(
+    /* console.log(
       "-----------isNeedNewRequest",
-      isNeedNewRequest(searchState.terms, loading)
+      isNeedNewRequest(
+        mainRef.current.searchState.terms,
+        mainRef.current.loading
+      )
     ); */
     if (
       isNeedNewRequest(
@@ -135,6 +148,7 @@ export const usePhotos = () => {
         mainRef.current.loading
       )
     ) {
+      console.log("-----------------------load photos");
       loadPhotos();
     }
   }, [mainRef.current.searchState]);

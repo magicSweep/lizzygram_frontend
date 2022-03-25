@@ -19,7 +19,7 @@ export const photos = [
       ybrq9aFZlTk71akoH7Lz: true,
       bCcRcxADj2xP9fkSXNpH: true,
     },
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "EjFsvWWbSOPdt56yt",
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1614929592/lyhup7gxtotcxi0uywuf.jpg",
     files: [
@@ -33,6 +33,9 @@ export const photos = [
     aspectRatio: 1.78,
     description: "",
     _timestamp: { seconds: 1611885662, nanoseconds: 509000000 },
+    favoriteBy: {
+      jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
+    },
     base64:
       "UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoPAAgAAUAmJYgCdADdIVzaYAD++8vH57GpQTpXIWzlFXTFNb8OfQIKdNRid/ODNbJp+IDrvk4YW2AAAAA=",
   },
@@ -41,7 +44,7 @@ export const photos = [
     aspectRatio: 1.78,
     base64:
       "UklGRmYAAABXRUJQVlA4IFoAAADwAQCdASoPAAgAAUAmJagCdAENpWFoCgAA/teUyYgt4AM8Av0SvqDZ8mt/DtES+IA8UAxHmnPTKeciZtQG6MDHRH3BbAqZc9cNq9OfLWa/oWZfHb2Gh2AAAAA=",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     _timestamp: {
       seconds: 1617724415,
       nanoseconds: 274000000,
@@ -99,7 +102,7 @@ export const photos = [
     aspectRatio: 1.78,
     srcSet:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1617724189/mwjqwm4ur1kfeto9epfb.jpg 600w, https://res.cloudinary.com/dojbazopp/image/upload/v1617724189/twkh9krhtyn3d7o7g4wk.jpg 1000w, https://res.cloudinary.com/dojbazopp/image/upload/v1617724189/fdgks0vxb0igkarrxjcy.jpg 1500w, https://res.cloudinary.com/dojbazopp/image/upload/v1617724189/a1zs0efwu3nk5qalextb.jpg 2300w",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "FsvWWbSOPdt56yt",
     src: "https://res.cloudinary.com/dojbazopp/image/upload/v1617724189/mwjqwm4ur1kfeto9epfb.jpg",
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1617724189/gzh1mhuur7iabcdzlndy.jpg",
@@ -145,7 +148,7 @@ export const photos = [
       ybrq9aFZlTk71akoH7Lz: true,
     },
     aspectRatio: 2.36,
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     date: {
       seconds: 1541462400,
       nanoseconds: 0,
@@ -175,7 +178,7 @@ export const photos = [
       "mfb123fl0lesa4f9adgf",
     ],
     description: "",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     date: {
       seconds: 1598745600,
       nanoseconds: 0,
@@ -198,7 +201,7 @@ export const photos = [
     src: "https://res.cloudinary.com/dojbazopp/image/upload/v1614929939/vh1uzhcxltikv5gk3dwg.jpg",
     isActive: true,
     googleDriveId: "1OkltrVIDGI_Y-mYeyB9PXcMR7Xho40gj",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     aspectRatio: 0.75,
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1614929938/mcwgtqexuv9wlfscltdi.jpg",
@@ -242,7 +245,7 @@ export const photos = [
     },
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1614710127/hdhfmbdwq5gayff0syey.jpg",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     files: [
       "hdhfmbdwq5gayff0syey",
       "oblhjkoixev2c54bsld9",
@@ -281,6 +284,9 @@ export const photos = [
       i9eQLkfNjw3f05VWIrXO: true,
       ybrq9aFZlTk71akoH7Lz: true,
     },
+    favoriteBy: {
+      jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
+    },
     base64:
       "UklGRl4AAABXRUJQVlA4IFIAAAAQAgCdASoPAAgAAUAmJZgCdAD6+ZLlumkAAP6buhB/ugyptA/QzxkY0e27oTuivMhpNoaHvzYCi0DoO2VLB2wuH9ipYBOxbx8j126qowMwAAAA",
     _timestamp: {
@@ -303,7 +309,7 @@ export const photos = [
       toDate: () => new Date(1557792000 * 1000),
     },
     googleDriveId: "12foDmCbGL8A0aY38mofeL9f6QwG8OjPc",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     aspectRatio: 1.78,
   },
   {
@@ -337,7 +343,7 @@ export const photos = [
     src: "https://res.cloudinary.com/dojbazopp/image/upload/v1616525120/we1fgzfj2nveh2qgmsbv.jpg",
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1616525120/lzpunmpvmz2ejljox2g7.jpg",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     aspectRatio: 0.75,
     _timestamp: {
       seconds: 1613584116,
@@ -367,7 +373,7 @@ export const photos = [
     },
     description: "НЛО прилетело... И улетело...",
     isActive: true,
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     tags: {
       bCcRcxADj2xP9fkSXNpH: true,
       vPJtnzfAfNOev1yfUbWS: true,
@@ -381,6 +387,9 @@ export const photos = [
       "zfnkv1kpf3pmmut1pq8d",
       "frdda0mear22yaczzlah",
     ],
+    favoriteBy: {
+      jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
+    },
     base64:
       "UklGRrwAAABXRUJQVlA4ILAAAADQBACdASoPABQAPm0skkWkIqGYBABABsSyAE6ZQjgRYFCAiwAB10KSwXTmhSVpAAD+3/kheTEQK9k5Ce40jeuk/ebDXRSiSJkB6PjoL8PLXG8wrBrTy853Z1Bz/Kt8weQ9F+VH8B0qSg6IWGctaVgBmopz/VnVbLM/0LsLCT/Q4wjmRCCFey6Nb1+YcrLHKBer80b8E11EKTQ+5kHn4MoEozvirrYXfirTbVsegAAAAA==",
   },
@@ -406,7 +415,7 @@ export const photos = [
       ieYx4ke8ms0DJb5APv4u: true,
       vPJtnzfAfNOev1yfUbWS: true,
     },
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     base64:
       "UklGRogAAABXRUJQVlA4IHwAAABwBACdASoPABQAPm0skkWkIqGYBABABsSxgE6ZQZG2HfDUYjXnqBIn+E3DGAD++r79HCDuxWf6SsNMS16N0c9j9KJXgOQAK+sj2Naqvl/Lx7WPcSAVT4EMY0sZBttoYII1/P9D15jm/jIvxe525FmTSc58UHJ37YdZAAAA",
     googleDriveId: "107qmycBPDGSiACOYxXr-hAzMUYShiO7L",
@@ -452,6 +461,9 @@ export const photos = [
     srcSet:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1624900421/gyhhh7fsi6zwl8d6aqb2.jpg 600w, https://res.cloudinary.com/dojbazopp/image/upload/v1624900422/mmwifu5tga0adtqwivfx.jpg 1000w, https://res.cloudinary.com/dojbazopp/image/upload/v1624900422/frnfllphsfkpr92fnm0z.jpg 1500w, https://res.cloudinary.com/dojbazopp/image/upload/v1624900422/asjzbkgcxokueq9ylgyh.jpg 2300w",
     description: "",
+    favoriteBy: {
+      jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
+    },
     files: [
       "wb3g5xgv4raybvysdqzf",
       "gyhhh7fsi6zwl8d6aqb2",
@@ -459,7 +471,7 @@ export const photos = [
       "frnfllphsfkpr92fnm0z",
       "asjzbkgcxokueq9ylgyh",
     ],
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEj",
   },
   {
     id: "1615248024140",
@@ -472,7 +484,7 @@ export const photos = [
     ],
     isActive: true,
     yearsOld: 0,
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     base64:
       "UklGRmYAAABXRUJQVlA4IFoAAADQAQCdASoPAAgAAUAmJbACdACvcLoSAAD++WWEpINM5C1IpOs9dfQvKoF94yVXhe9sCLFxuR4l0LlE/uYm4NlU1/5m1z1MRthivPmVRCZ/x635+yj7fj5+/gA=",
     date: {
@@ -520,7 +532,7 @@ export const photos = [
       i9eQLkfNjw3f05VWIrXO: true,
       ieYx4ke8ms0DJb5APv4u: true,
     },
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     src: "https://res.cloudinary.com/dojbazopp/image/upload/v1617329875/lbvvrhv1qupzvt0sp1or.jpg",
     aspectRatio: 1.78,
     base64:
@@ -561,7 +573,7 @@ export const photos = [
     },
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1615191425/nbbvxbo6hetkkwxquftd.jpg",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     yearsOld: 0,
     description: "",
     files: [
@@ -605,7 +617,7 @@ export const photos = [
     description: "",
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1615191331/morzjeenjdiodfvxtmx7.jpg",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     srcSet:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1615191331/xjghlro82ha5urgkcs4g.jpg 600w, https://res.cloudinary.com/dojbazopp/image/upload/v1615191331/fqdfpsdtk5rlsw4uc2fy.jpg 1000w, https://res.cloudinary.com/dojbazopp/image/upload/v1615191331/tkxljvs4s89iif59nakp.jpg 1500w, https://res.cloudinary.com/dojbazopp/image/upload/v1615191331/wd7mlnt9ajf35lhcaqth.jpg 2300w",
     isActive: true,
@@ -620,7 +632,7 @@ export const photos = [
     id: "1624638258689",
     srcSet:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1624900201/v1gxkzawydxgdijitdoc.jpg 600w, https://res.cloudinary.com/dojbazopp/image/upload/v1624900201/tb4sfnoybvfrm42iwzwy.jpg 1000w, https://res.cloudinary.com/dojbazopp/image/upload/v1624900201/isxtffdcg8u1vqtl0bt2.jpg 1500w, https://res.cloudinary.com/dojbazopp/image/upload/v1624900201/smsvvhlb4wyt89cwwjad.jpg 2300w",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     date: {
       seconds: 1623024000,
       nanoseconds: 0,
@@ -686,7 +698,7 @@ export const photos = [
     },
     yearsOld: 3,
     imageExtention: "jpeg",
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1640202892/zccqoeukx6nbmcpmzdve.webp",
   },
@@ -707,7 +719,7 @@ export const photos = [
       "cpkgdc5zhkolgmvxpqit",
       "rhxs1vhrsejwjf67d0tp",
     ],
-    addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
+    addedByUserUID: "jkFrANbtA4bBEjFs",
     srcSet:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1640204081/edcdrynltryo9tjhpzyx.webp 600w, https://res.cloudinary.com/dojbazopp/image/upload/v1640204081/w4pkhi3mtplp0vkkafvf.webp 1000w, https://res.cloudinary.com/dojbazopp/image/upload/v1640204081/cpkgdc5zhkolgmvxpqit.webp 1500w, https://res.cloudinary.com/dojbazopp/image/upload/v1640204081/rhxs1vhrsejwjf67d0tp.webp 2300w",
     imageExtention: "png",

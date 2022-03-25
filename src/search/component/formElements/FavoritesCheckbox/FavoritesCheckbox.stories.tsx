@@ -1,68 +1,7 @@
 import Button from "@mui/material/Button";
 import Box from "@mui/system/Box";
-import { useCallback, FC } from "react";
-import { useForm, Controller } from "react-hook-form";
-import Checkbox from "@mui/material/Checkbox";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FavoriteBorder from "@mui/icons-material/FavoriteBorder";
-import Favorite from "@mui/icons-material/Favorite";
-
-/* const FavoritesCheckbox: FC<any> = ({
-  handleChange,
-  checked,
-  disabled,
-  label,
-}) => {
-  return (
-    <FormControlLabel
-      control={
-        <Checkbox
-          checked={checked}
-          onChange={handleChange}
-          disabled
-          name="favorites"
-          icon={<FavoriteBorder />} 
-          checkedIcon={<Favorite />}
-        />
-      }
-      disabled={disabled}
-      label={label}
-      labelPlacement="end"
-    />
-  );
-};
- */
-
-const FavoritesCheckbox: FC<any> = ({
-  /* handleChange,
-  checked, */
-  disabled,
-  label,
-  control,
-}) => {
-  return (
-    <Controller
-      name={"favorites"}
-      control={control}
-      render={({ field }) => (
-        <FormControlLabel
-          className="select-none"
-          control={
-            <Checkbox
-              {...field}
-              disabled
-              icon={<FavoriteBorder />}
-              checkedIcon={<Favorite color="secondary" />}
-            />
-          }
-          disabled={disabled}
-          label={label}
-          labelPlacement="end"
-        />
-      )}
-    />
-  );
-};
+import { useForm } from "react-hook-form";
+import FavoritesCheckbox from ".";
 
 export default {
   component: FavoritesCheckbox,

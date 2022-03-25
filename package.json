@@ -26,7 +26,7 @@
     "build": "gatsby build",
     "serve": "cross-env GATSBY_BUILD_FOR=portfolio gatsby serve",
     "clean": "gatsby clean",
-    "test": "jest",
+    "test": "jest --coverage",
     "jest:watchAll": "jest --watchAll",
     "storybook": "cross-env GATSBY_BUILD_FOR=portfolio start-storybook -p 6006",
     "build-storybook": "build-storybook"

@@ -44,6 +44,8 @@ describe("isNeedNewRequest", () => {
       {
         tags: undefined,
         age: -1,
+        mine: false,
+        favorites: false,
       },
       false
     );
@@ -54,6 +56,8 @@ describe("isNeedNewRequest", () => {
       {
         tags: undefined,
         age: -1,
+        mine: false,
+        favorites: false,
       },
       false
     );
@@ -64,6 +68,8 @@ describe("isNeedNewRequest", () => {
       {
         tags: undefined,
         age: 2,
+        mine: false,
+        favorites: false,
       },
       false
     );
@@ -74,6 +80,8 @@ describe("isNeedNewRequest", () => {
       {
         tags: undefined,
         age: 3,
+        mine: false,
+        favorites: false,
       },
       true
     );
@@ -87,6 +95,8 @@ describe("isNeedNewRequest", () => {
           b: true,
         },
         age: 3,
+        mine: false,
+        favorites: false,
       },
       false
     );
@@ -101,6 +111,8 @@ describe("isNeedNewRequest", () => {
           c: false,
         },
         age: 3,
+        mine: false,
+        favorites: false,
       },
       false
     );

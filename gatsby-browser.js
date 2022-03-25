@@ -9,7 +9,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./src/theme/styles/global.css";
 import Layout from "./src/container/Layout";
-import { init } from "./src/firebase/init";
+import { init } from "./src/firebase/init.fake";
 
 init();
 

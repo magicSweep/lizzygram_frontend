@@ -1,16 +1,63 @@
-import { getAllBySearchTerms, addOne, editOne, getOne } from "./firestore.fake";
+import {
+  getAllBySearchTerms,
+  addOne,
+  editOne,
+  getOne,
+  searchPhotoFilter,
+} from "./firestore.fake";
 import { photos as photosToAdd } from "../mock/fake.data";
+import { photos as initPhotos } from "../mock/photos.db";
 
 let searchTerms = {
   tags: undefined,
   age: -1,
+  mine: false,
+  favorites: false,
 };
+
+let userUid = "jkFrANbtA4bBEjFsvWWbSOPdt56yt";
 
 jest.setTimeout(8000);
 
+/////////////////////////////////
+
+describe("searchPhotoFilter", () => {
+  test("", () => {
+    let searchTerms = {
+      tags: {},
+      age: -1,
+      mine: true,
+      favorites: true,
+    };
+
+    /* const photo = {
+      yearsOld: -1,
+      addedByUserUID: "123",
+      favoriteBy: {
+        123: true,
+      },
+    }; */
+
+    //const result = searchPhotoFilter(searchTerms, "123")(photo);
+    const result = initPhotos.filter(
+      searchPhotoFilter(searchTerms, "jkFrANbtA4bBEjFsvWWbSOPdt56yt")
+    );
+
+    expect(result.length).toEqual(2);
+    //expect(result).toEqual("hello");
+  });
+});
+
+///////////////////////////////////
+
 describe("getAllBySearchTerms", () => {
   test("Load photos and load more", async () => {
-    let resPhotos = await getAllBySearchTerms(searchTerms, undefined, 5);
+    let resPhotos = await getAllBySearchTerms(
+      userUid,
+      searchTerms,
+      undefined,
+      5
+    );
 
     //expect(res.hasNextPage).toEqual(true);
     //expect(res.nextPageDocRef).toEqual("332399");
@@ -19,7 +66,12 @@ describe("getAllBySearchTerms", () => {
 
     const cursor = resPhotos.cursor;
 
-    resPhotos = await getAllBySearchTerms(searchTerms, resPhotos.cursor, 5);
+    resPhotos = await getAllBySearchTerms(
+      userUid,
+      searchTerms,
+      resPhotos.cursor,
+      5
+    );
 
     //expect(res.hasNextPage).toEqual(false);
     //expect(res.nextPageDocRef).toEqual("");
@@ -29,9 +81,12 @@ describe("getAllBySearchTerms", () => {
 
   test("Load photos with search conditions and load more", async () => {
     let resPhotos = await getAllBySearchTerms(
+      userUid,
       {
         tags: undefined,
         age: 2,
+        mine: false,
+        favorites: false,
       },
       undefined,
       5
@@ -43,9 +98,12 @@ describe("getAllBySearchTerms", () => {
     expect(resPhotos.docs.length).toEqual(5);
 
     resPhotos = await getAllBySearchTerms(
+      userUid,
       {
         tags: undefined,
         age: 2,
+        mine: false,
+        favorites: false,
       },
       resPhotos.cursor,
       5
@@ -77,7 +135,7 @@ describe("addOne", () => {
 });
 
 describe("editOne", () => {
-  test.only("", async () => {
+  test("", async () => {
     const photoId = "1609866733918";
     const date = Date.now();
 

@@ -2,7 +2,7 @@ import {
   login as logIn,
   logout as logOut,
   subscribe as makeSubscribe,
-} from "./../../firebase/firebase.auth";
+} from "./../../firebase/firebase.auth.fake";
 
 export const login = async () => {
   //console.log("------------LOGIN REQUEST");

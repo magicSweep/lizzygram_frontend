@@ -13,7 +13,7 @@ export const Wrapper: FC<ComponentProps<typeof Box>> = ({
   ...props
 }) => (
   <Box
-    className={`m-auto pt-5 pb-10 flex flex-wrap justify-center ${
+    className={`m-auto w-80 pt-10 pb-10 flex flex-wrap justify-center items-center ${
       className ? className : ""
     }`}
     {...props}

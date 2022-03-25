@@ -41,7 +41,7 @@ export const addedPhoto: Photo<FirestoreDate> = {
   tags: { ieYx4ke8ms0DJb5APv4u: true, vekwWqVY1222eeXeERmd: true },
   yearsOld: 0,
   googleDriveId: "",
-  addedByUserUID: "userUID",
+  addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
   isActive: true,
   imageExtention: "jpeg",
 };
@@ -64,9 +64,12 @@ export const photos: Photo<FirestoreDate>[] = [
     tags: { bCcRcxADj2xP9fkSXNpH: true, vekwWqVY1222d3XeERmd: true },
     yearsOld: 0,
     googleDriveId: "",
-    addedByUserUID: "userUID2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
     imageExtention: "jpeg",
+    favoriteBy: {
+      jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
+    },
   },
   {
     id: "232",
@@ -113,6 +116,9 @@ export const photos: Photo<FirestoreDate>[] = [
     addedByUserUID: "userUID",
     isActive: true,
     imageExtention: "jpeg",
+    favoriteBy: {
+      jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
+    },
   },
 
   {
@@ -132,7 +138,7 @@ export const photos: Photo<FirestoreDate>[] = [
     tags: { bCcRcxADj2xP9fkSXNpH: true },
     yearsOld: 1,
     googleDriveId: "",
-    addedByUserUID: "userUID",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
     imageExtention: "jpeg",
   },
@@ -157,9 +163,12 @@ export const photos: Photo<FirestoreDate>[] = [
     tags: { saDWGntDo84EQYG8FGFE: true, ybrq9aFZlTk71akoH7Lz: true },
     yearsOld: 0,
     googleDriveId: "",
-    addedByUserUID: "userUID2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
     imageExtention: "jpeg",
+    favoriteBy: {
+      jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
+    },
   },
 
   {
@@ -182,9 +191,12 @@ export const photos: Photo<FirestoreDate>[] = [
     tags: { rNNyXhgNJUjsbGFzVGAL: true, ybrq9aFZlTk71akoH7Lz: true },
     yearsOld: 0,
     googleDriveId: "",
-    addedByUserUID: "userUID2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
     imageExtention: "jpeg",
+    favoriteBy: {
+      jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
+    },
   },
 
   {
@@ -256,7 +268,7 @@ export const photos: Photo<FirestoreDate>[] = [
     tags: { fYZ3uqG1vBLFH75Y0rjM: true, WX6CY5kGx4FXvdZR6g8E: true },
     yearsOld: 0,
     googleDriveId: "",
-    addedByUserUID: "userUID2",
+    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
     imageExtention: "png",
   },

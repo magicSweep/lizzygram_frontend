@@ -7,7 +7,7 @@ import { compose, tap, then, _catch } from "fmagic";
 import {
   grantPermissions as sendGrantPermissionsReq_,
   revokePermissions as sendRevokePermissionsReq_,
-} from "../../repository/firestore";
+} from "../../repository/firestore.fake";
 import { batch as batch_, useDispatch } from "react-redux";
 import { showAlertAC } from "./../../../alert";
 //import { useAuth } from "./../useAuth";

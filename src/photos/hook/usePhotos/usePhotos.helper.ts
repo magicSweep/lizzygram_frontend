@@ -34,6 +34,10 @@ export const isEqualSearchTerms = (
 ) => {
   if (prevTerms.age !== terms.age) return false;
 
+  if (prevTerms.mine !== terms.mine) return false;
+
+  if (prevTerms.favorites !== terms.favorites) return false;
+
   if (!isEqualTags(prevTerms.tags, terms.tags)) return false;
 
   return true;

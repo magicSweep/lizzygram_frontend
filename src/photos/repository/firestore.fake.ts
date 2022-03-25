@@ -14,7 +14,33 @@ const isNeedSearch = (searchTerms: SearchTerms) => {
   return !(searchTerms.age === -1 && searchTerms.tags === undefined);
 };
 
+export const searchPhotoFilter =
+  (searchTerms: any, userUid: string) => (photo: any) => {
+    if (searchTerms.age !== -1 && searchTerms.age !== photo.yearsOld) {
+      return false;
+    }
+
+    if (searchTerms.tags !== undefined) {
+      for (let tagId in searchTerms.tags) {
+        if (searchTerms.tags[tagId] === true && photo.tags[tagId] !== true)
+          return false;
+      }
+    }
+
+    if (searchTerms.mine !== false && photo.addedByUserUID !== userUid)
+      return false;
+
+    if (searchTerms.favorites !== false && photo.favoriteBy === undefined)
+      return false;
+
+    if (searchTerms.favorites !== false && photo.favoriteBy[userUid] !== true)
+      return false;
+
+    return true;
+  };
+
 export const getAllBySearchTerms = async (
+  userUid: string,
   searchTerms: SearchTerms,
   startAt: any,
   limit: number,
@@ -29,20 +55,7 @@ export const getAllBySearchTerms = async (
   );
   // FIRST WE MAKE PHOTOS WITH SEARCH CONDITIONS OR NOT
   if (isNeedSearch(searchTerms)) {
-    fPhotos = photos.filter((photo) => {
-      if (searchTerms.age !== -1 && searchTerms.age !== photo.yearsOld) {
-        return false;
-      }
-
-      if (searchTerms.tags !== undefined) {
-        for (let tagId in searchTerms.tags) {
-          if (searchTerms.tags[tagId] === true && photo.tags[tagId] !== true)
-            return false;
-        }
-      }
-
-      return true;
-    });
+    fPhotos = photos.filter(searchPhotoFilter(searchTerms, userUid));
   } else {
     fPhotos = photos;
   }

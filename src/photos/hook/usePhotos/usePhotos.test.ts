@@ -14,13 +14,20 @@ describe("usePhotos", () => {
 
       const dispatch = jest.fn();
 
-      await startNew(dispatch, false, initSearchState)();
+      await startNew("userUid", dispatch, false, initSearchState)();
+
+      expect(dispatch).toHaveBeenCalledTimes(2);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
         type: "ALL_PHOTOS_REQUEST_NEW_START",
       });
 
-      expect(dispatch).toHaveBeenCalledTimes(2);
+      expect(dispatch).toHaveBeenNthCalledWith(2, {
+        hasNextPage: false,
+        nextPageDocRef: undefined,
+        photos: undefined,
+        type: "ALL_PHOTOS_REQUEST_SUCCESS",
+      });
     });
   });
 });

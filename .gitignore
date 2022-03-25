@@ -11,3 +11,5 @@ src/**/__snapshots__
 public
 
 src/images
+
+coverage

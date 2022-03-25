@@ -7,10 +7,14 @@ describe("isDiffSearchState", () => {
       prevSearchTerms: {
         age: 2,
         tags: undefined,
+        mine: false,
+        favorites: false,
       },
       formData: {
         age: "1",
         tags: undefined,
+        mine: false,
+        favorites: false,
       },
       expected: true,
     },
@@ -19,10 +23,14 @@ describe("isDiffSearchState", () => {
       prevSearchTerms: {
         age: 2,
         tags: undefined,
+        mine: false,
+        favorites: false,
       },
       formData: {
         age: "2",
         tags: undefined,
+        mine: false,
+        favorites: false,
       },
       expected: true,
     },
@@ -34,6 +42,8 @@ describe("isDiffSearchState", () => {
           abc: true,
           bca: false,
         },
+        mine: false,
+        favorites: false,
       },
       formData: {
         age: "2",
@@ -41,6 +51,8 @@ describe("isDiffSearchState", () => {
           bca: false,
           abc: true,
         },
+        mine: false,
+        favorites: false,
       },
       expected: false,
     },
@@ -52,6 +64,8 @@ describe("isDiffSearchState", () => {
           abc: true,
           bca: false,
         },
+        mine: false,
+        favorites: false,
       },
       formData: {
         age: "2",
@@ -59,6 +73,30 @@ describe("isDiffSearchState", () => {
           bca: false,
           abc: false,
         },
+        mine: false,
+        favorites: false,
+      },
+      expected: true,
+    },
+    {
+      count: 4,
+      prevSearchTerms: {
+        age: 2,
+        tags: {
+          abc: true,
+          bca: false,
+        },
+        mine: true,
+        favorites: false,
+      },
+      formData: {
+        age: "2",
+        tags: {
+          bca: false,
+          abc: true,
+        },
+        mine: false,
+        favorites: false,
       },
       expected: true,
     },

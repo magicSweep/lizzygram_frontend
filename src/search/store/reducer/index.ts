@@ -7,6 +7,8 @@ export const initSearchState: SearchState = {
   terms: {
     tags: undefined,
     age: -1,
+    mine: false,
+    favorites: false,
   },
   showForm: false,
   isSearch: false,
@@ -14,7 +16,10 @@ export const initSearchState: SearchState = {
 
 const isSearch = (terms: SearchTerms) => {
   return (
-    terms.age !== -1 || (terms.tags !== undefined && hasTrueValue(terms.tags))
+    terms.age !== -1 ||
+    terms.mine !== false ||
+    terms.favorites !== false ||
+    (terms.tags !== undefined && hasTrueValue(terms.tags))
   );
 };
 

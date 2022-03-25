@@ -5,6 +5,8 @@ import TagCheckboxes from "../../../tags/container/TagCheckboxes";
 //import { TagsFormState } from "../../../tags/types";
 import AgeSelect from "../../component/formElements/AgeSelect";
 import { SearchTerms, SearchPhotoFormData } from "../../types";
+import FavoritesCheckbox from "../../component/formElements/FavoritesCheckbox";
+import MineCheckbox from "../../component/formElements/MineCheckbox";
 
 export interface SearchPhotoFormProps {
   onSubmit: (...args: any) => void;
@@ -27,11 +29,16 @@ const SearchPhotoForm: FC<SearchPhotoFormProps> = ({
     clearErrors,
     watch,
     getValues,
+    control,
   } = useForm<SearchPhotoFormData>({
     defaultValues: {
       age: searchTerms.age,
+      mine: searchTerms.mine,
+      favorites: searchTerms.favorites,
     } as any,
   });
+
+  console.log("RENDER SEARCH FORM", searchTerms);
 
   return (
     <FormWrapper
@@ -53,6 +60,18 @@ const SearchPhotoForm: FC<SearchPhotoFormProps> = ({
           />
         </div>
       )}
+
+      <div className="w-full mb-5">
+        <MineCheckbox disabled={false} label={"Мои фотки"} control={control} />
+      </div>
+
+      <div className="w-full mb-5">
+        <FavoritesCheckbox
+          disabled={false}
+          label={"Избранные"}
+          control={control}
+        />
+      </div>
 
       <div className="w-full mt-14 mb-5">
         <TagCheckboxes

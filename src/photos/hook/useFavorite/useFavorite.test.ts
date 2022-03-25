@@ -41,6 +41,7 @@ describe("add", () => {
     expect(dispatch).toHaveBeenNthCalledWith(2, {
       photoId: "photoId",
       type: "FAVORITE_REQUEST_END",
+      userUid: "userUid",
     });
   });
 });
@@ -70,6 +71,7 @@ describe("remove", () => {
     expect(dispatch).toHaveBeenNthCalledWith(2, {
       photoId: "photoId",
       type: "FAVORITE_REQUEST_END",
+      userUid: "userUid3",
     });
   });
 });

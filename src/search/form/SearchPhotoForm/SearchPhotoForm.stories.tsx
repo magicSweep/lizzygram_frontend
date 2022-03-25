@@ -25,6 +25,8 @@ export const Default = () => {
         searchTerms={{
           age: -1,
           tags: undefined,
+          mine: false,
+          favorites: false,
         }}
         onSubmit={onSubmit}
         onClose={() => console.log("CLOSE")}
@@ -35,24 +37,26 @@ export const Default = () => {
 };
 
 export const WithoutAgeSelect = () => {
-  const [loading, setLoading] = useState(false);
+  //const [loading, setLoading] = useState(false);
 
   const onSubmit = (data: any) => {
     console.log("[SUBMIT]", data);
 
-    setLoading(true);
+    /* setLoading(true);
 
     setTimeout(() => {
       setLoading(false);
-    }, 3000);
+    }, 3000); */
   };
 
   return (
     <div className="m-auto pt-8">
       <SearchPhotoForm
         searchTerms={{
-          age: -1,
+          age: 2,
           tags: undefined,
+          mine: true,
+          favorites: true,
         }}
         onSubmit={onSubmit}
         onClose={() => console.log("CLOSE")}

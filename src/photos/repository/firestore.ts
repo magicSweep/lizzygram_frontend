@@ -62,13 +62,14 @@ import { OrderBy, ResponseWithCursor } from "../../firebase/types";
 
 // orderBy: [fieldName, desc]
 export const getAllBySearchTerms = async (
+  userUid: string,
   searchTerms: SearchTerms,
   startAt: any,
   limit: number,
   orderBy?: OrderBy
 ) =>
   compose<unknown, Promise<ResponseWithCursor<Photo<FirestoreDate>>>>(
-    () => makeQueryConstraints(searchTerms, startAt, limit, orderBy),
+    () => makeQueryConstraints(userUid, searchTerms, startAt, limit, orderBy),
     addIsActiveCondition,
     getAllWithCursor(photosCollectionName, limit)
   )();

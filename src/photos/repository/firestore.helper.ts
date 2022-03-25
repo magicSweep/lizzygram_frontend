@@ -17,7 +17,13 @@ export const makeQueryConstraints_ =
     startAt_: typeof startAt,
     orderBy_: typeof orderBy
   ) =>
-  (searchTerms: SearchTerms, startAt: any, limit: number, orderBy?: OrderBy) =>
+  (
+    userUid: string,
+    searchTerms: SearchTerms,
+    startAt: any,
+    limit: number,
+    orderBy?: OrderBy
+  ) =>
     compose<unknown, QueryConstraint[]>(
       /* tap(() =>
         console.log("=============makeQueryConstraints", searchTerms, startAt)
@@ -43,6 +49,22 @@ export const makeQueryConstraints_ =
               tagsWhere.filter((where) => where !== undefined),
             (tagsWhere: any[]) => wheres.concat(tagsWhere)
           )(),
+        justReturn
+      ),
+
+      // if only mine photos
+      elif(
+        () => searchTerms.mine === true,
+        (wheres: any[]) =>
+          wheres.concat([where_("addedByUserUID", "==", userUid)]),
+        justReturn
+      ),
+
+      // if only favorites
+      elif(
+        () => searchTerms.favorites === true,
+        (wheres: any[]) =>
+          wheres.concat([where_(`favoriteBy.${userUid}`, "==", true)]),
         justReturn
       ),
 

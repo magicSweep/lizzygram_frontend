@@ -15,6 +15,8 @@ describe("makeQueryConstraints_", () => {
       helddf23: false,
     },
     age: 1,
+    mine: true,
+    favorites: true,
   };
 
   test("", () => {
@@ -25,12 +27,19 @@ describe("makeQueryConstraints_", () => {
       orderBy
     );
 
-    const res = makeQueryConstraints(searchTerms, "nextPageDocRef", 5);
+    const res = makeQueryConstraints(
+      "userUid",
+      searchTerms,
+      "nextPageDocRef",
+      5
+    );
 
     expect(res).toEqual([
       "where | yearsOld | == | 1",
       "where | tags.helsdf23 | == | true",
       "where | tags.hel3df23 | == | true",
+      "where | addedByUserUID | == | userUid",
+      "where | favoriteBy.userUid | == | true",
       "startAt",
       "limit",
     ]);

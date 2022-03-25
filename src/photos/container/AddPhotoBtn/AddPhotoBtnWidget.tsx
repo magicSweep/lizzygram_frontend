@@ -14,7 +14,7 @@ const AddPhotoBtnWidget = ({ onClick }: { onClick: (event?: any) => void }) => {
             root: classes.btnRoot,
             label: classes.label,
           }}  */
-          className="bg-secondary"
+          className="bg-primary"
           sx={{
             borderRadius: "50%",
             width: "auto",
@@ -25,7 +25,7 @@ const AddPhotoBtnWidget = ({ onClick }: { onClick: (event?: any) => void }) => {
             color: "white",
           }}
           //className={classes.button}
-          color="secondary"
+          color="primary"
           aria-label="menu"
           onClick={onClick}
           variant="contained"
