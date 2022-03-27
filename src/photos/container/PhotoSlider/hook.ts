@@ -38,6 +38,7 @@ export const usePhotoSlider = (): PhotoSliderWithDescProps => {
     activePhotoIndex
   );
 
+  // FULLSCREEN
   const { requestFullscreen, exitFullscreen, isFullscreen, fullscreenElemRef } =
     useFullscreenElem();
 

@@ -3,7 +3,7 @@ import {
   addOne,
   getOne,
   editOne,
-} from "../repository/firestore.fake";
+} from "../repository/firestore";
 import { numberOfPhotosPerQuery } from "../../config";
 import { EditPhotoFirestoreRequestBody } from "../types";
 import { Photo } from "lizzygram-common-data/dist/types";

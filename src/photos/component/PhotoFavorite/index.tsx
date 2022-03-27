@@ -11,6 +11,7 @@ export type PhotoFavoriteProps = {
   favoriteBy?: FavoriteData;
   addFavorite: AddToFavorite;
   removeFavorite: RemoveFromFavorite;
+  placement?: FavoriteProps["placement"];
 };
 
 export const usePhotoFavorite = ({
@@ -40,7 +41,12 @@ export const usePhotoFavorite = ({
 const PhotoFavorite: FC<PhotoFavoriteProps> = (props) => {
   const favoriteProps = usePhotoFavorite(props);
 
-  return <Favorite {...favoriteProps} />;
+  return (
+    <Favorite
+      {...favoriteProps}
+      placement={props.placement !== undefined ? props.placement : "bottom"}
+    />
+  );
 };
 
 export default PhotoFavorite;

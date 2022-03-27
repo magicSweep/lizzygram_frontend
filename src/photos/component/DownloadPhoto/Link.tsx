@@ -13,7 +13,7 @@ export const DownloadPhotoLink: FC<DownloadPhotoProps> = ({
   const { downloadAttr, href } = makeDownloadPhotoData(
     googleDriveId,
     userUid,
-    imageExtension
+    imageExtension as any
   );
 
   return (

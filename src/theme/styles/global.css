@@ -29,7 +29,8 @@ body {
   }
 
   .bg-photocard {
-    background-color: #2f2f2f;
+    /* background-color: #2f2f2f; */
+    background-color: rgb(18, 18, 18);
   }
 
   .left-pukki-gradient {

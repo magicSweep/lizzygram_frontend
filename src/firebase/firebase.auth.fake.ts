@@ -26,7 +26,8 @@ export const login = async () => {
     observer.notify({
       displayName: "Yallopukka",
       email: "ya@frog.pog",
-      uid: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
+      // kMwibQErO6dDH6gf3entRLqFBop2 | jkFrANbtA4bBEjFsvWWbSOPdt56yt
+      uid: "kMwibQErO6dDH6gf3entRLqFBop2",
     });
   }, 1000);
 

@@ -4,15 +4,23 @@ import Tooltip from "@mui/material/Tooltip";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import LoadingWrapperWidget from "../LoadingWrapper/LoadingWrapperWidget";
+import { TooltipProps } from "@mui/material";
 
 export type FavoriteProps = {
   loading: boolean;
   add: () => Promise<void>;
   remove: () => Promise<void>;
   isFavorite: boolean;
+  placement?: TooltipProps["placement"];
 };
 
-const Favorite: FC<FavoriteProps> = ({ loading, add, remove, isFavorite }) => {
+const Favorite: FC<FavoriteProps> = ({
+  loading,
+  add,
+  remove,
+  isFavorite,
+  placement,
+}) => {
   //const [loading, setLoading] = useState(false);
 
   /* const add_ = async () => {
@@ -24,7 +32,7 @@ const Favorite: FC<FavoriteProps> = ({ loading, add, remove, isFavorite }) => {
   }; */
 
   return (
-    <Tooltip title={"Избранное"}>
+    <Tooltip title={"Избранное"} placement={placement}>
       <span className="relative">
         {isFavorite === true && (
           <IconButton

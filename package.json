@@ -21,7 +21,7 @@
     "app:prepare-to-deploy": "node src/console/app.js -prepare-to-deploy",
     "app:prepare-to-develop": "node src/console/app.js -prepare-to-develop",
     "develop": "gatsby develop",
-    "develop:network": "gatsby develop -H 192.168.1.82 -p 8000",
+    "develop:network": "cross-env GATSBY_BUILD_FOR=portfolio gatsby develop -H 192.168.1.82 -p 8000",
     "start": "cross-env GATSBY_BUILD_FOR=portfolio gatsby develop",
     "build": "gatsby build",
     "serve": "cross-env GATSBY_BUILD_FOR=portfolio gatsby serve",

@@ -1,4 +1,4 @@
-import { Photo } from "lizzygram-common-data/dist/types";
+import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export const photos = [
   {
@@ -29,9 +29,11 @@ export const photos = [
       "p7qjynifauycc2prc1lk",
       "dlwvztzvmgjpxlwqsapm",
     ],
-    googleDriveId: "1J4yFOQMprUYK_lMmbz5NO_eSAGGmrcou",
+    imageExtention: "jpeg",
+    //1mrIb1q3nD3QGWl0kf97vcVdJ0gm5S6qe | 1J4yFOQMprUYK_lMmbz5NO_eSAGGmrcou
+    googleDriveId: "1mrIb1q3nD3QGWl0kf97vcVdJ0gm5S6qe",
     aspectRatio: 1.78,
-    description: "",
+    description: "Need to download",
     _timestamp: { seconds: 1611885662, nanoseconds: 509000000 },
     favoriteBy: {
       jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,

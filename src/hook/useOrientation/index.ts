@@ -4,7 +4,7 @@ import { showAlertAC } from "../../alert";
 export const doesOrientationSupport = () => {
   try {
     screen.orientation.unlock();
-    alert("Support");
+    //alert("Support");
     return true;
   } catch (err) {
     alert(err.message);
@@ -12,10 +12,10 @@ export const doesOrientationSupport = () => {
   }
 };
 
-const isSupport = doesOrientationSupport();
+//let isSupport = doesOrientationSupport();
 
 const useOrientation = () => {
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   // We can change orientation only if we in fullscreen mode
   const change = () => {
@@ -31,19 +31,18 @@ const useOrientation = () => {
         //log.textContent = `Locked to ${oppositeOrientation}\n`;
       })
       .catch((error) => {
-        dispatch(
+        /* dispatch(
           showAlertAC(
             "Ваше устройство не поддерживает смену ориентации экрана.",
             "error"
-          )
-        );
+          ) 
+        );*/
         //log.textContent += `${error}\n`;
       });
   };
 
   return {
     change,
-    isSupport,
   };
 };
 

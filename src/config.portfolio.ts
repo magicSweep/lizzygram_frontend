@@ -24,7 +24,8 @@ export const pMaxDate = new Date();
 export const pMinDate = new Date("1826-07-08");
 
 // EXPRESS SERVER
-export const pExpressUrl = "https://localhost:3009";
+// http://localhost:3009 | http://192.168.1.82:3009
+export const pExpressUrl = "https://photo-boom-worker.herokuapp.com";
 
 // SITE METADATA
 

@@ -17,15 +17,16 @@ export const DownloadPhotoIcon: FC<DownloadPhotoProps> = ({
   userUid,
   googleDriveId,
   imageExtension,
+  placement,
 }) => {
   const { downloadAttr, href } = makeDownloadPhotoData(
     googleDriveId,
     userUid,
-    imageExtension
+    imageExtension as any
   );
 
   return (
-    <Tooltip title="Скачать оригинальный файл">
+    <Tooltip title="Скачать оригинальный файл" placement={placement}>
       <IconButton
         aria-label="скачать фото"
         className="m-auto"

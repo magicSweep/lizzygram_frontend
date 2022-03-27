@@ -1,6 +1,7 @@
 import SliderBar, { SliderBarProps } from ".";
 import { Story } from "@storybook/react";
 import Box from "@mui/system/Box";
+import { photos } from "../../mock/photos.db";
 //import { IZoomButtonProps } from "../../../component/ZoomButton";
 
 export default {
@@ -19,6 +20,7 @@ const Template: Story<SliderBarProps> = (args) => (
 );
 
 const args: SliderBarProps = {
+  photos: photos as any,
   isEditable: true,
   isEditor: true,
   cancel: () => console.log("Cancel"),
@@ -30,6 +32,13 @@ const args: SliderBarProps = {
   showEditPhotoForm: () => console.log("showEditPhotoForm"),
   onClose: () => console.log("onClose"),
   onToggleDesc: () => console.log("onToggleDesc"),
+  isFullscreen: false,
+  exitFullscreen: () => console.log("exitFullscreen"),
+  requestFullscreen: () => console.log("requestFullscreen"),
+  addFavorite: () => console.log("addFavorite") as any,
+  removeFavorite: () => console.log("removeFavorite") as any,
+  favoriteReqs: [],
+  activeIndex: 0,
 };
 
 export const Default = Template.bind({});

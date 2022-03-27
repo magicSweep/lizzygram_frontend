@@ -22,16 +22,16 @@ export const makeDownloadPhotoData_ =
     userUid: string,
     imageExtension: ImgExt
   ): DownloadOriginalPhotoData => {
-    const photoFleName = makeDownloadPhotoName(imageExtension);
+    const photoFileName = makeDownloadPhotoName(imageExtension);
 
     return {
       href: makeDownloadPhotoUrl(
         googleDriveId,
         userUid,
         downloadPhotoUrl,
-        photoFleName
+        photoFileName
       ),
-      downloadAttr: makeDownloadPhotoName(imageExtension),
+      downloadAttr: photoFileName,
     };
   };
 

@@ -82,6 +82,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
               userUid={userUid}
               googleDriveId={photo.googleDriveId}
               imageExtension={photo.imageExtention}
+              placement="bottom"
             />
           )}
 
@@ -93,6 +94,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
               favoriteBy={photo.favoriteBy}
               photoId={photo.id}
               userUid={userUid}
+              placement="bottom"
             />
           )}
         </span>

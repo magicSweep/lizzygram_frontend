@@ -17,6 +17,7 @@ import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 import PhotoFavorite, {
   PhotoFavoriteProps,
 } from "../../component/PhotoFavorite";
+import IconsMenu, { IconsMenuProps } from "../IconsMenu";
 
 export type SliderBarProps = ZoomBtnProps &
   DownloadPhotoProps &
@@ -69,17 +70,7 @@ const SliderBar: FC<SliderBarProps> = ({
             <ZoomBtn {...props} />
           </ItemWrapper>
 
-          {/* <ItemWrapper>
-            <Tooltip title="Скачать оригинальный файл">
-              <IconButton
-                aria-label="скачать фото"
-                href={downloadOriginalPhotoUrl}
-              >
-                <CloudDownloadIcon sx={{ fill: "white" }} fontSize="small" />
-              </IconButton>
-            </Tooltip>
-          </ItemWrapper> */}
-          {isEditor === true && (
+          {/*    {isEditor === true && (
             <ItemWrapper>
               <DownloadPhotoIcon
                 userUid={userUid}
@@ -121,7 +112,7 @@ const SliderBar: FC<SliderBarProps> = ({
                 userUid={userUid}
               />
             </ItemWrapper>
-          )}
+          )} */}
 
           <ItemWrapper>
             <Fullscreen
@@ -134,6 +125,25 @@ const SliderBar: FC<SliderBarProps> = ({
           {isFullscreen === true && (
             <ItemWrapper>
               <Orientation />
+            </ItemWrapper>
+          )}
+
+          {isFullscreen === false && (
+            <ItemWrapper>
+              <IconsMenu
+                addFavorite={addFavorite}
+                removeFavorite={removeFavorite}
+                favoriteReqs={favoriteReqs}
+                favoriteBy={photos[activeIndex].favoriteBy}
+                photoId={photos[activeIndex].id}
+                userUid={userUid}
+                showEditPhotoForm={showEditPhotoForm}
+                onToggleDesc={onToggleDesc}
+                googleDriveId={googleDriveId}
+                imageExtension={imageExtension}
+                isEditor={isEditor}
+                isEditable={isEditable}
+              />
             </ItemWrapper>
           )}
         </div>
