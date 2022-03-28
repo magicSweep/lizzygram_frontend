@@ -6,10 +6,11 @@ const Copyright = () => {
   return (
     <Box typography="body2" color="text.secondary" className="text-center">
       {"Copyright © "}
-      <MuiLink color="inherit" href="https://mui.com/">
+      {/* <MuiLink color="inherit" href="https://mui.com/">
         Your Website
-      </MuiLink>{" "}
+      </MuiLink>{" "} */}
       {new Date().getFullYear()}
+      {" Magic Socks, Inc"}
       {"."}
     </Box>
   );
