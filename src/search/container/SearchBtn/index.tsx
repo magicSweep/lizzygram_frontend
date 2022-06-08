@@ -1,4 +1,4 @@
-import React, { memo, lazy, Suspense } from "react";
+import React, { FC, memo, lazy, Suspense } from "react";
 //import { shallowEqual, useSelector } from "react-redux";
 //import { GlobalState } from "../../../types";
 //import { useLocation } from "@reach/router";
@@ -7,7 +7,7 @@ import { useAuth } from "../../../auth/hook/useAuth";
 
 const LoadableSearchBtn = lazy(() => import("./SearchBtn"));
 
-const SearchBtn = () => {
+const SearchBtn: FC<{ isDebug?: boolean }> = ({ isDebug = false }) => {
   const { isAuth } = useAuth();
   /* const isAuth = useSelector<GlobalState, boolean>(
     (state) => state.auth.user !== undefined,
@@ -18,8 +18,10 @@ const SearchBtn = () => {
 
   if (isAuth === false) return null;
 
-  if (typeof window === "undefined" || location.pathname !== "/") {
-    return null;
+  if (isDebug === false) {
+    if (typeof window === "undefined" || location.pathname !== "/") {
+      return null;
+    }
   }
 
   return (

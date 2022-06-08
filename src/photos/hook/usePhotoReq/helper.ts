@@ -1,6 +1,6 @@
 import { MutableRefObject } from "react";
 import { UseSelfKillRefData } from "./hook";
-import { PhotoReqState } from "./iindex";
+import { PhotoReqState } from "./index";
 
 export const selfKilling__ =
   (

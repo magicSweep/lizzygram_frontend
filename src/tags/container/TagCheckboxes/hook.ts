@@ -7,18 +7,18 @@ import {
   UseFormWatch,
   UseFormGetValues,
 } from "react-hook-form";
-import { useTags } from "../../hook/useTags";
+import useTags from "../../hook/useTags";
 import { useCallback, useEffect, useRef, MutableRefObject } from "react";
 import { getDefaultTagsFormState } from "../../helper";
 import { TagsFormState } from "../../types";
 
 export type UseFormTagCheckboxesProps = {
   clearErrors: UseFormClearErrors<any>;
-  getValues: UseFormGetValues<FieldValues>;
-  setValue: UseFormSetValue<FieldValues>;
-  register: UseFormRegister<FieldValues>;
-  watch: UseFormWatch<FieldValues>;
-  formState: FormState<FieldValues>;
+  getValues: UseFormGetValues<any>;
+  setValue: UseFormSetValue<any>;
+  register: UseFormRegister<any>;
+  watch: UseFormWatch<any>;
+  formState: FormState<any>;
   defaultTags: { [name: string]: boolean } | undefined;
   validate: ((val?: any) => string | boolean) | undefined;
 };

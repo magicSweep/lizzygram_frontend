@@ -9,9 +9,11 @@ import TagSkeleton from "../../component/TagSkeleton";
 import { tagTypeToColor } from "../../helper";
 import FieldWrapper from "../../../component/formElements/FieldWrapper";
 import { TagDataGroupedByType } from "./TagCheckboxes";
-import { tagsData } from "../../mock/data";
+import { getTagsData } from "../../fake-data/data";
 import { ButtonProps } from "@mui/material";
 import { makeGroupedTags } from "./TagCheckboxes.helper";
+
+const tagsData = getTagsData();
 
 describe("makeGroupedTags", () => {
   test("", () => {

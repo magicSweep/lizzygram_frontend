@@ -1,10 +1,10 @@
 //import { getUser as getSavedUser, saveUser } from "../../service/UserService";
 import {
-  request_,
-  isRequested,
-  setIsRequested,
-  getIsRequested,
-  isGoodPrevUser,
+  main_,
+  isReqLoading,
+  setIsReqLoading,
+  getIsReqLoading,
+  isValidSavedUser,
 } from ".";
 //import { isEditor } from "../../service/DbService";
 import wait from "waait";
@@ -48,37 +48,37 @@ describe("useEditor", () => {
     isGoodPrevUser();
   }) */
 
-  const request = request_(
+  const main = main_(
     batch,
-    isGoodPrevUser,
-    setIsRequested,
-    getIsRequested,
+    isValidSavedUser,
+    setIsReqLoading,
+    getIsReqLoading,
     isEditor,
     getSavedUser,
     saveUser
   );
 
-  describe("request", () => {
+  describe("useEditor - main function", () => {
     test("If user undefined we do nothing", () => {
-      const startNew = request(dispatch);
+      const startNew = main(dispatch);
 
       startNew(null);
 
       expect(dispatch).toHaveBeenCalledTimes(0);
       expect(getSavedUser).toHaveBeenCalledTimes(0);
       expect(isEditor).toHaveBeenCalledTimes(0);
-      expect(isRequested).toEqual(false);
+      expect(isReqLoading).toEqual(false);
     });
 
     test("If user's field isEditor has value true or false - we do nothing", () => {
-      const startNew = request(dispatch);
+      const startNew = main(dispatch);
 
       startNew(user);
 
       expect(dispatch).toHaveBeenCalledTimes(0);
       expect(getSavedUser).toHaveBeenCalledTimes(0);
       expect(isEditor).toHaveBeenCalledTimes(0);
-      expect(isRequested).toEqual(false);
+      expect(isReqLoading).toEqual(false);
     });
 
     test("If we get saved user we use info from it", () => {
@@ -92,7 +92,7 @@ describe("useEditor", () => {
         isEditor: true,
       });
 
-      const startNew = request(dispatch);
+      const startNew = main(dispatch);
 
       startNew(newUser);
 
@@ -108,7 +108,7 @@ describe("useEditor", () => {
       });
 
       expect(isEditor).toHaveBeenCalledTimes(0);
-      expect(isRequested).toEqual(false);
+      expect(isReqLoading).toEqual(false);
     });
 
     test("If we do not have saved user(or it's user with diff uid) we send isEditor request", async () => {
@@ -123,16 +123,13 @@ describe("useEditor", () => {
         isEditor: true,
       });
 
-      (isEditor as jest.Mock).mockResolvedValueOnce({
-        ...user,
-        isEditor: false,
-      });
+      (isEditor as jest.Mock).mockResolvedValueOnce(false);
 
-      const startNew = request(dispatch);
+      const startNew = main(dispatch);
 
       startNew(newUser);
 
-      expect(isRequested).toEqual(true);
+      expect(isReqLoading).toEqual(true);
 
       await wait(500);
 
@@ -148,14 +145,14 @@ describe("useEditor", () => {
       });
 
       expect(isEditor).toHaveBeenCalledTimes(1);
-      expect(isEditor).toHaveBeenNthCalledWith(1, newUser);
+      expect(isEditor).toHaveBeenNthCalledWith(1, newUser.uid);
 
       expect(saveUser).toHaveBeenNthCalledWith(1, {
         ...user,
         isEditor: false,
       });
 
-      expect(isRequested).toEqual(false);
+      expect(isReqLoading).toEqual(false);
     });
 
     test("If we send isEditor request and get error", async () => {
@@ -172,11 +169,11 @@ describe("useEditor", () => {
 
       (isEditor as jest.Mock).mockRejectedValueOnce("Bad error");
 
-      const startNew = request(dispatch);
+      const startNew = main(dispatch);
 
       startNew(newUser);
 
-      expect(isRequested).toEqual(true);
+      expect(isReqLoading).toEqual(true);
 
       await wait(500);
 
@@ -194,11 +191,11 @@ describe("useEditor", () => {
       });
 
       expect(isEditor).toHaveBeenCalledTimes(1);
-      expect(isEditor).toHaveBeenNthCalledWith(1, newUser);
+      expect(isEditor).toHaveBeenNthCalledWith(1, newUser.uid);
 
       expect(saveUser).toHaveBeenCalledTimes(0);
 
-      expect(isRequested).toEqual(false);
+      expect(isReqLoading).toEqual(false);
     });
   });
 });

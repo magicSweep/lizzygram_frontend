@@ -11,7 +11,12 @@ module.exports = {
     ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": `<rootDir>/__mocks__/file-mock.js`,
     "^lodash-es(.*)$": "<rootDir>/node_modules/lodash",
   },
-  testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
+  testPathIgnorePatterns: [
+    `node_modules`,
+    `\\.cache`,
+    `<rootDir>.*/public`,
+    `<rootDir>/src/photos`,
+  ],
   transformIgnorePatterns: [`node_modules/(?!gatsby|fmagic)`],
   //transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   globals: {

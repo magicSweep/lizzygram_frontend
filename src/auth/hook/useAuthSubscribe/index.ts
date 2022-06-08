@@ -9,7 +9,7 @@ import { Done, map, Next, flat, tap, compose } from "fmagic";
 import { Unsubscribe } from "firebase/auth";
 //import { initApp } from "./../../../service/firebase";
 //import { initApp } from "./../../../service/firebase/fake";
-import { subscribe } from "../../service/AuthService";
+import { subscribe } from "../../service/AuthService/AuthService.fake";
 
 //initApp();
 
@@ -38,7 +38,7 @@ export const makeSubscribe = (dispatch: any) =>
     console.error("AUTH SUBSCRIBE ERROR", err);
   }); */
 
-export const useAuthSubscribe = () =>
+const useAuthSubscribe = () =>
   //auth: (user: IAuthUser) => void,
   //onError?: Function,
   //onSuccess?: Function
@@ -60,3 +60,5 @@ export const useAuthSubscribe = () =>
       };
     }, []);
   };
+
+export default useAuthSubscribe;

@@ -2,7 +2,7 @@
 import { useLogin } from "../../hook/useLogin";
 import { useLogout } from "../../hook/useLogout";
 import { useAuth } from "../../hook/useAuth";
-import { useAuthSubscribe } from "../../hook/useAuthSubscribe";
+import useAuthSubscribe from "../../hook/useAuthSubscribe";
 
 export const useAuthAppBarBtn = () => {
   useAuthSubscribe();

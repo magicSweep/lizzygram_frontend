@@ -1,16 +1,16 @@
-import TagCheckbox from "../../component/TagCheckbox";
+//import TagCheckbox from "../../component/TagCheckbox";
 //import FormFieldWrapper from "../../../component/FormElements/UploadButton/FormFieldWrapper";
 //import Typography, { TypographyProps } from "@mui/material/Typography";
-import { BoxProps } from "@mui/material/Box";
-import { numberOfTagsByType, tagsTitleByType } from "../../../config";
-import HeroTitle from "../../../component/HeroTitle";
+//import { BoxProps } from "@mui/material/Box";
+//import { numberOfTagsByType, tagsTitleByType } from "../../../config";
+//import HeroTitle from "../../../component/HeroTitle";
 import { TagsState, TagData, TagsFormState, TagType } from "../../types";
-import TagSkeleton from "../../component/TagSkeleton";
-import { tagTypeToColor } from "../../helper";
-import FieldWrapper from "../../../component/formElements/FieldWrapper";
+//import TagSkeleton from "../../component/TagSkeleton";
+//import { tagTypeToColor } from "../../helper";
+//import FieldWrapper from "../../../component/formElements/FieldWrapper";
 import { TagDataGroupedByType } from "./TagCheckboxes";
-import { tagsData } from "../../mock/data";
-import { ButtonProps } from "@mui/material";
+//import { tagsData } from "../../fake-data/data";
+//import { ButtonProps } from "@mui/material";
 
 /* export const titleByTagType = (tagType: TagType): string => {
   switch (tagType) {

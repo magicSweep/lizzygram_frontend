@@ -1,16 +1,30 @@
 import wait from "waait";
-import { request, getIsRequested } from ".";
-import { login } from "../../service/AuthService";
+import { request_, setIsRequested, getIsRequested } from ".";
+/* import { login } from "../../service/AuthService";
 
 jest.mock("../../service/AuthService", () => ({
   __esModule: true,
   login: jest.fn(),
-}));
+})); */
 
-global.console.error = jest.fn();
+//global.console.error = jest.fn();
 
 describe("useLogin", () => {
   const dispatch = jest.fn();
+
+  const loginRequestAC = jest.fn(() => "loginRequestAC");
+  const loginRequestErrorAC = jest.fn(() => "loginRequestErrorAC");
+  /*   const setIsRequested = jest.fn();
+  const getIsRequested = jest.fn(() => false);
+ */ const login = jest.fn();
+
+  const request = request_(
+    loginRequestAC,
+    loginRequestErrorAC,
+    setIsRequested,
+    getIsRequested,
+    login
+  );
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -31,7 +45,7 @@ describe("useLogin", () => {
 
       expect(dispatch).toHaveBeenCalledTimes(1);
 
-      expect(dispatch).toHaveBeenNthCalledWith(1, { type: "LOGIN_REQUEST" });
+      expect(dispatch).toHaveBeenNthCalledWith(1, "loginRequestAC");
 
       /*  expect(dispatch).toHaveBeenNthCalledWith(2, {
         type: "LOGIN_REQUEST_SUCCESS",
@@ -56,7 +70,7 @@ describe("useLogin", () => {
 
       expect(dispatch).toHaveBeenCalledTimes(3);
 
-      expect(dispatch).toHaveBeenNthCalledWith(1, { type: "LOGIN_REQUEST" });
+      expect(dispatch).toHaveBeenNthCalledWith(1, "loginRequestAC");
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
         alertType: "error",
@@ -64,9 +78,7 @@ describe("useLogin", () => {
         type: "SHOW_ALERT",
       });
 
-      expect(dispatch).toHaveBeenNthCalledWith(3, {
-        type: "LOGIN_REQUEST_ERROR",
-      });
+      expect(dispatch).toHaveBeenNthCalledWith(3, "loginRequestErrorAC");
 
       expect(login).toHaveBeenCalledTimes(1);
 

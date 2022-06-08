@@ -17,14 +17,14 @@ import {
 import {
   getUser as getSavedUser,
   saveUser,
-  removeUser as removeSavedUser,
+  //removeUser as removeSavedUser,
   setIsEditor,
-} from "../../service/UserService";
+  isEditor as isEditor_,
+} from "../../service/UserService/UserService.fake";
 import { authAC, authEditorErrorAC } from "../../store/action";
-import { isEditor } from "../../service/DbService";
 import { showAlertAC } from "../../../alert";
 
-export let isRequested = false;
+/* export let isRequested = false;
 export let numberOfRequests = 0;
 export let maxNumberOfRequests = 10;
 
@@ -36,9 +36,94 @@ export const isGoodPrevUser = (prevUser: AuthUser | null, user: AuthUser) =>
     prevUser !== null &&
       prevUser.isEditor !== undefined &&
       prevUser.uid === user.uid
+  ); */
+
+export let isReqLoading = false;
+export let numberOfRequests = 0;
+export let maxNumberOfRequests = 10;
+
+export const setIsReqLoading = (val: boolean) => (isReqLoading = val);
+export const getIsReqLoading = () => isReqLoading;
+
+export const isValidSavedUser = (prevUser: AuthUser | null, user: AuthUser) =>
+  Boolean(
+    prevUser !== null &&
+      prevUser.isEditor !== undefined &&
+      prevUser.uid === user.uid
   );
 
-export const request_ =
+type EditorMainData = {
+  user: AuthUser;
+  savedUser: AuthUser;
+};
+
+export const main_ =
+  (
+    batch: typeof batch_,
+    isValidSavedUser: (prevUser: AuthUser | null, user: AuthUser) => boolean,
+    setIsReqLoading: (val: boolean) => void,
+    getIsReqLoading: () => boolean,
+    isEditor: typeof isEditor_,
+    getSavedUser: () => AuthUser | null,
+    saveUser: (user: AuthUser) => void
+  ) =>
+  (dispatch: any) =>
+    compose<AuthUser | null, void>(
+      (user: AuthUser | null) =>
+        getIsReqLoading() !== true &&
+        user !== null &&
+        user.isEditor === undefined
+          ? Next.of({ user })
+          : Done.of(null),
+      map((data: EditorMainData) => ({
+        ...data,
+        savedUser: getSavedUser(),
+      })),
+      map(
+        cond([
+          [
+            ({ user, savedUser }: EditorMainData) =>
+              isValidSavedUser(savedUser, user),
+            ({ user, savedUser }: EditorMainData) =>
+              dispatch(
+                authAC({
+                  ...user,
+                  isEditor: savedUser.isEditor,
+                })
+              ),
+          ],
+          [
+            () => true,
+            compose(
+              tap(() => setIsReqLoading(true)),
+              async ({ user }: EditorMainData) => ({
+                ...user,
+                isEditor: await isEditor(user.uid),
+              }),
+              then((newUser: AuthUser) => {
+                saveUser(newUser);
+                dispatch(authAC(newUser));
+              }),
+              _catch((err) => {
+                console.error(err);
+                batch(() => {
+                  dispatch(
+                    showAlertAC(
+                      "Произошла ошибка при идентификации вашего аккаунта, некоторый функции могут быть недоступны.",
+                      "error"
+                    )
+                  );
+                  dispatch(authEditorErrorAC());
+                });
+              }),
+              _finally(() => setIsReqLoading(false))
+            ),
+          ],
+        ])
+      )
+    );
+
+/* export const request_ =
   (
     batch: typeof batch_,
     isGoodPrevUser: (prevUser: AuthUser | null, user: AuthUser) => boolean,
@@ -101,13 +186,13 @@ export const request_ =
         )
       )
     );
-
-export const request = request_(
+ */
+export const main = main_(
   batch_,
-  isGoodPrevUser,
-  setIsRequested,
-  getIsRequested,
-  isEditor,
+  isValidSavedUser,
+  setIsReqLoading,
+  getIsReqLoading,
+  isEditor_,
   getSavedUser,
   saveUser
 );
@@ -157,7 +242,7 @@ export const useEditor = () => {
 
   const { user, loading, userUid, isAuth } = useAuth();
 
-  const start = useCallback(request(dispatch), []);
+  const start = useCallback(main(dispatch), []);
 
   useEffect(() => {
     /* if (

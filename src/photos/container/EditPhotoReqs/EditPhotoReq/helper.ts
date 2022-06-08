@@ -1,5 +1,5 @@
 import { isEqual, trim } from "lodash-es";
-import { getOnlyTrueTags, getYearsOld } from "../../../../utils/app";
+import { getOnlyTrueTags, calcYearsOld } from "../../../../utils/app";
 import {
   //Photo,
   EditPhotoFormData,
@@ -96,7 +96,7 @@ export const makeEditPhotoData = (
       )(),
     (fieldsToUpdate: FirestoreFieldsToEdit) =>
       fieldsToUpdate.date
-        ? { ...fieldsToUpdate, yearsOld: getYearsOld(fieldsToUpdate.date) }
+        ? { ...fieldsToUpdate, yearsOld: calcYearsOld(fieldsToUpdate.date) }
         : fieldsToUpdate,
 
     /*  formData.tags
@@ -113,7 +113,7 @@ export const isInSearchTerms = (
   fieldsToUpdate: any
 ) => {
   if (fieldsToUpdate.date !== undefined) {
-    const age = getYearsOld(fieldsToUpdate.date);
+    const age = calcYearsOld(fieldsToUpdate.date);
     if (searchTerms.age >= 0 && searchTerms.age !== age) return false;
   }
 

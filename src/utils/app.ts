@@ -43,7 +43,8 @@ export const makeDownloadPhotoUrl = (
   downloadPhotoUrl: string,
   photoFileName: string
 ) => {
-  let downloadUrl = `${downloadPhotoUrl}/${userUid}${googleDriveId}/${photoFileName}`;
+  //let downloadUrl = `${downloadPhotoUrl}/${userUid}${googleDriveId}/${photoFileName}`;
+  let downloadUrl = `${downloadPhotoUrl}/${googleDriveId}/${photoFileName}`;
   //if (imageExtention) downloadUrl += `.${imageExtention}`;
 
   return downloadUrl;
@@ -85,7 +86,7 @@ export const millisecondsToYears = (mSeconds: number) => {
   return Math.floor(mSeconds / 31536000000);
 };
 
-export const getLizzyYearsOld = () => {
+export const calcLizzyYearsOld = () => {
   const birthday = new Date("2018-07-07");
 
   const now = new Date();
@@ -95,7 +96,7 @@ export const getLizzyYearsOld = () => {
   return millisecondsToYears(mSeconds);
 };
 
-export const getYearsOld = (date: Date) => {
+export const calcYearsOld = (date: Date) => {
   const birthday = new Date("2018-07-07");
 
   //console.log("Date", date.getTime(), birthday.getTime());
@@ -187,7 +188,7 @@ export const getFormattedYearsOld = (yearsOld: number): string => {
 };
 
 export const makeYearsOldStringify = (date: Date) => {
-  const yearsOld = getYearsOld(date);
+  const yearsOld = calcYearsOld(date);
 
   return getFormattedYearsOld(yearsOld);
 };

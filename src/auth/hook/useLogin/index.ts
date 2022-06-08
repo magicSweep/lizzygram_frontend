@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { batch, useDispatch } from "react-redux";
-import { login } from "../../service/AuthService";
+import { login } from "../../service/AuthService/AuthService.fake";
 import {
   //loginRequestSuccessAC,
   loginRequestErrorAC,
@@ -20,7 +20,7 @@ export const request_ =
     loginRequestErrorAC: () => void,
     setIsRequested: (val: boolean) => void,
     getIsRequested: () => boolean,
-    login: () => Promise<boolean>
+    login: () => Promise<any>
   ) =>
   (dispatch: any) =>
     elif(

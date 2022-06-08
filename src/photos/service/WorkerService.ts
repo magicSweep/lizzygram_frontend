@@ -2,6 +2,29 @@ import { add, edit } from "../api/worker";
 import { FirestoreFieldsToEdit, EditPhotoWorkerProps } from "./../types";
 import { WorkerRequest } from "lizzygram-common-data/dist/types";
 
+export const sendPhotoFile = async (photoFile: File) => {
+  /* const formData = makePhotoFormData({
+      id: data.photoId,
+      userUid: data.userUid,
+      file: data.photoFormData.photoFile[0],
+    }); */
+
+  const formData = new FormData();
+
+  formData.append("file", photoFile);
+
+  return add(formData);
+  /* const res = await post(addPhotoUrl, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  //console.log("ADD RESPONSE", res);
+
+  return res.json(); */
+};
+
 export const editPhoto = async (data: EditPhotoWorkerProps) => {
   const formData = new FormData();
 

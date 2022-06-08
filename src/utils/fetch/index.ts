@@ -1,3 +1,38 @@
+export const get = (url: string, options: RequestInit = {} as any) => {
+  return fetch(url, {
+    method: "get",
+    ...options,
+  });
+};
+
+export const post = (
+  url: string,
+  // "a=1"
+  data: any,
+  options: RequestInit = {} as any
+) => {
+  return fetch(url, {
+    method: "post",
+    body: data,
+    ...options,
+  });
+};
+
+/* export const postFormData = (
+  url: string,
+  data: FormData,
+  options: RequestInit = {} as any
+) => {
+  //const headers = options.headers !== undefined ? options.headers : {};
+  //headers["Content-Type"] = "multipart/form-data";
+
+  return fetch(url, {
+    method: "post",
+    body: data,
+    ...options,
+  });
+}; */
+
 /* export const sendPostWithJsonResponse = async (
   url: string,
   data: FormData,
@@ -18,7 +53,7 @@ export const sendGetWithJsonResponse = async (url: string) => {
   return await response.json();
 }; */
 
-export const get = (url: string, headers?: any) => {
+/* export const get = (url: string, headers?: any) => {
   //if we use FormData, it add headers by themselve
   return fetch(url, {
     method: "get",
@@ -33,7 +68,7 @@ export const post = (url: string, data: FormData, headers?: any) => {
     headers: headers,
     body: data,
   });
-};
+}; */
 
 /*   status = (response: Response) => {
         //console.log(response);

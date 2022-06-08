@@ -1,16 +1,30 @@
 import wait from "waait";
-import { request, isRequested } from ".";
-import { logout } from "../../service/AuthService";
+import { request_, isRequested, setIsRequested, getIsRequested } from ".";
+//import { logout } from "../../service/AuthService/AuthService.fake";
 
-jest.mock("../../service/AuthService", () => ({
+/* jest.mock("../../service/AuthService/AuthService.fake", () => ({
   __esModule: true,
   logout: jest.fn(),
-}));
+})); */
 
-global.console.error = jest.fn();
+//global.console.error = jest.fn();
 
 describe("useLogout", () => {
   const dispatch = jest.fn();
+
+  const logoutRequestAC = jest.fn(() => "logoutRequestAC");
+  const logoutRequestErrorAC = jest.fn(() => "logoutRequestErrorAC");
+  /*   const setIsRequested = jest.fn();
+  const getIsRequested = jest.fn(() => false);
+ */ const logout = jest.fn();
+
+  const request = request_(
+    logoutRequestAC,
+    logoutRequestErrorAC,
+    setIsRequested,
+    getIsRequested,
+    logout
+  );
 
   afterEach(() => {
     jest.clearAllMocks();
@@ -31,7 +45,7 @@ describe("useLogout", () => {
 
       expect(dispatch).toHaveBeenCalledTimes(1);
 
-      expect(dispatch).toHaveBeenNthCalledWith(1, { type: "LOGOUT_REQUEST" });
+      expect(dispatch).toHaveBeenNthCalledWith(1, "logoutRequestAC");
 
       /*  expect(dispatch).toHaveBeenNthCalledWith(2, {
         type: "LOGOUT_REQUEST_SUCCESS",
@@ -56,7 +70,7 @@ describe("useLogout", () => {
 
       expect(dispatch).toHaveBeenCalledTimes(3);
 
-      expect(dispatch).toHaveBeenNthCalledWith(1, { type: "LOGOUT_REQUEST" });
+      expect(dispatch).toHaveBeenNthCalledWith(1, "logoutRequestAC");
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
         alertType: "error",
@@ -64,9 +78,7 @@ describe("useLogout", () => {
         type: "SHOW_ALERT",
       });
 
-      expect(dispatch).toHaveBeenNthCalledWith(3, {
-        type: "LOGOUT_REQUEST_ERROR",
-      });
+      expect(dispatch).toHaveBeenNthCalledWith(3, "logoutRequestErrorAC");
 
       expect(logout).toHaveBeenCalledTimes(1);
 

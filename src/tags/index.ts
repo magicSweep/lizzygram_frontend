@@ -8,4 +8,4 @@ export {
 
 export { default as tagsReducer } from "./store/reducer";
 
-export { useTags } from "./hook/useTags";
+export { default as useTags } from "./hook/useTags";

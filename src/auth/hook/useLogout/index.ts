@@ -1,13 +1,13 @@
 import { useCallback, useEffect } from "react";
 import { batch, useDispatch } from "react-redux";
-import { logout } from "../../service/AuthService";
+import { logout } from "../../service/AuthService/AuthService.fake";
 import {
   //logoutRequestSuccessAC,
   logoutRequestErrorAC,
   logoutRequestAC,
 } from "../../store/action";
 import { elif, then, _catch, _finally, compose } from "fmagic";
-import { removeUser } from "../../service/UserService";
+import { removeUser } from "../../service/UserService/UserService.fake";
 import { showAlertAC } from "../../../alert";
 
 export let isRequested = false;

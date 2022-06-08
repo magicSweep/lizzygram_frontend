@@ -4,8 +4,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
 import Tooltip from "@material-ui/core/Tooltip";
 import CloseIcon from "@material-ui/icons/Close"; */
-import { useSearchBtn } from "./hook";
-import SearchBtnWidget from "./SearchBtnWidget";
+import useSearchBtn from "./../../hook/useSearchBtn";
+import SearchBtnWidget from "./../../component/SearchBtn";
 
 // type
 // change - root bg, fontColor of typography and all btns

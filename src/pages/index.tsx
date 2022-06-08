@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import SEO from "../component/SEO";
 import NotAuth from "../component/NotAuth";
 import LoadableAddPhotoBtn from "../photos/container/AddPhotoBtn";
@@ -7,6 +7,21 @@ import LoadableAddPhotoReqs from "../photos/container/AddPhotoReqs";
 import LoadableEditPhotoReqs from "../photos/container/EditPhotoReqs";
 import LoadableWallOfPhotos from "../photos/container/WallOfPhotos";
 import LoadableSearchPhotoForm from "./../search/form/SearchPhotoForm";
+/////
+import { getAuth } from "firebase/auth";
+import { Button } from "@mui/material";
+
+const getToken = async () => {
+  try {
+    const token = await getAuth().currentUser.getIdToken(
+      /* forceRefresh */ true
+    );
+
+    console.log("------------TOKEN", token);
+  } catch (err) {
+    console.error("------------TOKEN ERROR", err);
+  }
+};
 
 /* 
   This is main page
@@ -21,6 +36,8 @@ const IndexPage = () => {
   return (
     <main>
       <SEO title="Фото альбом" />
+
+      <Button onClick={getToken}>Get token</Button>
 
       <NotAuth />
 
