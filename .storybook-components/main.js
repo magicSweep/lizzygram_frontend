@@ -1,7 +1,8 @@
 module.exports = {
   stories: [
-    "../src/**/*.stories.mdx",
-    "../src/component/**/*.stories.@(js|jsx|ts|tsx)",
+    //"../src/**/*.stories.mdx",
+    //"../src/component/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/i-photos/photoSlider/container/PhotoSlider/PhotoSliderWidget.stories.tsx",
   ],
   addons: [
     "@storybook/addon-links",

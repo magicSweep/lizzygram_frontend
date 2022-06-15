@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import TagsWidget from "./Tags";
 import TagsTextedWidget from "./TagsTexted";
-import { useTags } from "../../hook/useTags";
+import useTags from "../../hook/useTags";
 
 export type TagsProps = {
   photoTags: { [id: string]: boolean };

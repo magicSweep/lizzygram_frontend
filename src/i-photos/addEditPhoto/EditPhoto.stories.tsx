@@ -43,30 +43,7 @@ const Wrapper = () => {
 
   return (
     <div>
-      <div className="text-left w-1/2 border-2 p-2 border-yellow-200  rounded">
-        <p>
-          - nextPageDocRef -{" "}
-          {nextPageDocRef === undefined
-            ? "undefined"
-            : nextPageDocRef === null
-            ? "null"
-            : nextPageDocRef.toString()}
-        </p>
-        <p>error - {error.toString()}</p>
-        <p>loading - {loading.toString()}</p>
-        <p>activeReqIds - {activeReqIds.toString()}</p>
-        <p>editedPhotosIds - {editedPhotosReqIds.toString()}</p>
-        <p>
-          photos -{" "}
-          {photos !== undefined
-            ? photos.map(
-                (photo) => ` | ${photo.id} - ${photo.addedByUserUID} | `
-              )
-            : "undefined"}
-        </p>
-      </div>
-      <EditPhotoManager />
-      <Box bgcolor="secondary.main">
+      <Box bgcolor="secondary.main" className="my-6 w-3/4 mx-auto text-center">
         <EditIconBtn
           onClick={() => dispatch(editPhotoStartRequestAC("1532390460203"))}
           tooltipTitle="Edit btn"
@@ -76,6 +53,40 @@ const Wrapper = () => {
           iconSize="small"
         />
       </Box>
+      <div className="text-left border-2 p-2 border-yellow-200  rounded w-3/4 m-auto overflow-hidden">
+        <p>
+          -- nextPageDocRef -{" "}
+          {nextPageDocRef === undefined
+            ? "undefined"
+            : nextPageDocRef === null
+            ? "null"
+            : nextPageDocRef.toString()}
+        </p>
+        <p> -- error - {error.toString()}</p>
+        <p> -- loading - {loading.toString()}</p>
+        <p> -- activeReqIds - {activeReqIds.toString()}</p>
+        <p> -- editedPhotosIds - {editedPhotosReqIds.toString()}</p>
+        <p>
+          <ul>-- photos: </ul>
+          {photos !== undefined
+            ? photos.map((photo) =>
+                photo.id === "1532390460203" ? (
+                  <li key={photo.id}>{`|||-- ${photo.id} - [ addedBy ${
+                    photo.addedByUserUID
+                  }] - [ tags: ${JSON.stringify(
+                    photo.tags
+                  )}] - [ date: ${JSON.stringify(photo.date)}] --|||`}</li>
+                ) : (
+                  <li
+                    key={photo.id}
+                  >{` | ${photo.id} - ${photo.addedByUserUID} | `}</li>
+                )
+              )
+            : "undefined"}
+        </p>
+      </div>
+
+      <EditPhotoManager />
 
       <Alerts />
     </div>

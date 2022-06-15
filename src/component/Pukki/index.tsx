@@ -42,7 +42,7 @@ const Pukki: FC<PukkiProps> = ({
   onMouseDown,
   onTouchStart,
 }) => {
-  const wrapperRef: MutableRefObject<HTMLDivElement> = useRef(null);
+  const wrapperRef: MutableRefObject<HTMLDivElement> = useRef(null) as any;
 
   /*   const indexesRef: MutableRefObject<any> = useRef({
       prevLocalIndex: localIndex,

@@ -13,13 +13,13 @@ export const calcIsWrapperWider = (
   // IF OUR WIDTH INITIALLY EQUALS TO 100%, WE DISABLE JUSTIFY CENTER ON ANY ZOOM VALUE
   if (isWidthAuto === true) return false;
 
-  console.log(
+  /* console.log(
     "IS WRAPPER WIDER",
     isWidthAuto,
     zoom,
     wrapperAspectRatio,
     photoAspectRatio
-  );
+  ); */
   return wrapperAspectRatio >= photoAspectRatio * ((zoom + 100) / 100);
 };
 

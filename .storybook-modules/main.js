@@ -10,6 +10,8 @@ module.exports = {
     "../src/i-photos/addEditPhoto/AddPhoto.stories.tsx",
     // edit photo
     "../src/i-photos/addEditPhoto/EditPhoto.stories.tsx",
+    // favorite photo
+    "../src/i-photos/favorite/Favorite.stories.tsx",
     //alert
     "../src/alert/Alerts.stories.tsx",
     //tags

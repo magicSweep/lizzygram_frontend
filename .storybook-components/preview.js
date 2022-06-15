@@ -1,10 +1,10 @@
 import { action } from "@storybook/addon-actions";
-//import { addDecorator } from "@storybook/react";
-//import ThemeProvider from "./decorator/ThemeProvider";
+import { addDecorator } from "@storybook/react";
+import ThemeProvider from "./decorator/ThemeProvider";
 import "../src/theme/styles/global.css";
 //import ReduxProvider from "./decorator/ReduxProvider";
 
-//addDecorator(ThemeProvider);
+addDecorator(ThemeProvider);
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

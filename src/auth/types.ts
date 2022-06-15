@@ -33,7 +33,7 @@ export type AuthActionTypes =
   | "FORGET_PASS_ERROR" */
 
 export interface AuthState {
-  user: AuthUser | null;
+  user: AuthUser | undefined;
   loading: boolean;
   //logoutLoading: boolean;
   //forgetPassLoading: boolean;

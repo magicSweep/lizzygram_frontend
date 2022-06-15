@@ -12,6 +12,7 @@ const tagsCnf = require("./tags.config").default;
 const loadPhotosCnf = require("./loadPhotos.config").default;
 const addPhotoCnf = require("./addPhoto.config").default;
 const editPhotoCnf = require("./editPhoto.config").default;
+const favoritePhotoCnf = require("./favoritePhoto.config").default;
 
 exports.default = [
   ...initCnf,
@@ -21,4 +22,5 @@ exports.default = [
   ...loadPhotosCnf,
   ...addPhotoCnf,
   ...editPhotoCnf,
+  ...favoritePhotoCnf,
 ];

@@ -39,11 +39,11 @@ export const isXDirection = (
 
 export const isTimeDelayTresholdPass_ =
   (timeDelayThreshold: number) => (startTime: number) => {
-    console.log(
+    /* console.log(
       "isTimeDelayTresholdPass_",
       timeDelayThreshold,
       Date.now() - startTime
-    );
+    ); */
     return Date.now() - startTime > timeDelayThreshold;
   };
 

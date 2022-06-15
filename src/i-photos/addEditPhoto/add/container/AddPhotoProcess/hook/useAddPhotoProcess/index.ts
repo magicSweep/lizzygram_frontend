@@ -264,7 +264,7 @@ const useAddPhotoProcess = (
 ) => {
   const dispatch = useDispatch();
 
-  const formDataRef: MutableRefObject<AddPhotoFormData> = useRef();
+  const formDataRef: MutableRefObject<AddPhotoFormData | undefined> = useRef();
 
   const setFormData = useCallback((formData: AddPhotoFormData) => {
     formDataRef.current = formData;

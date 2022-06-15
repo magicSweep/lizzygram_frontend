@@ -61,7 +61,7 @@ export const photos = [
       ieYx4ke8ms0DJb5APv4u: true,
     },
     yearsOld: 0,
-    description: "",
+    description: "Алена Протека, Арам Ступиклим и другие",
     src: "https://res.cloudinary.com/dojbazopp/image/upload/v1617724420/cjrroxt7wna1inwbs3ys.jpg",
     googleDriveId: "1txVP3xK_-OdhCakIhssDrMXlt5F1vmA0",
     files: [

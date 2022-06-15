@@ -34,6 +34,7 @@
     "storybook-gatsby": "cross-env GATSBY_BUILD_FOR=portfolio start-storybook -p 6006 -c .storybook-gatsby",
     "storybook-modules": "npm run fake-imports && cross-env GATSBY_BUILD_FOR=portfolio start-storybook -p 6006 -c .storybook-modules",
     "storybook-components": "start-storybook -p 6006 -c .storybook-components",
+    "storybook-photo-slider": "npm run fake-imports && cross-env GATSBY_BUILD_FOR=portfolio start-storybook -p 6006 -c .storybook-photo-slider",
     "build-storybook": "build-storybook"
   },
   "dependencies": {

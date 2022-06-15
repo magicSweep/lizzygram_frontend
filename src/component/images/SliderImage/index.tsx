@@ -27,7 +27,7 @@ const SliderImage: FC<SliderImageProps> = ({
 }) => {
   const { loaded, onLoad, setLoaded } = useImageLoad();
 
-  useOnChangeImage(props.src, setLoaded);
+  useOnChangeImage(props.src as string, setLoaded);
 
   const fZoom = loaded === true && isLoading !== true ? zoom : 0;
 

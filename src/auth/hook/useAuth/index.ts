@@ -6,7 +6,7 @@ export const useAuth = () => {
   const { user, loading } = useSelector<
     GlobalState,
     {
-      user: AuthUser | null;
+      user: AuthUser | undefined;
       loading: boolean;
     }
   >(
@@ -18,7 +18,7 @@ export const useAuth = () => {
   );
 
   const isAuth = user !== null && user !== undefined;
-  const userUid = user !== null ? user.uid : "";
+  const userUid = user !== undefined ? user.uid : "";
 
   return {
     user,

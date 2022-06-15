@@ -1,24 +1,24 @@
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 //@ts-ignore
-import image1 from "./../../images/12.jpg";
+import image1 from "./../../../images/12.jpg";
 //@ts-ignore
-import image2 from "./../../images/13.jpg";
+import image2 from "./../../../images/13.jpg";
 //@ts-ignore
-import image3 from "./../../images/freestocks-9U.jpg";
+import image3 from "./../../../images/freestocks-9U.jpg";
 //@ts-ignore
-import image4 from "./../../images/image0.jpeg";
+import image4 from "./../../../images/image0.jpeg";
 //@ts-ignore
-import image5 from "./../../images/image7.jpeg";
+import image5 from "./../../../images/image7.jpeg";
 //@ts-ignore
-import image6 from "./../../images/peizaj4.jpg";
+import image6 from "./../../../images/peizaj4.jpg";
 //@ts-ignore
-import image7 from "./../../images/peizaj.jpg";
+import image7 from "./../../../images/peizaj.jpg";
 //@ts-ignore
-import image8 from "./../../images/ladki.jpg";
+import image8 from "./../../../images/ladki.jpg";
 //@ts-ignore
-import image9 from "./../../images/image2.jpeg";
+import image9 from "./../../../images/image2.jpeg";
 //@ts-ignore
-import image10 from "./../../images/peizaj3.png";
+import image10 from "./../../../images/peizaj3.png";
 
 //import { TPhotosData } from "../types";
 

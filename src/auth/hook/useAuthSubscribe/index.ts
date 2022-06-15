@@ -25,12 +25,12 @@ export const onAuthStateChanged = (dispatch: any) =>
       uid: user.uid,
       isEditor: undefined,
     })),
-    flat((user: AuthUser | null) => dispatch(authAC(user)))
+    flat((user: AuthUser | undefined) => dispatch(authAC(user)))
   );
 
 export const makeSubscribe = (dispatch: any) =>
   subscribe(onAuthStateChanged(dispatch), (err) => {
-    dispatch(authAC(null));
+    dispatch(authAC(undefined));
     console.error("AUTH SUBSCRIBE ERROR", err);
   });
 /* firebase.auth().onAuthStateChanged(onAuthStateChanged(dispatch), (err) => {

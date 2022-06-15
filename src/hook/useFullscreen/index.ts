@@ -12,7 +12,7 @@ export const isFullscreen_ = (fullscreenElemId?: string) =>
         () => fullscreenElemId === undefined,
         () => NI_Next.of(true),
         () =>
-          document.fullscreenElement.id === fullscreenElemId
+          document.fullscreenElement?.id === fullscreenElemId
             ? NI_Next.of(true)
             : Done.of(false)
       )
@@ -30,10 +30,10 @@ const useFullscreenElem = (
 ) => {
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  const fullscreenElemRef: MutableRefObject<HTMLElement> = useRef();
+  const fullscreenElemRef: MutableRefObject<HTMLElement | undefined> = useRef();
 
   const fullscreenChangeHandler = () => {
-    const isFullscreen = isFullscreen_(fullscreenElemRef.current.id);
+    const isFullscreen = isFullscreen_(fullscreenElemRef.current?.id);
     setIsFullscreen(isFullscreen);
 
     if (isFullscreen === true) {
@@ -55,11 +55,11 @@ const useFullscreenElem = (
     //console.log("---------------REF", ref.current.id === "");
     if (
       fullscreenElemRef.current === null ||
-      fullscreenElemRef.current.id === ""
+      fullscreenElemRef.current?.id === ""
     ) {
       throw new Error("We need id attribute on fullscreen element...");
     } else {
-      fullscreenElemRef.current.addEventListener(
+      fullscreenElemRef.current?.addEventListener(
         "fullscreenchange",
         fullscreenChangeHandler
       );
@@ -81,10 +81,10 @@ const useFullscreenElem = (
   const toggleFullscreen = () => {
     // || document.fullscreenElement.id === ref.current.id
 
-    const isFullscreen = isFullscreen_(fullscreenElemRef.current.id);
+    const isFullscreen = isFullscreen_(fullscreenElemRef.current?.id);
 
     if (isFullscreen === null)
-      /* document.body */ fullscreenElemRef.current.requestFullscreen();
+      /* document.body */ fullscreenElemRef.current?.requestFullscreen();
     else {
       document.exitFullscreen();
     }
@@ -93,12 +93,12 @@ const useFullscreenElem = (
   const requestFullscreen = () => {
     // || document.fullscreenElement.id === ref.current.id
     if (document.fullscreenElement === null)
-      /* document.body */ fullscreenElemRef.current.requestFullscreen();
+      /* document.body */ fullscreenElemRef.current?.requestFullscreen();
   };
 
   const exitFullscreen = () => {
     // || document.fullscreenElement.id === ref.current.id
-    if (isFullscreen_(fullscreenElemRef.current.id) === true) {
+    if (isFullscreen_(fullscreenElemRef.current?.id) === true) {
       document.exitFullscreen();
     }
   };

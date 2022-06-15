@@ -8,7 +8,7 @@ import { AuthState, AuthAction, AuthUser } from "./../types";
 //const initLoading = initUser === null;
 
 const authInitialState: AuthState = {
-  user: null,
+  user: undefined,
   loading: true,
   //loginLoading: false,
   //logoutLoading: false,
