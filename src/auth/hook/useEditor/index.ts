@@ -251,7 +251,7 @@ export const useEditor = () => {
       user &&
       user.isEditor === undefined
     ) { */
-    start(user);
+    if (user !== undefined) start(user);
     //++numberOfRequests;
     // }
   }, [user]);

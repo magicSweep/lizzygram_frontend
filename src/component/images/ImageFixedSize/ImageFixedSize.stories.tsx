@@ -2,7 +2,7 @@ import ImageFixedSize from ".";
 import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
 import React, { useState } from "react";
-import { photos } from "./../../../photos/mock/fake.data";
+import { photos } from "./../../../i-photos/loadPhotos/fake-data/photos.db";
 
 export default {
   component: Image,

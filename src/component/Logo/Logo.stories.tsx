@@ -1,4 +1,4 @@
-import React, { ComponentProps } from "react";
+/* import React, { ComponentProps } from "react";
 import { Logo } from ".";
 import { Story } from "@storybook/react";
 import { Box } from "@mui/system";
@@ -16,3 +16,4 @@ const Template: Story<ComponentProps<typeof Logo>> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {};
+ */

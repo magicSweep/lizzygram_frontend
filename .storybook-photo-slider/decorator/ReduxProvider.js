@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import {
+  batch,
   Provider as ReduxProvider,
   useDispatch,
   useSelector,
@@ -11,7 +12,7 @@ import thunk from "redux-thunk";
 //import { modalReducer, alertReducer, tagsReducer } from "./../../src/store";
 //import { photoReducer, searchReducer } from "./../../src/photos";
 import { authReducer, useAuth } from "./../../src/auth";
-import { usePhotos } from "./../../src/i-photos/loadPhotos";
+import { addPhotoAC, usePhotos } from "./../../src/i-photos/loadPhotos";
 import { tagsReducer } from "./../../src/tags";
 import { searchReducer } from "./../../src/search";
 import photoReducer from "./../../src/i-photos/loadPhotos/store/reducer";
@@ -23,6 +24,17 @@ import { showPhotoSliderAC } from "./../../src/i-photos/photoSlider/store/action
 import { PhotoSliderProvider } from "./../../src/i-photos/photoSlider/container/PhotoSlider/PhotoSlider.provider";
 import { GlobalState } from "../../src/types";
 import Box from "@mui/system/Box";
+import {
+  editPhotoSendRequestAC,
+  editPhotoRequestSuccessAC,
+  editPhotoRequestEndAC,
+  addPhotoStartRequestAC,
+  addPhotoSendRequestAC,
+  addPhotoRequestSuccessAC,
+  addPhotoRequestEndAC,
+} from "../../src/i-photos/addEditPhoto";
+import Button from "@mui/material/Button";
+import wait from "waait";
 
 //CONFIG REDUX
 const reducer = combineReducers({
@@ -85,10 +97,36 @@ const Layout = ({ children }) => {
     });
   }, []);
 
+  const editPhoto = async () => {
+    dispatch(editPhotoSendRequestAC("1532390460203"));
+
+    await wait(3000);
+
+    dispatch(editPhotoRequestSuccessAC("1532390460203"));
+  };
+
+  const addPhoto = async () => {
+    const photoToAdd = photos[3];
+
+    photoToAdd.id = "1531699239111";
+
+    dispatch(addPhotoSendRequestAC());
+
+    await wait(3000);
+
+    batch(() => {
+      dispatch(addPhotoRequestSuccessAC());
+
+      dispatch(addPhotoAC(photoToAdd));
+    });
+  };
+
   return (
     <>
       <Box className="p-2 w-14 text-center border-b-2">
-        - Photos -{" "}
+        <Button onClick={editPhoto}>edit photo</Button>
+        <span> | </span>
+        <Button onClick={addPhoto}>add photo</Button>- Photos -{" "}
         {photos === undefined
           ? "undefined"
           : loading === true

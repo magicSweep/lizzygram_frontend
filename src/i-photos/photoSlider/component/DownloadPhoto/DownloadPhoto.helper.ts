@@ -13,7 +13,7 @@ export const makeDownloadPhotoData_ =
   ) =>
   (
     googleDriveId: string,
-    userUid: string,
+    //userUid: string,
     imageExtension: ImgExt,
     downloadPhotoUrl: string
   ): DownloadOriginalPhotoData => {
@@ -22,7 +22,7 @@ export const makeDownloadPhotoData_ =
     return {
       href: makeDownloadPhotoUrl(
         googleDriveId,
-        userUid,
+        //userUid,
         downloadPhotoUrl,
         photoFileName
       ),

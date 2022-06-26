@@ -34,11 +34,11 @@ body {
   }
 
   .left-pukki-gradient {
-    background: linear-gradient(-90deg, rgb(18, 18, 18), 5%, #20000c);
+    background: linear-gradient(-90deg, rgb(18, 18, 18), 5%, #011b28);
   }
 
   .right-pukki-gradient {
-    background: linear-gradient(90deg, rgb(18, 18, 18), 5%, #20000c);
+    background: linear-gradient(90deg, rgb(18, 18, 18), 5%, #011b28);
   }
 }
 

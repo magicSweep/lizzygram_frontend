@@ -13,12 +13,15 @@ import thunk from "redux-thunk";
 //import Providers from "./../../provider/container/Providers";
 //import { initApp } from "./firebase/initApp";
 //import { modalReducer, alertReducer, tagsReducer } from "./../../store";
-import { default as searchReducer } from "./../../search/store/reducer";
-import { default as photoReducer } from "./../../photos/store/reducer";
-import { default as authReducer } from "./../../auth/store/reducer";
 import { themeReducer } from "../../theme/store/reducer";
-import { default as tagsReducer } from "./../../tags/store/reducer";
-import { default as alertReducer } from "./../../alert/store/reducer";
+import { authReducer } from "./../../auth";
+import { tagsReducer } from "./../../tags";
+import { searchReducer } from "./../../search";
+import { loadPhotosReducer } from "./../../i-photos/loadPhotos";
+import { alertReducer } from "./../../alert";
+import { addEditReducer } from "./../../i-photos/addEditPhoto";
+import { favoriteReducer } from "./../../i-photos/favorite";
+import { photoSliderReducer } from "./../../i-photos/photoSlider";
 
 //CONFIG REDUX
 const reducer = combineReducers({
@@ -26,9 +29,12 @@ const reducer = combineReducers({
   alert: alertReducer,
   tags: tagsReducer,
   search: searchReducer,
-  photos: photoReducer,
   auth: authReducer,
   theme: themeReducer,
+  loadPhotos: loadPhotosReducer,
+  addEditPhoto: addEditReducer,
+  favorite: favoriteReducer,
+  photoSlider: photoSliderReducer,
 });
 
 const composeEnhancers = compose;
@@ -60,7 +66,7 @@ export type ReduxProviderProps = {
 
 export const ReduxProvider: FC<ReduxProviderProps> = ({ children }) => {
   //console.log("RENDER REDUX PROVIDER");
-
+  // @ts-ignore
   return <Provider store={store}>{children}</Provider>;
 };
 

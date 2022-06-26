@@ -20,9 +20,9 @@ export const makeQueryConstraints_ =
   ) =>
   (
     //userUid: string,
-    constraints: Constraint[],
+    constraints: Constraint[] | undefined,
     startAt: any,
-    limit: number,
+    limit: number | undefined,
     orderBy?: OrderBy
   ) =>
     compose<unknown, QueryConstraint[]>(
@@ -45,6 +45,7 @@ export const makeQueryConstraints_ =
       elif(
         () => orderBy !== undefined,
         (queryConstraints: QueryConstraint[]) =>
+          //@ts-ignore
           queryConstraints.concat([orderBy_(...orderBy)]),
         justReturn
       ),
@@ -60,7 +61,7 @@ export const makeQueryConstraints_ =
       elif(
         () => limit !== undefined,
         (queryConstraints: QueryConstraint[]) =>
-          queryConstraints.concat([limit_(limit + 1)]),
+          queryConstraints.concat([limit_((limit as number) + 1)]),
         justReturn
       )
     )();

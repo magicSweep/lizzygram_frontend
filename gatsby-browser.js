@@ -9,17 +9,20 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./src/theme/styles/global.css";
 import Layout from "./src/container/Layout";
-import { init } from "./src/firebase/init";
+import { init } from "./src/i-service/firebase/init.fake";
+import ErrorBoundary from "./src/component/ErrorBoundary";
 
 init();
 
 export const wrapRootElement = ({ element }) => {
   return (
-    <ReduxProvider>
-      <EmotionCacheProvider>
-        <ThemeProvider>{element}</ThemeProvider>
-      </EmotionCacheProvider>
-    </ReduxProvider>
+    <ErrorBoundary>
+      <ReduxProvider>
+        <EmotionCacheProvider>
+          <ThemeProvider>{element}</ThemeProvider>
+        </EmotionCacheProvider>
+      </ReduxProvider>
+    </ErrorBoundary>
   );
 };
 

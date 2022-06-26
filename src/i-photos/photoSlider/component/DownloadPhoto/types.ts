@@ -10,7 +10,7 @@ import { ImgExt } from "lizzygram-common-data/dist/types";
 
 export type DownloadPhotoProps = {
   googleDriveId: string;
-  userUid: string;
+  //userUid: string;
   imageExtension: ImgExt | "";
   downloadPhotoUrl: string;
   placement?: TooltipProps["placement"];

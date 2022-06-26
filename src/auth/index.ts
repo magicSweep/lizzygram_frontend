@@ -15,4 +15,4 @@ export { useLogout } from "./hook/useLogout";
 
 //export { useEditor } from "./hook/useEditor";
 
-export { useAuthSubscribe } from "./hook/useAuthSubscribe";
+export { default as useAuthSubscribe } from "./hook/useAuthSubscribe";

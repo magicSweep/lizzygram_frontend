@@ -6,6 +6,7 @@ import ModalFallback from "../../../../component/ModalFallback";
 import { GlobalState } from "../../../../types";
 //import loadable from "@loadable/component";
 
+// TODO: what we made with added photos
 const LoadableModalPhotoSlider = lazy(() => import("./ModalPhotoSlider"));
 
 let isInit = false;

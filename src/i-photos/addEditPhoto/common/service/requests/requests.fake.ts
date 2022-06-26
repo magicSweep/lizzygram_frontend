@@ -7,7 +7,7 @@ export const workerReq: AddEditRequests["workerReq"] = async () => {
   return {
     base64: "base64",
     aspectRatio: 1.4,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     googleDriveId: "googleDriveId",
     webImagesInfo: {
       ids: ["asdfa320", "sfdafd720", "sdppou1080"],

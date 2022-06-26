@@ -11,3 +11,7 @@ export {
   addPhotoSendRequestAC,
   addPhotoStartRequestAC,
 } from "./store/action";
+
+export { default as LoadableAddPhotoBtn } from "./add/container/AddPhotoBtn";
+export { default as LoadableAddPhotoManager } from "./add/container/AddPhotoManager";
+export { default as LoadableEditPhotoManager } from "./edit/container/EditPhotoManager";

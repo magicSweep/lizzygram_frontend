@@ -6,6 +6,7 @@ export * from "./addEditPhoto.config";
  */
 
 const initCnf = require("./init.config").default;
+const gatsbyBrowserCnf = require("./gatsby-browser.cnf").default;
 const cnfCnf = require("./cnf.config").default;
 const authCnf = require("./auth.config").default;
 const tagsCnf = require("./tags.config").default;
@@ -15,6 +16,7 @@ const editPhotoCnf = require("./editPhoto.config").default;
 const favoritePhotoCnf = require("./favoritePhoto.config").default;
 
 exports.default = [
+  ...gatsbyBrowserCnf,
   ...initCnf,
   ...cnfCnf,
   ...authCnf,

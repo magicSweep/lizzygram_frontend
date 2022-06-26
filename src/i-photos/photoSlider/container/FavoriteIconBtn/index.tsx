@@ -8,12 +8,12 @@ import { usePhotoSliderContext } from "../../hook/usePhotoSliderContext";
 const FavoriteIconBtn: FC<{
   placement?: ComponentProps<typeof FavoriteIconBtnWidget>["placement"];
 }> = ({ placement }) => {
-  const useFavoriteReturn = useFavorite("favoriteTestUser");
-
   const {
     userUid,
     activePhoto: { id, favoriteBy },
   } = usePhotoSliderContext();
+
+  const useFavoriteReturn = useFavorite(userUid);
 
   return (
     <FavoriteIconBtnWidget

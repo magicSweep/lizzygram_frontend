@@ -42,7 +42,7 @@ export const makeWorkerReqData: DataAdapter["makeWorkerReqData"] = (
       webImagesInfo,
       aspectRatio,
       googleDriveId,
-      imageExtention,
+      imageExtension,
     }: MainResponseData,
     formData: AddPhotoFormData,
     userUid: string,
@@ -70,7 +70,7 @@ export const makeWorkerReqData: DataAdapter["makeWorkerReqData"] = (
       yearsOld,
       tags,
       googleDriveId: googleDriveId,
-      imageExtention: imageExtention as ImgExt,
+      imageExtension: imageExtension as ImgExt,
       addedByUserUID: userUid,
       isActive: true,
     };

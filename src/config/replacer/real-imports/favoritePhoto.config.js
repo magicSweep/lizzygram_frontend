@@ -4,7 +4,7 @@ exports.default = [
   {
     pathToFile: "src/i-photos/favorite/container/FavoriteIconBtn/hook/index.ts",
     // identify in log messages
-    identifier: "REPLACER | FAKE IMPORTS | FAVORITE PHOTO",
+    identifier: "REPLACER | REAL IMPORTS | FAVORITE PHOTO",
     replaceable: '"../service/DbService/DbService.fake"',
     replacement: '"../service/DbService"',
   },

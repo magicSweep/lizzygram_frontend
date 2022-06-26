@@ -1,3 +1,4 @@
+import React from "react";
 import ZoomBtn_ from "../../component/ZoomBtn";
 import { useImgZoom } from "../../hook/useImgZoom";
 import { usePhotoSliderContext } from "../../hook/usePhotoSliderContext";

@@ -20,9 +20,11 @@ export const calcPhotosLimitPerQuery = (
     // we add two additional rows
     let numberOfElementsByHeight = Math.floor(height / photoCardHeight) + 2;
 
-    const res = numberOfElementsByWidth * numberOfElementsByHeight;
+    const res = Math.floor(
+      numberOfElementsByWidth * numberOfElementsByHeight * 1.5
+    );
 
-    return res < 5 ? 5 : res;
+    return res < 10 ? 10 : res;
   } else {
     return 0;
   }
@@ -32,20 +34,20 @@ export const makePhotoId = () => {
   return (90000000000000 - Date.now()).toString();
 };
 
-export const makeDownloadPhotoName = (imageExtention: string) => {
-  return `photo_${Math.round(Math.random() * 100000)}.${imageExtention}`;
+export const makeDownloadPhotoName = (imageExtension: string) => {
+  return `photo_${Math.round(Math.random() * 100000)}.${imageExtension}`;
 };
 
 export const makeDownloadPhotoUrl = (
   googleDriveId: string,
-  userUid: string,
-  //imageExtention: string,
+  //userUid: string,
+  //imageExtension: string,
   downloadPhotoUrl: string,
   photoFileName: string
 ) => {
   //let downloadUrl = `${downloadPhotoUrl}/${userUid}${googleDriveId}/${photoFileName}`;
   let downloadUrl = `${downloadPhotoUrl}/${googleDriveId}/${photoFileName}`;
-  //if (imageExtention) downloadUrl += `.${imageExtention}`;
+  //if (imageExtension) downloadUrl += `.${imageExtension}`;
 
   return downloadUrl;
 };
@@ -53,7 +55,7 @@ export const makeDownloadPhotoUrl = (
 // AGE AND DATE
 
 export const getDate = (date: Date | number | string | FirestoreDate): Date => {
-  let resultDate = undefined;
+  let resultDate: any = undefined;
 
   /* console.log(
       "GET DATE",
@@ -181,7 +183,7 @@ export const getFormattedYearsOld = (yearsOld: number): string => {
       return "16 лет";
 
     default:
-      `${yearsOld}`;
+      return `${yearsOld}`;
     /* default:
       throw new Error(`No implementation or bad data | ${yearsOld}`); */
   }

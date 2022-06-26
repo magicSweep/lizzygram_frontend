@@ -39,6 +39,6 @@ module.exports = {
         theme_color_in_head: false,
       },
     },
-//"gatsby-plugin-webpack-bundle-analyser-v2",
+    //"gatsby-plugin-webpack-bundle-analyser-v2",
   ],
 };

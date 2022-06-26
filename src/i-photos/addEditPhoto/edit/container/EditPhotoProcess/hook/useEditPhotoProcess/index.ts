@@ -74,7 +74,7 @@ export type UseEditPhotoProcessData = UseEditPhotoProcessProps & {
       workerRequest: WorkerRequest;*/
   /* base64: data.base64String as string,
                 aspectRatio: data.photoInfo?.aspectRatio as number,
-                imageExtention: data.photoInfo?.imageExtention as string,
+                imageExtension: data.photoInfo?.imageExtension as string,
                 googleDriveId: data.googleDriveId as string,
                 webImagesInfo: { */
   workerPhotoData: MainResponseData;
@@ -121,8 +121,8 @@ export const main_ =
         data.isNeedFirestoreReq === false && data.isNeedWorkerReq === false
           ? //dispatch(showAlertAC("Вы ничего не изменили.", "error"))
             Done.of({
-              stage: "NOTHING_CHANGED",
               ...data,
+              stage: "NOTHING_CHANGED",
             })
           : NI_Next.of(data),
 
@@ -150,7 +150,7 @@ export const main_ =
             (data: UseEditPhotoProcessData) => ({
               ...data,
               workerReqData: dataAdapter.makeWorkerReqData(
-                data.formData.photoFile[0]
+                (data.formData.photoFile as FileList)[0]
               ),
             }),
             //tap((data) => console.log("STAGE-1.5", data)),
@@ -254,6 +254,16 @@ export const main_ =
 
             data.dispatch(stateAC.editPhotoRequestSuccessAC(data.photoId));
 
+            if (data.firestoreReqData.fieldsToUpdate.date !== undefined) {
+              const photoDate = new Date(
+                data.firestoreReqData.fieldsToUpdate.date
+              );
+
+              data.firestoreReqData.fieldsToUpdate.date = {
+                toDate: () => photoDate,
+              };
+            }
+
             data.dispatch(
               editPhotoAC({
                 id: data.firestoreReqData.photoId,
@@ -308,7 +318,7 @@ const useEditPhotoProcess = (
 ) => {
   const dispatch = useDispatch();
 
-  const formDataRef: MutableRefObject<EditPhotoFormData> = useRef();
+  const formDataRef: MutableRefObject<EditPhotoFormData | undefined> = useRef();
 
   const setFormData = useCallback((formData: EditPhotoFormData) => {
     formDataRef.current = formData;

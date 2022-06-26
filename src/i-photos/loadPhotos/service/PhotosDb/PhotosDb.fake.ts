@@ -10,9 +10,27 @@ import { ResponseWithCursor } from "../../../../i-service/firebase/types";
 
 //import { isInitState } from "./helper";
 
-const photos = [...initPhotos];
+const getPhotos = (length: number = 0) => {
+  if (length === 0) return initPhotos;
 
-const newPhotos = [];
+  const photos: any[] = [];
+
+  let y = 0;
+
+  for (let i = 0; i < length; i++) {
+    if (y === initPhotos.length) {
+      y = 0;
+    }
+
+    photos.push(initPhotos[y]);
+
+    y++;
+  }
+
+  return photos;
+};
+
+const photos = getPhotos(500);
 
 const isNeedSearch = (searchTerms: SearchTerms) => {
   return !(searchTerms.age === -1 && searchTerms.tags === undefined);

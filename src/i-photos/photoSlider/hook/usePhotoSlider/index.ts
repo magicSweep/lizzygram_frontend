@@ -91,7 +91,7 @@ export const usePhotoSlider = () => {
   const isEditor = user?.isEditor as boolean;
 
   const editedPhotoIds = useSelector<GlobalState, string[]>(
-    (state) => state.addEditPhoto.editReqs.reqIds
+    (state) => state.addEditPhoto.editReqs.activeReqIds
   );
 
   // FULLSCREEN
@@ -102,7 +102,7 @@ export const usePhotoSlider = () => {
 
     setTimeout(() => {
       dispatch(hidePhotoSliderAC());
-    }, 100);
+    }, 50);
   }, []);
 
   /*  const activePhoto: Photo<FirestoreDate> =

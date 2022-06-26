@@ -34,15 +34,9 @@ import * as dataAdapter from "./service/dataAdapter";
 import * as cleanUp from "./../../../../../common/service/cleanUp/cleanUp.fake";
 import { getToken as getToken_ } from "./../../../../../../../i-service/firebase/firebase.auth.fake";
 
-/*  onFormClose,
-    onSendReq,
-    onReqError,
-    onReqSuccess, */
-
 export type UseAddPhotoProcessProps = {
   photoId: string;
   userUid: string;
-  //isFormSubmited: boolean;
   formData: AddPhotoFormData;
   dispatch: ReturnType<typeof useDispatch>;
   processLifeCycle: ProcessLifeCycle;
@@ -60,7 +54,7 @@ export type UseAddPhotoProcessData = UseAddPhotoProcessProps & {
     workerRequest: WorkerRequest;*/
   /* base64: data.base64String as string,
               aspectRatio: data.photoInfo?.aspectRatio as number,
-              imageExtention: data.photoInfo?.imageExtention as string,
+              imageExtension: data.photoInfo?.imageExtension as string,
               googleDriveId: data.googleDriveId as string,
               webImagesInfo: { */
   workerPhotoData: MainResponseData;
@@ -192,7 +186,16 @@ export const main_ =
 
             data.dispatch(stateAC.addPhotoRequestSuccessAC());
 
-            data.dispatch(addPhotoAC(data.photoToAdd));
+            const photoDate = new Date(data.photoToAdd.date);
+
+            data.dispatch(
+              addPhotoAC({
+                ...data.photoToAdd,
+                date: {
+                  toDate: () => photoDate,
+                },
+              })
+            );
           });
 
           data.processLifeCycle.onReqSuccess();

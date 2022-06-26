@@ -1,3 +1,4 @@
+import React from "react";
 import SliderControlsWidget from "../../component/SliderControls";
 import { usePhotoSliderContext } from "../../hook/usePhotoSliderContext";
 

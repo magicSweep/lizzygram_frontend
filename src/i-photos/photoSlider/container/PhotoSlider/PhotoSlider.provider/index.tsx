@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import React, { createContext } from "react";
 import { usePhotoSlider } from "../../../hook/usePhotoSlider";
 
 export const PhotoSliderContext = createContext<

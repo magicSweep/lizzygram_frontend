@@ -18,7 +18,7 @@ export const useAuth = () => {
   );
 
   const isAuth = user !== null && user !== undefined;
-  const userUid = user !== undefined ? user.uid : "";
+  const userUid = isAuth === true ? (user as AuthUser).uid : "";
 
   return {
     user,

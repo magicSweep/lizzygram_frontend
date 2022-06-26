@@ -17,7 +17,7 @@ let unsubscribe: Unsubscribe;
 
 export const onAuthStateChanged = (dispatch: any) =>
   compose(
-    tap((user: any) => console.log("-========= ON AUTH STATE CHANGED", user)),
+    tap((user: any) => console.log("========= ON AUTH STATE CHANGED", user)),
     (user: any | null) => (user ? Next.of(user) : Done.of(null)),
     map((user: any) => ({
       name: user.displayName ? user.displayName : "",

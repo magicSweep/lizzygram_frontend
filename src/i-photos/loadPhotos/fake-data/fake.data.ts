@@ -43,7 +43,7 @@ export const addedPhoto: Photo<FirestoreDate> = {
   googleDriveId: "",
   addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
   isActive: true,
-  imageExtention: "jpeg",
+  imageExtension: "jpeg",
 };
 
 export const photos: Photo<FirestoreDate>[] = [
@@ -66,7 +66,7 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     favoriteBy: {
       jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
     },
@@ -93,7 +93,7 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "user12",
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
   },
 
   {
@@ -115,7 +115,7 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "userUID",
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     favoriteBy: {
       jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
     },
@@ -140,7 +140,7 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
   },
 
   {
@@ -165,7 +165,7 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     favoriteBy: {
       jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
     },
@@ -193,7 +193,7 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     favoriteBy: {
       jkFrANbtA4bBEjFsvWWbSOPdt56yt: true,
     },
@@ -221,7 +221,7 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "userUID",
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
   },
 
   {
@@ -246,7 +246,7 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "userUID",
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
   },
 
   {
@@ -270,6 +270,6 @@ export const photos: Photo<FirestoreDate>[] = [
     googleDriveId: "",
     addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     isActive: true,
-    imageExtention: "png",
+    imageExtension: "png",
   },
 ];

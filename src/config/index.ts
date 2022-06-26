@@ -112,8 +112,8 @@ export const downloadPhotoUrl = `${expressUrl}/download`;
 export const photoCardWidth = 345;
 export const photoCardHeight = 194;
 
-export const photoCardMarginLeft = 8;
-export const photoCardMarginBottom = 8;
+//export const photoCardMarginLeft = 8;
+//export const photoCardMarginBottom = 8;
 
 //export const maxAppWidth = 1600;
 
@@ -129,7 +129,12 @@ export const lizzyBirthday = new Date("2018-07-08");
 
 // NUMBER OF PHOTOS PER QUERY
 
-export const numberOfPhotosPerQuery = 5;
+export const numberOfPhotosPerQuery = calcPhotosLimitPerQuery(
+  photoCardWidth,
+  photoCardHeight
+);
+
+//alert(`numberOfPhotosPerQuery | ${numberOfPhotosPerQuery}`);
 
 // WALL OF PHOTOS | USE OBSERVABLE PHOTOS
 

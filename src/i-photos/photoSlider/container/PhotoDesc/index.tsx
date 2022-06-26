@@ -11,10 +11,13 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 //import Link from "@mui/material/Link";
 //import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
-import DownloadPhotoLink from "../DownloadPhoto/Link";
+import DownloadPhotoIcon from "../DownloadPhoto/Icon";
 import { getBuildFor } from "lizzygram-common-data";
 import { BuildFor } from "lizzygram-common-data/dist/types";
 import { usePhotoSliderContext } from "../../hook/usePhotoSliderContext";
+import FavoriteIconBtn from "./../FavoriteIconBtn";
+//import { IconButton, Tooltip } from "@mui/material";
+import EditIconBtn from "../../../../component/EditIconBtn";
 
 //import { DownloadOriginalPhotoData } from "../../types";
 
@@ -23,7 +26,7 @@ import { usePhotoSliderContext } from "../../hook/usePhotoSliderContext";
   downloadPhotoLinkProps: ComponentProps<typeof DownloadPhotoLink>;
   //photo: Photo<FirestoreDate> | undefined;
   photoDate: FirestoreDate;
-  //photoImageExtention: Photo<FirestoreDate>["imageExtention"];
+  //photoImageExtension: Photo<FirestoreDate>["imageExtension"];
   //photoGoogleDriveId: Photo<FirestoreDate>["googleDriveId"];
   photoDescription: Photo<FirestoreDate>["description"];
   //photoTags: Photo<FirestoreDate>["tags"];
@@ -50,7 +53,7 @@ const MainWrapper = ({ className, children }: any) => {
 
 const Wrapper = (props: any) => {
   return (
-    <div className="p-3 w-full">
+    <div className="py-2 min-w-[70%]">
       <Box component="h5" typography="body2">
         {props.title}
       </Box>
@@ -140,8 +143,38 @@ export const PhotoDesc_ =
       if (showEditPhotoForm) showEditPhotoForm();
     };
 
+    /* <Tooltip title="Редактировать">
+              <IconButton
+                onClick={onEdit}
+                aria-label="edit photo"
+                //sx={{ ml: "14px" }}
+              >
+                <EditIcon sx={{ fill: "white" }} fontSize="small" />
+              </IconButton>
+              
+            </Tooltip> */
+
     return (
-      <div className="w-80 pl-2">
+      <div className="w-80 pl-2 pr-2">
+        {isEditor === true && (
+          <span className="flex justify-center items-center space-x-4 py-2">
+            {isEditable === true && (
+              <EditIconBtn
+                onClick={onEdit}
+                tooltipPlacement="bottom"
+                tooltipTitle="Редактировать"
+                ariaLabel="edit photo"
+                fill="white"
+                iconSize="small"
+              />
+            )}
+
+            {isEditor === true && <DownloadPhotoIcon placement="bottom" />}
+
+            {isEditor === true && <FavoriteIconBtn placement="bottom" />}
+          </span>
+        )}
+
         <Wrapper title="Дата">
           <Box component="span" typography="body2">
             {formatDate}
@@ -156,17 +189,17 @@ export const PhotoDesc_ =
           </Wrapper>
         )}
 
-        {isEditor === true && (
+        {/*    {isEditor === true && (
           <Wrapper title="Оригинал фото">
-            <DownloadPhotoLink
+            <DownloadPhotoIcon
             /* userUid={userUid}
               googleDriveId={googleDriveId}
               imageExtension={imageExtension}
-              downloadPhotoUrl={downloadPhotoUrl} */
-            /* {...downloadPhotoLinkProps} */
+              downloadPhotoUrl={downloadPhotoUrl} /
+            /* {...downloadPhotoLinkProps} /
             />
           </Wrapper>
-        )}
+        )} */}
 
         {photoDescription && (
           <Wrapper title="Комментарий">
@@ -180,13 +213,13 @@ export const PhotoDesc_ =
           <Tags photoTags={photoTags} />
         </Wrapper>
 
-        {isEditor === true && isEditable === true && (
+        {/* {isEditor === true && isEditable === true && (
           <div className="p-3 text-center">
             <Button color="primary" onClick={onEdit}>
               Редактировать
             </Button>
           </div>
-        )}
+        )} */}
       </div>
     );
   };

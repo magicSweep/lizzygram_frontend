@@ -19,7 +19,7 @@ export const photos = [
       ybrq9aFZlTk71akoH7Lz: true,
       bCcRcxADj2xP9fkSXNpH: true,
     },
-    addedByUserUID: "EjFsvWWbSOPdt56yt",
+    addedByUserUID: "kMwibQErO6dDH6gf3entRLqFBop2",
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1614929592/lyhup7gxtotcxi0uywuf.jpg",
     files: [
@@ -29,7 +29,7 @@ export const photos = [
       "p7qjynifauycc2prc1lk",
       "dlwvztzvmgjpxlwqsapm",
     ],
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     //1mrIb1q3nD3QGWl0kf97vcVdJ0gm5S6qe | 1J4yFOQMprUYK_lMmbz5NO_eSAGGmrcou
     googleDriveId: "1mrIb1q3nD3QGWl0kf97vcVdJ0gm5S6qe",
     aspectRatio: 1.78,
@@ -71,7 +71,7 @@ export const photos = [
       "nnb5wz4l4hzsd94ray06",
       "hdcuae1jfxgpjfodjavc",
     ],
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     date: {
       seconds: 1532390400,
       nanoseconds: 0,
@@ -116,7 +116,7 @@ export const photos = [
       "a1zs0efwu3nk5qalextb",
     ],
     isActive: true,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     yearsOld: 0,
     description: "",
   },
@@ -247,7 +247,7 @@ export const photos = [
     },
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1614710127/hdhfmbdwq5gayff0syey.jpg",
-    addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
+    addedByUserUID: "kMwibQErO6dDH6gf3entRLqFBop2",
     files: [
       "hdhfmbdwq5gayff0syey",
       "oblhjkoixev2c54bsld9",
@@ -302,7 +302,7 @@ export const photos = [
     yearsOld: 0,
     isActive: true,
     description: "",
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1617328928/zygnmhansnqqvkvsz7ff.jpg",
     date: {
@@ -455,7 +455,7 @@ export const photos = [
       toDate: () => new Date(1624900411 * 1000),
     },
     yearsOld: 2,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     base64:
       "UklGRm4AAABXRUJQVlA4IGIAAADwAQCdASoPAAoAAUAmJZQCdAD0E7bT+AAA/vS4qkohvbIk5TcYjZhTK6DiB+uOAsjJYa8lBo1AYn19ozI0zxu9GfCbnU2BDf3GM1kLwTwc8A+RlrkKQC1h5TObZZzOsAAAAA==",
     src: "https://res.cloudinary.com/dojbazopp/image/upload/v1624900421/gyhhh7fsi6zwl8d6aqb2.jpg",
@@ -504,7 +504,7 @@ export const photos = [
     },
     srcSet:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1617329774/czhr52pqqv0veeialvui.jpg 600w, https://res.cloudinary.com/dojbazopp/image/upload/v1617329774/upneexjxgdxaipp9w8a6.jpg 1000w, https://res.cloudinary.com/dojbazopp/image/upload/v1617329774/a2a7aerkkjrd4bdssxzp.jpg 1500w, https://res.cloudinary.com/dojbazopp/image/upload/v1617329774/itsxqykqtv7iefwlsdca.jpg 2300w",
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     aspectRatio: 1.78,
     googleDriveId: "1DE8cMTtU7NmD3rOifNSZmyt75uGAFsU2",
     _timestamp: {
@@ -642,7 +642,7 @@ export const photos = [
     },
     base64:
       "UklGRqwAAABXRUJQVlA4IKAAAABQBACdASoPABcAPm0skkWkIqGYBABABsS2AFiF4AGDWqGPwtRVqed57dIAAP7p7koA8YjkBgtEZavWd5d1oqYl034MtX183c6d32YQK/AOtJLb5ZQ5hTYSmL4nmYbXAQK0r2vN7c9IfmtGorehP5e9ucz3WeLw2jNvQvv4hoe30R/9ZIyKTBrxFUk+gPp+KvyaKLT+gmA3/MWdPseeAAAA",
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     isActive: true,
     src: "https://res.cloudinary.com/dojbazopp/image/upload/v1624900201/v1gxkzawydxgdijitdoc.jpg",
     files: [
@@ -699,7 +699,7 @@ export const photos = [
       toDate: () => new Date(1640191239 * 1000),
     },
     yearsOld: 3,
-    imageExtention: "jpeg",
+    imageExtension: "jpeg",
     addedByUserUID: "jkFrANbtA4bBEjFsvWWbSOPdt56yt",
     iconSrc:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1640202892/zccqoeukx6nbmcpmzdve.webp",
@@ -724,7 +724,7 @@ export const photos = [
     addedByUserUID: "jkFrANbtA4bBEjFs",
     srcSet:
       "https://res.cloudinary.com/dojbazopp/image/upload/v1640204081/edcdrynltryo9tjhpzyx.webp 600w, https://res.cloudinary.com/dojbazopp/image/upload/v1640204081/w4pkhi3mtplp0vkkafvf.webp 1000w, https://res.cloudinary.com/dojbazopp/image/upload/v1640204081/cpkgdc5zhkolgmvxpqit.webp 1500w, https://res.cloudinary.com/dojbazopp/image/upload/v1640204081/rhxs1vhrsejwjf67d0tp.webp 2300w",
-    imageExtention: "png",
+    imageExtension: "png",
     aspectRatio: 1.78,
     googleDriveId: "photo-1640204072494-806265930.png",
     base64:

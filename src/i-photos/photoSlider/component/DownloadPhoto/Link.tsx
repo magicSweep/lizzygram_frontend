@@ -4,14 +4,14 @@ import Link from "@mui/material/Link";
 import { makeDownloadPhotoData } from "./DownloadPhoto.helper";
 
 export const DownloadPhotoLink: FC<DownloadPhotoProps> = ({
-  userUid,
+  // userUid,
   googleDriveId,
   imageExtension,
   downloadPhotoUrl,
 }) => {
   const { downloadAttr, href } = makeDownloadPhotoData(
     googleDriveId,
-    userUid,
+    //userUid,
     imageExtension as any,
     downloadPhotoUrl
   );

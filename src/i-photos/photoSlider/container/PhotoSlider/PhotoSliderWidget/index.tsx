@@ -193,7 +193,7 @@ const PhotoSliderWidget: FC = (/* {
           //downloadPhotoData={downloadPhotoData}
           userUid={userUid}
           imageExtension={
-            photos === undefined ? "" : photos[activeIndex].imageExtention
+            photos === undefined ? "" : photos[activeIndex].imageExtension
           }
           googleDriveId={
             photos === undefined ? "" : photos[activeIndex].googleDriveId

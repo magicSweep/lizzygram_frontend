@@ -1,27 +1,29 @@
 import React from "react";
 import SEO from "../component/SEO";
 import NotAuth from "../component/NotAuth";
-import LoadableAddPhotoBtn from "../photos/container/AddPhotoBtn";
-import LoadablePhotoSlider from "../photos/container/PhotoSlider";
-import LoadableAddPhotoReqs from "../photos/container/AddPhotoReqs";
-import LoadableEditPhotoReqs from "../photos/container/EditPhotoReqs";
-import LoadableWallOfPhotos from "../photos/container/WallOfPhotos";
-import LoadableSearchPhotoForm from "./../search/form/SearchPhotoForm";
+import {
+  LoadableAddPhotoBtn,
+  LoadableAddPhotoManager,
+  LoadableEditPhotoManager,
+} from "../i-photos/addEditPhoto";
+import { LoadablePhotoSlider } from "../i-photos/photoSlider";
+import { LoadableWallOfPhotos } from "../i-photos/wallOfPhotos";
+import { LoadableSearchPhotoForm } from "./../search";
 /////
-import { getAuth } from "firebase/auth";
-import { Button } from "@mui/material";
+//import { getAuth } from "firebase/auth";
+//import { Button } from "@mui/material";
 
-const getToken = async () => {
+/* const getToken = async () => {
   try {
     const token = await getAuth().currentUser.getIdToken(
-      /* forceRefresh */ true
+      /* forceRefresh / true
     );
 
     console.log("------------TOKEN", token);
   } catch (err) {
     console.error("------------TOKEN ERROR", err);
   }
-};
+}; */
 
 /* 
   This is main page
@@ -37,7 +39,7 @@ const IndexPage = () => {
     <main>
       <SEO title="Фото альбом" />
 
-      <Button onClick={getToken}>Get token</Button>
+      {/*  <Button onClick={getToken}>Get token</Button> */}
 
       <NotAuth />
 
@@ -47,9 +49,9 @@ const IndexPage = () => {
 
       <LoadablePhotoSlider />
 
-      <LoadableAddPhotoReqs />
+      <LoadableAddPhotoManager />
 
-      <LoadableEditPhotoReqs />
+      <LoadableEditPhotoManager />
 
       <LoadableSearchPhotoForm />
 

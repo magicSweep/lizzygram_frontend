@@ -3,7 +3,7 @@ exports.default = [
     pathToFile:
       "src/i-photos/addEditPhoto/add/container/AddPhotoProcess/hook/useAddPhotoProcess/index.ts",
     // identify in log messages
-    identifier: "REPLACER | FAKE IMPORTS | ADD PHOTO",
+    identifier: "REPLACER | REAL IMPORTS | ADD PHOTO",
     replaceable:
       '"./../../../../../../../i-service/firebase/firebase.auth.fake"',
     replacement: '"./../../../../../../../i-service/firebase/firebase.auth"',
@@ -13,7 +13,7 @@ exports.default = [
     pathToFile:
       "src/i-photos/addEditPhoto/add/container/AddPhotoProcess/hook/useAddPhotoProcess/index.ts",
     // identify in log messages
-    identifier: "REPLACER | FAKE IMPORTS | ADD PHOTO",
+    identifier: "REPLACER | REAL IMPORTS | ADD PHOTO",
     replaceable: '"./service/requests/requests.fake"',
     replacement: '"./service/requests"',
   },
@@ -22,7 +22,7 @@ exports.default = [
     pathToFile:
       "src/i-photos/addEditPhoto/add/container/AddPhotoProcess/hook/useAddPhotoProcess/index.ts",
     // identify in log messages
-    identifier: "REPLACER | FAKE IMPORTS | ADD PHOTO",
+    identifier: "REPLACER | REAL IMPORTS | ADD PHOTO",
     replaceable: '"./service/dataAdapter/dataAdapter.fake"',
     replacement: '"./service/dataAdapter"',
   }, */
@@ -31,7 +31,7 @@ exports.default = [
     pathToFile:
       "src/i-photos/addEditPhoto/add/container/AddPhotoProcess/hook/useAddPhotoProcess/index.ts",
     // identify in log messages
-    identifier: "REPLACER | FAKE IMPORTS | ADD PHOTO",
+    identifier: "REPLACER | REAL IMPORTS | ADD PHOTO",
     replaceable: '"./../../../../../common/service/cleanUp/cleanUp.fake"',
     replacement: '"./../../../../../common/service/cleanUp"',
   },

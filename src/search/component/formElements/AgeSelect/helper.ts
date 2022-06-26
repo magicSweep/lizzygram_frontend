@@ -1,5 +1,5 @@
 //import { lizzyYearsOld } from "../../../config";
-import { getLizzyYearsOld } from "../../../../utils/app";
+import { calcLizzyYearsOld } from "../../../../utils/app";
 
 export type IOption = {
   value: string;
@@ -9,7 +9,7 @@ export type IOption = {
 export const makeOptionsForAgeSelect = () => {
   const options: IOption[] = [{ value: "-1", label: "Любой" }];
 
-  const lizzyYearsOld = getLizzyYearsOld();
+  const lizzyYearsOld = calcLizzyYearsOld();
 
   for (let i = 0; i <= lizzyYearsOld; i++) {
     switch (i) {

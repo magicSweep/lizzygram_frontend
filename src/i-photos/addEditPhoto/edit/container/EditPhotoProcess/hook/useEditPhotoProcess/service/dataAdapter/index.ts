@@ -73,7 +73,7 @@ export const makeFieldsToUpdate_: (
     () =>
       console.log(
         "MAKE FIELDS TO UPDATE",
-        new Date(formData.date).toDateString(),
+        new Date(formData.date as Date).toDateString(),
         currPhoto.date.toDate().toDateString()
       ),
     () =>
@@ -138,17 +138,19 @@ export const makeFirestoreReqData: DataAdapter["makeFirestoreReqData"] = (
 
   if (workerResponseData !== undefined) {
     workerFieldsToUpdate.srcSet = makeSrcSet(
-      workerResponseData.webImagesInfo.urls
+      workerResponseData.webImagesInfo.urls as Map<number, string>
     );
     workerFieldsToUpdate.iconSrc = makeIconSrc(
-      workerResponseData.webImagesInfo.urls
+      workerResponseData.webImagesInfo.urls as Map<number, string>
     );
-    workerFieldsToUpdate.src = makeSrc(workerResponseData.webImagesInfo.urls);
+    workerFieldsToUpdate.src = makeSrc(
+      workerResponseData.webImagesInfo.urls as Map<number, string>
+    );
     workerFieldsToUpdate.googleDriveId = workerResponseData.googleDriveId;
     workerFieldsToUpdate.base64 = workerResponseData.base64;
     workerFieldsToUpdate.files = workerResponseData.webImagesInfo.ids;
     workerFieldsToUpdate.aspectRatio = workerResponseData.aspectRatio;
-    workerFieldsToUpdate.imageExtention = workerResponseData.imageExtention;
+    workerFieldsToUpdate.imageExtension = workerResponseData.imageExtension;
   }
 
   /*  if (formData.date !== undefined) {
@@ -175,7 +177,7 @@ export const makeFirestoreReqData: DataAdapter["makeFirestoreReqData"] = (
       yearsOld,
       tags,
       googleDriveId: googleDriveId,
-      imageExtention: imageExtention as ImgExt, */
+      imageExtension: imageExtension as ImgExt, */
     //addedByUserUID: userUid,
     //isActive: true,
   };

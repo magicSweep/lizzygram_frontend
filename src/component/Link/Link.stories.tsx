@@ -1,4 +1,4 @@
-import React, { ComponentProps } from "react";
+/* import React, { ComponentProps } from "react";
 import { Link } from ".";
 import { Story } from "@storybook/react";
 
@@ -16,3 +16,4 @@ Default.args = {
   to: "/",
   children: "Go to hell",
 };
+ */

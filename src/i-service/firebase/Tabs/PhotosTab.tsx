@@ -56,7 +56,7 @@ const getPhotoElem = (photo: Photo<FirestoreDate>, index: number) => {
       {getTagElems(photo.tags)}
       <p>addedByUserUID - {photo.addedByUserUID}</p>
       <p>googleDriveId - {photo.googleDriveId}</p>
-      <p>imageExtention - {photo.imageExtention}</p>
+      <p>imageExtension - {photo.imageExtension}</p>
       <p>isActive - {photo.isActive.toString()}</p>
     </Box>
   );
@@ -76,7 +76,7 @@ const photoData = {
   googleDriveId: "",
   addedByUserUID: "mdFrANbtA4bBEjFsvWWbSOPdfLB2",
   isActive: true,
-  imageExtention: "jpeg",
+  imageExtension: "jpeg",
 };
 
 const PhotosTab = () => {

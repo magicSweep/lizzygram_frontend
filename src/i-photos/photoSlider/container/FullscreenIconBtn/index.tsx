@@ -1,3 +1,4 @@
+import React from "react";
 import Fullscreen from "../../../../component/Fullscreen";
 //import useFullscreen from "../../../../hook/useFullscreen";
 import { usePhotoSliderContext } from "../../hook/usePhotoSliderContext";

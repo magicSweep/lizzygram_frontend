@@ -44,16 +44,18 @@ export const makeFirestoreReqData_: (
       webImagesInfo,
       aspectRatio,
       googleDriveId,
-      imageExtention,
+      imageExtension,
     }: MainResponseData,
     formData: AddPhotoFormData,
     userUid: string,
     photoId: string
   ) => {
     const yearsOld = buildFor === "lizzygram" ? calcYearsOld(formData.date) : 0;
-    const srcSet = makeSrcSet(webImagesInfo.urls);
-    const iconSrc = makeIconSrc(webImagesInfo.urls);
-    const src = makeSrc(webImagesInfo.urls);
+    const srcSet = makeSrcSet(webImagesInfo.urls as Map<number, string>);
+    const iconSrc = makeIconSrc(
+      webImagesInfo.urls as Map<number, string>
+    ) as string;
+    const src = makeSrc(webImagesInfo.urls as Map<number, string>) as string;
 
     const tags = makeTagsData(formData.tags);
 
@@ -66,12 +68,12 @@ export const makeFirestoreReqData_: (
       srcSet,
       iconSrc,
       _timestamp: new Date(),
-      description: formData.desc,
+      description: formData.desc === undefined ? "" : formData.desc,
       date: formData.date,
       yearsOld,
       tags,
       googleDriveId: googleDriveId,
-      imageExtention: imageExtention as ImgExt,
+      imageExtension: imageExtension as ImgExt,
       addedByUserUID: userUid,
       isActive: true,
     };

@@ -13,16 +13,16 @@ export const DownloadPhotoIcon: FC<{
   placement: DownloadPhotoProps["placement"];
 }> = ({ placement }) => {
   const {
-    userUid,
-    activePhoto: { imageExtention, googleDriveId },
+    // userUid,
+    activePhoto: { imageExtension, googleDriveId },
     downloadPhotoUrl,
   } = usePhotoSliderContext();
 
   return (
     <DownloadIconBtn
-      userUid={userUid}
+      //userUid={userUid}
       googleDriveId={googleDriveId}
-      imageExtension={imageExtention}
+      imageExtension={imageExtension}
       downloadPhotoUrl={downloadPhotoUrl}
       placement={placement}
     />

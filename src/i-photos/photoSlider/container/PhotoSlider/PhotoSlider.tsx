@@ -12,7 +12,7 @@ export const PhotoSlider = () => {
 
   return (
     <PhotoSliderProvider>
-      <PhotoSliderWidget />;
+      <PhotoSliderWidget />
     </PhotoSliderProvider>
   );
 };

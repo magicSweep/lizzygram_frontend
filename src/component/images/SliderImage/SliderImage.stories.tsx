@@ -2,7 +2,7 @@ import SliderImage from ".";
 import Box from "@mui/system/Box";
 import React, { useState } from "react";
 import Button from "@mui/material/Button";
-import { photos } from "./../../../photos/mock/fake.data";
+import { photos } from "./../../../i-photos/loadPhotos/fake-data/photos.db";
 
 export default {
   component: SliderImage,

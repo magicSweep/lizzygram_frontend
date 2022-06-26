@@ -12,7 +12,7 @@ import { makeDownloadPhotoData } from "./DownloadPhoto.helper";
 } */
 
 export const DownloadPhotoIcon: FC<DownloadPhotoProps> = ({
-  userUid,
+  //userUid,
   googleDriveId,
   imageExtension,
   downloadPhotoUrl,
@@ -20,7 +20,7 @@ export const DownloadPhotoIcon: FC<DownloadPhotoProps> = ({
 }) => {
   const { downloadAttr, href } = makeDownloadPhotoData(
     googleDriveId,
-    userUid,
+    //userUid,
     imageExtension as any,
     downloadPhotoUrl
   );
@@ -29,7 +29,7 @@ export const DownloadPhotoIcon: FC<DownloadPhotoProps> = ({
     <Tooltip title="Скачать оригинальный файл" placement={placement}>
       <IconButton
         aria-label="скачать фото"
-        className="m-auto"
+        /* className="m-auto" */
         component="a"
         download={downloadAttr}
         href={href}
