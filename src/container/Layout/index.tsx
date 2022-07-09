@@ -13,6 +13,8 @@ import { globalTitle } from "../../config";
 //import NoSsr from "@mui/material/NoSsr";
 import NoSsr from "../../component/NoSsr";
 import Copyright from "../../component/Copyright";
+import { LayoutActionsProvider } from "../LayoutActionsProvider";
+//import { ScrollTriggerProvider } from "../ScrollTriggerProvider";
 
 const LoadableThemeSwitch = lazy(
   () => import("../../theme/component/ThemeSwitch")
@@ -42,14 +44,6 @@ const Banner: FC = () => (
       {globalTitle}
     </Typography>
   </Box>
-);
-
-const Footer: FC = () => (
-  <div className="py-6 px-4">
-    <Box typography="body2" className="text-center">
-      Copyright © 2021 Made by me
-    </Box>
-  </div>
 );
 
 type WrapperProps = {
@@ -115,6 +109,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
   //const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const { mode, toggleMode } = useMode();
 
+  /* const trigger = useScrollTrigger({
+    disableHysteresis: true,
+    threshold: 0,
+  }); */
+
   /* const location = useLocation();
 
   const { user } = useAuth();
@@ -142,21 +141,23 @@ const Layout: FC<LayoutProps> = ({ children }) => {
         bgcolor: "background.paper",
       }} */
     >
-      <AppBar />
+      <LayoutActionsProvider>
+        <AppBar />
 
-      <Banner />
+        <Banner />
 
-      <Wrapper mode={mode} toggleMode={toggleMode}>
-        {children}
-      </Wrapper>
+        <Wrapper mode={mode} toggleMode={toggleMode}>
+          {children}
+        </Wrapper>
 
-      {/* <Footer /> */}
+        {/* <Footer /> */}
 
-      <div className="py-6 px-4">
-        <Copyright />
-      </div>
+        <div className="py-6 px-4">
+          <Copyright />
+        </div>
 
-      <AlertsLoadableWrapper />
+        <AlertsLoadableWrapper />
+      </LayoutActionsProvider>
     </Box>
   );
 };

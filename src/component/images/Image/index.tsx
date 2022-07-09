@@ -1,13 +1,35 @@
-import Box from "@mui/system/Box";
-import React, { forwardRef, ComponentProps, FC, RefAttributes } from "react";
+//import Box from "@mui/system/Box";
+import React, { ComponentProps } from "react";
+import { styled } from "@mui/material/styles";
 
-export type ImageProps = ComponentProps<"img"> & ComponentProps<typeof Box>;
+export type ImageProps = Omit<
+  ComponentProps<"img">,
+  "ref"
+> /* & ComponentProps<typeof Box> */;
 
-export const Image = forwardRef<any, ImageProps>((props, ref) => {
+/* export const Image = forwardRef<any, ImageProps>((props, ref) => {
   return (
     <Box component="img" maxWidth="none" loading="lazy" ref={ref} {...props} />
   );
-});
+}); */
+
+const Image = styled("img")(({ theme, ...props }) => ({
+  maxWidth: "none",
+  width: props.width,
+  height: props.height,
+}));
+
+/* export const Image = forwardRef<any, ImageProps>(
+  ({ width, height, ...props }, ref) => {
+    const style = {
+      maxWidth: "none",
+      width,
+      height,
+    };
+
+    return <img css={style} loading="lazy" ref={ref} {...props} />;
+  }
+); */
 
 export default Image;
 

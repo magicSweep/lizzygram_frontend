@@ -57,7 +57,6 @@ export const firebaseConfig =
   buildFor === "portfolio" ? pFirebaseConfig : lFirebaseConfig;
 
 // express server
-
 export const expressUrl = buildFor === "portfolio" ? pExpressUrl : lExpressUrl;
 
 /////////////////
@@ -134,7 +133,8 @@ export const numberOfPhotosPerQuery = calcPhotosLimitPerQuery(
   photoCardHeight
 );
 
-//alert(`numberOfPhotosPerQuery | ${numberOfPhotosPerQuery}`);
+/* if (typeof window !== "undefined")
+  alert(`numberOfPhotosPerQuery | ${numberOfPhotosPerQuery}`); */
 
 // WALL OF PHOTOS | USE OBSERVABLE PHOTOS
 

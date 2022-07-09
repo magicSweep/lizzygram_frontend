@@ -40,7 +40,7 @@ const SEO: FC<SEOProps> = ({
         lang,
       }}
       title={title}
-      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : null}
+      titleTemplate={defaultTitle ? `%s | ${defaultTitle}` : undefined}
       meta={[
         {
           name: `description`,
@@ -79,7 +79,16 @@ const SEO: FC<SEOProps> = ({
           content: metaDescription,
         }, */
       ].concat(meta)}
-    />
+    >
+      <script
+        crossorigin
+        src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"
+      ></script>
+      <script
+        crossorigin
+        src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"
+      ></script>
+    </Helmet>
   );
 };
 

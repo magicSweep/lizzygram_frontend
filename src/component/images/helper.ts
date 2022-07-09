@@ -1,4 +1,3 @@
-import { CSSProperties } from "@mui/system";
 import { compose } from "fmagic";
 import { Size, StyleSize } from "../../types";
 

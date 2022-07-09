@@ -1,7 +1,7 @@
 module.exports = {
   stories: [
     //"../src/**/*.stories.mdx",
-    //"../src/component/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/component/**/*.stories.@(js|jsx|ts|tsx)",
     //"../src/i-photos/photoSlider/container/PhotoSlider/PhotoSliderWidget.stories.tsx",
 
     "../src/infiniteScroll/hook/useBlocks/useBlocks.stories.tsx",

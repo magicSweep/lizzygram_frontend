@@ -14,8 +14,21 @@ import DescTooltipedIcon from "../DescTooltipedIcon";
 import DownloadPhotoIcon from "../../../photoSlider/component/DownloadPhoto/Icon";
 import { FavoriteIconBtn } from "../../../favorite";
 import { FavoriteReqs } from "../../../favorite/types";
-import Box from "@mui/system/Box";
+//import Box from "@mui/system/Box";
+//import styled from "@emotion/styled";
 //import Favorite, { FavoriteProps } from "../../../component/Favorite";
+import Skeleton from "@mui/material/Skeleton";
+
+export const PhotoCardSkeleton: FC = () => {
+  return (
+    <Skeleton
+      variant="rectangular"
+      animation="wave"
+      height="100%"
+      width="100%"
+    />
+  );
+};
 
 export type PhotoCardProps = Omit<
   ComponentProps<typeof DownloadPhotoIcon>,
@@ -48,8 +61,12 @@ export type PhotoCardProps = Omit<
   ) => Promise<void>;
 };
 
-const PhotoCard: FC<PhotoCardProps> = ({
-  //base64,
+/* const Wrapper = styled("div")<any>(({ theme, ...props }) => ({
+  width: props.photoCardWidth,
+  height: props.photoCardHeight,
+})); */
+
+export const PhotoCard: FC<PhotoCardProps> = ({
   iconSrc,
   aspectRatio,
   favoriteBy,
@@ -98,11 +115,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
   }, [photoId]);
 
   return (
-    <Box
-      width={`${photoCardWidth}px`}
-      height={`${photoCardHeight}px`}
-      className="relative  bg-photocard text-white overflow-hidden flex items-center justify-center rounded-sm shadow-md"
-    >
+    <>
       <Image
         src={iconSrc}
         srcSet={""}
@@ -165,8 +178,27 @@ const PhotoCard: FC<PhotoCardProps> = ({
           photoTags={photoTags}
         />
       </div>
-    </Box>
+    </>
   );
 };
 
-export default PhotoCard;
+/* const PhotoCardWithSkeleton: FC<PhotoCardProps & { isSkeleton: boolean }> = ({
+  isSkeleton,
+  ...props
+}) => {
+  return (
+    <Wrapper
+      photoCardWidth={`${props.photoCardWidth}px`}
+      photoCardHeight={`${props.photoCardHeight}px`}
+      className={`relative  ${
+        isSkeleton === true ? "bg-transparent" : "bg-photocard"
+      } text-white overflow-hidden flex items-center justify-center rounded-sm shadow-md`}
+    >
+      {isSkeleton === true && <PhotoCardSkeleton />}
+
+      {isSkeleton === false && <PhotoCard {...props} />}
+    </Wrapper>
+  );
+};
+
+export default PhotoCardWithSkeleton; */

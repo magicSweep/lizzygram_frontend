@@ -9,8 +9,8 @@ export const AuthAppBarBtn = () => {
     <AuthAppBarBtnWidget
       user={user}
       loading={loading}
-      login={login}
-      logout={logout}
+      login={login as any}
+      logout={logout as any}
     />
   );
 };

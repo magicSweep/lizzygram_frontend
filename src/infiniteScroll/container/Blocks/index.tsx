@@ -1,5 +1,5 @@
 import React, { cloneElement, FC } from "react";
-import { getDoesRenderElements } from "./helper";
+import { getBlockHeight, getDoesRenderElements } from "./helper";
 import { Box } from "@mui/system";
 
 export type BlockProps = {
@@ -40,6 +40,8 @@ const Blocks: FC<BlockProps> = ({
       ? numberOfBlocks + 1
       : numberOfBlocks;
 
+  console.log("[RENDER BLOCKS]", numberOfBlocks_);
+
   const blocks = [...Array(numberOfBlocks_).keys()].map((v, blockIndex) => {
     const isLast = blockIndex === numberOfBlocks_ - 1;
 
@@ -51,15 +53,32 @@ const Blocks: FC<BlockProps> = ({
     const doesRenderElements = getDoesRenderElements(
       blockIndex,
       activeObservableIndex,
+      /*   hasNextPage,
+      isLast,
+      loading, */
+      isShowPhotoSlider,
+      blockHeight
+    );
+
+    const fBlockHeight = getBlockHeight(
       hasNextPage,
       isLast,
       loading,
-      isShowPhotoSlider
+      blockHeight
     );
+
+    console.group("[RENDER BLOCK]");
+    console.log("blockIndex", blockIndex);
+    console.log("doesRenderElements", doesRenderElements);
+    console.log("isLast", isLast);
+    console.log("blockHeight", blockHeight);
+    console.log("loading", loading);
+    console.log("hasNextPage", hasNextPage);
+    console.groupEnd();
 
     return (
       <Box
-        height={isLast === true && hasNextPage === false ? "auto" : blockHeight}
+        height={fBlockHeight}
         id={`OBSERVER_TARGET__${blockIndex}`}
         key={`boom-${blockIndex}`}
         data-observer-index={`${blockIndex}`}

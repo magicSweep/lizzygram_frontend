@@ -1,21 +1,21 @@
-import useScrollTrigger from "@mui/material/useScrollTrigger";
+//import useScrollTrigger from "@mui/material/useScrollTrigger";
 import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import React, { memo, lazy, Suspense } from "react";
+import React, { memo, lazy, Suspense, FC, ComponentProps } from "react";
 import { Logo } from "../../component/Logo";
 import Fallback from "../../auth/container/AuthAppBarBtn/AuthAppBarBtnFallback";
 import LoadableSearchBtn from "../../search/container/SearchBtn";
 import NoSsr from "../../component/NoSsr";
+//import { useScrollTriggerContext } from "../../hook/useScrollTriggerContext";
+import Slide from "@mui/material/Slide";
+import { useLayoutActionsContext } from "../../hook/useLayoutActionsContext";
 
 const LazyAuthAppBarBtn = lazy(
   () => import("../../auth/container/AuthAppBarBtn")
 );
 
-const AppBar = () => {
-  const trigger = useScrollTrigger({
-    disableHysteresis: true,
-    threshold: 0,
-  });
+const AppBar: FC = () => {
+  const { elevationAppBar, showElements } = useLayoutActionsContext();
 
   let isShowSearchBtn = false;
 
@@ -24,36 +24,38 @@ const AppBar = () => {
   }
 
   return (
-    <MuiAppBar
-      sx={{
-        width: "100%",
-        //backgroundColor: "#2196F3",
-        //height: "50px",
-        background: "linear-gradient(45deg, #2196F3 20%, #21CBF3 90%)",
-      }}
-      elevation={trigger ? 4 : 0}
-    >
-      <Toolbar
-        variant="dense"
+    <Slide appear={false} direction="down" in={showElements}>
+      <MuiAppBar
         sx={{
           width: "100%",
-          maxWidth: "1140px",
-          m: "auto",
-          minHeight: "50px",
-          justifyContent: "space-between",
+          //backgroundColor: "#2196F3",
+          //height: "50px",
+          background: "linear-gradient(45deg, #2196F3 20%, #21CBF3 90%)",
         }}
+        elevation={elevationAppBar ? 4 : 0}
       >
-        <Logo />
+        <Toolbar
+          variant="dense"
+          sx={{
+            width: "100%",
+            maxWidth: "1140px",
+            m: "auto",
+            minHeight: "50px",
+            justifyContent: "space-between",
+          }}
+        >
+          <Logo />
 
-        {isShowSearchBtn === true && <LoadableSearchBtn />}
+          {isShowSearchBtn === true && <LoadableSearchBtn />}
 
-        <NoSsr fallback={<Fallback />}>
-          <Suspense fallback={<Fallback />}>
-            <LazyAuthAppBarBtn />
-          </Suspense>
-        </NoSsr>
-      </Toolbar>
-    </MuiAppBar>
+          <NoSsr fallback={<Fallback />}>
+            <Suspense fallback={<Fallback />}>
+              <LazyAuthAppBarBtn />
+            </Suspense>
+          </NoSsr>
+        </Toolbar>
+      </MuiAppBar>
+    </Slide>
   );
 };
 

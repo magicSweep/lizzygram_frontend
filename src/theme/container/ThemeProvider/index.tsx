@@ -15,7 +15,7 @@ const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
 
   const theme = createTheme(mode);
 
-  applyTheme(mode);
+  applyTheme(mode as any);
 
   //console.log("RENDER THEME PROVIDER", mode);
 

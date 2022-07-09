@@ -36,7 +36,7 @@ const WallOfPhotos: FC = () => {
     reLoadPhotos,
     isSearch,
     isShowPhotoSlider,
-    editedPhotoIds,
+    //editedPhotoIds,
   } = useWallOfPhotosContext();
 
   const {
@@ -55,6 +55,15 @@ const WallOfPhotos: FC = () => {
     loading,
     loadMorePhotos
   );
+
+  console.log(
+    "[RENDER WALL OF PHOTOS]",
+    numberOfBlocks,
+    blockHeight,
+    numberOfItemsInBlock
+  );
+
+  const isInit = blockHeight === 0 || numberOfItemsInBlock === 0;
 
   // if error - we add error msg in the end of page
   if (error === true && photos === undefined) {
@@ -92,24 +101,26 @@ const WallOfPhotos: FC = () => {
   return (
     <div className="pt-10 pb-10">
       <div ref={containerRef} className="m-auto w-9/12">
-        <Blocks
-          blockHeight={blockHeight}
-          activeObservableIndex={visibleBlockIndex}
-          hasNextPage={hasNextPage}
-          loading={loading}
-          isShowPhotoSlider={isShowPhotoSlider}
-          numberOfBlocks={numberOfBlocks}
-        >
-          <PhotoCards
-            photos={photos}
+        {isInit === false && (
+          <Blocks
+            blockHeight={blockHeight}
+            activeObservableIndex={visibleBlockIndex}
+            hasNextPage={hasNextPage}
             loading={loading}
-            numberOfAddedPhotos={numberOfAddedPhotos}
-            numberOfPhotosInBlock={numberOfItemsInBlock}
-            editedPhotoIds={editedPhotoIds}
-            /* photos={photos}
+            isShowPhotoSlider={isShowPhotoSlider}
+            numberOfBlocks={numberOfBlocks}
+          >
+            <PhotoCards
+              //photos={photos}
+              //loading={loading}
+              //numberOfAddedPhotos={numberOfAddedPhotos}
+              numberOfPhotosInBlock={numberOfItemsInBlock}
+              //editedPhotoIds={editedPhotoIds}
+              /* photos={photos}
             loading={loading} */
-          />
-        </Blocks>
+            />
+          </Blocks>
+        )}
       </div>
     </div>
   );

@@ -1,12 +1,13 @@
 export const getDoesRenderElements = (
   pageIndex: number,
   activeObservableIndex: number,
-  hasNextPage: boolean,
+  /*  hasNextPage: boolean,
   isLast: boolean,
-  loading: boolean,
-  isShowSlider: boolean
+  loading: boolean, */
+  isShowSlider: boolean,
+  blockHeight: number
 ) => {
-  if (isShowSlider === true) return false;
+  if (isShowSlider === true || blockHeight === 0) return false;
 
   const isVisible =
     pageIndex === activeObservableIndex ||
@@ -15,8 +16,21 @@ export const getDoesRenderElements = (
 
   if (isVisible === false) return false;
 
-  if (isLast === true && hasNextPage === true && loading === false)
-    return false;
+  /*  if (isLast === true && hasNextPage === true && loading === false)
+    return false; */
 
   return true;
+};
+
+export const getBlockHeight = (
+  hasNextPage: boolean,
+  isLast: boolean,
+  loading: boolean,
+  blockHeight: number
+) => {
+  if (isLast === true && loading === false && hasNextPage === false) {
+    return "auto";
+  }
+
+  return `${blockHeight}px`;
 };

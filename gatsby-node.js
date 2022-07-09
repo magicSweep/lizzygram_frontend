@@ -1,4 +1,4 @@
-/* exports.onCreateWebpackConfig = ({
+exports.onCreateWebpackConfig = ({
   stage,
   rules,
   loaders,
@@ -10,11 +10,17 @@
     const config = getConfig();
 
     ///  console.log("========CREATE WEBPACK CONFIG");
-   // console.log("========STAGE=======", stage);
-   // console.log("OPTIMIZATION", config["optimization"]);
-   // console.log("==================END============"); 
+    // console.log("========STAGE=======", stage);
+    // console.log("OPTIMIZATION", config["optimization"]);
+    // console.log("==================END============");
 
     const minimizer = config.optimization.minimizer;
+
+    config.externals = {
+      ...config.externals,
+      react: "React",
+      "react-dom": "ReactDOM",
+    };
 
     config["optimization"] = {
       minimize: true,
@@ -38,14 +44,14 @@
               return `npm.${packageName.replace("@", "")}`;
             },
           },
-        },/
+        },*/
       },
     };
 
     // This will completely replace the webpack config with the modified object.
     actions.replaceWebpackConfig(config);
   }
-}; */
+};
 
 /* {
     minimize: true,

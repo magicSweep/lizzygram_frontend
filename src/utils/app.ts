@@ -21,7 +21,7 @@ export const calcPhotosLimitPerQuery = (
     let numberOfElementsByHeight = Math.floor(height / photoCardHeight) + 2;
 
     const res = Math.floor(
-      numberOfElementsByWidth * numberOfElementsByHeight * 1.5
+      numberOfElementsByWidth * numberOfElementsByHeight /* * 1.5 */
     );
 
     return res < 10 ? 10 : res;
@@ -53,7 +53,6 @@ export const makeDownloadPhotoUrl = (
 };
 
 // AGE AND DATE
-
 export const getDate = (date: Date | number | string | FirestoreDate): Date => {
   let resultDate: any = undefined;
 

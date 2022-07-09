@@ -1,28 +1,29 @@
 import React, { FC } from "react";
 import { getZoomedImageStyle } from "./helper";
 import Image, { ImageProps } from "../Image";
-import { useWrapperSize, useOnChangeImage } from "./hook";
-import { useImageLoad } from "../WallOfPhotosImg/hook";
-import Placeholder from "../Placeholder";
+import { useWrapperSize, useOnChangeImage, useImageLoad } from "./hook";
+import Placeholder, { ImageContainerProps } from "../Placeholder";
 import LabledSpinner from "../../progress/LabledSpinner";
 
-export type SliderImageProps = ImageProps & {
-  photoAspectRatio: number;
-  base64: string;
-  zoom: number;
-  isLoading: boolean;
-  loadText: string;
-};
+export type SliderImageProps = ImageProps &
+  ImageContainerProps & {
+    photoAspectRatio: number;
+    //base64: string;
+    zoom: number;
+    isLoading: boolean;
+    loadText: string;
+  };
 
 // it must resize on change wrapper aspectRatio
 // it must zoomed
-//
+///hook.3.ts
 const SliderImage: FC<SliderImageProps> = ({
   photoAspectRatio,
   base64,
   zoom,
   isLoading,
   loadText,
+  imageExtension,
   ...props
 }) => {
   const { loaded, onLoad, setLoaded } = useImageLoad();
@@ -53,7 +54,7 @@ const SliderImage: FC<SliderImageProps> = ({
   // flex flex-col
   return (
     <div
-      ref={wrapperRef}
+      ref={wrapperRef as any}
       className={`
       relative w-full h-full flex
 
@@ -101,8 +102,8 @@ const SliderImage: FC<SliderImageProps> = ({
       />
 
       <Placeholder
-        imageSize={imageSize}
         base64={base64}
+        imageExtension={imageExtension}
         show={loaded === false}
       />
 

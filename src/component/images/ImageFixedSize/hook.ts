@@ -23,7 +23,7 @@ export const useFixedImageSize = (
   //imageRef: MutableRefObject<HTMLElement>,
   //wrapperRef: MutableRefObject<HTMLElement>
 ) => {
-  const wrapperRef: MutableRefObject<HTMLDivElement> = useRef(null);
+  const wrapperRef: MutableRefObject<HTMLDivElement | undefined> = useRef();
 
   const [imageSize, setImageSize] = useState<StyleSize>({
     width: "0",
@@ -31,7 +31,7 @@ export const useFixedImageSize = (
   });
 
   useEffect(() => {
-    run(photoAspectRatio, setImageSize, wrapperRef);
+    run(photoAspectRatio, setImageSize, wrapperRef as any);
   }, []);
 
   return {

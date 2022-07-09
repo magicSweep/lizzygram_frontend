@@ -14,6 +14,27 @@ export type Main = {
   isBigger: boolean | undefined;
 };
 
+export const useImageLoad = () => {
+  const timeoutRef: MutableRefObject<NodeJS.Timeout | undefined> = useRef();
+
+  const [loaded, setLoaded] = useState(false);
+
+  const onLoad = () => {
+    timeoutRef.current = setTimeout(() => setLoaded(true), 100);
+    //setLoaded(true);
+  };
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current);
+  }, []);
+
+  return {
+    loaded,
+    onLoad,
+    setLoaded,
+  };
+};
+
 export const onResize =
   (mainRef: MutableRefObject<Main>, setIsBigger: any) => (entries) => {
     // Only care about the first element, we expect one element ot be watched
@@ -39,7 +60,7 @@ export const onResize =
   };
 
 export const useWrapperSize = (aspectRatio: number, zoom: number) => {
-  const wrapperRef: MutableRefObject<HTMLDivElement> = useRef();
+  const wrapperRef: MutableRefObject<HTMLDivElement | undefined> = useRef();
 
   const mainRef: MutableRefObject<Main> = useRef({
     init: false,
@@ -65,15 +86,19 @@ export const useWrapperSize = (aspectRatio: number, zoom: number) => {
   }
 
   useEffect(() => {
-    mainRef.current.observer.observe(wrapperRef.current);
+    (mainRef.current.observer as ResizeObserver).observe(
+      wrapperRef.current as HTMLDivElement
+    );
 
     return () => {
-      mainRef.current.observer.disconnect();
+      (mainRef.current.observer as ResizeObserver).disconnect();
     };
   }, []);
 
   useEffect(() => {
-    const { width, height } = wrapperRef.current.getBoundingClientRect();
+    const { width, height } = (
+      wrapperRef.current as HTMLDivElement
+    ).getBoundingClientRect();
 
     mainRef.current.wrapperAspectRatio = calcAspectRatio(width, height);
 

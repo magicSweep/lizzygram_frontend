@@ -1,4 +1,4 @@
-import Image from ".";
+import MyImage from ".";
 import Box from "@mui/system/Box";
 import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
@@ -8,7 +8,7 @@ import { photos } from "./../../../i-photos/loadPhotos/fake-data/photos.db";
 import { getImageSizeStyle } from "./../helper";
 
 export default {
-  component: Image,
+  component: MyImage,
   title: "Images/Image",
   decorators: [],
 };
@@ -73,7 +73,7 @@ export const Default = () => {
       <Box
         width="700px"
         height="400px"
-        className="relative  bg-black  mt-8 mx-auto flex justify-center items-center"
+        className="relative  bg-black  mt-8 mx-auto flex justify-center items-center overflow-hidden"
       >
         <Box
           className="relative w-full h-full flex justify-center items-center"
@@ -88,7 +88,7 @@ export const Default = () => {
           ref={wrapperRef}
         >
           {show === true && (
-            <Image
+            <MyImage
               /*  wrapperSize={wrapperSize}
             photoAspectRatio={1.6}
             base64={photos[index].base64} */
@@ -104,7 +104,7 @@ export const Default = () => {
           )}
           <Fade timeout={300} in={show === true && loaded === false}>
             <Box className="absolute inset-0 flex justify-center items-center">
-              <Image
+              <MyImage
                 /*  wrapperSize={wrapperSize}
             photoAspectRatio={1.6}
             base64={photos[index].base64} */
@@ -143,12 +143,16 @@ export const Default = () => {
 export const Test = () => {
   const boxRef: MutableRefObject<any> = useRef(null);
 
+  const [load, setLoad] = useState(true);
+
   useEffect(() => {
     console.log("REF", boxRef);
   }, []);
 
+  console.log("RENDER TEST", load);
+
   return (
-    <Image
+    <MyImage
       /*  wrapperSize={wrapperSize}
 photoAspectRatio={1.6}
 base64={photos[index].base64} */

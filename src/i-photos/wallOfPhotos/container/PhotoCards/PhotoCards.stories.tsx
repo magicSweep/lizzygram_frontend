@@ -32,6 +32,7 @@ Default.args = {
   numberOfPhotosInBlock: 6,
   blockIndex: 0,
   numberOfAddedPhotos: 0,
+  editedPhotoIds: [],
 };
 
 export const Loading = Template.bind({});
@@ -42,6 +43,7 @@ Loading.args = {
   numberOfPhotosInBlock: 6,
   blockIndex: 0,
   numberOfAddedPhotos: 0,
+  editedPhotoIds: [],
 };
 
 export const AddPhoto = Template.bind({});
@@ -52,6 +54,7 @@ AddPhoto.args = {
   numberOfPhotosInBlock: 4,
   blockIndex: 0,
   numberOfAddedPhotos: 2,
+  editedPhotoIds: [],
 };
 
 export const SecondBlock = Template.bind({});
@@ -62,4 +65,5 @@ SecondBlock.args = {
   numberOfPhotosInBlock: 4,
   blockIndex: 1,
   numberOfAddedPhotos: 2,
+  editedPhotoIds: [],
 };
