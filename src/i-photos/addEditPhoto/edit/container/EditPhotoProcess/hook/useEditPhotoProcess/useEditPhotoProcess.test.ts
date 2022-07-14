@@ -15,7 +15,11 @@ describe("useEditPhotoProcess", () => {
     isNeedFirestoreReq: jest.fn(() => true),
     isNeedWorkerReq: jest.fn(() => true),
     makeWorkerReqData: jest.fn(() => "worker-req-data"),
-    makeFirestoreReqData: jest.fn(() => "firestore-req-data"),
+    makeFirestoreReqData: jest.fn(() => ({
+      fieldsToUpdate: {
+        date: new Date(),
+      },
+    })),
   };
   const requests = {
     workerReq: jest.fn(() => Promise.resolve()),

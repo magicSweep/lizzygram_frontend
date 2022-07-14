@@ -33,14 +33,26 @@ describe("add", () => {
       photoId: "photoId",
     });
 
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenCalledTimes(3);
     expect(dispatch).toHaveBeenNthCalledWith(1, {
       photoId: "photoId",
       type: "FAVORITE_REQUEST_START",
     });
     expect(dispatch).toHaveBeenNthCalledWith(2, {
+      photo: {
+        favoriteBy: {
+          userUid: true,
+          userUid2: true,
+          userUid3: true,
+          userUid4: true,
+        },
+        id: "photoId",
+      },
+      type: "EDIT_PHOTO",
+    });
+    expect(dispatch).toHaveBeenNthCalledWith(3, {
       photoId: "photoId",
-      type: "FAVORITE_REQUEST_END",
+      type: "FAVORITE_REQUEST_SUCCESS",
       userUid: "userUid",
     });
   });
@@ -63,14 +75,18 @@ describe("remove", () => {
       photoId: "photoId",
     });
 
-    expect(dispatch).toHaveBeenCalledTimes(2);
+    expect(dispatch).toHaveBeenCalledTimes(3);
     expect(dispatch).toHaveBeenNthCalledWith(1, {
       photoId: "photoId",
       type: "FAVORITE_REQUEST_START",
     });
     expect(dispatch).toHaveBeenNthCalledWith(2, {
+      photo: { favoriteBy: { userUid2: true, userUid4: true }, id: "photoId" },
+      type: "EDIT_PHOTO",
+    });
+    expect(dispatch).toHaveBeenNthCalledWith(3, {
       photoId: "photoId",
-      type: "FAVORITE_REQUEST_END",
+      type: "FAVORITE_REQUEST_SUCCESS",
       userUid: "userUid3",
     });
   });

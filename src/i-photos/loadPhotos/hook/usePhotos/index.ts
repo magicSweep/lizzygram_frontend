@@ -46,7 +46,7 @@ export const startNew = (
     then((resData: ResponseWithCursor<Photo<FirestoreDate>>) => {
       const photosStateData = makeGetAllPhotosResData(resData);
 
-      console.log("-----------ALL PHOTOS", photosStateData, resData);
+      //console.log("-----------ALL PHOTOS", photosStateData, resData);
 
       if (isLoadMore === false) {
         dispatch(allPhotosRequestSuccessAC(photosStateData));
@@ -139,7 +139,7 @@ const usePhotos = () => {
       )
     ); */
     if (isNeedNewRequest(searchState.terms, loading)) {
-      console.log("-----------------------load photos");
+      //console.log("-----------------------load photos");
       loadPhotos();
     }
   }, [searchState]);

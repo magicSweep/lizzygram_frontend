@@ -1,27 +1,26 @@
 module.exports = {
   transform: {
+    //"^.+\\.[t|j]s?$": "ts-jest",
     "^.+\\.[jt]sx?$": "<rootDir>/jest-preprocess.js",
     //"^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest",
   },
   //testEnvironment: "jest-environment-node", //js-dom
   testEnvironment: "jest-environment-jsdom",
+  testEnvironmentOptions: {
+    url: `http://localhost`,
+  },
 
   moduleNameMapper: {
     ".+\\.(css|styl|less|sass|scss)$": `identity-obj-proxy`,
     ".+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": `<rootDir>/__mocks__/file-mock.js`,
     "^lodash-es(.*)$": "<rootDir>/node_modules/lodash",
   },
-  testPathIgnorePatterns: [
-    `node_modules`,
-    `\\.cache`,
-    `<rootDir>.*/public`,
-    `<rootDir>/src/photos`,
-  ],
-  transformIgnorePatterns: [`node_modules/(?!gatsby|fmagic)`],
+  testPathIgnorePatterns: [`node_modules`, `\\.cache`, `<rootDir>.*/public`],
+  // transformIgnorePatterns: [`node_modules/(?!gatsby|fmagic)`],
   //transformIgnorePatterns: [`node_modules/(?!(gatsby)/)`],
   globals: {
     __PATH_PREFIX__: ``,
   },
-  testURL: `http://localhost`,
+  //testURL: `http://localhost`,
   setupFiles: [`<rootDir>/loadershim.js`],
 };

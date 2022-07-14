@@ -22,6 +22,6 @@ describe("Make arrays of photos", () => {
       numberOfItemsInBlock
     );
 
-    expect(result).toEqual("hlell");
+    expect(result).toEqual([11, 12]);
   });
 });

@@ -1,3 +1,54 @@
+import { calc } from "./Blocks.service";
+
+describe("calc", () => {
+  let items: any = undefined;
+  let numberOfItemsPerQuery = 10;
+  let containerWidth = 1920;
+  let itemWidth = 360;
+  let itemHeight = 190;
+  let numberOfAddedItems = 0;
+  let hasNextPage = false;
+
+  test("Load one page items", () => {
+    const res = calc(
+      items,
+      numberOfItemsPerQuery,
+      containerWidth,
+      itemWidth,
+      itemHeight,
+      numberOfAddedItems,
+      hasNextPage
+    );
+
+    expect(res).toEqual({
+      blockHeight: 380,
+      numberOfBlocks: 0,
+      numberOfItemsInBlock: 10,
+    });
+  });
+
+  test("Three blocks", () => {
+    hasNextPage = true;
+    items = [...Array(22).keys()];
+
+    const res = calc(
+      items,
+      numberOfItemsPerQuery,
+      containerWidth,
+      itemWidth,
+      itemHeight,
+      numberOfAddedItems,
+      hasNextPage
+    );
+
+    expect(res).toEqual({
+      blockHeight: 380,
+      numberOfBlocks: 3,
+      numberOfItemsInBlock: 10,
+    });
+  });
+});
+
 /* import { getArraysOfItemsByBlocks } from "./helper";
 
 describe("getArraysOfItemsByBlocks", () => {

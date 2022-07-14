@@ -1,4 +1,4 @@
-import { makeReq } from "./useTags";
+import { makeReq } from ".";
 import wait from "waait";
 
 describe("useTags", () => {

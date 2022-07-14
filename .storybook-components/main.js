@@ -8,9 +8,9 @@ module.exports = {
     //"../src/infiniteScroll/hook/useObserveBlocks/useObserveBlocks.stories.tsx",
     //"../src/infiniteScroll/InfiniteScroll.stories.tsx",
     //"../src/_infiniteScroll/InfiniteScroll.stories.tsx",
-    "../src/fInfiniteScroll/hook/useBlocks/useBlocks.stories.tsx",
-    "../src/fInfiniteScroll/hook/useBlocksObserver/useBlocksObserver.stories.tsx",
-    "../src/fInfiniteScroll/InfiniteScroll.stories.tsx",
+    "../src/infiniteScroll/hook/useBlocks/useBlocks.stories.tsx",
+    "../src/infiniteScroll/hook/useBlocksObserver/useBlocksObserver.stories.tsx",
+    "../src/infiniteScroll/InfiniteScroll.stories.tsx",
   ],
   addons: [
     "@storybook/addon-links",
