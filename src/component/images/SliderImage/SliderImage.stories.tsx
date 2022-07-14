@@ -75,6 +75,7 @@ export const Default = () => {
           src={photos[index].src}
           zoom={zoom}
           isLoading={edited}
+          imageExtension="jpg"
           loadText="Применяем изменения..."
           /* src="" */
           alt="hello"

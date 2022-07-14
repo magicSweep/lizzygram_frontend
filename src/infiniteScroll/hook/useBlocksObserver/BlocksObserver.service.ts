@@ -117,17 +117,17 @@ export const onIntersection_ =
             setState((prevState) => {
               //setPrevObserverIndex(prevObserverIndex);
               return {
-                observerIndex,
-                prevObserverIndex: prevState.observerIndex,
+                visibleIndex: observerIndex,
+                prevVisibleIndex: prevState.visibleIndex,
               };
             });
           } else {
             setState(
               elif(
-                (prevState: any) => prevState.observerIndex === observerIndex,
+                (prevState: any) => prevState.visibleIndex === observerIndex,
                 (prevState: any) => ({
-                  observerIndex: prevState.prevObserverIndex,
-                  prevObserverIndex: prevState.observerIndex,
+                  visibleIndex: prevState.prevVisibleIndex,
+                  prevVisibleIndex: prevState.visibleIndex,
                 }),
                 (prevState: any) => ({
                   ...prevState,

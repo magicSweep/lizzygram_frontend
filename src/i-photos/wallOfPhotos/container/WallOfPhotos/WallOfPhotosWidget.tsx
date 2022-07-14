@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, memo } from "react";
 import Button from "@mui/material/Button";
 import PhotoCards from "../PhotoCards";
 import { useInfiniteScroll, Blocks } from "../../../../infiniteScroll";
@@ -10,12 +10,118 @@ export const Wrapper: FC<{ className?: string; children: any }> = ({
   children,
 }) => (
   <div
-    className={`m-auto w-80 pt-10 pb-10 flex flex-wrap justify-center items-center text-center ${
+    className={`m-auto w-80 flex flex-wrap justify-center items-center text-center ${
       className ? className : ""
     }`}
   >
     {children}
   </div>
+);
+
+type ContentProps = Omit<ReturnType<typeof useInfiniteScroll>, "containerRef"> &
+  Pick<
+    ReturnType<typeof useWallOfPhotosContext>,
+    | "error"
+    | "photos"
+    | "reLoadPhotos"
+    | "isSearch"
+    | "hasNextPage"
+    | "loading"
+    | "isShowPhotoSlider"
+  >;
+
+function areEqual(prevProps, nextProps) {
+  /*
+    return true if passing nextProps to render would return
+    the same result as passing prevProps to render,
+    otherwise return false
+    */
+
+  return (
+    prevProps.blockHeight === nextProps.blockHeight &&
+    prevProps.visibleBlockIndex === nextProps.visibleBlockIndex &&
+    prevProps.isShowPhotoSlider === nextProps.isShowPhotoSlider &&
+    prevProps.photos === nextProps.photos &&
+    prevProps.loading === nextProps.loading &&
+    prevProps.numberOfBlocks === nextProps.numberOfBlocks &&
+    prevProps.numberOfAddedPhotos === nextProps.numberOfAddedPhotos &&
+    prevProps.numberOfItemsInBlock === nextProps.numberOfItemsInBlock
+  );
+}
+
+let contentCount = 0;
+
+const Content: FC<ContentProps> = memo(
+  ({
+    error,
+    photos,
+    reLoadPhotos,
+    isSearch,
+    blockHeight,
+    visibleBlockIndex,
+    hasNextPage,
+    loading,
+    isShowPhotoSlider,
+    numberOfBlocks,
+    numberOfItemsInBlock,
+  }) => {
+    contentCount++;
+
+    console.log("[RENDER WALL OF PHOTOS CONTENT]", contentCount);
+
+    // if error - we add error msg in the end of page
+    if (error === true && photos === undefined) {
+      return (
+        <Wrapper>
+          <p className="text-error">Какая-то ошибка при загрузке фото...</p>
+          <Button onClick={reLoadPhotos}>Попробовать еще раз</Button>
+        </Wrapper>
+      );
+    }
+
+    // if no photos - show no one photos msg
+    if (photos !== undefined && photos.length === 0) {
+      if (isSearch === true) {
+        return (
+          <Wrapper>
+            <p className="pt-10 text-title">
+              Нет ни одной фоты, подходящей под такие параметры поиска...
+            </p>
+          </Wrapper>
+        );
+      } else {
+        return (
+          <Wrapper>
+            <p className="pt-10  text-title">У нас пока нет ни одной фоты...</p>
+          </Wrapper>
+        );
+      }
+    }
+
+    return (
+      <div className="m-auto w-9/12">
+        <Blocks
+          blockHeight={blockHeight}
+          activeObservableIndex={visibleBlockIndex}
+          hasNextPage={hasNextPage}
+          loading={loading}
+          isShowPhotoSlider={isShowPhotoSlider}
+          numberOfBlocks={numberOfBlocks}
+        >
+          <PhotoCards
+            //photos={photos}
+            //loading={loading}
+            //numberOfAddedPhotos={numberOfAddedPhotos}
+            numberOfPhotosInBlock={numberOfItemsInBlock}
+            //editedPhotoIds={editedPhotoIds}
+            /* photos={photos}
+            loading={loading} */
+          />
+        </Blocks>
+      </div>
+    );
+  },
+  areEqual
 );
 
 const padding = 16;
@@ -57,42 +163,26 @@ const WallOfPhotos: FC = () => {
   );
 
   console.log(
-    "[RENDER WALL OF PHOTOS]",
+    "[RENDER WALL OF PHOTOS WIDGET]",
     numberOfBlocks,
     blockHeight,
     numberOfItemsInBlock
   );
 
-  const isInit = blockHeight === 0 || numberOfItemsInBlock === 0;
-
-  // if error - we add error msg in the end of page
-  if (error === true && photos === undefined) {
-    return (
-      <Wrapper>
-        <p className="text-error">Какая-то ошибка при загрузке фото...</p>
-        <Button onClick={reLoadPhotos}>Попробовать еще раз</Button>
-      </Wrapper>
-    );
-  }
-
-  // if no photos - show no one photos msg
-  if (photos !== undefined && photos.length === 0) {
-    if (isSearch === true) {
-      return (
-        <Wrapper>
-          <p className="pt-10 text-title">
-            Нет ни одной фоты, подходящей под такие параметры поиска...
-          </p>
-        </Wrapper>
-      );
-    } else {
-      return (
-        <Wrapper>
-          <p className="pt-10  text-title">У нас пока нет ни одной фоты...</p>
-        </Wrapper>
-      );
-    }
-  }
+  /* const content = getContent(
+    isInit,
+    error,
+    photos,
+    reLoadPhotos,
+    isSearch,
+    blockHeight,
+    visibleBlockIndex,
+    hasNextPage,
+    loading,
+    isShowPhotoSlider,
+    numberOfBlocks,
+    numberOfItemsInBlock
+  ); */
 
   // if no photos and loading, photos and loading, photos and error - render Pages
   //const pages = getPages(props);
@@ -100,28 +190,22 @@ const WallOfPhotos: FC = () => {
   //return <Wrapper width={props.containerWidth}>{pages}</Wrapper>;
   return (
     <div className="pt-10 pb-10">
-      <div ref={containerRef} className="m-auto w-9/12">
-        {isInit === false && (
-          <Blocks
-            blockHeight={blockHeight}
-            activeObservableIndex={visibleBlockIndex}
-            hasNextPage={hasNextPage}
-            loading={loading}
-            isShowPhotoSlider={isShowPhotoSlider}
-            numberOfBlocks={numberOfBlocks}
-          >
-            <PhotoCards
-              //photos={photos}
-              //loading={loading}
-              //numberOfAddedPhotos={numberOfAddedPhotos}
-              numberOfPhotosInBlock={numberOfItemsInBlock}
-              //editedPhotoIds={editedPhotoIds}
-              /* photos={photos}
-            loading={loading} */
-            />
-          </Blocks>
-        )}
-      </div>
+      <div ref={containerRef} className="m-auto w-9/12 h-0" />
+      {numberOfItemsInBlock !== 0 && (
+        <Content
+          error={error}
+          photos={photos}
+          reLoadPhotos={reLoadPhotos}
+          isSearch={isSearch}
+          blockHeight={blockHeight}
+          visibleBlockIndex={visibleBlockIndex}
+          hasNextPage={hasNextPage}
+          loading={loading}
+          isShowPhotoSlider={isShowPhotoSlider}
+          numberOfBlocks={numberOfBlocks}
+          numberOfItemsInBlock={numberOfItemsInBlock}
+        />
+      )}
     </div>
   );
 };

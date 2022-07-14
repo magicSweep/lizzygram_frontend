@@ -19,6 +19,7 @@ export type BlockProps = {
   //Cards: any;
 };
 
+let count = 0;
 /* 
   LAST PAGE AND HEIGHT: Cause we set height: "auto" to last page 
 it cause a zero height when we scroll from last page to top. We decide 
@@ -40,7 +41,8 @@ const Blocks: FC<BlockProps> = ({
       ? numberOfBlocks + 1
       : numberOfBlocks;
 
-  console.log("[RENDER BLOCKS]", numberOfBlocks_);
+  count++;
+  console.log("[RENDER BLOCKS]", count);
 
   const blocks = [...Array(numberOfBlocks_).keys()].map((v, blockIndex) => {
     const isLast = blockIndex === numberOfBlocks_ - 1;
@@ -67,14 +69,14 @@ const Blocks: FC<BlockProps> = ({
       blockHeight
     );
 
-    console.group("[RENDER BLOCK]");
+    /*  console.group("[RENDER BLOCK]");
     console.log("blockIndex", blockIndex);
     console.log("doesRenderElements", doesRenderElements);
     console.log("isLast", isLast);
     console.log("blockHeight", blockHeight);
     console.log("loading", loading);
     console.log("hasNextPage", hasNextPage);
-    console.groupEnd();
+    console.groupEnd(); */
 
     return (
       <Box

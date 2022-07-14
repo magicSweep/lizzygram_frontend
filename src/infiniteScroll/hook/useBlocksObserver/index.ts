@@ -4,7 +4,7 @@ import {
   addTargetToObserver,
   onIntersection_,
   observerDisconnect,
-} from "./helper";
+} from "./BlocksObserver.service";
 
 export type ItemsData = {
   prevPhotosSize: number;
@@ -23,7 +23,7 @@ let observer: IntersectionObserver = undefined as any;
 // THIS HOOK INIT INTERSECTION OBSERVER
 // TO KNOW WHAT BLOCK IS RENDER ON SCREEN NOW
 // AND LOAD MORE ITEMS IF NEEDED
-export const useObserveBlocks = () =>
+export const useBlocksObserver = () =>
   //items: any[],
   /* numberOfBlocks: number,
   hasNextPage: boolean,
@@ -36,8 +36,8 @@ export const useObserveBlocks = () =>
   }); */
 
     const [state, setState] = useState({
-      observerIndex: 0,
-      prevObserverIndex: 0,
+      visibleIndex: 0,
+      prevVisibleIndex: 0,
     });
 
     const onIntersection = useCallback(onIntersection_(setState), []);
@@ -53,7 +53,7 @@ export const useObserveBlocks = () =>
       //mainRef.current.prevObserverIndex = 0;
       setState((prevState) => ({
         ...prevState,
-        observerIndex: 0,
+        visibleIndex: 0,
       }));
     }, []);
 

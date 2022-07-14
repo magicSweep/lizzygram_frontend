@@ -136,7 +136,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 
   return (
     <Box
-      className="w-full min-h-full relative overflow-auto bg-paper"
+      className="w-full min-h-full relative bg-paper"
       /* sx={{
         bgcolor: "background.paper",
       }} */

@@ -1,4 +1,4 @@
-import { onIntersection_ } from "./helper";
+import { onIntersection_ } from "./BlocksObserver.service";
 
 describe("useIntersection", () => {
   afterEach(() => {
@@ -7,8 +7,8 @@ describe("useIntersection", () => {
 
   describe("onIntersection_", () => {
     let initState = {
-      observerIndex: 0,
-      prevObserverIndex: 0,
+      visibleIndex: 0,
+      prevVisibleIndex: 0,
     };
 
     let state = {};
@@ -49,7 +49,7 @@ describe("useIntersection", () => {
 
       expect(setState).toHaveBeenCalledTimes(1);
 
-      expect(state).toEqual({ observerIndex: 0, prevObserverIndex: 0 });
+      expect(state).toEqual({ visibleIndex: 0, prevVisibleIndex: 0 });
     });
 
     test("On scroll down we toggle observer index from 0 to 1", () => {
@@ -74,13 +74,13 @@ describe("useIntersection", () => {
 
       expect(setState).toHaveBeenCalledTimes(1);
 
-      expect(state).toEqual({ observerIndex: 1, prevObserverIndex: 0 });
+      expect(state).toEqual({ visibleIndex: 1, prevVisibleIndex: 0 });
     });
 
     test("If we deside to scroll to top before prev page was hide - we trigger one entry with index 1 and isIntersected equal false - we toggle index to prev value - 0", () => {
       state = {
         ...initState,
-        observerIndex: 1,
+        visibleIndex: 1,
       };
 
       const entries = [
@@ -100,13 +100,13 @@ describe("useIntersection", () => {
 
       expect(setState).toHaveBeenCalledTimes(1);
 
-      expect(state).toEqual({ observerIndex: 0, prevObserverIndex: 1 });
+      expect(state).toEqual({ visibleIndex: 0, prevVisibleIndex: 1 });
     });
 
     test("If we scroll down we get trigger on prev entry hide - we set same index", () => {
       state = {
         ...initState,
-        observerIndex: 1,
+        visibleIndex: 1,
       };
 
       const entries = [
@@ -126,13 +126,13 @@ describe("useIntersection", () => {
 
       expect(setState).toHaveBeenCalledTimes(1);
 
-      expect(state).toEqual({ observerIndex: 1, prevObserverIndex: 0 });
+      expect(state).toEqual({ visibleIndex: 1, prevVisibleIndex: 0 });
     });
 
     test("If we got two entries with isIntersecting equals true", () => {
       state = {
         ...initState,
-        prevObserverIndex: 6,
+        prevVisibleIndex: 6,
       };
 
       const entries = [
@@ -160,7 +160,7 @@ describe("useIntersection", () => {
 
       expect(setState).toHaveBeenCalledTimes(1);
 
-      expect(state).toEqual({ observerIndex: 1, prevObserverIndex: 0 });
+      expect(state).toEqual({ visibleIndex: 1, prevVisibleIndex: 0 });
     });
   });
 

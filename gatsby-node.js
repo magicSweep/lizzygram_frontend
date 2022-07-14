@@ -1,4 +1,4 @@
-exports.onCreateWebpackConfig = ({
+/*exports.onCreateWebpackConfig = ({
   stage,
   rules,
   loaders,
@@ -16,21 +16,21 @@ exports.onCreateWebpackConfig = ({
 
     const minimizer = config.optimization.minimizer;
 
-    config.externals = {
+    /*  config.externals = {
       ...config.externals,
       react: "React",
       "react-dom": "ReactDOM",
-    };
+    }; /
 
     config["optimization"] = {
       minimize: true,
       runtimeChunk: true,
       minimizer,
-      splitChunks: {
+      /* splitChunks: {
         chunks: "all",
         //minSize: 30000,
         //maxSize: 100000,
-        /* cacheGroups: {
+        cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
             name(module) {
@@ -44,14 +44,14 @@ exports.onCreateWebpackConfig = ({
               return `npm.${packageName.replace("@", "")}`;
             },
           },
-        },*/
-      },
+        },
+      },/
     };
 
     // This will completely replace the webpack config with the modified object.
     actions.replaceWebpackConfig(config);
   }
-};
+};*/
 
 /* {
     minimize: true,

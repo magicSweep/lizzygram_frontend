@@ -1,14 +1,14 @@
 import Box from "@mui/system/Box";
 import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useObserveBlocks } from ".";
+import React, { useEffect, useState } from "react";
+import { useBlocksObserver } from ".";
 import wait from "waait";
 //import { unstable_batchedUpdates } from "react-dom";
 //import { findLastIndex } from "lodash-es";
 
 export default {
   component: Box,
-  title: "useObserveBlocks",
+  title: "InfiniteScroll/useBlocksObserver",
 };
 
 export const Default = () => {
@@ -69,7 +69,7 @@ export const Default = () => {
     //setLoading(false);
   };
 
-  const { observerIndex, addTarget } = useObserveBlocks();
+  const { visibleIndex, prevVisibleIndex, addTarget } = useBlocksObserver();
 
   useEffect(() => {
     if (state.prevItemsLength > 0) {
@@ -90,13 +90,14 @@ export const Default = () => {
     );
   });
 
-  console.log("[RENDER INTERSECTION]", observerIndex);
+  console.log("[RENDER INTERSECTION]", visibleIndex);
 
   return (
     <>
       <Box className="fixed p-2">
         <ul>
-          <li>observerIndex - {observerIndex}</li>
+          <li>visibleIndex - {visibleIndex}</li>
+          <li>prevVisibleIndex - {prevVisibleIndex}</li>
           <li>loading - {JSON.stringify(state.loading)}</li>
           <li>hasNextPage - {JSON.stringify(state.hasNextPage)}</li>
           <li>count - {state.count}</li>

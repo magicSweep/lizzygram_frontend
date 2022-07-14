@@ -1,6 +1,6 @@
 import { FavoriteData, Photo } from "lizzygram-common-data/dist/types";
 import { Dispatch } from "react";
-import { batch, useDispatch, useSelector } from "react-redux";
+import { batch, shallowEqual, useDispatch, useSelector } from "react-redux";
 import { GlobalState } from "../../../types";
 import { changeFavorites as changeFavorites_ } from "../service/DbService/DbService.fake";
 import {
@@ -120,7 +120,8 @@ export const useFavorite = (userUid: string) => {
   const dispatch = useDispatch();
 
   const favoriteReqs = useSelector<GlobalState, FavoriteReqs>(
-    (state) => state.favorite.favoriteReqs
+    (state) => state.favorite.favoriteReqs,
+    shallowEqual
   );
 
   const add = add_(dispatch, userUid);

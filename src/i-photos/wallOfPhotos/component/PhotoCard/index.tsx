@@ -90,6 +90,7 @@ const PhotoCard: FC<PhotoCardProps> = ({
   }, [photo]); */
 
   const onImageClick_ = useCallback(() => {
+    console.log("ON IMAGE CLICK...", index);
     if (onImageClick !== undefined) onImageClick(index);
   }, [index]);
 

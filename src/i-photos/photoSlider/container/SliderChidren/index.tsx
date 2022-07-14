@@ -1,7 +1,7 @@
 import { cond } from "fmagic";
 import React, { FC } from "react";
 import SliderImage from "../../../../component/images/SliderImage";
-import LabledSpinner from "../../../../component/progress/LabledSpinner";
+//import LabledSpinner from "../../../../component/progress/LabledSpinner";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";
 
 export type SliderChildrenProps = {
@@ -66,6 +66,9 @@ const SliderChildren: FC<SliderChildrenProps> = cond<SliderChildrenProps, any>([
         base64={(photos as Photo<FirestoreDate>[])[activeIndex].base64}
         photoAspectRatio={
           (photos as Photo<FirestoreDate>[])[activeIndex].aspectRatio
+        }
+        imageExtension={
+          (photos as Photo<FirestoreDate>[])[activeIndex].imageExtension
         }
         src={(photos as Photo<FirestoreDate>[])[activeIndex].src}
         srcSet={(photos as Photo<FirestoreDate>[])[activeIndex].srcSet}

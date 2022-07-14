@@ -79,17 +79,18 @@ const SEO: FC<SEOProps> = ({
           content: metaDescription,
         }, */
       ].concat(meta)}
-    >
-      <script
+    />
+  );
+};
+
+export default SEO;
+
+/*   <script
         crossorigin
         src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"
       ></script>
       <script
         crossorigin
         src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"
-      ></script>
-    </Helmet>
-  );
-};
-
-export default SEO;
+      ></script> 
+    </Helmet>*/

@@ -1,7 +1,7 @@
 import React, { ComponentProps, useEffect, useRef } from "react";
 import { Story } from "@storybook/react";
 import { Box } from "@mui/system";
-import { useResizeElement } from "./../../../hook/useResizeElement";
+import { useRewidthElement } from "./../useRewidthElement";
 import { useBlocks } from ".";
 
 const getBlocks = (
@@ -73,7 +73,7 @@ const items = [...Array(20).keys()];
 const Test = () => {
   const containerRef: any = useRef();
 
-  const { width: containerWidth } = useResizeElement(containerRef);
+  const containerWidth = useRewidthElement(containerRef);
 
   const { numberOfBlocks, blockHeight, numberOfItemsInBlock } = useBlocks(
     items,
@@ -151,7 +151,7 @@ const Test = () => {
 
 export default {
   component: Test,
-  title: "useBlocks",
+  title: "InfiniteScroll/useBlocks",
 };
 
 const Template: Story<any> = (args) => <Test {...args} />;

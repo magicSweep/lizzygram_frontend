@@ -1,7 +1,7 @@
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, MutableRefObject, useRef, useState } from "react";
 
 const onResize =
-  (setSize: any, widthRef: MutableRefObject<number>) =>
+  (setWidth: any, widthRef: MutableRefObject<number>) =>
   (entries: ResizeObserverEntry[]) => {
     let newWidth = 0;
     for (let entry of entries) {
@@ -15,12 +15,18 @@ const onResize =
         // inlineSize - width, blockSize - height
         newWidth = Math.floor((contentBoxSize as any).inlineSize);
 
-        if (newWidth !== widthRef.current) setSize(newWidth);
+        if (newWidth !== widthRef.current) {
+          setWidth(newWidth);
+          widthRef.current = newWidth;
+        }
         //console.log("Width", (contentBoxSize as any).inlineSize);
       } else {
         newWidth = Math.floor(entry.contentRect.width);
 
-        if (newWidth !== widthRef.current) setSize(newWidth);
+        if (newWidth !== widthRef.current) {
+          setWidth(newWidth);
+          widthRef.current = newWidth;
+        }
         //console.log("contentRect", contentRect.width);
       }
     }
@@ -30,17 +36,16 @@ const onResize =
 
 let resizeObserver: ResizeObserver;
 
-export const useResizeElement = (htmlElement: any) => {
+export const useRewidthElement = (elemToObserveRef: MutableRefObject<any>) => {
   const [width, setWidth] = useState(0);
 
   const widthRef: MutableRefObject<number> = useRef(0);
-  widthRef.current = width;
 
   useEffect(() => {
     if (resizeObserver === undefined)
       resizeObserver = new ResizeObserver(onResize(setWidth, widthRef));
 
-    resizeObserver.observe(htmlElement.current);
+    resizeObserver.observe(elemToObserveRef.current);
 
     return () => {
       resizeObserver.disconnect();
@@ -49,12 +54,9 @@ export const useResizeElement = (htmlElement: any) => {
     };
   }, []);
 
-  const unobserve = () => {
+  /* const unobserve = () => {
     resizeObserver.unobserve(htmlElement.current);
-  };
+  }; */
 
-  return {
-    width,
-    unobserve,
-  };
+  return width;
 };

@@ -29,18 +29,20 @@ export type PlaceholderProps = ImageContainerProps &
     show: boolean;
   };
 
-const ImageContainer = styled("div")<ImageContainerProps>(
-  ({ theme, ...props }) => ({
-    backgroundImage: `url("data:image/${props.imageExtension};base64, ${props.base64}")`,
-    backgroundRepeat: "no-repeat",
-    backgroundSize: "contain",
-    backgroundPosition: "center",
-    position: "absolute",
-    inset: 0,
-    /* width: "100%",
+const ImageContainer = styled("div", {
+  shouldForwardProp: (prop: any) =>
+    ["base64", "imageExtension"].includes(prop) ===
+    false /* prop !== "base64" && prop !== "imageExtension" */,
+})<ImageContainerProps>(({ theme, ...props }) => ({
+  backgroundImage: `url("data:image/${props.imageExtension};base64, ${props.base64}")`,
+  backgroundRepeat: "no-repeat",
+  backgroundSize: "contain",
+  backgroundPosition: "center",
+  position: "absolute",
+  inset: 0,
+  /* width: "100%",
             height: "100%", */
-  })
-);
+}));
 
 const Placeholder: FC<PlaceholderProps> = ({ show, ...props }) => {
   return (

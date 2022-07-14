@@ -1,6 +1,6 @@
 import { Box, Button } from "@mui/material";
 import { Story } from "@storybook/react";
-import { FC, useState, memo } from "react";
+import React, { FC, useState, memo } from "react";
 import Blocks from "./container/Blocks";
 import { useInfiniteScroll } from "./hook/useInfiniteScroll";
 import { useItems } from "./stories/hook/useItems";
@@ -14,7 +14,7 @@ export type CardsProps = {
   blockIndex?: number;
 };
 
-function areEqual(prevProps, nextProps) {
+function areCardsPropsEqual(prevProps, nextProps) {
   /*
   return true if passing nextProps to render would return
   the same result as passing prevProps to render,
@@ -30,6 +30,8 @@ function areEqual(prevProps, nextProps) {
   );
 }
 
+let count = 0;
+
 const Cards: FC<CardsProps> = memo(
   ({
     items,
@@ -41,7 +43,9 @@ const Cards: FC<CardsProps> = memo(
   }) => {
     let cards: any[] = [];
 
-    console.log("CARDS", items, loading, numberOfItemsInBlock);
+    count++;
+
+    console.log("CARDS", count);
 
     // WE LOAD MORE ITEMS OR IT'S INITIAL ITEMS LOADING
     if ((isLast === true || items === undefined) && loading === true) {
@@ -103,17 +107,70 @@ const Cards: FC<CardsProps> = memo(
 
     return <>{cards}</>;
   },
-  areEqual
+  areCardsPropsEqual
 );
 
 export default {
   component: Cards,
-  title: "InfiniteScroll",
+  title: "InfiniteScroll/useInfiniteScroll",
 };
 
 const numberOfItemsPerQuery = 10;
 const cardWidth = 280;
 const cardHeight = 120;
+
+function areEqual(prevProps, nextProps) {
+  /*
+  return true if passing nextProps to render would return
+  the same result as passing prevProps to render,
+  otherwise return false
+  */
+
+  return (
+    prevProps.blockHeight === nextProps.blockHeight &&
+    prevProps.visibleBlockIndex === nextProps.visibleBlockIndex &&
+    prevProps.isShowPhotoSlider === nextProps.isShowPhotoSlider &&
+    prevProps.items === nextProps.items &&
+    prevProps.numberOfBlocks === nextProps.numberOfBlocks &&
+    prevProps.numberOfAddedPhotos === nextProps.numberOfAddedPhotos &&
+    prevProps.numberOfItemsInBlock === nextProps.numberOfItemsInBlock
+  );
+}
+
+const InfiniteScrollWidget = memo(
+  ({
+    blockHeight,
+    visibleBlockIndex,
+    hasNextPage,
+    loading,
+    isShowPhotoSlider,
+    numberOfBlocks,
+    numberOfAddedPhotos,
+    numberOfItemsInBlock,
+    items,
+  }: any) => {
+    return (
+      <div className="m-auto w-9/12">
+        <Blocks
+          blockHeight={blockHeight}
+          activeObservableIndex={visibleBlockIndex}
+          hasNextPage={hasNextPage}
+          loading={loading}
+          isShowPhotoSlider={isShowPhotoSlider}
+          numberOfBlocks={numberOfBlocks}
+        >
+          <Cards
+            numberOfAddedItems={numberOfAddedPhotos}
+            numberOfItemsInBlock={numberOfItemsInBlock}
+            items={items}
+            loading={loading}
+          />
+        </Blocks>
+      </div>
+    );
+  },
+  areEqual
+);
 
 export const Default = () => {
   const [isShowPhotoSlider, setShowSlider] = useState(false);
@@ -155,7 +212,22 @@ export const Default = () => {
 
   return (
     <>
-      <div ref={containerRef} className="m-auto w-9/12">
+      <div ref={containerRef} className="m-auto w-9/12 h-0"></div>
+      {numberOfItemsInBlock !== 0 && (
+        <InfiniteScrollWidget
+          containerRef={containerRef}
+          blockHeight={blockHeight}
+          visibleBlockIndex={visibleBlockIndex}
+          hasNextPage={hasNextPage}
+          loading={loading}
+          isShowPhotoSlider={isShowPhotoSlider}
+          numberOfBlocks={numberOfBlocks}
+          numberOfAddedPhotos={numberOfAddedPhotos}
+          numberOfItemsInBlock={numberOfItemsInBlock}
+          items={items}
+        />
+      )}
+      {/* <div ref={containerRef} className="m-auto w-9/12">
         <Blocks
           blockHeight={blockHeight}
           activeObservableIndex={visibleBlockIndex}
@@ -171,7 +243,7 @@ export const Default = () => {
             loading={loading}
           />
         </Blocks>
-      </div>
+      </div> */}
 
       <div className="fixed top-2 right-24 bg-black px-4 py-2 rounded shadow">
         <Button

@@ -92,6 +92,9 @@ export const Default = () => {
               /*  wrapperSize={wrapperSize}
             photoAspectRatio={1.6}
             base64={photos[index].base64} */
+              onClick={() => {
+                console.log("ON CLICK");
+              }}
               key={photos[index].src}
               className={`${loaded === false ? "invisible" : "visible"}`}
               onLoad={onLoad}
