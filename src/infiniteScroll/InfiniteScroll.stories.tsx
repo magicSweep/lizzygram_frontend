@@ -9,6 +9,7 @@ export type CardsProps = {
   items: any[] | undefined;
   isLast?: boolean;
   loading: boolean;
+  hasNextPage: boolean;
   numberOfItemsInBlock: number;
   numberOfAddedItems: number;
   blockIndex?: number;
@@ -37,6 +38,7 @@ const Cards: FC<CardsProps> = memo(
     items,
     isLast,
     loading,
+    hasNextPage,
     numberOfItemsInBlock,
     blockIndex,
     numberOfAddedItems,
@@ -72,6 +74,13 @@ const Cards: FC<CardsProps> = memo(
         (blockIndex as number) * numberOfItemsInBlock,
         ((blockIndex as number) + 1) * numberOfItemsInBlock
       );
+
+      if (
+        isLast === true &&
+        hasNextPage === true &&
+        items_.length < numberOfItemsInBlock
+      )
+        return null;
 
       cards = items_.map((val, i) => {
         const index = i + 1;
@@ -115,7 +124,7 @@ export default {
   title: "InfiniteScroll/useInfiniteScroll",
 };
 
-const numberOfItemsPerQuery = 10;
+const numberOfItemsPerQuery = 11;
 const cardWidth = 280;
 const cardHeight = 120;
 
@@ -131,6 +140,7 @@ function areEqual(prevProps, nextProps) {
     prevProps.visibleBlockIndex === nextProps.visibleBlockIndex &&
     prevProps.isShowPhotoSlider === nextProps.isShowPhotoSlider &&
     prevProps.items === nextProps.items &&
+    prevProps.loading === nextProps.loading &&
     prevProps.numberOfBlocks === nextProps.numberOfBlocks &&
     prevProps.numberOfAddedPhotos === nextProps.numberOfAddedPhotos &&
     prevProps.numberOfItemsInBlock === nextProps.numberOfItemsInBlock
@@ -162,6 +172,7 @@ const InfiniteScrollWidget = memo(
           <Cards
             numberOfAddedItems={numberOfAddedPhotos}
             numberOfItemsInBlock={numberOfItemsInBlock}
+            hasNextPage={hasNextPage}
             items={items}
             loading={loading}
           />

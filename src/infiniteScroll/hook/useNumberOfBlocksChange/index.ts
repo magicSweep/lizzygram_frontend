@@ -15,7 +15,7 @@ export const useNumberOfBlocksChange = (
 ) => {
   const prevNumberOfBlocksRef: MutableRefObject<number> = useRef(0);
 
-  console.log("1 ============useNumberOfBlocksChange", numberOfBlocks);
+  //console.log("1 ============useNumberOfBlocksChange", numberOfBlocks);
 
   useEffect(() => {
     const whatHappend = onNumberOfBlocksChange({
@@ -23,7 +23,7 @@ export const useNumberOfBlocksChange = (
       prevNumberOfBlocks: prevNumberOfBlocksRef.current,
     });
 
-    console.log("============useNumberOfBlocksChange", whatHappend);
+    //console.log("============useNumberOfBlocksChange", whatHappend);
 
     cond([
       [

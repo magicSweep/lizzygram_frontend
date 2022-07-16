@@ -23,9 +23,9 @@ const Wrapper = styled("div")<any>(({ theme, ...props }) => ({
 const PhotoCardWithSkeleton: FC<
   Partial<PhotoCardProps> & { isSkeleton: boolean }
 > = ({ isSkeleton, ...props }) => {
-  if (props.index === 0) {
+  /* if (props.index === 0) {
     console.log("[RENDER PHOTO CARD WITH SKELETON", isSkeleton);
-  }
+  } */
 
   return (
     <Wrapper

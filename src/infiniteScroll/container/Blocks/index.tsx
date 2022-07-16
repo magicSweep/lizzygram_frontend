@@ -69,7 +69,7 @@ const Blocks: FC<BlockProps> = ({
       blockHeight
     );
 
-    /*  console.group("[RENDER BLOCK]");
+    /* console.group("[RENDER BLOCK]");
     console.log("blockIndex", blockIndex);
     console.log("doesRenderElements", doesRenderElements);
     console.log("isLast", isLast);

@@ -35,12 +35,12 @@ export const useInfiniteScroll = (
     numberOfAddedItems
   );
 
-  console.log(
+  /*  console.log(
     "============useBlocks",
     numberOfBlocks,
     blockHeight,
     numberOfItemsInBlock
-  );
+  ); */
 
   // What block is visible on the screen now
   const {
@@ -49,7 +49,7 @@ export const useInfiniteScroll = (
     ...observer
   } = useBlocksObserver();
 
-  console.log("============useBlocksObserver", visibleBlockIndex);
+  //console.log("============useBlocksObserver", visibleBlockIndex);
 
   useNumberOfBlocksChange(numberOfBlocks, observer);
 

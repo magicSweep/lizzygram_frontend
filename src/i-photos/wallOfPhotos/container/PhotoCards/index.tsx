@@ -34,6 +34,8 @@ function areContentPropsEqual(prevProps, nextProps) {
   );
 }
 
+let c = 0;
+
 const Content: FC<
   PhotoCardsProps & Partial<ReturnType<typeof useWallOfPhotosContext>>
 > = memo(
@@ -47,11 +49,13 @@ const Content: FC<
     numberOfAddedPhotos,
     editedPhotoIds,
     showPhotoSlider,
+    hasNextPage,
     ...photoCardProps
   }) => {
     let cards: any[] = [];
 
-    console.log("[RENDER PHOTO CARDS CONTENT]");
+    c++;
+    console.log("[RENDER PHOTO CARDS CONTENT]", c);
 
     // WE LOAD MORE ITEMS OR IT'S INITIAL ITEMS LOADING
     if ((isLast === true || photos === undefined) && loading === true) {
@@ -78,6 +82,15 @@ const Content: FC<
         blockIndex as number,
         numberOfPhotosInBlock
       );
+
+      // DO NOT RENDER SINGLE CARD ON LOAD MORE BLOCK
+      if (
+        isLast === true &&
+        hasNextPage === true &&
+        loading === false &&
+        photos_.length < numberOfPhotosInBlock
+      )
+        return null;
 
       cards = photos_.map((photo, i) => {
         const index = i + 1;
@@ -124,7 +137,7 @@ function areEqual(prevProps, nextProps) {
 
   return (
     prevProps.photos === nextProps.photos &&
-    //prevProps.isLast === nextProps.isLast &&
+    prevProps.isLast === nextProps.isLast &&
     prevProps.loading === nextProps.loading &&
     prevProps.numberOfPhotosInBlock === nextProps.numberOfPhotosInBlock &&
     prevProps.blockIndex === nextProps.blockIndex &&

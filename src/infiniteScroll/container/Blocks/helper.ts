@@ -16,7 +16,7 @@ export const getDoesRenderElements = (
 
   if (isVisible === false) return false;
 
-  /*  if (isLast === true && hasNextPage === true && loading === false)
+  /* if (isLast === true && hasNextPage === true && loading === false)
     return false; */
 
   return true;
