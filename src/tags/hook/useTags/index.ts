@@ -9,7 +9,7 @@ import {
   tagsRequestStartAC,
   tagsRequestSuccessAC,
   tagsRequestErrorAC,
-} from "./../../store/action";
+} from "./../../store";
 
 let isInitReq = true;
 

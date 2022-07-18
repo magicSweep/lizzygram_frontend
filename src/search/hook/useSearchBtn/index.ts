@@ -1,5 +1,5 @@
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { showSearchFormAC, resetSearchTermsAC } from "./../../store/action";
+import { showSearchFormAC, resetSearchTermsAC } from "./../../store";
 import { GlobalState } from "../../../types";
 
 const useSearchBtn = () => {

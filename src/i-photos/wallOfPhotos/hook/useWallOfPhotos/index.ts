@@ -8,7 +8,7 @@ import {
   downloadPhotoUrl,
 } from "../../../../config";
 import { GlobalState } from "../../../../types";
-import { editPhotoStartRequestAC } from "../../../addEditPhoto";
+import { editPhotoRequestStartAC } from "../../../addEditPhoto";
 import { showPhotoSliderAC } from "../../../photoSlider";
 //import { useInfiniteScroll } from "../InfiniteScroll/hook/useInfiniteScroll";
 //import { WallOfPhotosProps } from "../WallOfPhotosWidget";
@@ -25,7 +25,7 @@ export const useWallOfPhotos = () => {
   );
 
   const showEditPhotoForm = useCallback(
-    (photoId: string) => dispatch(editPhotoStartRequestAC(photoId)),
+    (photoId: string) => dispatch(editPhotoRequestStartAC(photoId)),
     []
   );
 

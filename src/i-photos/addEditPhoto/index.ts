@@ -1,16 +1,16 @@
-export { default as addEditReducer } from "./store/reducer";
 export {
+  default as addEditReducer,
   editPhotoRequestEndAC,
   editPhotoRequestErrorAC,
   editPhotoRequestSuccessAC,
-  editPhotoSendRequestAC,
-  editPhotoStartRequestAC,
+  editPhotoRequestSendAC,
+  editPhotoRequestStartAC,
   addPhotoRequestEndAC,
   addPhotoRequestErrorAC,
   addPhotoRequestSuccessAC,
-  addPhotoSendRequestAC,
-  addPhotoStartRequestAC,
-} from "./store/action";
+  addPhotoRequestSendAC,
+  addPhotoRequestStartAC,
+} from "./store";
 
 export { default as LoadableAddPhotoBtn } from "./add/container/AddPhotoBtn";
 export { default as LoadableAddPhotoManager } from "./add/container/AddPhotoManager";

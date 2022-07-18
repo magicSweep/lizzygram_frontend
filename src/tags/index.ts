@@ -1,11 +1,10 @@
 export { tagTypeToColor } from "./helper";
 
 export {
+  default as tagsReducer,
   tagsRequestErrorAC,
   tagsRequestStartAC,
   tagsRequestSuccessAC,
-} from "./store/action";
-
-export { default as tagsReducer } from "./store/reducer";
+} from "./store";
 
 export { default as useTags } from "./hook/useTags";

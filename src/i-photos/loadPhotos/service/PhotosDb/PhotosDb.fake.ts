@@ -30,7 +30,7 @@ const getPhotos = (length: number = 0) => {
   return photos;
 };
 
-const photos = getPhotos(500);
+const photos = getPhotos(15);
 
 const isNeedSearch = (searchTerms: SearchTerms) => {
   return !(searchTerms.age === -1 && searchTerms.tags === undefined);

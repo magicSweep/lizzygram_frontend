@@ -1,5 +1,5 @@
 import { batch, useDispatch, useSelector } from "react-redux";
-import { setSearchTermsAC, hideSearchFormAC } from "../../store/action";
+import { setSearchTermsAC, hideSearchFormAC } from "../../store";
 import { GlobalState } from "../../../types";
 import { SearchTerms, SearchPhotoFormData } from "../../types";
 import { MutableRefObject, useCallback, useRef } from "react";

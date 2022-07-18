@@ -1,5 +1,5 @@
-import { useDispatch } from "react-redux";
-import { showAlertAC } from "../../alert";
+//import { useDispatch } from "react-redux";
+//import { showAlertAC } from "../../alert";
 
 export const doesOrientationSupport = () => {
   try {
@@ -33,8 +33,8 @@ const useOrientation = () => {
       .catch((error) => {
         /* dispatch(
           showAlertAC(
-            "Ваше устройство не поддерживает смену ориентации экрана.",
-            "error"
+            {message: "Ваше устройство не поддерживает смену ориентации экрана.",
+            alertType: "error"}
           ) 
         );*/
         //log.textContent += `${error}\n`;

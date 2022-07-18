@@ -15,6 +15,7 @@ export type BlockProps = {
   //numberOfAddedItems: number;
   numberOfBlocks: number;
   hasNextPage: boolean;
+  children: any;
   //isLast: boolean;
   //Cards: any;
 };
@@ -36,16 +37,17 @@ const Blocks: FC<BlockProps> = ({
   numberOfBlocks,
   children,
 }) => {
+  // TODO: It did not know about items - is it undefined or not
   const numberOfBlocks_ =
-    numberOfBlocks === 0 && loading === true
+    numberOfBlocks === 0 && (loading === true || hasNextPage === true)
       ? numberOfBlocks + 1
       : numberOfBlocks;
 
   count++;
-  console.log("[RENDER BLOCKS]", count);
+  console.log("[RENDER BLOCKS]", count, numberOfBlocks_, loading, hasNextPage);
 
   const blocks = [...Array(numberOfBlocks_).keys()].map((v, blockIndex) => {
-    const isLast = blockIndex === numberOfBlocks_ - 1;
+    const isLast = numberOfBlocks_ !== 1 && blockIndex === numberOfBlocks_ - 1;
 
     const cards = cloneElement(children as any, {
       isLast,

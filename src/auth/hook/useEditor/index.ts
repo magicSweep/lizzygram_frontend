@@ -21,7 +21,7 @@ import {
   setIsEditor,
   isEditor as isEditor_,
 } from "../../service/UserService/UserService.fake";
-import { authAC, authEditorErrorAC } from "../../store/action";
+import { authAC, authEditorErrorAC } from "../../store";
 import { showAlertAC } from "../../../alert";
 
 /* export let isRequested = false;
@@ -108,10 +108,11 @@ export const main_ =
                 console.error(err);
                 batch(() => {
                   dispatch(
-                    showAlertAC(
-                      "Произошла ошибка при идентификации вашего аккаунта, некоторый функции могут быть недоступны.",
-                      "error"
-                    )
+                    showAlertAC({
+                      message:
+                        "Произошла ошибка при идентификации вашего аккаунта, некоторый функции могут быть недоступны.",
+                      alertType: "error",
+                    })
                   );
                   dispatch(authEditorErrorAC());
                 });

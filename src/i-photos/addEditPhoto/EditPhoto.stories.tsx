@@ -8,7 +8,7 @@ import usePhotos from "../loadPhotos/hook/usePhotos";
 import { AddEditPhotoState } from "./types";
 import EditIconBtn from "../../component/EditIconBtn";
 import Box from "@mui/system/Box";
-import { editPhotoStartRequestAC } from "./store/action";
+import { editPhotoRequestStartAC } from "./store/action";
 
 export default {
   title: "EditPhoto",
@@ -45,7 +45,7 @@ const Wrapper = () => {
     <div>
       <Box bgcolor="secondary.main" className="my-6 w-3/4 mx-auto text-center">
         <EditIconBtn
-          onClick={() => dispatch(editPhotoStartRequestAC("1532390460203"))}
+          onClick={() => dispatch(editPhotoRequestStartAC("1532390460203"))}
           tooltipTitle="Edit btn"
           tooltipPlacement="left"
           ariaLabel="edit photo"

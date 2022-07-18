@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 //import { IAuthUser } from "../../types";
 import { useDispatch } from "react-redux";
-import { authAC } from "../../store/action";
+import { authAC } from "../../store";
 import { AuthUser } from "../../types";
 import { Done, map, Next, flat, tap, compose } from "fmagic";
 //import { IGlobalState } from "../../store/types";

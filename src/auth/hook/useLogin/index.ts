@@ -5,7 +5,7 @@ import {
   //loginRequestSuccessAC,
   loginRequestErrorAC,
   loginRequestAC,
-} from "../../store/action";
+} from "../../store";
 import { then, _catch, _finally, compose, elif } from "fmagic";
 import { showAlertAC } from "../../../alert";
 
@@ -32,7 +32,12 @@ export const request_ =
         _catch((err) => {
           console.error(err);
           batch(() => {
-            dispatch(showAlertAC("Упс... Какая-то ошибочка...", "error"));
+            dispatch(
+              showAlertAC({
+                message: "Упс... Какая-то ошибочка...",
+                alertType: "error",
+              })
+            );
             dispatch(loginRequestErrorAC());
           });
         }),

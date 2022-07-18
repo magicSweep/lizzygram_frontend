@@ -5,7 +5,7 @@ import {
   //logoutRequestSuccessAC,
   logoutRequestErrorAC,
   logoutRequestAC,
-} from "../../store/action";
+} from "../../store";
 import { elif, then, _catch, _finally, compose } from "fmagic";
 import { removeUser } from "../../service/UserService/UserService.fake";
 import { showAlertAC } from "../../../alert";
@@ -34,7 +34,12 @@ export const request_ =
         _catch((err) => {
           console.error(err);
           batch(() => {
-            dispatch(showAlertAC("Упс... Какая-то ошибочка...", "error"));
+            dispatch(
+              showAlertAC({
+                message: "Упс... Какая-то ошибочка...",
+                alertType: "error",
+              })
+            );
             dispatch(logoutRequestErrorAC());
           });
         }),

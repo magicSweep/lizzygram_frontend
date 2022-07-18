@@ -23,12 +23,12 @@ import { showAlertAC as showAlertAC_ } from "../../../../../../../alert";
 import { addPhotoAC as addPhotoAC_ } from "../../../../../../loadPhotos";
 import { AddPhotoFormData, AddPhotoHookStage } from "../../../../../types";
 import {
-  addPhotoSendRequestAC,
+  addPhotoRequestSendAC,
   addPhotoRequestEndAC,
   addPhotoRequestErrorAC,
   addPhotoRequestSuccessAC,
-  //addPhotoStartRequestAC,
-} from "../../../../../store/action";
+  //addPhotoRequestStartAC,
+} from "../../../../../store";
 import * as requests from "./service/requests/requests.fake";
 import * as dataAdapter from "./service/dataAdapter";
 import * as cleanUp from "./../../../../../common/service/cleanUp/cleanUp.fake";
@@ -70,11 +70,11 @@ export const main_ =
     addPhotoWorkerReq: typeof addPhotoWorkerReq_, */
     batch: typeof batch_,
     stateAC: {
-      addPhotoSendRequestAC: typeof addPhotoSendRequestAC;
+      addPhotoRequestSendAC: typeof addPhotoRequestSendAC;
       //addPhotoRequestEndAC: typeof addPhotoRequestEndAC;
       addPhotoRequestErrorAC: typeof addPhotoRequestErrorAC;
       addPhotoRequestSuccessAC: typeof addPhotoRequestSuccessAC;
-      //addPhotoStartRequestAC: typeof addPhotoStartRequestAC;
+      //addPhotoRequestStartAC: typeof addPhotoRequestStartAC;
     },
     addPhotoAC: typeof addPhotoAC_,
     showAlertAC: typeof showAlertAC_,
@@ -92,7 +92,7 @@ export const main_ =
       // SEND WORKER REQUEST
       compose<UseAddPhotoProcessData, Promise<UseAddPhotoProcessData>>(
         tap(({ dispatch }: UseAddPhotoProcessData) =>
-          dispatch(stateAC.addPhotoSendRequestAC())
+          dispatch(stateAC.addPhotoRequestSendAC())
         ),
         tap(({ processLifeCycle }: UseAddPhotoProcessData) =>
           processLifeCycle.onSendReq()
@@ -155,10 +155,10 @@ export const main_ =
 
           batch(() => {
             props.dispatch(
-              showAlertAC(
-                `К сожалению, мы не смогли сохранить фото - ${props.formData.photoFile[0].name}`,
-                "error"
-              )
+              showAlertAC({
+                message: `К сожалению, мы не смогли сохранить фото - ${props.formData.photoFile[0].name}`,
+                alertType: "error",
+              })
             );
 
             props.dispatch(stateAC.addPhotoRequestErrorAC());
@@ -178,10 +178,10 @@ export const main_ =
         (data: UseAddPhotoProcessData) => {
           batch(() => {
             data.dispatch(
-              showAlertAC(
-                `Фото успешно добавлено - ${data.formData.photoFile[0].name}`,
-                "success"
-              )
+              showAlertAC({
+                message: `Фото успешно добавлено - ${data.formData.photoFile[0].name}`,
+                alertType: "success",
+              })
             );
 
             data.dispatch(stateAC.addPhotoRequestSuccessAC());
@@ -209,8 +209,8 @@ export const main_ =
         batch(() => {
           props.dispatch(
             showAlertAC(
-              `К сожалению, мы не смогли сохранить фото - ${props.formData.photoFile[0].name}`,
-              "error"
+              {message: `К сожалению, мы не смогли сохранить фото - ${props.formData.photoFile[0].name}`,
+              alertType: "error"}
             )
           );
 
@@ -240,7 +240,7 @@ const main = main_(
   {
     addPhotoRequestErrorAC,
     addPhotoRequestSuccessAC,
-    addPhotoSendRequestAC,
+    addPhotoRequestSendAC,
   },
   addPhotoAC_,
   showAlertAC_,

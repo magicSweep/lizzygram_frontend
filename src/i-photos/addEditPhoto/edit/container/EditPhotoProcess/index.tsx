@@ -14,7 +14,8 @@ export interface EditPhotoReqProps {
 
 const EditPhotoProcess: FC<EditPhotoReqProps> = ({ userUid, id }) => {
   const photo = useSelector<GlobalState, Photo<FirestoreDate>>((state) =>
-    state.loadPhotos.photos.find((elem) => id === elem.id)
+    //@ts-ignore
+    state.loadPhotos.photos.find((photo) => id === photo.id)
   );
 
   const { editPhoto, onFormClose, showForm, uploadLoading } =

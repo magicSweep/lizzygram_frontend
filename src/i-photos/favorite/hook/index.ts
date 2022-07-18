@@ -7,10 +7,10 @@ import {
   favoritePhotoStartRequestAC,
   favoritePhotoSuccessRequestAC,
   favoritePhotoErrorRequestAC,
-} from "../store/action";
+} from "../store";
 import { FavoriteReqs } from "../types";
 import { showAlertAC } from "./../../../alert";
-import { editPhotoAC } from "./../../loadPhotos/store/action";
+import { editPhotoAC } from "./../../loadPhotos";
 
 export type AddToFavorite = (
   photoId: string,
@@ -52,14 +52,17 @@ export const add__ =
             favoriteBy: fieldsToUpdate.favoriteBy,
           } as any)
         );
-        dispatch(favoritePhotoSuccessRequestAC(photoId, userUid));
+        dispatch(favoritePhotoSuccessRequestAC(photoId));
       });
     } catch (err) {
       // show error alert
       batch(() => {
         dispatch(favoritePhotoErrorRequestAC(photoId));
         dispatch(
-          showAlertAC("Упс. Мы не смогли добавить фото в избранное...", "error")
+          showAlertAC({
+            message: "Упс. Мы не смогли добавить фото в избранное...",
+            alertType: "error",
+          })
         );
       });
     }
@@ -98,16 +101,16 @@ export const remove__ =
             favoriteBy: newFavoriteBy,
           } as any)
         );
-        dispatch(favoritePhotoSuccessRequestAC(photoId, userUid));
+        dispatch(favoritePhotoSuccessRequestAC(photoId));
       });
     } catch (err) {
       batch(() => {
         dispatch(favoritePhotoErrorRequestAC(photoId));
         dispatch(
-          showAlertAC(
-            "Упс. Мы не смогли удалить фото из избранного...",
-            "error"
-          )
+          showAlertAC({
+            message: "Упс. Мы не смогли удалить фото из избранного...",
+            alertType: "error",
+          })
         );
       });
     }

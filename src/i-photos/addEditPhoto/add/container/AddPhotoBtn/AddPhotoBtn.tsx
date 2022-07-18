@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { addPhotoStartRequestAC } from "../../../store/action";
+import { addPhotoRequestStartAC } from "../../../store";
 import AddBtn from "./../../../../../component/AddBtn";
 import { useEditor } from "../../../../../auth/hook/useEditor";
 import Fade from "@mui/material/Fade";
@@ -13,7 +13,7 @@ export const AddPhotoBtn = () => {
   const dispatch = useDispatch();
 
   const startAddPhotoRequest = useCallback(() => {
-    dispatch(addPhotoStartRequestAC());
+    dispatch(addPhotoRequestStartAC());
   }, []);
 
   return (

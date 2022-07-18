@@ -25,13 +25,10 @@ import { PhotoSliderProvider } from "./../../src/i-photos/photoSlider/container/
 import { GlobalState } from "../../src/types";
 import Box from "@mui/system/Box";
 import {
-  editPhotoSendRequestAC,
+  editPhotoRequestSendAC,
   editPhotoRequestSuccessAC,
-  editPhotoRequestEndAC,
-  addPhotoStartRequestAC,
-  addPhotoSendRequestAC,
+  addPhotoRequestSendAC,
   addPhotoRequestSuccessAC,
-  addPhotoRequestEndAC,
 } from "../../src/i-photos/addEditPhoto";
 import Button from "@mui/material/Button";
 import wait from "waait";
@@ -98,7 +95,7 @@ const Layout = ({ children }) => {
   }, []);
 
   const editPhoto = async () => {
-    dispatch(editPhotoSendRequestAC("1532390460203"));
+    dispatch(editPhotoRequestSendAC("1532390460203"));
 
     await wait(3000);
 
@@ -110,7 +107,7 @@ const Layout = ({ children }) => {
 
     photoToAdd.id = "1531699239111";
 
-    dispatch(addPhotoSendRequestAC());
+    dispatch(addPhotoRequestSendAC());
 
     await wait(3000);
 

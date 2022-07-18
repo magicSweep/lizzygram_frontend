@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { hideAlertAC, deleteAlertAC } from "../../store/action";
+import { hideAlertAC, deleteAlertAC } from "../../store";
 import Alert from "./Alert";
 import { AlertProps } from "../../types";
 

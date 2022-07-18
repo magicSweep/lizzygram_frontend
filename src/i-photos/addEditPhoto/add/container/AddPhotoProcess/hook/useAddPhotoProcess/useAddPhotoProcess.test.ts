@@ -3,11 +3,11 @@ import { main_ } from ".";
 describe("useAddPhotoProcess", () => {
   const batch = jest.fn((callback) => callback());
   const stateAC = {
-    addPhotoSendRequestAC: jest.fn(() => "addPhotoSendRequestAC"),
+    addPhotoRequestSendAC: jest.fn(() => "addPhotoRequestSendAC"),
     //addPhotoRequestEndAC: typeof addPhotoRequestEndAC;
     addPhotoRequestErrorAC: jest.fn(() => "addPhotoRequestErrorAC"),
     addPhotoRequestSuccessAC: jest.fn(() => "addPhotoRequestSuccessAC"),
-    //addPhotoStartRequestAC: typeof addPhotoStartRequestAC;
+    //addPhotoRequestStartAC: typeof addPhotoRequestStartAC;
   };
 
   const addPhotoAC = jest.fn(() => "addPhotoAC");
@@ -67,7 +67,7 @@ describe("useAddPhotoProcess", () => {
   test("", async () => {
     await useAddPhotoProcess(props as any);
 
-    expect(stateAC.addPhotoSendRequestAC).toHaveBeenCalledTimes(1);
+    expect(stateAC.addPhotoRequestSendAC).toHaveBeenCalledTimes(1);
 
     expect(processLifeCycle.onReqSuccess).toHaveBeenCalledTimes(1);
   });
@@ -79,7 +79,7 @@ describe("useAddPhotoProcess", () => {
 
     await useAddPhotoProcess(props as any);
 
-    expect(stateAC.addPhotoSendRequestAC).toHaveBeenCalledTimes(1);
+    expect(stateAC.addPhotoRequestSendAC).toHaveBeenCalledTimes(1);
 
     expect(processLifeCycle.onReqSuccess).toHaveBeenCalledTimes(0);
   }); */

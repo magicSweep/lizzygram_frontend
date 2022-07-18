@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { GlobalState } from "../../../types";
 import { useSelector, useDispatch } from "react-redux";
 import { PaletteOptions } from "@mui/material/styles";
-import { toggleThemeModeAC } from "../..";
+import { toggleThemeAC } from "../..";
 import { saveMode, getInitialMode } from "../../utils/main";
 
 let init = false;
@@ -16,17 +16,17 @@ export const useMode = () => {
 
   const toggleMode = () => {
     saveMode(mode === "dark" ? "light" : "dark");
-    dispatch(toggleThemeModeAC());
+    dispatch(toggleThemeAC());
   };
 
   /* const toggleMode = () => {
     saveMode(mode === "dark" ? "light" : "dark");
-    dispatch(toggleThemeModeAC());
+    dispatch(toggleThemeAC());
   };
 
   /* const toggleMode = useCallback(() => {
     saveMode(mode === "dark" ? "dark" : "light");
-    dispatch(toggleThemeModeAC());
+    dispatch(toggleThemeAC());
   }, [mode]); */
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const useMode = () => {
 
       //console.log("-----------INITIAL USE EFFECT", initialMode, mode);
 
-      if (initialMode !== mode) dispatch(toggleThemeModeAC());
+      if (initialMode !== mode) dispatch(toggleThemeAC());
 
       init = true;
     }

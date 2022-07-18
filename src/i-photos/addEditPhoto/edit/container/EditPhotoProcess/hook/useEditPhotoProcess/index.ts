@@ -34,12 +34,12 @@ import {
   EditPhotoHookStage,
 } from "../../../../../types";
 import {
-  editPhotoSendRequestAC,
+  editPhotoRequestSendAC,
   editPhotoRequestEndAC,
   editPhotoRequestErrorAC,
   editPhotoRequestSuccessAC,
-  //addPhotoStartRequestAC,
-} from "../../../../../store/action";
+  //addPhotoRequestStartAC,
+} from "../../../../../store";
 import * as requests from "./service/requests/requests.fake";
 import * as dataAdapter from "./service/dataAdapter";
 import * as cleanUp from "./../../../../../common/service/cleanUp/cleanUp.fake";
@@ -86,11 +86,11 @@ export const main_ =
   (
     batch: typeof batch_,
     stateAC: {
-      editPhotoSendRequestAC: typeof editPhotoSendRequestAC;
+      editPhotoRequestSendAC: typeof editPhotoRequestSendAC;
       //addPhotoRequestEndAC: typeof addPhotoRequestEndAC;
       editPhotoRequestErrorAC: typeof editPhotoRequestErrorAC;
       editPhotoRequestSuccessAC: typeof editPhotoRequestSuccessAC;
-      //addPhotoStartRequestAC: typeof addPhotoStartRequestAC;
+      //addPhotoRequestStartAC: typeof addPhotoRequestStartAC;
     },
     editPhotoAC: typeof editPhotoAC_,
     showAlertAC: typeof showAlertAC_,
@@ -119,8 +119,7 @@ export const main_ =
 
       (data: UseEditPhotoProcessData) =>
         data.isNeedFirestoreReq === false && data.isNeedWorkerReq === false
-          ? //dispatch(showAlertAC("Вы ничего не изменили.", "error"))
-            Done.of({
+          ? Done.of({
               ...data,
               stage: "NOTHING_CHANGED",
             })
@@ -128,7 +127,7 @@ export const main_ =
 
       map(
         tap(({ dispatch, photoId }: UseEditPhotoProcessData) =>
-          dispatch(stateAC.editPhotoSendRequestAC(photoId))
+          dispatch(stateAC.editPhotoRequestSendAC(photoId))
         )
       ),
 
@@ -213,7 +212,12 @@ export const main_ =
               : `К сожалению, мы не смогли сохранить изменения.`;
 
           batch(() => {
-            props.dispatch(showAlertAC(alertTitle, "error"));
+            props.dispatch(
+              showAlertAC({
+                message: alertTitle,
+                alertType: "error",
+              })
+            );
 
             if (isNothingChanged === false)
               props.dispatch(stateAC.editPhotoRequestErrorAC(data.photoId));
@@ -250,7 +254,12 @@ export const main_ =
         // ON SUCCESS
         (data: UseEditPhotoProcessData) => {
           batch(() => {
-            data.dispatch(showAlertAC(`Фото успешно изменено.`, "success"));
+            data.dispatch(
+              showAlertAC({
+                message: `Фото успешно изменено.`,
+                alertType: "success",
+              })
+            );
 
             data.dispatch(stateAC.editPhotoRequestSuccessAC(data.photoId));
 
@@ -291,7 +300,7 @@ const main = main_(
   {
     editPhotoRequestErrorAC,
     editPhotoRequestSuccessAC,
-    editPhotoSendRequestAC,
+    editPhotoRequestSendAC,
   },
   editPhotoAC_,
   showAlertAC_,

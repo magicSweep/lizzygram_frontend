@@ -23,8 +23,8 @@ import { useEditor } from "../../../../auth/hook/useEditor";
 import { GlobalState } from "../../../../types";
 import { useCarousel } from "../../../../container/Carousel/hook/useCarousel";
 import { FirestoreDate, Photo } from "lizzygram-common-data/dist/types";
-import { editPhotoStartRequestAC } from "../../../addEditPhoto";
-import { hidePhotoSliderAC } from "../../store/action";
+import { editPhotoRequestStartAC } from "../../../addEditPhoto";
+import { hidePhotoSliderAC } from "../../store";
 import useFullscreen from "../../../../hook/useFullscreen";
 import { downloadPhotoUrl } from "../../../../config";
 import useWithDesc from "../useWithDesc";
@@ -116,7 +116,7 @@ export const usePhotoSlider = () => {
           if (fullscreen.isFullscreen === true) fullscreen.exitFullscreen();
 
           setTimeout(() => {
-            dispatch(editPhotoStartRequestAC(activePhoto?.id));
+            dispatch(editPhotoRequestStartAC(activePhoto?.id));
           }, 100);
         };
 

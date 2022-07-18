@@ -1,10 +1,15 @@
 import { FirestoreDate, Photo } from "lizzygram-common-data/dist/types";
-import React, { FC, memo } from "react";
+import React, { FC, memo, ComponentProps } from "react";
 import { useWallOfPhotosContext } from "../../hook/useWallOfPhotosContext";
 //import PhotoCard from "./../PhotoCard";
 //import PhotoCardSkeleton from "./../PhotoCardSkeleton";
 import PhotoCardWithSkeleton from "./../PhotoCardWithSkeleton";
 import { getSlicedArrayOfPhotos } from "./PhotoCards.helper";
+import {
+  PhotoCardProps,
+  PhotoCard,
+  PhotoCardSkeleton,
+} from "../../component/PhotoCardWithSkeleton";
 
 export type PhotoCardsProps = {
   //photos: Photo<FirestoreDate>[] | undefined;
@@ -30,7 +35,9 @@ function areContentPropsEqual(prevProps, nextProps) {
     //prevProps.numberOfPhotosInBlock === nextProps.numberOfPhotosInBlock &&
     prevProps.blockIndex === nextProps.blockIndex &&
     prevProps.editedPhotoIds === nextProps.editedPhotoIds &&
-    prevProps.numberOfAddedPhotos === nextProps.numberOfAddedPhotos
+    prevProps.numberOfAddedPhotos === nextProps.numberOfAddedPhotos &&
+    prevProps.favoriteReqs === nextProps.favoriteReqs &&
+    prevProps.favoriteBy === nextProps.favoriteBy
   );
 }
 
@@ -142,7 +149,9 @@ function areEqual(prevProps, nextProps) {
     prevProps.numberOfPhotosInBlock === nextProps.numberOfPhotosInBlock &&
     prevProps.blockIndex === nextProps.blockIndex &&
     prevProps.editedPhotoIds === nextProps.editedPhotoIds &&
-    prevProps.numberOfAddedPhotos === nextProps.numberOfAddedPhotos
+    prevProps.numberOfAddedPhotos === nextProps.numberOfAddedPhotos &&
+    prevProps.favoriteReqs === nextProps.favoriteReqs &&
+    prevProps.favoriteBy === nextProps.favoriteBy
   );
 }
 

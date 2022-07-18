@@ -6,7 +6,7 @@ import {
   fetchMorePhotosRequestSuccessAC,
   allPhotosRequestSuccessAC,
   allPhotosRequestErrorAC,
-} from "../../store/action";
+} from "../../store";
 import { compose, tap, then, _catch } from "fmagic";
 //import { GetAllPhotosResData } from "./../../types";
 import { Photo, FirestoreDate } from "lizzygram-common-data/dist/types";

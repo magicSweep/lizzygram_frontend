@@ -1,11 +1,10 @@
 export {
+  default as authReducer,
   loginRequestAC,
   loginRequestErrorAC,
   logoutRequestAC,
   logoutRequestErrorAC,
-} from "./store/action";
-
-export { default as authReducer } from "./store/reducer";
+} from "./store";
 
 export { useAuth } from "./hook/useAuth";
 

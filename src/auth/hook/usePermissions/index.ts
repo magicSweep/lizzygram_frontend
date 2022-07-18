@@ -2,7 +2,7 @@ import {
   grantPermissionsRequestStartAC,
   revokePermissionsRequestStartAC,
   permissionsRequestEndAC,
-} from "./../../store/action";
+} from "./../../store";
 import { compose, tap, then, _catch } from "fmagic";
 import {
   grantPermissions as sendGrantPermissionsReq_,
@@ -38,10 +38,11 @@ export const grantPermissionsReq_ =
         batch(() => {
           //dispatch(permissionsRequestEndAC());
           dispatch(
-            showAlertAC(
-              "Поздравляем, вы получили права для добавления фоток на сайте.",
-              "success"
-            )
+            showAlertAC({
+              message:
+                "Поздравляем, вы получили права для добавления фоток на сайте.",
+              alertType: "success",
+            })
           );
         });
       }),
@@ -49,10 +50,10 @@ export const grantPermissionsReq_ =
         batch(() => {
           data.dispatch(permissionsRequestEndAC());
           data.dispatch(
-            showAlertAC(
-              "К сожалению произошла ошибочка. Попробуйте позже...",
-              "error"
-            )
+            showAlertAC({
+              message: "К сожалению произошла ошибочка. Попробуйте позже...",
+              alertType: "error",
+            })
           );
         });
       })
@@ -77,10 +78,11 @@ export const revokePermissionsReq_ =
         batch(() => {
           //dispatch(permissionsRequestEndAC());
           dispatch(
-            showAlertAC(
-              "Поздравляем, вы потеряли право на добавления фоток на сайте.",
-              "success"
-            )
+            showAlertAC({
+              message:
+                "Поздравляем, вы потеряли право на добавления фоток на сайте.",
+              alertType: "success",
+            })
           );
         });
       }),
@@ -88,10 +90,10 @@ export const revokePermissionsReq_ =
         batch(() => {
           data.dispatch(permissionsRequestEndAC());
           data.dispatch(
-            showAlertAC(
-              "К сожалению произошла ошибочка. Попробуйте позже...",
-              "error"
-            )
+            showAlertAC({
+              message: "К сожалению произошла ошибочка. Попробуйте позже...",
+              alertType: "error",
+            })
           );
         });
       })
@@ -115,10 +117,7 @@ export const usePermissions_ =
     revokePermissionsReq_: typeof revokePermissionsReq
   ) =>
   () => {
-    const {
-      user: { uid: userUid },
-      onChangeEditorStatus,
-    } = useEditor();
+    const { userUid, onChangeEditorStatus } = useEditor();
     const dispatch = useDispatch();
 
     const grantPermissions = () =>

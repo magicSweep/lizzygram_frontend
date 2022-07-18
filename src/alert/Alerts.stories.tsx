@@ -2,7 +2,7 @@ import Box from "@mui/system/Box";
 import Button from "@mui/material/Button";
 import Alerts from "./container/Alerts/Alerts";
 import { useDispatch, useSelector } from "react-redux";
-import { showAlertAC } from "./store/action";
+import { showAlertAC } from "./store";
 import { GlobalState } from "./../types";
 
 export default {
@@ -16,13 +16,22 @@ const AlertManager = () => {
   const { items } = useSelector((state: GlobalState) => state.alert);
 
   const showErrorAlert = () =>
-    dispatch(showAlertAC("Это злой алерт...", "error"));
+    dispatch(showAlertAC({ message: "Это злой алерт...", alertType: "error" }));
   const showWarningAlert = () =>
-    dispatch(showAlertAC("Это подозрительный алерт...", "warning"));
+    dispatch(
+      showAlertAC({
+        message: "Это подозрительный алерт...",
+        alertType: "warning",
+      })
+    );
   const showSuccessAlert = () =>
-    dispatch(showAlertAC("Это супер алерт...", "success"));
+    dispatch(
+      showAlertAC({ message: "Это супер алерт...", alertType: "success" })
+    );
   const showInfoAlert = () =>
-    dispatch(showAlertAC("Это информационный алерт...", "info"));
+    dispatch(
+      showAlertAC({ message: "Это информационный алерт...", alertType: "info" })
+    );
 
   return (
     <>

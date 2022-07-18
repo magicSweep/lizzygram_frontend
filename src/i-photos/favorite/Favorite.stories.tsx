@@ -58,7 +58,7 @@ const Wrapper = () => {
           {...useFavoriteReturn}
         />
         {/* <EditIconBtn
-          onClick={() => dispatch(editPhotoStartRequestAC("1532390460203"))}
+          onClick={() => dispatch(editPhotoRequestStartAC("1532390460203"))}
           tooltipTitle="Edit btn"
           tooltipPlacement="left"
           ariaLabel="edit photo"
