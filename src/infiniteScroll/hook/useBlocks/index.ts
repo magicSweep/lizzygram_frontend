@@ -13,7 +13,7 @@ const initState = {
 let prevItems: any;
 
 // This hook is responsible for calc blocks with round number of items in each
-// It is calculate size of block, number of blocks, number of items in each block
+// It is calculate height of block, number of blocks, number of items in each block
 export const useBlocks = (
   items: any[] | undefined,
   numberOfItemsPerQuery: number,

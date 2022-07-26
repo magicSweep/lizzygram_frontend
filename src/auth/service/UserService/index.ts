@@ -1,11 +1,11 @@
-import { addObj, remove, getObjByKey } from "./../../../i-service/localStorage";
+import { addObj, remove, getObjByKey } from "./../../../service/localStorage";
 import { authLocalStorageKey } from "./../../../config";
 import { AuthUser } from "./../../types";
 import {
   isExists,
   addOne,
   removeOne,
-} from "../../../i-service/firebase/firestore";
+} from "../../../service/firebase/firestore";
 import { usersCollectionName } from "../../../config";
 
 export const isEditor: (userUid: string) => Promise<boolean> =

@@ -6,11 +6,11 @@ import { themeReducer } from "../../theme";
 import { authReducer } from "./../../auth";
 import { tagsReducer } from "./../../tags";
 import { searchReducer } from "./../../search";
-import { loadPhotosReducer } from "./../../i-photos/loadPhotos";
+import { loadPhotosReducer } from "./../../photos/loadPhotos";
 import { alertReducer } from "./../../alert";
-import { addEditReducer } from "./../../i-photos/addEditPhoto";
-import { favoriteReducer } from "./../../i-photos/favorite";
-import { photoSliderReducer } from "./../../i-photos/photoSlider";
+import { addEditReducer } from "./../../photos/addEditPhoto";
+import { favoriteReducer } from "./../../photos/favorite";
+import { photoSliderReducer } from "./../../photos/photoSlider";
 
 /**
  * Logs all actions and states after they are dispatched.

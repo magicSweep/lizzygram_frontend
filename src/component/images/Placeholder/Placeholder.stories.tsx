@@ -2,7 +2,7 @@ import WallOfPhotosImg from ".";
 import Image from "../Image";
 import Box from "@mui/system/Box";
 import React, { useEffect, useState, useRef } from "react";
-import { photos } from "./../../../i-photos/loadPhotos/fake-data/photos.db";
+import { photos } from "./../../../photos/loadPhotos/fake-data/photos.db";
 import { getImageSizeStyle } from "./../helper";
 import { Button } from "@mui/material";
 import Placeholder from ".";

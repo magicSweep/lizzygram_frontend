@@ -2,12 +2,12 @@ import { ThemeState } from "./theme/store/types";
 import { AuthState } from "./auth/types";
 import { TagsState } from "./tags/types";
 //import { PhotosState } from "./photos/types";
-import { LoadPhotosState } from "./i-photos/loadPhotos/types";
-import { AddEditPhotoState } from "./i-photos/addEditPhoto/types";
+import { LoadPhotosState } from "./photos/loadPhotos/types";
+import { AddEditPhotoState } from "./photos/addEditPhoto/types";
 import { SearchState } from "./search/types";
 import { AlertState } from "./alert/types";
-import { FavoriteState } from "./i-photos/favorite/types";
-import { PhotoSliderState } from "./i-photos/photoSlider/types";
+import { FavoriteState } from "./photos/favorite/types";
+import { PhotoSliderState } from "./photos/photoSlider/types";
 
 export interface GlobalState {
   /* modal: IModalState; */

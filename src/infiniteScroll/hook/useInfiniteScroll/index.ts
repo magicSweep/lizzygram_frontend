@@ -51,6 +51,7 @@ export const useInfiniteScroll = (
 
   //console.log("============useBlocksObserver", visibleBlockIndex);
 
+  // WHAT HAPPEND - WE SCROLL DOWN OR UP
   useNumberOfBlocksChange(numberOfBlocks, observer);
 
   // LOAD MORE ITEMS IF NEEDED

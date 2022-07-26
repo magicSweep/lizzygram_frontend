@@ -1,9 +1,9 @@
 module.exports = {
   stories: [
     //"../src/**/*.stories.mdx",
-    //"../src/i-photos/loadPhotos/**/*.stories.@(js|jsx|ts|tsx)",
-    "../src/i-photos/wallOfPhotos/component/**/*.stories.@(js|jsx|ts|tsx)",
-    "../src/i-photos/wallOfPhotos/container/**/*.stories.@(js|jsx|ts|tsx)",
+    //"../src/photos/loadPhotos/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/photos/wallOfPhotos/component/**/*.stories.@(js|jsx|ts|tsx)",
+    "../src/photos/wallOfPhotos/container/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   addons: [
     "@storybook/addon-links",

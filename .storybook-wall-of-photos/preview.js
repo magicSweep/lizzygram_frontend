@@ -3,7 +3,7 @@ import { addDecorator } from "@storybook/react";
 //import ThemeProvider from "./decorator/ThemeProvider";
 import "../src/theme/styles/global.css";
 import ReduxProvider from "./decorator/ReduxProvider";
-import { init } from "../src/i-service/firebase/init.fake";
+import { init } from "../src/service/firebase/init.fake";
 import ThemeProvider from "./decorator/ThemeProvider";
 
 addDecorator(ReduxProvider);

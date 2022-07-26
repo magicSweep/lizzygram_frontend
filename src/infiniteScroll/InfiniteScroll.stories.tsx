@@ -162,6 +162,7 @@ const InfiniteScrollWidget = memo(
     return (
       <div className="m-auto w-9/12">
         <Blocks
+          items={items}
           blockHeight={blockHeight}
           activeObservableIndex={visibleBlockIndex}
           hasNextPage={hasNextPage}

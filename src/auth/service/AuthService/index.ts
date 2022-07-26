@@ -3,9 +3,9 @@ export {
   logout,
   subscribe,
   getToken,
-} from "./../../../i-service/firebase/firebase.auth";
+} from "./../../../service/firebase/firebase.auth";
 
-//export { getToken } from "./../../../i-service/firebase/firebase.auth";
+//export { getToken } from "./../../../service/firebase/firebase.auth";
 
 /* export const login = loginWithPopup;
 

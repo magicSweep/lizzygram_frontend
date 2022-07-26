@@ -5,9 +5,9 @@ import {
   LoadableAddPhotoBtn,
   LoadableAddPhotoManager,
   LoadableEditPhotoManager,
-} from "../i-photos/addEditPhoto";
-import { LoadablePhotoSlider } from "../i-photos/photoSlider";
-import { LoadableWallOfPhotos } from "../i-photos/wallOfPhotos";
+} from "../photos/addEditPhoto";
+import { LoadablePhotoSlider } from "../photos/photoSlider";
+import { LoadableWallOfPhotos } from "../photos/wallOfPhotos";
 import { LoadableSearchPhotoForm } from "./../search";
 /////
 //import { getAuth } from "firebase/auth";

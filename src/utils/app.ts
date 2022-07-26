@@ -43,10 +43,12 @@ export const makeDownloadPhotoUrl = (
   //userUid: string,
   //imageExtension: string,
   downloadPhotoUrl: string,
-  photoFileName: string
+  photoFileName: string,
+  token: string
 ) => {
-  //let downloadUrl = `${downloadPhotoUrl}/${userUid}${googleDriveId}/${photoFileName}`;
-  let downloadUrl = `${downloadPhotoUrl}/${googleDriveId}/${photoFileName}`;
+  //
+  //let downloadUrl = `${downloadPhotoUrl}/${googleDriveId}/${photoFileName}`;
+  let downloadUrl = `${downloadPhotoUrl}/${photoFileName}?gid=${googleDriveId}&token=${token}`;
   //if (imageExtension) downloadUrl += `.${imageExtension}`;
 
   return downloadUrl;

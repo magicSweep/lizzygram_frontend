@@ -1,8 +1,9 @@
 import React, { cloneElement, FC } from "react";
-import { getBlockHeight, getDoesRenderElements } from "./helper";
+import { calcIsLast, getBlockHeight, getDoesRenderElements } from "./helper";
 import { Box } from "@mui/system";
 
 export type BlockProps = {
+  items: any[] | undefined;
   //tagsState: ITagsState;
   loading: boolean;
   blockHeight: number;
@@ -20,13 +21,14 @@ export type BlockProps = {
   //Cards: any;
 };
 
-let count = 0;
+//let count = 0;
 /* 
   LAST PAGE AND HEIGHT: Cause we set height: "auto" to last page 
 it cause a zero height when we scroll from last page to top. We decide 
 do nothing with that.
 */
 const Blocks: FC<BlockProps> = ({
+  items,
   blockHeight,
   activeObservableIndex,
   hasNextPage,
@@ -37,17 +39,26 @@ const Blocks: FC<BlockProps> = ({
   numberOfBlocks,
   children,
 }) => {
-  // TODO: It did not know about items - is it undefined or not
+  const itemsLength = items === undefined ? -1 : items.length;
+
   const numberOfBlocks_ =
-    numberOfBlocks === 0 && (loading === true || hasNextPage === true)
+    numberOfBlocks === 0 &&
+    (loading === true || hasNextPage === true || itemsLength >= 0)
       ? numberOfBlocks + 1
       : numberOfBlocks;
 
-  count++;
-  console.log("[RENDER BLOCKS]", count, numberOfBlocks_, loading, hasNextPage);
+  /* count++;
+  console.log(
+    "[RENDER BLOCKS]",
+    count,
+    numberOfBlocks_,
+    loading,
+    hasNextPage,
+    items === undefined ? "undefined" : items.length
+  ); */
 
   const blocks = [...Array(numberOfBlocks_).keys()].map((v, blockIndex) => {
-    const isLast = numberOfBlocks_ !== 1 && blockIndex === numberOfBlocks_ - 1;
+    const isLast = calcIsLast(blockIndex, numberOfBlocks_, hasNextPage);
 
     const cards = cloneElement(children as any, {
       isLast,

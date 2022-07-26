@@ -9,11 +9,11 @@ import thunk from "redux-thunk";
 import { authReducer } from "./../../src/auth";
 import { tagsReducer } from "./../../src/tags";
 import { searchReducer } from "./../../src/search";
-import photoReducer from "./../../src/i-photos/loadPhotos/store/reducer";
+import photoReducer from "./../../src/photos/loadPhotos/store/reducer";
 import { alertReducer } from "./../../src/alert";
-import addEditReducer from "./../../src/i-photos/addEditPhoto/store/reducer";
-import favoriteReducer from "./../../src/i-photos/favorite/store/reducer";
-import photoSliderReducer from "./../../src/i-photos/photoSlider/store/reducer";
+import addEditReducer from "./../../src/photos/addEditPhoto/store/reducer";
+import favoriteReducer from "./../../src/photos/favorite/store/reducer";
+import photoSliderReducer from "./../../src/photos/photoSlider/store/reducer";
 
 //CONFIG REDUX
 const reducer = combineReducers({

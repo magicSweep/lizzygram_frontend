@@ -1,5 +1,5 @@
 //import { collection, getDocs, getFirestore } from "firebase/firestore";
-import { getAll as getAll_ } from "../../../i-service/firebase/firestore";
+import { getAll as getAll_ } from "../../../service/firebase/firestore";
 import { tagsCollectionName } from "../../../config";
 import { TagData } from "../../../tags/types";
 

@@ -4,7 +4,7 @@ import Fade from "@mui/material/Fade";
 import Button from "@mui/material/Button";
 import React, { useState, useRef, useEffect, MutableRefObject } from "react";
 import { Story } from "@storybook/react";
-import { photos } from "./../../../i-photos/loadPhotos/fake-data/photos.db";
+import { photos } from "./../../../photos/loadPhotos/fake-data/photos.db";
 import { getImageSizeStyle } from "./../helper";
 
 export default {

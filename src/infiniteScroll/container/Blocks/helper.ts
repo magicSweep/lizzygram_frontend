@@ -34,3 +34,23 @@ export const getBlockHeight = (
 
   return `${blockHeight}px`;
 };
+
+export const calcIsLast = (
+  blockIndex: number,
+  numberOfBlocks: number,
+  hasNextPage: boolean
+) => {
+  /*   numberOfBlocks === 0 &&
+    (loading === true || hasNextPage === true || itemsLength >= 0) */
+  const isLast_ = blockIndex === numberOfBlocks - 1;
+
+  if (isLast_ === false) return false;
+
+  if (numberOfBlocks === 1) {
+    if (hasNextPage === true) return false;
+  }
+
+  return true;
+
+  //const isLast = numberOfBlocks_ !== 1 && blockIndex === numberOfBlocks_ - 1;
+};

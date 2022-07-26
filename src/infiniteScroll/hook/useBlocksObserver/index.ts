@@ -21,8 +21,8 @@ let options: IntersectionObserverInit = {
 let observer: IntersectionObserver = undefined as any;
 
 // THIS HOOK INIT INTERSECTION OBSERVER
-// TO KNOW WHAT BLOCK IS RENDER ON SCREEN NOW
-// AND LOAD MORE ITEMS IF NEEDED
+// TO KNOW WHAT BLOCK IS VISIBLE ON SCREEN NOW
+// IT RETURN METHODS TO ADD OR RE-SET TARGETS TO OBSERVER
 export const useBlocksObserver = () =>
   //items: any[],
   /* numberOfBlocks: number,

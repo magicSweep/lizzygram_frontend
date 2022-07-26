@@ -12,16 +12,16 @@ import thunk from "redux-thunk";
 //import { modalReducer, alertReducer, tagsReducer } from "./../../src/store";
 //import { photoReducer, searchReducer } from "./../../src/photos";
 import { authReducer, useAuth } from "./../../src/auth";
-import { addPhotoAC, usePhotos } from "./../../src/i-photos/loadPhotos";
+import { addPhotoAC, usePhotos } from "./../../src/photos/loadPhotos";
 import { tagsReducer } from "./../../src/tags";
 import { searchReducer } from "./../../src/search";
-import photoReducer from "./../../src/i-photos/loadPhotos/store/reducer";
+import photoReducer from "./../../src/photos/loadPhotos/store/reducer";
 import { alertReducer } from "./../../src/alert";
-import addEditReducer from "./../../src/i-photos/addEditPhoto/store/reducer";
-import favoriteReducer from "./../../src/i-photos/favorite/store/reducer";
-import photoSliderReducer from "./../../src/i-photos/photoSlider/store/reducer";
-import { showPhotoSliderAC } from "./../../src/i-photos/photoSlider/store/action";
-import { PhotoSliderProvider } from "./../../src/i-photos/photoSlider/container/PhotoSlider/PhotoSlider.provider";
+import addEditReducer from "./../../src/photos/addEditPhoto/store/reducer";
+import favoriteReducer from "./../../src/photos/favorite/store/reducer";
+import photoSliderReducer from "./../../src/photos/photoSlider/store/reducer";
+import { showPhotoSliderAC } from "./../../src/photos/photoSlider/store/action";
+import { PhotoSliderProvider } from "./../../src/photos/photoSlider/container/PhotoSlider/PhotoSlider.provider";
 import { GlobalState } from "../../src/types";
 import Box from "@mui/system/Box";
 import {
@@ -29,7 +29,7 @@ import {
   editPhotoRequestSuccessAC,
   addPhotoRequestSendAC,
   addPhotoRequestSuccessAC,
-} from "../../src/i-photos/addEditPhoto";
+} from "../../src/photos/addEditPhoto";
 import Button from "@mui/material/Button";
 import wait from "waait";
 

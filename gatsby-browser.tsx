@@ -9,7 +9,7 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import "./src/theme/styles/global.css";
 import Layout from "./src/container/Layout";
-import { init } from "./src/i-service/firebase/init.fake";
+import { init } from "./src/service/firebase/init.fake";
 import ErrorBoundary from "./src/component/ErrorBoundary";
 
 init();
