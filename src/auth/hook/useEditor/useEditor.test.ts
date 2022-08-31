@@ -8,7 +8,7 @@ import {
 } from ".";
 //import { isEditor } from "../../service/DbService";
 import wait from "waait";
-import { authAC } from "../../store/action";
+import { authAC } from "../../store";
 
 /* jest.mock("../../service/UserService", () => ({
   __esModule: true,
@@ -100,8 +100,8 @@ describe("useEditor", () => {
       expect(getSavedUser).toHaveBeenCalledTimes(1);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: "AUTH",
-        user: {
+        type: "auth/auth",
+        payload: {
           ...user,
           isEditor: true,
         },
@@ -137,8 +137,8 @@ describe("useEditor", () => {
       expect(getSavedUser).toHaveBeenCalledTimes(1);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: "AUTH",
-        user: {
+        type: "auth/auth",
+        payload: {
           ...user,
           isEditor: false,
         },
@@ -181,13 +181,16 @@ describe("useEditor", () => {
       expect(getSavedUser).toHaveBeenCalledTimes(1);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        alertType: "error",
-        message:
-          "Произошла ошибка при идентификации вашего аккаунта, некоторый функции могут быть недоступны.",
-        type: "SHOW_ALERT",
+        payload: {
+          alertType: "error",
+          message:
+            "Произошла ошибка при идентификации вашего аккаунта, некоторый функции могут быть недоступны.",
+        },
+        type: "alert/showAlert",
       });
       expect(dispatch).toHaveBeenNthCalledWith(2, {
-        type: "AUTH_EDITOR_ERROR",
+        type: "auth/authEditorError",
+        payload: undefined,
       });
 
       expect(isEditor).toHaveBeenCalledTimes(1);

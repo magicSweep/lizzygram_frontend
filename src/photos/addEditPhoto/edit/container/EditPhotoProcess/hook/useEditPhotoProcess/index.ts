@@ -17,7 +17,7 @@ import useSendFormProcess from "../../../../../common/hook/useSendFormProcess";
 import {
   EditRequests,
   DataAdapter,
-  CleanUp,
+  //CleanUp,
   EditPhotoFirestoreRequestBody,
 } from "./service/types";
 import {
@@ -42,12 +42,7 @@ import {
 } from "../../../../../store";
 import * as requests from "./service/requests/requests.fake";
 import * as dataAdapter from "./service/dataAdapter";
-import * as cleanUp from "./../../../../../common/service/cleanUp/cleanUp.fake";
 import { getToken as getToken_ } from "./../../../../../../../service/firebase/firebase.auth.fake";
-import {
-  cleanUpOnError as cleanUpOnError_,
-  cleanUpOnSuccessEdit as cleanUpOnSuccessEdit_,
-} from "./../../../../../common/hook/addEdit.controller";
 
 export type UseEditPhotoProcessProps = {
   photoId: string;
@@ -96,10 +91,8 @@ export const main_ =
     showAlertAC: typeof showAlertAC_,
     dataAdapter: DataAdapter,
     requests: EditRequests,
-    cleanUp: CleanUp,
-    getToken: typeof getToken_,
-    cleanUpOnError: typeof cleanUpOnError_,
-    cleanUpOnSuccessEdit: typeof cleanUpOnSuccessEdit_
+    //cleanUp: CleanUp,
+    getToken: typeof getToken_
   ) =>
   (props: UseEditPhotoProcessProps) =>
     compose<UseEditPhotoProcessProps, Promise<void>>(
@@ -155,7 +148,7 @@ export const main_ =
             //tap((data) => console.log("STAGE-1.5", data)),
             async (data: UseEditPhotoProcessData) => {
               const token = await getToken();
-              data.workerPhotoData = await requests.workerReq(
+              data.workerPhotoData = await requests.mainWorkerReq(
                 data.workerReqData,
                 token
               );
@@ -175,9 +168,9 @@ export const main_ =
 
       // SEND FIRESTORE REQUEST
       then(
-        chain(
+        chain((data: UseEditPhotoProcessData) =>
           compose<UseEditPhotoProcessData, Promise<UseEditPhotoProcessData>>(
-            (data: UseEditPhotoProcessData) => ({
+            () => ({
               ...data,
               firestoreReqData: dataAdapter.makeFirestoreReqData(
                 data.fieldsToUpdate,
@@ -192,11 +185,12 @@ export const main_ =
             then(NI_Next.of),
             _catch((error: any) =>
               Done.of({
+                ...data,
                 stage: "SEND_FIRESTORE_REQUEST",
                 error,
               })
             )
-          )
+          )()
         )
       ),
 
@@ -227,11 +221,10 @@ export const main_ =
             props.processLifeCycle.onReqError();
 
             // Clean up if we save photos to cloudinary
-            cleanUpOnError(
-              data.stage as AddPhotoHookStage,
-              cleanUp,
-              requests.cleanUpReq
-            );
+            if (data.workerPhotoData !== undefined)
+              requests
+                .cleanUpWorkerReq(data.workerPhotoData)
+                .catch((err: any) => console.log("ERROR ON CLEAN UP", err));
           }
 
           /* if (
@@ -284,13 +277,15 @@ export const main_ =
           data.processLifeCycle.onReqSuccess();
 
           // Clean up if we save photos to cloudinary
-          cleanUpOnSuccessEdit(cleanUp, requests.cleanUpReq);
-          /* if (cleanUp.isNeedReq() === true) {
-            requests.cleanUpReq().catch((err: Error) => {
-              console.log("ERROR ON CLEAN UP REQUEST", err);
-            });
-            cleanUp.saveNewCleanUpDate();
-          } */
+          if (data.isNeedWorkerReq === true)
+            requests
+              .cleanUpWorkerReq({
+                googleDriveId: data.currPhoto.googleDriveId,
+                webImagesInfo: {
+                  ids: data.currPhoto.files,
+                },
+              })
+              .catch((err: any) => console.log("ERROR ON CLEAN UP", err));
         }
       )
     )(props);
@@ -306,10 +301,7 @@ const main = main_(
   showAlertAC_,
   dataAdapter,
   requests,
-  cleanUp,
-  getToken_,
-  cleanUpOnError_,
-  cleanUpOnSuccessEdit_
+  getToken_
 );
 
 const editPhoto_ =

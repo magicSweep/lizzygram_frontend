@@ -11,7 +11,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import Image from "../../../../component/images/Image";
 import { getImageSizeStyle } from "../../../../component/images/helper";
 import DescTooltipedIcon from "../DescTooltipedIcon";
-import DownloadPhotoIcon from "../../../photoSlider/component/DownloadPhoto/Icon";
+import DownloadPhotoIcon from "../../container/DownloadPhoto/Icon";
 import { FavoriteIconBtn } from "../../../favorite";
 import { FavoriteReqs } from "../../../favorite/types";
 import Box from "@mui/system/Box";

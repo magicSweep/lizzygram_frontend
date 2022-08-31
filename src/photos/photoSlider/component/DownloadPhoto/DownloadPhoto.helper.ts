@@ -15,7 +15,8 @@ export const makeDownloadPhotoData_ =
     googleDriveId: string,
     //userUid: string,
     imageExtension: ImgExt,
-    downloadPhotoUrl: string
+    downloadPhotoUrl: string,
+    token: string
   ): DownloadOriginalPhotoData => {
     const photoFileName = makeDownloadPhotoName(imageExtension);
 
@@ -24,7 +25,8 @@ export const makeDownloadPhotoData_ =
         googleDriveId,
         //userUid,
         downloadPhotoUrl,
-        photoFileName
+        photoFileName,
+        token
       ),
       downloadAttr: photoFileName,
     };

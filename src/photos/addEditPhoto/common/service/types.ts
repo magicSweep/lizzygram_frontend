@@ -14,20 +14,22 @@ export type DataAdapter = {
   ) => Photo<any>; */
 };
 
+export type CleanUpReqData = {
+  googleDriveId: Photo<any>["googleDriveId"];
+  webImagesInfo: MainResponseData["webImagesInfo"];
+};
+
 export type AddEditRequests = {
   // FormData<{file: File}>
-  workerReq: (formData: FormData, token: string) => Promise<MainResponseData>;
+  mainWorkerReq: (
+    formData: FormData,
+    token: string
+  ) => Promise<MainResponseData>;
 
   // FormData<{file: File}>
   //firestoreReq: (photo: Photo<any>) => Promise<void>;
 
-  cleanUpReq: () => Promise<void>;
-};
-
-export type CleanUp = {
-  isNeedReq: () => boolean;
-
-  saveNewCleanUpDate: () => void;
+  cleanUpWorkerReq: (data: CleanUpReqData) => Promise<any>;
 };
 
 export type WebSecureUrl = string;

@@ -14,6 +14,7 @@ export type DownloadPhotoProps = {
   imageExtension: ImgExt | "";
   downloadPhotoUrl: string;
   placement?: TooltipProps["placement"];
+  token: string;
 };
 
 export type DownloadOriginalPhotoData = {

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useTokenContext } from "../../../../auth/hook/useTokenContext";
 import DownloadIconBtn from "../../component/DownloadPhoto/Icon";
 import { DownloadPhotoProps } from "../../component/DownloadPhoto/types";
 import { usePhotoSliderContext } from "../../hook/usePhotoSliderContext";
@@ -18,6 +19,8 @@ export const DownloadPhotoIcon: FC<{
     downloadPhotoUrl,
   } = usePhotoSliderContext();
 
+  const token = useTokenContext();
+
   return (
     <DownloadIconBtn
       //userUid={userUid}
@@ -25,6 +28,7 @@ export const DownloadPhotoIcon: FC<{
       imageExtension={imageExtension}
       downloadPhotoUrl={downloadPhotoUrl}
       placement={placement}
+      token={token}
     />
   );
 };

@@ -17,18 +17,18 @@ describe("useAddPhotoProcess", () => {
     makeFirestoreReqData: jest.fn(() => "firestore-req-data"),
   };
   const requests = {
-    workerReq: jest.fn(() => Promise.resolve()),
+    mainWorkerReq: jest.fn(() => Promise.resolve("MainWorkerRequestData")),
     firestoreReq: jest.fn(() => Promise.resolve()),
-    cleanUpReq: jest.fn(() => Promise.resolve()),
+    cleanUpWorkerReq: jest.fn(() => Promise.resolve()),
   };
-  const cleanUp = {
+  /*  const cleanUp = {
     isNeedReq: jest.fn(() => true),
     cleanUpReq: jest.fn(),
     saveNewCleanUpDate: jest.fn(),
-  };
+  }; */
   const getToken = jest.fn(() => "super-puper-token");
 
-  const cleanUpOnError = jest.fn();
+  // const cleanUpOnError = jest.fn();
 
   const dispatch = jest.fn();
 
@@ -39,9 +39,9 @@ describe("useAddPhotoProcess", () => {
     showAlertAC as any,
     dataAdapter as any,
     requests as any,
-    cleanUp,
-    getToken as any,
-    cleanUpOnError
+    //cleanUp,
+    getToken as any
+    //cleanUpOnError
   );
 
   const processLifeCycle = {
@@ -60,16 +60,76 @@ describe("useAddPhotoProcess", () => {
     processLifeCycle,
   };
 
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
-  test("", async () => {
+  test("If all okey - we send req to worker, then to firestore - show success alert, add new photo to state", async () => {
     await useAddPhotoProcess(props as any);
 
     expect(stateAC.addPhotoRequestSendAC).toHaveBeenCalledTimes(1);
 
+    //processLifeCycle.onSendReq
+    expect(processLifeCycle.onSendReq).toHaveBeenCalledTimes(1);
+
+    //dataAdapter.makeWorkerReqData
+    expect(dataAdapter.makeWorkerReqData).toHaveBeenCalledTimes(1);
+
+    expect(getToken).toHaveBeenCalledTimes(1);
+
+    //requests.mainWorkerReq
+    expect(requests.mainWorkerReq).toHaveBeenCalledTimes(1);
+    //dataAdapter.makeFirestoreReqData
+    expect(dataAdapter.makeFirestoreReqData).toHaveBeenCalledTimes(1);
+    //requests.firestoreReq
+    expect(requests.firestoreReq).toHaveBeenCalledTimes(1);
+
+    //showAlertAC
+    expect(showAlertAC).toHaveBeenCalledTimes(1);
+    //stateAC.addPhotoRequestSuccessAC
+    expect(stateAC.addPhotoRequestSuccessAC).toHaveBeenCalledTimes(1);
+    //addPhotoAC
+    expect(addPhotoAC).toHaveBeenCalledTimes(1);
+    //processLifeCycle.onReqSuccess
     expect(processLifeCycle.onReqSuccess).toHaveBeenCalledTimes(1);
+  });
+
+  test("If we get error on firestore req, we send cleanup req to worker", async () => {
+    requests.firestoreReq.mockRejectedValueOnce("Bad fat firestore error");
+
+    await useAddPhotoProcess(props as any);
+
+    expect(stateAC.addPhotoRequestSendAC).toHaveBeenCalledTimes(1);
+
+    //processLifeCycle.onSendReq
+    expect(processLifeCycle.onSendReq).toHaveBeenCalledTimes(1);
+
+    //dataAdapter.makeWorkerReqData
+    expect(dataAdapter.makeWorkerReqData).toHaveBeenCalledTimes(1);
+
+    expect(getToken).toHaveBeenCalledTimes(1);
+
+    //requests.mainWorkerReq
+    expect(requests.mainWorkerReq).toHaveBeenCalledTimes(1);
+    //dataAdapter.makeFirestoreReqData
+    expect(dataAdapter.makeFirestoreReqData).toHaveBeenCalledTimes(1);
+    //requests.firestoreReq
+    expect(requests.firestoreReq).toHaveBeenCalledTimes(1);
+
+    //showAlertAC
+    expect(showAlertAC).toHaveBeenCalledTimes(1);
+    //stateAC.addPhotoRequestSuccessAC
+    expect(stateAC.addPhotoRequestErrorAC).toHaveBeenCalledTimes(1);
+    //addPhotoAC
+    expect(addPhotoAC).toHaveBeenCalledTimes(0);
+    //processLifeCycle.onReqSuccess
+    expect(processLifeCycle.onReqError).toHaveBeenCalledTimes(1);
+
+    expect(dataAdapter.makeWorkerReqData).toHaveBeenCalledTimes(1);
+
+    expect(requests.cleanUpWorkerReq).toHaveBeenCalledTimes(1);
+
+    expect(processLifeCycle.onReqError).toHaveBeenCalledTimes(1);
   });
 
   /*  test("If error in non-async function", async () => {

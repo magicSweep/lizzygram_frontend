@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useTokenContext } from "../../../../auth/hook/useTokenContext";
 import DownloadLink from "../../component/DownloadPhoto/Link";
 import { DownloadPhotoProps } from "../../component/DownloadPhoto/types";
 //import { PhotoSliderContext } from "../PhotoSlider/PhotoSlider.provider";
@@ -19,12 +20,15 @@ export const DownloadPhotoIcon: FC<{
     downloadPhotoUrl,
   } = usePhotoSliderContext();
 
+  const token = useTokenContext();
+
   return (
     <DownloadLink
       //userUid={userUid}
       googleDriveId={googleDriveId}
       imageExtension={imageExtension}
       downloadPhotoUrl={downloadPhotoUrl}
+      token={token}
       placement={placement}
     />
   );

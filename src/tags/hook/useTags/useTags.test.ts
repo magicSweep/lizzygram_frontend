@@ -22,12 +22,13 @@ describe("useTags", () => {
       expect(dispatch).toHaveBeenCalledTimes(2);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: "TAGS_REQUEST_START",
+        type: "tags/tagsRequestStart",
+        payload: undefined,
       });
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
-        items: "tagsData",
-        type: "TAGS_REQUEST_SUCCESS",
+        payload: "tagsData",
+        type: "tags/tagsRequestSuccess",
       });
     });
 
@@ -41,11 +42,13 @@ describe("useTags", () => {
       expect(dispatch).toHaveBeenCalledTimes(2);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: "TAGS_REQUEST_START",
+        type: "tags/tagsRequestStart",
+        payload: undefined,
       });
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
-        type: "TAGS_REQUEST_ERROR",
+        type: "tags/tagsRequestError",
+        payload: undefined,
       });
     });
   });

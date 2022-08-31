@@ -22,9 +22,9 @@ describe("useEditPhotoProcess", () => {
     })),
   };
   const requests = {
-    workerReq: jest.fn(() => Promise.resolve()),
+    mainWorkerReq: jest.fn(() => Promise.resolve("MainWorkerReq")),
     firestoreReq: jest.fn(() => Promise.resolve()),
-    cleanUpReq: jest.fn(() => Promise.resolve()),
+    cleanUpWorkerReq: jest.fn(() => Promise.resolve()),
   };
   const cleanUp = {
     isNeedReq: jest.fn(() => true),
@@ -33,9 +33,9 @@ describe("useEditPhotoProcess", () => {
   };
   const getToken = jest.fn(() => "super-puper-token");
 
-  const cleanUpOnError = jest.fn();
+  //const cleanUpOnError = jest.fn();
 
-  const cleanUpOnSuccessEdit = jest.fn();
+  //const cleanUpOnSuccessEdit = jest.fn();
 
   const dispatch = jest.fn();
 
@@ -46,10 +46,10 @@ describe("useEditPhotoProcess", () => {
     showAlertAC as any,
     dataAdapter as any,
     requests as any,
-    cleanUp,
-    getToken as any,
-    cleanUpOnError,
-    cleanUpOnSuccessEdit
+    //cleanUp,
+    getToken as any
+    //cleanUpOnError,
+    //cleanUpOnSuccessEdit
   );
 
   const processLifeCycle = {
@@ -68,16 +68,78 @@ describe("useEditPhotoProcess", () => {
     processLifeCycle,
   };
 
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
   });
 
-  test("", async () => {
+  test("If all okey - we send req to worker, then to firestore - show success alert, add edited photo to state, send clean up req for old photo cloudinaries and google drive", async () => {
     await main(props as any);
 
     expect(stateAC.editPhotoRequestSendAC).toHaveBeenCalledTimes(1);
 
+    //processLifeCycle.onSendReq
+    expect(processLifeCycle.onSendReq).toHaveBeenCalledTimes(1);
+
+    //dataAdapter.makeWorkerReqData
+    expect(dataAdapter.makeWorkerReqData).toHaveBeenCalledTimes(1);
+
+    expect(getToken).toHaveBeenCalledTimes(1);
+
+    //requests.mainWorkerReq
+    expect(requests.mainWorkerReq).toHaveBeenCalledTimes(1);
+    //dataAdapter.makeFirestoreReqData
+    expect(dataAdapter.makeFirestoreReqData).toHaveBeenCalledTimes(1);
+    //requests.firestoreReq
+    expect(requests.firestoreReq).toHaveBeenCalledTimes(1);
+
+    //showAlertAC
+    expect(showAlertAC).toHaveBeenCalledTimes(1);
+    //stateAC.addPhotoRequestSuccessAC
+    expect(stateAC.editPhotoRequestSuccessAC).toHaveBeenCalledTimes(1);
+    //addPhotoAC
+    expect(editPhotoAC).toHaveBeenCalledTimes(1);
+    //processLifeCycle.onReqSuccess
     expect(processLifeCycle.onReqSuccess).toHaveBeenCalledTimes(1);
+
+    expect(requests.cleanUpWorkerReq).toHaveBeenCalledTimes(1);
+  });
+
+  test("If we get error on firestore req, we send cleanup req to worker", async () => {
+    requests.firestoreReq.mockRejectedValueOnce("Bad fat firestore error");
+
+    await main(props as any);
+
+    expect(stateAC.editPhotoRequestSendAC).toHaveBeenCalledTimes(1);
+
+    //processLifeCycle.onSendReq
+    expect(processLifeCycle.onSendReq).toHaveBeenCalledTimes(1);
+
+    //dataAdapter.makeWorkerReqData
+    expect(dataAdapter.makeWorkerReqData).toHaveBeenCalledTimes(1);
+
+    expect(getToken).toHaveBeenCalledTimes(1);
+
+    //requests.mainWorkerReq
+    expect(requests.mainWorkerReq).toHaveBeenCalledTimes(1);
+    //dataAdapter.makeFirestoreReqData
+    expect(dataAdapter.makeFirestoreReqData).toHaveBeenCalledTimes(1);
+    //requests.firestoreReq
+    expect(requests.firestoreReq).toHaveBeenCalledTimes(1);
+
+    //showAlertAC
+    expect(showAlertAC).toHaveBeenCalledTimes(1);
+    //stateAC.addPhotoRequestSuccessAC
+    expect(stateAC.editPhotoRequestErrorAC).toHaveBeenCalledTimes(1);
+    //addPhotoAC
+    expect(editPhotoAC).toHaveBeenCalledTimes(0);
+    //processLifeCycle.onReqSuccess
+    expect(processLifeCycle.onReqError).toHaveBeenCalledTimes(1);
+
+    expect(dataAdapter.makeWorkerReqData).toHaveBeenCalledTimes(1);
+
+    expect(requests.cleanUpWorkerReq).toHaveBeenCalledTimes(1);
+
+    expect(processLifeCycle.onReqError).toHaveBeenCalledTimes(1);
   });
 
   /*  test("If error in non-async function", async () => {

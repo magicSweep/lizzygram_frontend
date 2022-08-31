@@ -1,7 +1,7 @@
 import { AddRequests } from "./../types";
 import wait from "waait";
 
-export const workerReq: AddRequests["workerReq"] = async () => {
+export const mainWorkerReq: AddRequests["mainWorkerReq"] = async () => {
   await wait(2000);
 
   return {
@@ -26,7 +26,7 @@ export const firestoreReq: AddRequests["firestoreReq"] = async () => {
   return;
 };
 
-export const cleanUpReq: AddRequests["cleanUpReq"] = async () => {
+export const cleanUpWorkerReq: AddRequests["cleanUpWorkerReq"] = async () => {
   await wait(100);
 
   return;

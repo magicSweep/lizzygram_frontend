@@ -4,7 +4,6 @@ import {
   DataAdapter as DataAdapter_,
   AddEditRequests,
 } from "../../../../../../common/service/types";
-export { CleanUp } from "../../../../../../common/service/types";
 
 export type FieldsToUpdateFromForm = Partial<Photo<any>>;
 
@@ -35,14 +34,14 @@ export type DataAdapter = {
   ) => EditPhotoFirestoreRequestBody;
 };
 
-export type EditRequests = {
+export type EditRequests = AddEditRequests & {
   // FormData<{file: File}>
-  workerReq: AddEditRequests["workerReq"];
+  // workerReq: AddEditRequests["workerReq"];
 
   // FormData<{file: File}>
   firestoreReq: (dataToUpdate: EditPhotoFirestoreRequestBody) => Promise<void>;
 
-  cleanUpReq: AddEditRequests["cleanUpReq"];
+  //cleanUpReq: AddEditRequests["cleanUpReq"];
 };
 
 /* export type CleanUp = {

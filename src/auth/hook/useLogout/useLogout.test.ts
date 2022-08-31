@@ -73,9 +73,11 @@ describe("useLogout", () => {
       expect(dispatch).toHaveBeenNthCalledWith(1, "logoutRequestAC");
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
-        alertType: "error",
-        message: "Упс... Какая-то ошибочка...",
-        type: "SHOW_ALERT",
+        payload: {
+          alertType: "error",
+          message: "Упс... Какая-то ошибочка...",
+        },
+        type: "alert/showAlert",
       });
 
       expect(dispatch).toHaveBeenNthCalledWith(3, "logoutRequestErrorAC");

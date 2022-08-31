@@ -7,7 +7,7 @@ import {
   onAuthStateChanged,
 } from "firebase/auth";
 
-export const getToken = () => getAuth().currentUser.getIdToken();
+export const getToken = () => getAuth().currentUser?.getIdToken();
 
 export const loginWithPopup = () => {
   const provider = new GoogleAuthProvider();

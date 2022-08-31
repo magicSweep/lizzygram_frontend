@@ -4,7 +4,6 @@ import {
   DataAdapter as DataAdapter_,
   AddEditRequests,
 } from "../../../../../../common/service/types";
-export { CleanUp } from "../../../../../../common/service/types";
 
 export type DataAdapter = {
   // FormData<{file: File}>
@@ -19,14 +18,8 @@ export type DataAdapter = {
   ) => Photo<any>;
 };
 
-export type AddRequests = {
-  // FormData<{file: File}>
-  workerReq: AddEditRequests["workerReq"];
-
-  // FormData<{file: File}>
+export type AddRequests = AddEditRequests & {
   firestoreReq: (photo: Photo<any>) => Promise<void>;
-
-  cleanUpReq: AddEditRequests["cleanUpReq"];
 };
 
 /* export type CleanUp = {

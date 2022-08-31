@@ -9,13 +9,15 @@ const favoriteData = {
   userUid4: true,
 };
 
+const batch = (callback: any) => callback();
+
 describe("add", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   test("", async () => {
-    const result = await add__(changeFavorites)(dispatch, "userUid")(
+    const result = await add__(changeFavorites, batch)(dispatch, "userUid")(
       "photoId",
       favoriteData as any
     );
@@ -35,11 +37,11 @@ describe("add", () => {
 
     expect(dispatch).toHaveBeenCalledTimes(3);
     expect(dispatch).toHaveBeenNthCalledWith(1, {
-      photoId: "photoId",
-      type: "FAVORITE_REQUEST_START",
+      payload: "photoId",
+      type: "favorite/favoritePhotoStartRequest",
     });
     expect(dispatch).toHaveBeenNthCalledWith(2, {
-      photo: {
+      payload: {
         favoriteBy: {
           userUid: true,
           userUid2: true,
@@ -48,17 +50,16 @@ describe("add", () => {
         },
         id: "photoId",
       },
-      type: "EDIT_PHOTO",
+      type: "loadPhotos/editPhoto",
     });
     expect(dispatch).toHaveBeenNthCalledWith(3, {
-      photoId: "photoId",
-      type: "FAVORITE_REQUEST_SUCCESS",
-      userUid: "userUid",
+      type: "favorite/favoritePhotoSuccessRequest",
+      payload: "photoId",
     });
   });
 });
 
-describe("remove", () => {
+describe.only("remove", () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
@@ -77,17 +78,19 @@ describe("remove", () => {
 
     expect(dispatch).toHaveBeenCalledTimes(3);
     expect(dispatch).toHaveBeenNthCalledWith(1, {
-      photoId: "photoId",
-      type: "FAVORITE_REQUEST_START",
+      payload: "photoId",
+      type: "favorite/favoritePhotoStartRequest",
     });
     expect(dispatch).toHaveBeenNthCalledWith(2, {
-      photo: { favoriteBy: { userUid2: true, userUid4: true }, id: "photoId" },
-      type: "EDIT_PHOTO",
+      payload: {
+        favoriteBy: { userUid2: true, userUid4: true },
+        id: "photoId",
+      },
+      type: "loadPhotos/editPhoto",
     });
     expect(dispatch).toHaveBeenNthCalledWith(3, {
-      photoId: "photoId",
-      type: "FAVORITE_REQUEST_SUCCESS",
-      userUid: "userUid3",
+      type: "favorite/favoritePhotoSuccessRequest",
+      payload: "photoId",
     });
   });
 });

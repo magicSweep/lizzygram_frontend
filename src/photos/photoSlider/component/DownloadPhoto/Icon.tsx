@@ -17,13 +17,17 @@ export const DownloadPhotoIcon: FC<DownloadPhotoProps> = ({
   imageExtension,
   downloadPhotoUrl,
   placement,
+  token,
 }) => {
   const { downloadAttr, href } = makeDownloadPhotoData(
     googleDriveId,
     //userUid,
     imageExtension as any,
-    downloadPhotoUrl
+    downloadPhotoUrl,
+    token
   );
+
+  console.log("RENDER DOWNLOAD WIDGET", token);
 
   return (
     <Tooltip title="Скачать оригинальный файл" placement={placement}>

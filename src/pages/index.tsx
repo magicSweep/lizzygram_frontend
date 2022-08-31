@@ -9,6 +9,7 @@ import {
 import { LoadablePhotoSlider } from "../photos/photoSlider";
 import { LoadableWallOfPhotos } from "../photos/wallOfPhotos";
 import { LoadableSearchPhotoForm } from "./../search";
+import { TokenProvider } from "../auth/container/TokenProvider";
 /////
 //import { getAuth } from "firebase/auth";
 //import { Button } from "@mui/material";
@@ -45,9 +46,13 @@ const IndexPage = () => {
 
       <LoadableAddPhotoBtn />
 
-      <LoadableWallOfPhotos />
+      <TokenProvider>
+        <>
+          <LoadableWallOfPhotos />
 
-      <LoadablePhotoSlider />
+          <LoadablePhotoSlider />
+        </>
+      </TokenProvider>
 
       <LoadableAddPhotoManager />
 

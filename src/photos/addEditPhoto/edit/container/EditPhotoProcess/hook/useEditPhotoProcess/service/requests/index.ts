@@ -5,8 +5,8 @@ import {
 } from "./../../../../../../../../../config";
 import { editOne } from "./../../../../../../../../../service/firebase/firestore";
 export {
-  workerReq,
-  cleanUpReq,
+  mainWorkerReq,
+  cleanUpWorkerReq,
 } from "../../../../../../../common/service/requests";
 
 /* export const workerReq: AddRequests["workerReq"] = async (

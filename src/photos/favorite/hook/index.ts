@@ -22,7 +22,7 @@ export type RemoveFromFavorite = (
 ) => Promise<void>;
 
 export const add__ =
-  (changeFavorites: typeof changeFavorites_) =>
+  (changeFavorites: typeof changeFavorites_, batch_: typeof batch) =>
   (dispatch: Dispatch<any>, userUid: string) =>
   async (photoId: string, favoriteBy?: FavoriteData) => {
     const fieldsToUpdate: { favoriteBy: FavoriteData } = {
@@ -45,7 +45,7 @@ export const add__ =
         } */,
       });
 
-      batch(() => {
+      batch_(() => {
         dispatch(
           editPhotoAC({
             id: photoId,
@@ -56,7 +56,7 @@ export const add__ =
       });
     } catch (err) {
       // show error alert
-      batch(() => {
+      batch_(() => {
         dispatch(favoritePhotoErrorRequestAC(photoId));
         dispatch(
           showAlertAC({
@@ -116,7 +116,7 @@ export const remove__ =
     }
   };
 
-const add_ = add__(changeFavorites_);
+const add_ = add__(changeFavorites_, batch);
 const remove_ = remove__(changeFavorites_);
 
 export const useFavorite = (userUid: string) => {

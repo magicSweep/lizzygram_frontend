@@ -11,9 +11,8 @@ import {
 import { MutableRefObject, useCallback, useRef } from "react";
 import { useDispatch, batch as batch_ } from "react-redux";
 import useSendFormProcess from "../../../../../common/hook/useSendFormProcess";
-import { AddRequests, DataAdapter, CleanUp } from "./service/types";
+import { AddRequests, DataAdapter } from "./service/types";
 import { ProcessLifeCycle } from "./../../../../../common/hook/useSendFormProcess/types";
-import { cleanUpOnError as cleanUpOnError_ } from "./../../../../../common/hook/addEdit.controller";
 import {
   Photo,
   WorkerResponse,
@@ -31,7 +30,6 @@ import {
 } from "../../../../../store";
 import * as requests from "./service/requests/requests.fake";
 import * as dataAdapter from "./service/dataAdapter";
-import * as cleanUp from "./../../../../../common/service/cleanUp/cleanUp.fake";
 import { getToken as getToken_ } from "./../../../../../../../service/firebase/firebase.auth.fake";
 
 export type UseAddPhotoProcessProps = {
@@ -80,9 +78,9 @@ export const main_ =
     showAlertAC: typeof showAlertAC_,
     dataAdapter: DataAdapter,
     requests: AddRequests,
-    cleanUp: CleanUp,
-    getToken: typeof getToken_,
-    cleanUpOnError: typeof cleanUpOnError_
+    //cleanUp: CleanUp,
+    getToken: typeof getToken_
+    ///cleanUpOnError: typeof cleanUpOnError_
     /* onSuccess: ReturnType<typeof onSuccess_>,
     onError: ReturnType<typeof onError_> */
     //onSendReq_: typeof onSendReq
@@ -105,7 +103,7 @@ export const main_ =
         }),
         async (data: UseAddPhotoProcessData) => {
           const token = await getToken();
-          data.workerPhotoData = await requests.workerReq(
+          data.workerPhotoData = await requests.mainWorkerReq(
             data.workerReqData,
             token
           );
@@ -123,9 +121,9 @@ export const main_ =
 
       // SEND FIRESTORE REQUEST
       then(
-        chain(
+        chain((data: UseAddPhotoProcessData) =>
           compose<UseAddPhotoProcessData, Promise<UseAddPhotoProcessData>>(
-            (data: UseAddPhotoProcessData) => ({
+            () => ({
               ...data,
               photoToAdd: dataAdapter.makeFirestoreReqData(
                 data.workerPhotoData,
@@ -141,11 +139,12 @@ export const main_ =
             then(NI_Next.of),
             _catch((error: any) =>
               Done.of({
+                ...data,
                 stage: "SEND_FIRESTORE_REQUEST",
                 error,
               })
             )
-          )
+          )()
         )
       ),
 
@@ -167,7 +166,11 @@ export const main_ =
 
           props.processLifeCycle.onReqError();
 
-          cleanUpOnError(data.stage, cleanUp, requests.cleanUpReq);
+          if (data.workerPhotoData !== undefined)
+            requests
+              .cleanUpWorkerReq(data.workerPhotoData)
+              .catch((err: any) => console.log("ERROR ON CLEAN UP", err));
+          //cleanUpOnError(data.stage, cleanUp, requests.cleanUpReq);
         },
         // ON SUCCESS
         (data: UseAddPhotoProcessData) => {
@@ -241,9 +244,9 @@ const main = main_(
   showAlertAC_,
   dataAdapter,
   requests,
-  cleanUp,
-  getToken_,
-  cleanUpOnError_
+  //cleanUp,
+  getToken_
+  //cleanUpOnError_
 );
 
 const addPhoto_ =

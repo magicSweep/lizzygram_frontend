@@ -19,7 +19,8 @@ describe("usePhotos", () => {
       expect(dispatch).toHaveBeenCalledTimes(2);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: "ALL_PHOTOS_REQUEST_NEW_START",
+        type: "loadPhotos/allPhotosStartNewRequest",
+        payload: undefined,
       });
 
       /*  expect(dispatch).toHaveBeenNthCalledWith(2, {

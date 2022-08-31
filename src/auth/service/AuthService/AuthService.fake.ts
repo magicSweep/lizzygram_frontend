@@ -6,7 +6,7 @@ export {
   subscribe,
 } from "./../../../service/firebase/firebase.auth.fake";
 
-export const getToken = async (userUid: string) => {
+export const getToken = async () => {
   await wait(100);
 
   return "super-puper-token";

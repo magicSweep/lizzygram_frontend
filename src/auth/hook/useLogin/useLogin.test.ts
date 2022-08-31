@@ -73,9 +73,11 @@ describe("useLogin", () => {
       expect(dispatch).toHaveBeenNthCalledWith(1, "loginRequestAC");
 
       expect(dispatch).toHaveBeenNthCalledWith(2, {
-        alertType: "error",
-        message: "Упс... Какая-то ошибочка...",
-        type: "SHOW_ALERT",
+        type: "alert/showAlert",
+        payload: {
+          alertType: "error",
+          message: "Упс... Какая-то ошибочка...",
+        },
       });
 
       expect(dispatch).toHaveBeenNthCalledWith(3, "loginRequestErrorAC");

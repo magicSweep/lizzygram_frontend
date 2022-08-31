@@ -100,12 +100,14 @@ export const themeLocalStorageKey = "lg_theme_info_1ghf2qw34wwqqe";
 
 //export const herokuPingUrl = `${expressUrl}/sleep_q23we4rt5`;
 
-export const addPhotoUrl = `${expressUrl}/add-photo`;
-export const editPhotoUrl = `${expressUrl}/edit-photo`;
+/* export const addPhotoUrl = `${expressUrl}/add-photo`;
+export const editPhotoUrl = `${expressUrl}/edit-photo`; */
 
 export const workerPhotoUrl = `${expressUrl}/main`;
 // download?token=12kl3kl&id=2jk2l31
 export const downloadPhotoUrl = `${expressUrl}/download`;
+
+export const cleanUpUrl = `${expressUrl}/cleanup`;
 
 /* PHOTOS */
 export const photoCardWidth = 345;

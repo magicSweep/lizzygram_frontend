@@ -8,12 +8,14 @@ export const DownloadPhotoLink: FC<DownloadPhotoProps> = ({
   googleDriveId,
   imageExtension,
   downloadPhotoUrl,
+  token,
 }) => {
   const { downloadAttr, href } = makeDownloadPhotoData(
     googleDriveId,
     //userUid,
     imageExtension as any,
-    downloadPhotoUrl
+    downloadPhotoUrl,
+    token
   );
 
   return (

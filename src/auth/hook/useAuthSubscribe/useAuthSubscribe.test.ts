@@ -22,8 +22,8 @@ describe("useAuthSubscribe", () => {
       expect(dispatch).toHaveBeenCalledTimes(1);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: "AUTH",
-        user: null,
+        type: "auth/auth",
+        payload: null,
       });
     });
 
@@ -35,8 +35,8 @@ describe("useAuthSubscribe", () => {
       expect(dispatch).toHaveBeenCalledTimes(1);
 
       expect(dispatch).toHaveBeenNthCalledWith(1, {
-        type: "AUTH",
-        user: {
+        type: "auth/auth",
+        payload: {
           name: "Yallopukka",
           email: "ya@frog.pog",
           uid: "uid",
