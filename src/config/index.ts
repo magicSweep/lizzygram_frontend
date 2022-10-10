@@ -109,6 +109,10 @@ export const downloadPhotoUrl = `${expressUrl}/download`;
 
 export const cleanUpUrl = `${expressUrl}/cleanup`;
 
+export const videoStoreUrl = "";
+export const originalPhotoStoreUrl = "";
+export const webPhotosStoreUrl = "";
+
 /* PHOTOS */
 export const photoCardWidth = 345;
 export const photoCardHeight = 194;

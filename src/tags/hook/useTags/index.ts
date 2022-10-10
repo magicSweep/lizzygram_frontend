@@ -3,7 +3,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 //import TagsReqManager from "../../requests/Tags/TagsReqManager";
 import { TagData, TagsState } from "../../types";
 import { then, _catch, compose } from "fmagic";
-import { getAll } from "../../service/tagsDb/tagsDb.fake";
+import { getAll } from "../../service/tagsDb/index.fake";
 import { GlobalState } from "./../../../types";
 import {
   tagsRequestStartAC,

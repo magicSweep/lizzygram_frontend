@@ -14,22 +14,24 @@ export type DescriptionFormProps = {
   validate: ((val?: any) => string | boolean) | undefined;
 };
 
+export const fieldName = "desc";
+
 export const useDescriptionForm = ({
   register,
   formState,
   validate,
 }: DescriptionFormProps) => {
-  const { ref, onChange, onBlur } = register("desc", {
+  const { ref, onChange, onBlur } = register(fieldName, {
     validate,
   });
 
-  const error = formState.errors["desc"];
+  const error = formState.errors[fieldName];
 
   //console.log("ERROR", error);
 
   const isError = Boolean(error);
 
-  const helperText = isError === true ? error.message : null;
+  const helperText = isError === true ? (error as any).message : null;
 
   return {
     ref,
@@ -37,5 +39,6 @@ export const useDescriptionForm = ({
     isError,
     helperText,
     onBlur,
+    fieldName,
   };
 };

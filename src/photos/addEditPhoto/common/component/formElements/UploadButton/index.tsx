@@ -3,11 +3,13 @@ import React, { FC } from "react";
 import UploadButtonWidget from "./../../../../../../component/formElements/UploadButton";
 import { useUploadBtnForm, UploadBtnFormProps } from "./hook";
 
-export type DescriptionProps = UploadBtnFormProps & {
+export { fieldName } from "./hook";
+
+export type UploadButtonProps = UploadBtnFormProps & {
   disabled: boolean;
 };
 
-const UploadButton: FC<DescriptionProps> = ({ disabled, ...props }) => {
+const UploadButton: FC<UploadButtonProps> = ({ disabled, ...props }) => {
   const { ref, fields, files, isError, helperText } = useUploadBtnForm(props);
 
   return (
@@ -17,7 +19,7 @@ const UploadButton: FC<DescriptionProps> = ({ disabled, ...props }) => {
       fileList={files}
       /*  value={value}
       onChange={onChange} */
-      helperText={helperText}
+      helperText={helperText as any}
       disabled={disabled}
       {...fields}
     />

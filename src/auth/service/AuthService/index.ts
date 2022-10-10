@@ -3,7 +3,7 @@ export {
   logout,
   subscribe,
   getToken,
-} from "./../../../service/firebase/firebase.auth";
+} from "./../../../service/firebaseAuth";
 
 //export { getToken } from "./../../../service/firebase/firebase.auth";
 

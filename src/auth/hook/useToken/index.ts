@@ -1,5 +1,5 @@
 import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { getToken } from "../../service/AuthService/AuthService.fake";
+import { getToken } from "../../service/AuthService/index.fake";
 import { useAuth } from "../useAuth";
 
 const tokenLifetime = 30 * 60 * 1000;

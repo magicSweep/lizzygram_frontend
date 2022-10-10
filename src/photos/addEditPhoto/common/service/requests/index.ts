@@ -1,6 +1,6 @@
 import { AddEditRequests } from "./../types";
 import { workerPhotoUrl, cleanUpUrl } from "./../../../../../config";
-import { addOne } from "./../../../../../service/firebase/firestore";
+//import { addOne } from "./../../../../../service/firebase/firestore";
 
 export const mainWorkerReq: AddEditRequests["mainWorkerReq"] = async (
   formData: FormData,

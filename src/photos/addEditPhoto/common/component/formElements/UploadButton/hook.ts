@@ -25,6 +25,8 @@ export type UploadBtnFormProps = {
   | undefined
   | null;
  */
+export const fieldName = "photoFile";
+
 export const useUploadBtnForm = ({
   watch,
   register,
@@ -51,7 +53,7 @@ export const useUploadBtnForm = ({
 
   const isError = Boolean(error);
 
-  const helperText = isError === true ? error.message : null;
+  const helperText = isError === true ? (error as any).message : null;
 
   /* const values:
     | {
@@ -67,5 +69,6 @@ export const useUploadBtnForm = ({
     isError,
     helperText,
     fields,
+    fieldName,
   };
 };

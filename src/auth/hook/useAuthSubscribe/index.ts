@@ -9,7 +9,7 @@ import { Done, map, Next, flat, tap, compose } from "fmagic";
 import { Unsubscribe } from "firebase/auth";
 //import { initApp } from "./../../../service/firebase";
 //import { initApp } from "./../../../service/firebase/fake";
-import { subscribe } from "../../service/AuthService/AuthService.fake";
+import { subscribe } from "../../service/AuthService/index.fake";
 
 //initApp();
 

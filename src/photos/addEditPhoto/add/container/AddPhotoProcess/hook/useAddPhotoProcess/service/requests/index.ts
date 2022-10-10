@@ -3,7 +3,7 @@ import {
   //workerPhotoUrl,
   photosCollectionName,
 } from "./../../../../../../../../../config";
-import { addOne } from "./../../../../../../../../../service/firebase/firestore";
+import { addOne } from "./../../../../../../../../../service/firestore";
 export {
   mainWorkerReq,
   cleanUpWorkerReq,

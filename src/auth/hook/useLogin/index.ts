@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react";
 import { batch, useDispatch } from "react-redux";
-import { login } from "../../service/AuthService/AuthService.fake";
+import { login } from "../../service/AuthService/index.fake";
 import {
   //loginRequestSuccessAC,
   loginRequestErrorAC,

@@ -20,7 +20,7 @@ import {
   //removeUser as removeSavedUser,
   setIsEditor,
   isEditor as isEditor_,
-} from "../../service/UserService/UserService.fake";
+} from "../../service/UserService/index.fake";
 import { authAC, authEditorErrorAC } from "../../store";
 import { showAlertAC } from "../../../alert";
 

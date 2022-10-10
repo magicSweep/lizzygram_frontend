@@ -1,10 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import Typography from "@mui/material/Typography";
 import Box, { BoxProps } from "@mui/material/Box";
 
 //const useStyles = makeStyles()
 
-const HeroTitle: FC = ({ children }) => {
+const HeroTitle: FC<PropsWithChildren> = ({ children }) => {
   return (
     <div className={`absolute left-0 -top-5 w-full flex justify-center`}>
       <Box

@@ -3,6 +3,8 @@ import React, { FC } from "react";
 import DescriptionWidget from "./../../../../../../component/formElements/Description";
 import { useDescriptionForm, DescriptionFormProps } from "./hook";
 
+export { fieldName } from "./hook";
+
 export type DescriptionProps = DescriptionFormProps & {
   disabled: boolean;
 };
@@ -14,7 +16,7 @@ const Description: FC<DescriptionProps> = ({ disabled, ...props }) => {
   return (
     <DescriptionWidget
       error={isError}
-      helperText={helperText}
+      helperText={helperText as any}
       disabled={disabled}
       inputRef={ref}
       onChange={onChange}

@@ -28,9 +28,9 @@ import {
   addPhotoRequestSuccessAC,
   //addPhotoRequestStartAC,
 } from "../../../../../store";
-import * as requests from "./service/requests/requests.fake";
+import * as requests from "./service/requests";
 import * as dataAdapter from "./service/dataAdapter";
-import { getToken as getToken_ } from "./../../../../../../../service/firebase/firebase.auth.fake";
+import { getToken as getToken_ } from "./../../../../../../../service/firebaseAuth";
 
 export type UseAddPhotoProcessProps = {
   photoId: string;
@@ -105,7 +105,7 @@ export const main_ =
           const token = await getToken();
           data.workerPhotoData = await requests.mainWorkerReq(
             data.workerReqData,
-            token
+            token as string
           );
           data.stage = "END_WORKER_REQUEST";
           return data;

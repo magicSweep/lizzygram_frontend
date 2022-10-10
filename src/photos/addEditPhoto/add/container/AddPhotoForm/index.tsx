@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import FormWrapper from "../../../../../container/FormWrapper";
 import UploadButton from "../../../common/component/formElements/UploadButton";
 import DatePicker from "../../../common/component/formElements/DatePicker";
@@ -15,7 +15,7 @@ import {
 import { tagsValidate } from "../../../../../tags/rules";
 import { AddPhotoFormData } from "../../../types";
 
-export const FormElement: FC = ({ children }) => {
+export const FormElement: FC<PropsWithChildren> = ({ children }) => {
   /* .element {
   width: 100%;
   margin-bottom: 20px;
@@ -87,9 +87,9 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
           watch={watch}
           setValue={setValue}
           clearErrors={clearErrors}
-          formState={formState}
+          formState={formState as any}
           register={register}
-          disabled={uploadLoading}
+          disabled={uploadLoading === true}
           validate={photoFileValidateOnAdd}
         />
       </div>
@@ -100,8 +100,8 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
           setValue={setValue}
           register={register}
           watch={watch}
-          formState={formState}
-          disabled={uploadLoading}
+          formState={formState as any}
+          disabled={uploadLoading === true}
           validate={dateValidateOnAdd}
         />
       </div>
@@ -114,8 +114,8 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
           register={register}
           watch={watch}
           clearErrors={clearErrors}
-          formState={formState}
-          disabled={uploadLoading}
+          formState={formState as any}
+          disabled={uploadLoading === true}
           defaultTags={undefined}
           validate={tagsValidate}
         />
@@ -123,9 +123,9 @@ const AddPhotoForm: FC<AddPhotoFormProps> = ({
 
       <div className="w-full mb-5">
         <Description
-          formState={formState}
+          formState={formState as any}
           register={register}
-          disabled={uploadLoading}
+          disabled={uploadLoading === true}
           validate={descValidate}
         />
       </div>
